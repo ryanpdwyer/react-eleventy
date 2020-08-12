@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run eleventy && npm run babel",
     "eleventy": "eleventy",
-    "babel": "babel -d _site/js js"
+    "babel": "babel -d _site/js js" 
   },
   "keywords": [],
   "author": "",

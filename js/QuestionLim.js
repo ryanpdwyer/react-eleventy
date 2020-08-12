@@ -1,14 +1,10 @@
 import { React, useState, useRef } from 'https://unpkg.com/es-react@16.13.1';
-import htm from 'https://unpkg.com/htm?module';
-
-// Initialize htm
-const html = htm.bind(React.createElement);
 
 import { almostEq, getFunctionByName } from './util.js';
 
 
 export function DispP({display=false, ...props}) {
-	return display ? html`<p>${props.children}</p>` : null;
+	return display ? <p>{props.children}</p> : null;
 }
 
 
@@ -21,7 +17,7 @@ export function FeedbackP({display=false, value=0, ...props}) {
 		display = display || almostEq(value, props.ans, props.relErr);
 	}
 
-	return display ? html`<p>${props.children}</p>` : null;
+	return display ? <p>{props.children}</p> : null;
 }
 
 export function IncorrectFeedback({guesses, maxGuesses, digits=2, ...props}) {
@@ -31,10 +27,27 @@ export function IncorrectFeedback({guesses, maxGuesses, digits=2, ...props}) {
 	}
 	if (guesses > 0) {
 		if (guessesRemaining > 0) {
-			return html`<p>You have ${maxGuesses-guesses} attempts remaining.</p>`;
+			return <p>You have {maxGuesses-guesses} attempts remaining.</p>;
 		} else {
-			return html`<p>Incorrect.
-			The correct answer is ${props.answer.toFixed(digits)} ${props.inputLabel}</p>`;
+			return <p>Incorrect.
+			The correct answer is {props.answer.toFixed(digits)} {props.inputLabel}</p>;
+		}
+	} else {
+		return null;
+	}
+}
+
+export function IncorrectFeedbackText({guesses, maxGuesses, ...props}) {
+	let guessesRemaining =  maxGuesses-guesses;
+	if (!props.display) {
+		return null;
+	}
+	if (guesses > 0) {
+		if (guessesRemaining > 0) {
+			return <p>Incorrect. You have {maxGuesses-guesses} attempts remaining.</p>;
+		} else {
+			return <p>Incorrect.
+			The correct answer is {props.answer}.</p>;
 		}
 	} else {
 		return null;
@@ -43,8 +56,7 @@ export function IncorrectFeedback({guesses, maxGuesses, digits=2, ...props}) {
 
 
 
-
-exportfunction QuestionLimF({correctFeedback="Correct!",
+export function QuestionLimF({correctFeedback="Correct!",
 					   incorrectFeedbackDigits=2,
 					   ...props}) {
 	const inputRef = useRef(null);
@@ -72,10 +84,6 @@ exportfunction QuestionLimF({correctFeedback="Correct!",
 			check(event);
 		}
 	}
-
-	// <p>Incorrect. The correct answer is {props.answer}.</p>
-	// <p>Try again. You have {maxGuesses-g} gueses
-	// 					remaining</p>
 	let feedback = props.feedback || [];
 
 	// Convert to an array if given just a single feedback element.
@@ -88,13 +96,6 @@ exportfunction QuestionLimF({correctFeedback="Correct!",
 		x.key = i; // Should be okay since I am never re-ordering the feedback
 		return FeedbackP(x);
 	});
-
-	// This works, but doesn't let me give a default feedback if all of the
-	// other feedback turns out to be false (answer doesn't match any other
-	// known issue).
-
-	// 
-
 
 	let jsx = (<div className="question">
 				{props.children}
@@ -119,3 +120,54 @@ exportfunction QuestionLimF({correctFeedback="Correct!",
 			</div>);
 	return props.hidden ? null : jsx;
 }
+
+
+export function MCQ({name, options, defaultFeedback,
+	correctFeedback="Correct!",
+	guesses=3,
+	disabled=false,
+	update=()=>null,
+ ...props}) {
+
+	let [selected, setSelected] = useState(-1);
+	const [userGuesses, setUserGuesses] = useState(0);
+
+	let answer = options.findIndex(x => x.correct);
+
+	function changeHandler(event) {
+		setSelected(parseInt(event.target.value));
+		setUserGuesses(userGuesses + 1);
+	}
+
+	let correct = selected === answer;
+	let disabledGuesses = disabled || userGuesses >= guesses || correct;
+
+	let optionsJsx = options.map((x, i) =>
+	(<li key={i}><input type="radio"
+	disabled={disabledGuesses} name={name} checked={i===selected} key={i} onClick={changeHandler} value={i} />
+	<label htmlFor={name}>{x.children}</label></li>)
+	);
+
+	let optionFeedback = selected >= 0 ? options[selected].feedback : null;
+
+	let showDefaultFeedback = defaultFeedback && (!correct) && userGuesses > 0;
+
+	const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+	let jsx = (<div className="question">
+	{props.children}
+	<ol type="A">
+	{optionsJsx}
+	</ol>
+	<div className="feedback">
+	<DispP display={correct}>{correctFeedback}</DispP>
+	<DispP display={showDefaultFeedback}>{defaultFeedback}</DispP>
+	<DispP display={optionFeedback}>{optionFeedback}</DispP>
+	<IncorrectFeedbackText guesses={userGuesses} maxGuesses={guesses} answer={alphabet.charAt(answer)}
+	{...props}
+	display={!correct} />
+	</div>
+	</div>);
+	return props.hidden ? null : jsx;
+}
+

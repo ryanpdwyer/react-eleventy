@@ -6,10 +6,10 @@ function App (props) {
   return (<ol>
   <h4>Standing or Sitting?</h4>
   <p>Consider trying to predict whether a person is sitting or standing using
-	information from the person's smartphone sensors. </p>
+	data from the person's smartphone sensors. </p>
     <li><MCQ name="wek-input" options={[
   	{children:  "Smartphone sensor data",
-  			feedback: `Yes, the information we use to make our prediction is the input.`,
+  			feedback: `Yes, the data we use to make our prediction is the input.`,
   			correct: true},
   	{children: "Standing or sitting",
   			feedback: <p>Remember the thing we are trying to predict is the <b>output</b>.</p>
@@ -55,7 +55,7 @@ function App (props) {
   			feedback: `Yes, since the output is one of several discrete categories (sunny, cloudy, or rainy), it is a classifier output.`,
   			correct: true}
   		]}>
-  		Which of these applications could use a Machine Learning classifier output?
+  		Which of these applications could use a machine learning classifier output?
   	</MCQ>
   </li>
 	</ol>);

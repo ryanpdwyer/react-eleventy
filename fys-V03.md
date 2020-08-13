@@ -1,17 +1,25 @@
 ---
 layout: vanillabootflex-full.njk
-title: Intro to AI and Classifiers
-js: V01-fys.js
+title: Regression
+js: V03-fys.js
 styles:
 	- fys.css
 ---
 
 ## Goals
 
-- Regression?
+- Categorize machine learning tasks as regression or classification 
+- Use Wekinator to perform machine learning regression
 
 ### Video
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/nXqloezrZQs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ### Check your understanding
 
+<div id="question-node"></div>
+
+
 ### Check-in questions
+
+**By 10 am Tuesday, complete the check-in quiz** [C2: Regression](https://d2l.mountunion.edu/d2l/lms/quizzing/user/quiz_summary.d2l?qi=19905&ou=35016).

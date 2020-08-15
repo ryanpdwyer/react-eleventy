@@ -1,4 +1,4 @@
-import { React, useState, useRef } from 'https://unpkg.com/es-react@16.13.1';
+import { React, useState, useRef } from 'https://unpkg.com/es-react/dev';
 
 import { almostEq, getFunctionByName } from './util.js';
 
@@ -121,6 +121,11 @@ export function QuestionLimF({correctFeedback="Correct!",
 	return props.hidden ? null : jsx;
 }
 
+function RadioOption({ind, name, checked, children, onClick, disabledGuesses=false, ...props}) {
+	return (<li><input type="radio"
+	disabled={disabledGuesses} name={name} checked={checked} onClick={onClick} id={`${ind}-${name}`} value={ind} {...props} />
+	<label htmlFor={`${ind}-${name}`}>{children}</label></li>);
+}
 
 export function MCQ({name, options, defaultFeedback,
 	correctFeedback="Correct!",
@@ -135,6 +140,7 @@ export function MCQ({name, options, defaultFeedback,
 	let answer = options.findIndex(x => x.correct);
 
 	function changeHandler(event) {
+		console.log(`ChangeHandlerCalled from ${name}, ${event.target.value}, ${selected}`);
 		setSelected(parseInt(event.target.value));
 		setUserGuesses(userGuesses + 1);
 	}
@@ -142,11 +148,10 @@ export function MCQ({name, options, defaultFeedback,
 	let correct = selected === answer;
 	let disabledGuesses = disabled || userGuesses >= guesses || correct;
 
-	let optionsJsx = options.map((x, i) =>
-	(<li key={i}><input type="radio"
-	disabled={disabledGuesses} name={name} checked={i===selected} key={i} onClick={changeHandler} value={i} />
-	<label htmlFor={name}>{x.children}</label></li>)
-	);
+	console.log(`Rerendered MCQ ${name}, selected: ${selected}, selected type: ${typeof selected}`);
+
+	let optionsJsx = options.map((x, i) => (<RadioOption key={i} ind={i}
+	disabled={disabledGuesses} name={name} checked={i===selected} onClick={changeHandler}>{x.children}</RadioOption>));
 
 	let optionFeedback = selected >= 0 ? options[selected].feedback : null;
 

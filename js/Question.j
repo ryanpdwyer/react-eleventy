@@ -1,4 +1,4 @@
-import { React } from 'https://unpkg.com/es-react@16.13.1';
+import { React } from 'https://unpkg.com/es-react/dev';
 import htm from 'https://unpkg.com/htm?module';
 
 // Initialize htm with Preact

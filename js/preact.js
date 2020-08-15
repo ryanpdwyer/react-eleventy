@@ -1,4 +1,4 @@
-import { React, ReactDOM } from 'https://unpkg.com/es-react@16.13.1';
+import { React, ReactDOM } from 'https://unpkg.com/es-react/dev';
 import { QuestionLimF, MCQ } from './QuestionLim.js';
 
 function App (props) {

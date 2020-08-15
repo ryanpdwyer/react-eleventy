@@ -1,6 +1,6 @@
 ---
 layout: vanillabootflex-full.njk
-title: A6 Four year plan
+title: A7 Draft Paper 1
 js: fys-installation.js
 ---
 

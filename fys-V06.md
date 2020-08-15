@@ -17,8 +17,11 @@ styles:
 - [ ] Install Wekinator Machine (wait a bit to record...). Not really...
 
 
-### Check-in, Install software
+### Check-in, install software
 
 - Include a screenshot...
 - What types of models are you potentially interested in building?
+
+[C5: Build an AI project topic](https://d2l.mountunion.edu/d2l/lms/quizzing/user/quiz_summary.d2l?qi=20021&ou=35016)
+
 

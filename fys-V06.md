@@ -1,6 +1,6 @@
 ---
 layout: vanillabootflex-full.njk
-title: Project: Building a Wekinator Model
+title: Project - Building a Wekinator Model
 styles:
 	- fys.css
 ---
@@ -14,9 +14,11 @@ styles:
 
 - [ ] Show off some of the different inputs...
 - [ ] Describe the project...
-- [ ]
+- [ ] Install Wekinator Machine (wait a bit to record...). Not really...
 
-### Install software
+
+### Check-in, Install software
 
 - Include a screenshot...
 - What types of models are you potentially interested in building?
+

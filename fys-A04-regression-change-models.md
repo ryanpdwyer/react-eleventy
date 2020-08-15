@@ -19,3 +19,5 @@ js: fys-installation.js
 Record a 2-3 minute video explaining what you did:
 1. Explain what you want the model to do.
 2. 
+
+**Due: Tuesday 09/08 at 12 pm:** Upload your video to YouTube / Screencast-o-matic and submit the link to the [A4 Dropbox](https://d2l.mountunion.edu/d2l/le/content/35016/viewContent/400873/View?ou=35016)

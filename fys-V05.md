@@ -21,4 +21,4 @@ styles:
 
 ### Check-in questions
 
-**By 10 am Thursday, complete the check-in quiz** 
+**By 10 am Thursday, complete the check-in quiz** [C4: Dynamic Time Warping](#)

@@ -1,6 +1,6 @@
 ---
 layout: vanillabootflex-full.njk
-title: Project - building a Wekinator Model - helpful tips
+title: Building a Wekinator Model - project topic and helpful hints
 styles:
 	- fys.css
 ---

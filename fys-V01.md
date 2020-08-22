@@ -12,6 +12,7 @@ styles:
 
 ### What is the flipped classroom model?
 
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/3dH2Co_Cvps" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### What is AI? Making an AI in Wekinator

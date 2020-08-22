@@ -41,6 +41,7 @@ Not an exhaustive list: there are many other options!
 - [How a Japanese Cucumber Farmer is using Deep Learning](https://cloud.google.com/blog/products/gcp/how-a-japanese-cucumber-farmer-is-using-deep-learning-and-tensorflow)
 - Recommendation algorithms: TikTok, YouTube, Netflix...
 - Augmented Reality: Choose your favorite app that includes augmented reality features (Pokemon Go, etc), or look at [some of these](https://www.digitaltrends.com/mobile/best-augmented-reality-apps/)
+- [Webcam facial expression recognizer](https://justadudewhohacks.github.io/face-api.js/webcam_face_expression_recognition)
 
 </div>
 

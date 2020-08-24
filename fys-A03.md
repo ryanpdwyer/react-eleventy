@@ -43,6 +43,7 @@ Not an exhaustive list: there are many other options!
 - Augmented Reality: Choose your favorite app that includes augmented reality features (Pokemon Go, etc), or look at [some of these](https://www.digitaltrends.com/mobile/best-augmented-reality-apps/)
 - [Webcam facial expression recognizer](https://justadudewhohacks.github.io/face-api.js/webcam_face_expression_recognition)
 
+
 </div>
 
 **Due: Thursday 09/03 at 10 am:** Start your new thread on the [A3 Discussion Board](https://d2l.mountunion.edu/d2l/le/content/35016/viewContent/397849/View)

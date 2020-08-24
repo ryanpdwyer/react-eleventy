@@ -27,4 +27,9 @@ js: fys-installation.js
         - Where does it fail?
         - How does that tie back to AI principles?
         - Do some research...
-- Part 3: Build something useful to you...
+        - Ethical implications of AI?
+- Part 3: Build something new, and/or read something and/or write something
+    - `ml5.js` and `p5.js`?
+    - 
+    - Improve your part 1 project
+    - Final takeaway

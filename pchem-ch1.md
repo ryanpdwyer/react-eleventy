@@ -28,7 +28,9 @@ Wednesday in class, we will finish chapter 1 and give you time to work through m
 
 These are ungraded questions to check your understanding of the material.
 
-Consider the case where 2 moles of H<sub>2</sub> and 1 mole of HD are placed in a container and the system comes to equilibrium.
+Consider the case where 2 moles of H<sub>2</sub> and 1 mole of HD are placed in a container and the system comes to equilibrium. 
+
+Enter your answers as decimals not fractions (0.5 rather than 1/2).
 
 <div id="question-node"></div>
 

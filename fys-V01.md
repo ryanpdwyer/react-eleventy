@@ -35,4 +35,4 @@ The ungraded questions below are designed to check your understanding of key con
 
 **Due by 10 am Thursday morning**, [Check-in questions](https://d2l.mountunion.edu/d2l/lms/quizzing/user/quiz_summary.d2l?qi=19782&ou=35016)
 
-
+div#q

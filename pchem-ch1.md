@@ -35,3 +35,4 @@ Consider the case where 2 moles of H<sub>2</sub> and 1 mole of HD are placed in 
 ### Check-in
 
 Answer the check-in question [here](https://d2l.mountunion.edu/d2l/le/content/35180/viewContent/414265/View) before class on Wednesday.
+

@@ -25,6 +25,10 @@ styles:
 	- Input: `wekinator_examples/inputs/Pirate_2Inputs/Pirate_2Inputs.pde`
 	- Output: `wekinator_examples/outputs/Processing_TriggerText_1ClassifierPirate/Processing_TriggerText_1ClassifierPirate.pde`
 
+**Note: To run these files, you'll need to add the controlP5 and oscP5 libraries** in Processing, as shown in the video below:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/LhLXazuTfKU?start=32&end=72" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ### Check your understanding
 
 The ungraded questions below are designed to check your understanding of key concepts from the video.
@@ -35,4 +39,3 @@ The ungraded questions below are designed to check your understanding of key con
 
 **Due by 10 am Thursday morning**, [Check-in questions](https://d2l.mountunion.edu/d2l/lms/quizzing/user/quiz_summary.d2l?qi=19782&ou=35016)
 
-div#q

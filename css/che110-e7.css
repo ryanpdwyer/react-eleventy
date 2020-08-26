@@ -1937,7 +1937,7 @@ html,
 body {
   font-family: 'Lato', sans-serif;
   color: #565A5C;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .icon {
@@ -2493,60 +2493,6 @@ footer img {
 .card .content .card-front,
 .card .content .card-back {
   padding: 15px;
-}
-
-/* Media Query for Medium, Large Screen */
-@media screen and (min-width: 768px) {
-  p,
-  ol,
-  ul,
-  cite {
-    font-size: 19px;
-    line-height: 28px;
-  }
-  .overlay-content {
-    position: absolute;
-    width: 100%;
-    top: 25%;
-  }
-  .bg-dark {
-    background-color: rgba(1, 125, 121, 0.9);
-  }
-  .bg-light {
-    background-color: rgba(255, 255, 255, 0.9);
-  }
-  .intersect-wrapper {
-    position: relative;
-    margin-top: -100px;
-  }
-  .intersect-wrapper .intersect-content {
-    background-color: #FFFFFF;
-    padding: 30px;
-  }
-  .intersect-wrapper .intersect-content h1 {
-    margin-top: 10px;
-  }
-  ul.list-column-2 {
-    columns: 2;
-    -webkit-columns: 2;
-    -moz-columns: 2;
-  }
-  .topic-img-left {
-    height: auto;
-  }
-  blockquote {
-    margin-left: -30px;
-    margin-right: -30px;
-  }
-  blockquote cite {
-    font-style: normal;
-  }
-  .highlight-bar {
-    border: 0;
-    border-left: 10px solid #E87511;
-    margin-left: -30px;
-    margin-right: -30px;
-  }
 }
 
 /* Media Query for Print */

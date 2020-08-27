@@ -6,6 +6,8 @@ styles:
 	- fys.css
 ---
 
+# Regression in Wekinator
+
 ## Goals
 
 - Categorize machine learning tasks as regression or classification 

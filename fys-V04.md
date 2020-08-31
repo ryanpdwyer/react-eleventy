@@ -1,7 +1,7 @@
 ---
 layout: vanillabootflex-full.njk
 title: Classifier and Regression Models...
-js: V01-fys.js
+js: V04-fys.js
 styles:
 	- fys.css
 ---
@@ -16,6 +16,8 @@ styles:
     <iframe style="position: absolute; width: 100%; height: 100%; border: 0;" scrolling="no" src="https://expl.ai/WZEBCXY?mode=embed" frameborder="0" allowfullscreen></iframe>
 </div>
 
+
+<iframe width="640" height="360" src="https://www.youtube.com/embed/wa_pmG-Yjmo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Check-in questions
 

@@ -13,11 +13,14 @@ styles:
 ### Video
 
 <div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
-    <iframe style="position: absolute; width: 100%; height: 100%; border: 0;" scrolling="no" src="https://expl.ai/WZEBCXY?mode=embed" frameborder="0" allowfullscreen></iframe>
+    <iframe style="position: absolute; width: 100%; height: 100%; border: 0;" scrolling="no" src="https://expl.ai/EFXUPKC?mode=embed" frameborder="0" allowfullscreen></iframe>
 </div>
 
-
 <iframe width="640" height="360" src="https://www.youtube.com/embed/wa_pmG-Yjmo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+### Check your understanding
+
+<div id="question-node"></div>
 
 ### Check-in questions
 

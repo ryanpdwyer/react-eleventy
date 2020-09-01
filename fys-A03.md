@@ -6,12 +6,12 @@ js: fys-installation.js
 
 ## Classifiers and Regression in the wild
 
-Choose an application of AI / machine learning. It could be from the list of applications below or any others you can think of or find on your own. Write a discussion post that
+Choose an application of AI / machine learning. It could be from the list of applications below or any others you can think of or find on your own. Write a discussion post that "reviews" the application
 
 1) Includes a descriptive title
 2) Briefly explains the application and its purpose
-3) Describes the AI model (what inputs? Is the output a **classifier, regression, both, or neither?** Anything interesting about how is the model is "trained"?)
-4) What's something interesting about the application? (a connection to what you've learned, a connection to any of your other interests...)
+3) Describes the AI model (what inputs? Is the output a **classifier, regression, both, or neither?** Anything interesting about how the model is "trained"?)
+4) What's something interesting/frustrating about the application? (connection to what you've learned, or your other interests...)
 5) links to 1 or more sources that you used (videos, websites, etc...)
 6) Includes an image if appropriate.
 
@@ -32,6 +32,7 @@ Also check for basic spelling errors, typos, capitalization errors.
 ## Potential Topics
 
 Not an exhaustive list: there are many other options!
+
 <div class="randomize-list">
 
 - NSynth: [Video](https://nsynthsuper.withgoogle.com) [Play]( https://experiments.withgoogle.com/ai/sound-maker/view/)
@@ -47,8 +48,8 @@ Not an exhaustive list: there are many other options!
 - [Web Olympic game](https://vibertthio.com/web-olympic/)
 - [The food chain game](https://editor.p5js.org/lillianr/present/WYI4pPf2_)
 - [QuickDraw](https://quickdraw.withgoogle.com)
-
+- [This person does not exist](https://thispersondoesnotexist.com) this one is probably a bit tough to talk about, but go for it if you're interested. Note there are other variants: This [Cat](https://thiscatdoesnotexist.com) / [Horse](https://thishorsedoesnotexist.com) does not exist, which make an interesting comparison.
 
 </div>
 
-**Due: Thursday 09/03 at 10 am:** Start your new thread on the [A3 Discussion Board](https://d2l.mountunion.edu/d2l/le/content/35016/viewContent/397849/View)
+**Due: Thursday 09/03 by 12 pm ** Start your new thread on the [A3 Discussion Board](https://d2l.mountunion.edu/d2l/le/content/35016/viewContent/397849/View)

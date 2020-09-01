@@ -16,8 +16,14 @@ js: fys-installation.js
     - Record training data, train, and draw decision boundaries for 2 different models; take screenshots of both.
     - Compare and contrast the results. Do you think one is better/worse?
 
-Record a 2-3 minute video explaining what you did:
-1. Explain what you want the model to do.
-2. 
+Record a 1-2 minute video explaining,
+
+- For the regression model:
+    1. Explain what you want the model to do.
+    2. Show it running. How well does it work?
+- For the classifier explorer
+    1. Show the screen shots you took (and which is which model).
+    2. Explain which model you think worked better.
+
 
 **Due: Tuesday 09/08 at 12 pm:** Upload your video to YouTube / Screencast-o-matic and submit the link to the [A4 Dropbox](https://d2l.mountunion.edu/d2l/le/content/35016/viewContent/400873/View?ou=35016)

@@ -3,60 +3,22 @@ import { QuestionLimF, MCQ } from './QuestionLim.js';
 
 function App (props) {
   return (<ol>
-  <h4>Location prediction</h4>
-  <p>Consider trying to predict the location of a person in a room (in all three dimensions, x, y, and z) using 100 carefully chosen data points from a webcam.</p>
     <li>
-        <MCQ name="wek-input" options={[
-  	{children:  "The person's location, 100 inputs",
-  			feedback: `Remember the thing we are trying to predict is the output.`},
-  	{children: "The webcam data, 100 inputs",
-  			feedback: <p>Yes, the data we use to make the prediction is the input. In this case, there are 100 inputs from the webcam.</p>,
-              correct: true
-      },
-      {children: "The person's location, 3 inputs",
-      feedback: <p>Remember the thing we are trying to predict is the output.
-                    </p>
-        },
-    {children: "The webcam data, 3 inputs",
-feedback: <p>The data we use to make the prediction is the input, but there are <b>100 inputs</b> from the webcam, not 3.</p>,
-correct: true
-}]}
-  	>
-  	In Wekinator, which would be the input, and how many inputs would you listen for?
-  </MCQ>
+        <MCQ name="classifier-better" options={[
+              {correct: true},
+  	{feedback: `Look at the mis-classified example in the middle.`}]}>
+    Which classifier model does a better job at classifying points in the box correctly?
+    </MCQ>
 	</li>
-  	
-<li>
-	<MCQ name="wek-output" options={[
-		{children:  "The person's location, 100 continuous outputs",
-				feedback: <p>Yes, the person's location is what we are trying to predict, but there are only <b>3</b> outputs, the x, y, and z coordinates.</p>},
-		{children: "The webcam data, 3 continuous outputs",
-				feedback: `Remember the output is the thing we are trying to predict.` ,
-        },
-        {children: "The person's location, 3 classifier outputs",
-        feedback: <p>Yes, the person's location is what we are trying to predict,
-                but the 3 outputs are <b>continuous</b> (1 foot, 1.123 feet, etc), not just one of a few categories (classifier output).</p>},
-        {children: "The person's location, 3 continuous outputs", correct: true},
-        ]}
-		>
-		Which answer best describes the Wekinator output?
-	</MCQ>
-</li>
-  <h4>Regression or classification?</h4>
-  <li>
-  	<MCQ name="classifier" options={[
-  		{children: `Predicting whether a stock will go up or down tomorrow.`,
-  			feedback: `Since the stock price can only go up or down, it is a classifier output, not regression.`},
-  		{children: `Predicting how tall a child will grow be when she grows up.`,
-  			feedback: `Yes, since height could be any number, it is a continuous regression output, not a classifier.`, correct: true},
-  		{children: `Predicting whether it will be sunny, cloudy, or rainy tomorrow morning.`,
-  			feedback: `Since the output is one of several discrete categories (sunny, cloudy, or rainy), it is a classifier output, not regression.`,
-  			correct: true}
+    <li>
+    <MCQ name="classifier" options={[
+        {feedback: `Look carefully at the misclassified point in the box - remember that 1-nearest neighbor always classifiers a point based on what training example is closest to it.`},
+        {correct: true, feedback: `Yes, the 1-nearest neighbor classifier will classify those points in the box near the misclassified point as blue (out of the box), while 3-nearest neighbor classifies them correctly because out of the 3 closest points, 2 are red (in the box).`}
   		]}>
-  		Which of these applications could use a machine learning regression output?
+  		The two models are 1-nearest neighbor and 3-nearest neighbors. Which is 1-nearest neighbor?
   	</MCQ>
-  </li>
-	</ol>);
+    </li>
+</ol>);
 }
 
 const div = document.getElementById("question-node");

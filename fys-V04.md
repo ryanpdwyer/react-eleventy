@@ -20,6 +20,13 @@ styles:
 
 ### Check your understanding
 
+Consider the following data trying to make a classifier to detect "in the box" (class 1, red) versus not in the box (class 2, blue). Unfortunately, the training data had an error - there was a point in the box mislabeled as outside of the box (this is common in real-world AI and machine learning!).
+
+Here are 2 picture showing two different models trained on the same training data:
+
+![Wekinator example 1](/img/nn-pictures.png)
+
+
 <div id="question-node"></div>
 
 ### Check-in questions

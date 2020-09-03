@@ -4,9 +4,14 @@ title: A3 Discussion of Classifiers and Regression
 js: fys-installation.js
 ---
 
-## Classifiers and Regression in the wild
+## Goals
 
-Choose an application of AI / machine learning. It could be from the list of applications below or any others you can think of or find on your own. Write a discussion post that "reviews" the application
+- Practice writing and editing
+- Connect AI / machine learning theory to applications
+
+# A3: Discussion post: Classifiers and Regression in the wild
+
+Choose an application of AI / machine learning. It could be from the list of applications below or any others you can think of or find on your own. Write a discussion post that "reviews" the application:
 
 1) Includes a descriptive title
 2) Briefly explains the application and its purpose
@@ -48,7 +53,7 @@ Not an exhaustive list: there are many other options!
 - [Web Olympic game](https://vibertthio.com/web-olympic/)
 - [The food chain game](https://editor.p5js.org/lillianr/present/WYI4pPf2_)
 - [QuickDraw](https://quickdraw.withgoogle.com)
-- [This person does not exist](https://thispersondoesnotexist.com) this one is probably a bit tough to talk about, but go for it if you're interested. Note there are other variants: This [Cat](https://thiscatdoesnotexist.com) / [Horse](https://thishorsedoesnotexist.com) does not exist, which make an interesting comparison.
+- [This person does not exist](https://thispersondoesnotexist.com) this one is probably a bit tough to talk about, but go for it if you're interested. Note there are other variants, like this [Cat](https://thiscatdoesnotexist.com) / [Horse](https://thishorsedoesnotexist.com) does not exist, which make for an interesting comparison.
 
 </div>
 

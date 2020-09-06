@@ -1,6 +1,38 @@
 import { React, ReactDOM } from 'https://unpkg.com/es-react/dev';
 import { QuestionLimF, MCQ } from './QuestionLim.js';
 
+
+function show(element) {
+	const el  = document.getElementById(element);
+	el.removeAttribute("hidden");
+}
+
+
+function hide(element) {
+	const el  = document.getElementById(element);
+	el.setAttribute("hidden", true);
+}
+
+let windowsVisible = true;
+
+function toggleWindowsMac(event) {
+	if (windowsVisible){
+		hide('windows-install');
+		show('mac-install');
+		document.getElementById("video-heading").innerText = "Mac"
+		document.getElementById("button").innerText = "Show Windows"
+		windowsVisible = false;
+	} else {
+		show('windows-install');
+		hide('mac-install');
+		document.getElementById("video-heading").innerText = "Windows"
+		document.getElementById("button").innerText = "Show Mac"
+		windowsVisible = true;
+	}
+}
+
+window.toggleWindowsMac = toggleWindowsMac;
+
 const buildOptions = (feedback, correct) => {
 	const options = ["Classification", "Regression", "Time"];
 	return options.map((x, i) => {

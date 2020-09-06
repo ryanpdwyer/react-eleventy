@@ -15,6 +15,11 @@ styles:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/1oqZCsOKzsM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+<h4>Wekinator Machine</h4>
+
+To follow along, install Wekinator Machine by downloading here: ![Windows](https://github.com/ryanpdwyer/wekinator-machine/releases/download/v1.2.6/WekinatorMachine-1.2.6.Setup.exe) or ![Mac](https://github.com/ryanpdwyer/wekinator-machine/releases/download/v1.2.6/WekinatorMachine-darwin-x64-1.2.6.zip). For help completing the installation, see the video for Windows (or Mac):
+
+
 ### Check your understanding
 
 <div id="question-node"></div>

@@ -38,4 +38,4 @@ To follow along, install Wekinator Machine by downloading here: [Windows](https:
 
 ### Check-in questions
 
-**By 10 am Thursday, complete the check-in quiz** [C4: Dynamic Time Warping](https://d2l.mountunion.edu/d2l/lms/quizzing/user/quiz_summary.d2l?qi=20020&ou=35016)
+**By 12 pm Tuesday, complete the check-in quiz** [C4: Dynamic Time Warping](https://d2l.mountunion.edu/d2l/lms/quizzing/user/quiz_summary.d2l?qi=20020&ou=35016)

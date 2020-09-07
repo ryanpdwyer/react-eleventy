@@ -31,4 +31,4 @@ Here are 2 picture showing two different models trained on the same training dat
 
 ### Check-in questions
 
-**By 10 am Thursday, complete the check-in quiz** [C3: Models and College](https://d2l.mountunion.edu/d2l/lms/quizzing/user/quiz_summary.d2l?qi=20018&ou=35016)
+**By 12 pm Thursday, complete the check-in quiz** [C3: Models and College](https://d2l.mountunion.edu/d2l/lms/quizzing/user/quiz_summary.d2l?qi=20018&ou=35016)

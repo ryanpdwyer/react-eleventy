@@ -20,6 +20,14 @@ We'll be working on this project for the next 4 weeks of the semester.
 
 <iframe width="640" height="360" src="https://www.youtube.com/embed/jb45WGyTrf8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+<h4>Wekinator Machine</h4>
+
+To follow along with the last part of the video, install Wekinator Machine by downloading here: [Windows](https://github.com/ryanpdwyer/wekinator-machine/releases/download/v1.2.6/WekinatorMachine-1.2.6.Setup.exe) or [Mac](https://github.com/ryanpdwyer/wekinator-machine/releases/download/v1.2.6/WekinatorMachine-darwin-x64-1.2.6.zip). For help completing the installation, see the video below:
+
+<h5 id="video-heading">Windows</h5>
+
+<button id="button" onclick="toggleWindowsMac();">Show Mac</button>
+
 ### Potential Inputs
 
 See the list of potential inputs (discussed in the video) below. 
@@ -31,7 +39,7 @@ See the list of potential inputs (discussed in the video) below.
 - [Teachable Machine: Audio Model](https://teachablemachine.withgoogle.com). See [Teachable Machine 3: Sound Classification](https://youtu.be/TOrVsLklltM) for more information.
 - [Teachable Machine V1:](https://teachablemachine.withgoogle.com/v1/) Nice built-in control of the output
 - Wekinator Machine: Pose Model	[See the web demo](https://storage.googleapis.com/tfjs-models/demos/posenet/camera.html) or see [Teachable Machine Pose Model](https://teachablemachine.withgoogle.com).
-- Wekinator Machine: Face Model. [See thw web demo](https://storage.googleapis.com/tfjs-models/demos/facemesh/index.html)
+- Wekinator Machine: Face Model. [See the web demo](https://storage.googleapis.com/tfjs-models/demos/facemesh/index.html)
 - Wekinator Machine: Hand or Palm Model. [See the web demo](https://storage.googleapis.com/tfjs-models/demos/handpose/index.html)
 - iOS: [MotionSender](https://apps.apple.com/us/app/motionsender/id1315005698) This works to send accelerometer, gyroscope, and attitude (tilt, orientation...) as inputs.
 
@@ -43,6 +51,8 @@ Can't decide? Hit the button for a random suggestion.
 
 <button onclick="randomInput()">Suggest a model</button>
 <p><b>Suggested model:</b> <span id="suggested-model"></span</p>
+
+
 
 ### Harder Topics
 

@@ -42,7 +42,7 @@ See the list of potential inputs (discussed in the video) below.
 Can't decide? Hit the button for a random suggestion.
 
 <button onclick="randomInput()">Suggest a model</button>
-<p><b>Suggested model:</b><span id="suggested-model"></span</p>
+<p><b>Suggested model:</b> <span id="suggested-model"></span</p>
 
 ### Harder Topics
 
@@ -56,10 +56,15 @@ Can't decide? Hit the button for a random suggestion.
 
 ### Check-in Due Wednesday night 11:59 pm
 
-Check-in is due earlier so I can read through your model ideas before class.
+Check-in ([C5: Build an AI Project topic](https://d2l.mountunion.edu/d2l/lms/quizzing/user/quiz_summary.d2l?qi=20021&ou=35016)) is due earlier so I can read through your model ideas before class.
 
-[C5: Build an AI Project topic](https://d2l.mountunion.edu/d2l/lms/quizzing/user/quiz_summary.d2l?qi=20021&ou=35016)
+The questions are listed below.
 
+1. What model would you like to build?
+2. What kind of inputs could you use (from the list above: Teachable Machine Image, Teachable Machine Audio, Wekinator Machine Face...)?
+    What kind of outputs (classification, regression, dynamic time warping...)?
+3. What different or modified project/model would you be interested in? (This could be something completely different, or just a small variation).
+4. What was unclear, or what is one remaining question you have?
 
 
 

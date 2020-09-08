@@ -27,8 +27,8 @@ See the list of potential inputs (discussed in the video) below.
 <div class="randomize-list">
 
 - [Teachable Machine: Pose Model](https://teachablemachine.withgoogle.com)
-- [Teachable Machine: Image Classifier]((https://teachablemachine.withgoogle.com)). See [Teachable Machine 1: Image Classification](https://youtu.be/kwcillcWOg0) for more information.
-- [Teachable Machine: Audio Model]((https://teachablemachine.withgoogle.com)). See [Teachable Machine 3: Sound Classification](https://youtu.be/TOrVsLklltM) for more information.
+- [Teachable Machine: Image Classifier](https://teachablemachine.withgoogle.com). See [Teachable Machine 1: Image Classification](https://youtu.be/kwcillcWOg0) for more information.
+- [Teachable Machine: Audio Model](https://teachablemachine.withgoogle.com). See [Teachable Machine 3: Sound Classification](https://youtu.be/TOrVsLklltM) for more information.
 - [Teachable Machine V1:](https://teachablemachine.withgoogle.com/v1/) Nice built-in control of the output
 - Wekinator Machine: Pose Model	[See the web demo](https://storage.googleapis.com/tfjs-models/demos/posenet/camera.html) or see [Teachable Machine Pose Model](https://teachablemachine.withgoogle.com).
 - Wekinator Machine: Face Model. [See thw web demo](https://storage.googleapis.com/tfjs-models/demos/facemesh/index.html)

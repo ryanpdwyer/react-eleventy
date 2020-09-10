@@ -55,6 +55,8 @@ Not an exhaustive list: there are many other options!
 - [QuickDraw](https://quickdraw.withgoogle.com)
 - [This person does not exist](https://thispersondoesnotexist.com) this one is probably a bit tough to talk about, but go for it if you're interested. Note there are other variants, like this [Cat](https://thiscatdoesnotexist.com) / [Horse](https://thishorsedoesnotexist.com) does not exist, which make for an interesting comparison.
 - [Giorgio Cam](https://experiments.withgoogle.com/ai/giorgio-cam/view/) Use your camera to make music.
+- [BodyPix](https://github.com/tensorflow/tfjs-models/tree/master/body-pix)
+- [Stop touching your face!](https://webrtchacks.com/stop-touching-your-face-with-browser-tensorflow-js/)
 
 </div>
 

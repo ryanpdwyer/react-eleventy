@@ -7,15 +7,41 @@ styles:
 
 # Building an AI model Project
 
+This page has resources for Week 4, where you will work on your AI model project.
+
 ### Helpful Hints
 
-### Background information and applications
+- **Take notes**
+- **Talk to your classmates and me**
+	- [Model Talk Discussion](https://d2l.mountunion.edu/d2l/le/content/35016/viewContent/426682/View)
 
-You are responsible for learning a bit about the models you use to build your model. Here are some potentially useful starting points.
+### 2. Building your model (due Tuesday 09/15)
+
+- Build at least **2** versions of your model (make sure to save them in Google Drive or your computer).
+	- For *some* teachable Machine models, that may be difficult. In that case, make sure to post a link to your model on the discussion forum so you can have more data with other people testing it out.
+- Compare and contrast to figure out what works well or poorly. Really try to best to think of ways to "fool" your model---seeing where the models fail really helps you learn about how well they are working!
+
+
+When you have a reasonable version of your model, record a short video in which you 
+
+1. State what the purpose of your model is.
+2. Show the model running, talking about how well it works.
+3. Show another version of the model running, comparing/contrasting with the first version of your model. **Note: It's okay not to have this if you can't come up with another version of the model. If so, talk through other versions of the model you could make.** It's also okay if the other version of your model is really bad-remember how badly some of those other classifier models did in your last video.
+4. Ask any questions you have about your project, next steps, etc...
+
+
+**Note: If you have had trouble with your microphone, try headphones and check this [video](https://www.youtube.com/watch?v=KoMqLEbUdMg) for tips.**
+
+
+**Due: Tuesday 09/15 at 10 am (so I can check them before class)** [A5: Dropbox](https://d2l.mountunion.edu/d2l/le/content/35016/viewContent/426857/View)
+
+### 3. Background information and applications (Thursday 09/17)
+
+You are responsible for learning a bit about the models you use to build your model. Here are some potentially useful starting points. You should also check out the list of models from [assignment A3](/fys-A03) as well.
 
 - Image Model
 	- [Crash Course: Computer Vision](https://www.youtube.com/watch?v=-4E2-0sxVUM)
-- Pose Model (in Wekinator Machine or Teachable Machine)
+- Pose Model
 	-[Pose Estimation with PoseNet](https://www.youtube.com/watch?v=OIo-DIOkNVg)
 	- [Real-time Human Pose Estimation in the Browser with TensorFlow.js](https://medium.com/tensorflow/real-time-human-pose-estimation-in-the-browser-with-tensorflow-js-7dd0bc881cd5) See the links for lots of other interesting applications.
 	- [Fritz AI: Pose Estimation](https://www.fritz.ai/pose-estimation/) Their app provides another pose estimation to compare against your PoseNet model.
@@ -41,4 +67,3 @@ You are responsible for learning a bit about the models you use to build your mo
 
 All three of the Teachable Machine classifiers, and the face mesh model are built using [transfer learning](https://www.youtube.com/watch?v=kRpZ5OqUY6Y).
 
-**Due: Tuesday 09/15 at 10 am:** [C6: Discussion Post](https://d2l.mountunion.edu/d2l/le/35016/discussions/topics/8804/View) In 1-2 sentences, describe the model you intend to build and any questions you have about how to train and build it.

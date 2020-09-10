@@ -19,7 +19,7 @@ This page has resources for Week 4, where you will work on your AI model project
 
 - Build at least **2** versions of your model (make sure to save them in Google Drive or your computer).
 	- For *some* teachable Machine models, that may be difficult. In that case, make sure to post a link to your model on the discussion forum so you can have more data with other people testing it out.
-- Compare and contrast to figure out what works well or poorly. Really try to best to think of ways to "fool" your model---seeing where the models fail really helps you learn about how well they are working!
+- Compare and contrast to figure out what works well or poorly. Really try your best to think of ways to "fool" the model---seeing where the models fail helps you learn more about the model!
 
 
 When you have a reasonable version of your model, record a short video in which you 

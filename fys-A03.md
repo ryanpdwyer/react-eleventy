@@ -57,6 +57,7 @@ Not an exhaustive list: there are many other options!
 - [Giorgio Cam](https://experiments.withgoogle.com/ai/giorgio-cam/view/) Use your camera to make music.
 - [BodyPix](https://github.com/tensorflow/tfjs-models/tree/master/body-pix)
 - [Stop touching your face!](https://webrtchacks.com/stop-touching-your-face-with-browser-tensorflow-js/)
+- [Teachable Snake](https://teachable-snake.netlify.app)
 
 </div>
 

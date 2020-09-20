@@ -39,6 +39,8 @@ When you have a reasonable version of your model, record a short video in which 
 
 You are responsible for learning a bit about the models you use to build your model. Here are some potentially useful starting points. You should also check out the list of models from [assignment A3](/fys-A03) as well.
 
+- Teachable Machine
+	- [Designing and Learning Teachable Machine](https://design.google/library/designing-and-learning-teachable-machine/) A nice article talking about how the original teachable machine was designed.
 - Image Model
 	- [Crash Course: Computer Vision](https://www.youtube.com/watch?v=-4E2-0sxVUM)
 - Pose Model

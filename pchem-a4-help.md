@@ -29,3 +29,9 @@ In the video below, I walk through doing this problem for NO, which has a somewh
 
 
 <iframe width="640" height="360" src="https://www.youtube.com/embed/5fezrK-WzUU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+Here's an animation of a toy model of the roto-vibrational spectrum as the temperature changes in Mathematica:
+
+<video width="378" height="253" src="/img/CO-Vibration-vs-T.mov" loop autoplay>
+</video>

@@ -19,8 +19,13 @@ You are welcome to work together on a project, just make sure that you would eac
 ### Timeline
 
 - **Friday Sep 18** Choose a topic and talk to me briefly so we have an idea of what you want to do in lab on Monday. I can also direct you to some other resources for your topic.
-- **Monday Sep 21** By class time, plan out the experiments you want to do in lab. **Give me a list of materials needed so I can have then ready for you in lab.** In lab, make sure you have a good plan for next week. **If you need different materials, let me know.**
-
+- **Monday Sep 21** (5 pts) By class time, plan out the experiments you want to do in lab (in the project document). **Give me a list of materials needed so I can have then ready for you in lab.** In lab, make sure you have a good plan for next week. **If you need different materials, let me know.**
+- **Monday Sep 28** (15 pts) Analyze data from lab on Monday, plan experiments for this week.
+- **Monday Oct 5** Wrap-up the project with
+    - A short presentation on some of the background of your technique (25 pts)
+        - What is your technique?
+        - What is the basic theory underlying it?
+    - Draft technical report summarizing your findings (100 pts for final version)
 
 
 ### Possible Topics

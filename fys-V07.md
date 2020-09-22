@@ -41,8 +41,10 @@ You are responsible for learning a bit about the models you use to build your mo
 
 - Teachable Machine
 	- [Designing and Learning Teachable Machine](https://design.google/library/designing-and-learning-teachable-machine/) A nice article talking about how the original teachable machine was designed.
+	- [Teachable Machine 2.0](https://venturebeat.com/2019/11/07/google-teachable-machine-2-ai-machine-learning/)
 - Image Model
 	- [Crash Course: Computer Vision](https://www.youtube.com/watch?v=-4E2-0sxVUM)
+	- [Teachable Sorter](https://coral.ai/projects/teachable-sorter/)
 - Pose Model
 	-[Pose Estimation with PoseNet](https://www.youtube.com/watch?v=OIo-DIOkNVg)
 	- [Real-time Human Pose Estimation in the Browser with TensorFlow.js](https://medium.com/tensorflow/real-time-human-pose-estimation-in-the-browser-with-tensorflow-js-7dd0bc881cd5) See the links for lots of other interesting applications.

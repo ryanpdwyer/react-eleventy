@@ -5,3 +5,15 @@ input {
 button {
 	margin-left: 5px;
 }
+
+footer {
+	border-top: 1px solid #D3D9E3;
+	padding: 10px 20px;
+	margin-top: 30px;
+	text-align: right;
+  }
+  
+  footer img {
+	max-height: 60px;
+  }
+  

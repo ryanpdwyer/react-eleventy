@@ -220,7 +220,7 @@ function chooseUnknowns(event) {
     const unknowns = "ABCDEFGHIJKLMN".split("");
     const unknownsVal = Object.fromEntries(unknowns.map((x,i) => [x, i+1]));
     const rng = new Math.seedrandom(document.getElementById("nameInput").value);
-    const myUnknowns = range(0, unknowns.length-1,rng).slice(0,3).map(i=>unknowns[i]);
+    myUnknowns = range(0, unknowns.length-1,rng).slice(0,3).map(i=>unknowns[i]);
     console.log(myUnknowns);
     document.getElementById('assignedUnknowns').style.display='block';
     const sampleIDs = myUnknowns.map( x => Math.floor(rng()*10000))
@@ -248,7 +248,7 @@ window.chooseUnknowns = chooseUnknowns;
 
 async function copyPages() {
         // Fetch first existing PDF document
-    const baseUrl = 'http://localhost:8080/pdf/'
+    const baseUrl = '/pdf/'
     const fileName = (x) => baseUrl+x+'.pdf.pdf';
     const pdf1 =  await fetch(fileName(myUnknowns[0])).then(res => res.arrayBuffer());
     const pdf2 =  await fetch(fileName(myUnknowns[1])).then(res => res.arrayBuffer());

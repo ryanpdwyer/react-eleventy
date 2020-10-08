@@ -4,12 +4,14 @@ title: A8 AI Weirdness Chapters 1-2
 js: fys-installation.js
 ---
 
+# AI for Everyone Part 2: AI Weirdness
+
 ## Goals
 
 - Analyze AI failures using rules of AI doom and/or principles of AI weirdness
 - Practice writing clearly
 
-### Introduction to FYS AI for Everyone Part 2, AI Weirdness
+### Introduction to Part 2: AI Weirdness
 
 <iframe width="640" height="360" src="https://www.youtube.com/embed/YDSI-x7MGsA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 

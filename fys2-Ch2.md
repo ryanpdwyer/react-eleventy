@@ -28,5 +28,5 @@ For Thursday, we won't do a full reflection. Just answer these questions in a Wo
 4. What's a question you have, or something that's unclear?
 
 
-**Due by Thursday October 15th at 12 pm** to the [D2L Dropbox](#)
+**Due by Thursday October 15th at 12 pm** to the [D2L Dropbox](https://d2l.mountunion.edu/d2l/le/content/35016/viewContent/438381/View)
 

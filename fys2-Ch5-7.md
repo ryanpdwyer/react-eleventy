@@ -16,6 +16,6 @@ js: fys-installation.js
 
 **Prompt:**  
 
-**Due by Thursday October 22th at 10 am** to the [D2L Dropbox](#)
+**Due by Tuesday October 27th at 12 pm** to the [D2L Dropbox](#)
 
 

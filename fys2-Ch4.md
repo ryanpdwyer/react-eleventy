@@ -23,6 +23,6 @@ js: fys-installation.js
 
 **Prompt:** Hone your paper topic by choosing a  
 
-**Due by Tuesday October 20th at 10 am** to the [D2L Dropbox](#)
+**Due by Thursday October 22nd at 12 pm** to the [D2L Dropbox](#)
 
 

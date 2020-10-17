@@ -4,11 +4,10 @@ title: A8 AI Weirdness Chapter 3
 js: fys-installation.js
 ---
 
-## Goals
+### Goals
 
 
-- such as:
-    - Deep learning, evolutionary algorithms, optimization, RNN, LSTM, CNN
+- Gain a basic familiarity with common machine learning algorithms and strategies
 
 <!--  Why is this important? The learning isn't magic.
       Computers are still just following your directions blindly.

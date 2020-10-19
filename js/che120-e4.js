@@ -183,7 +183,7 @@ function TableData (props) {
     <QuestionF answer={4}>How many molecules have 3 peaks?</QuestionF>
     </li>
     <li>
-    <QuestionF answer={0}>How many molecules have 4 peak?</QuestionF>
+    <QuestionF answer={0}>How many molecules have 4 peaks?</QuestionF>
     </li>
     </ol>);
 }

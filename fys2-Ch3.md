@@ -38,5 +38,5 @@ As usual, feel free to reflect on something else of interest if you prefer!
 -->
 <!-- **Prompt:** Choose a potential topic for the second paper / presentation. Using some of what you learned in Chapter 3, describe how your AI learns. -->
 
-**Due by Tuesday October 20th at 12 pm** to the [D2L Dropbox](#)
+**Due by Tuesday October 20th at 12 pm** to the [D2L Dropbox](https://d2l.mountunion.edu/d2l/le/content/35016/viewContent/439672/View)
 

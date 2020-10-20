@@ -28,6 +28,6 @@ js: fys-installation.js
 Alternatively, focus on one of the key terms introduced in this chapter: data augmentation, unintentional memorization, or visual priming.
 
 
-**Due by Thursday October 22nd at 12 pm** to the [D2L Dropbox](#)
+**Due by Thursday October 22nd at 12 pm** to the [D2L Dropbox](https://d2l.mountunion.edu/d2l/le/content/35016/viewContent/440620/View)
 
 

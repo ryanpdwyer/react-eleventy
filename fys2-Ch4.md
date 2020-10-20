@@ -6,13 +6,7 @@ js: fys-installation.js
 
 ## Goals
 
-- such as
-    - Problem too broad
-    - Not enough data
-    - Accidentally gave it confusing data
-    - Trained it for a task much simpler than the real-world task
-    - Trained it in a situation that didn’t represent the real world...
-
+- Connect real-world examples of AI doom to the principles of AI weirdness and Signs of AI doom introduced earlier.
 
 
 ### Reading
@@ -21,7 +15,18 @@ js: fys-installation.js
 
 ### Writing
 
-**Prompt:** Hone your paper topic by choosing a  
+**Prompt:** Discuss one of the examples discussed under the different headings in the chapter, making connections to any of the AI Weirdness principles or Signs of AI doom:
+- Problem too broad
+- More data, please
+- Messy data
+- Time-wasting data
+- Is this the real life?
+- Other dataset quirks
+- Missing data
+- There are four giraffes
+
+Alternatively, focus on one of the key terms introduced in this chapter: data augmentation, unintentional memorization, or visual priming.
+
 
 **Due by Thursday October 22nd at 12 pm** to the [D2L Dropbox](#)
 

@@ -4,8 +4,6 @@ title: A8 AI Weirdness Chapter 5
 js: fys-installation.js
 ---
 
-
-
 ### Possible AIs you could use for your paper
 
 Click around to a few of these before class. We'll talk about how text-generating AIs actually work in a bit more detail in class.
@@ -38,7 +36,7 @@ Image models:
 
 - Shane Chapter 5
 
-### Writing
+### Reflection
 
 **Prompts:** Again, feel free to use any these prompts as the basis of your reflection (or choose your own).
 

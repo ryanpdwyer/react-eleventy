@@ -29,4 +29,5 @@ These videos and links provide help for writing your paper.
 <iframe title="FYS AI Weirdness Cloud Vision" width="500" height="281" src="https://www.youtube.com/embed/8Hksm2KSTYc?feature=oembed&amp;wmode=opaque&amp;rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
 
 Here is another video on [Google Cloud Vision](https://www.youtube.com/watch?v=eve8DkkVdhI) and the link to the [adversarial model](http://runwayml.com/?utm_source=runwayml&utm_medium=generative_engine&utm_campaign=experiments) I used.
+See the example on page 200 of the book for another good adversarial attack on Google Cloud Vision.
 

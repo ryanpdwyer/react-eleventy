@@ -10,7 +10,7 @@ styles:
 Here's a basic overview of some physical chemistry research areas and computational chemistry.
 
 <div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
-    <iframe style="position: absolute; width: 100%; height: 100%; border: 0;" scrolling="no" src="https://expl.ai/RZWAYRB?mode=embed" frameborder="0" allowfullscreen></iframe>
+    <iframe style="position: absolute; width: 100%; height: 100%; border: 0;" scrolling="no" src="https://expl.ai/RVWSGAC?mode=embed" frameborder="0" allowfullscreen></iframe>
 </div>
 
 <br>

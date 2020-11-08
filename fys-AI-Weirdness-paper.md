@@ -36,7 +36,7 @@ See the example on page 200 of the book for another good adversarial attack on G
 Yes, if you have any examples that would benefit from including images, please include them! That's why the length is again a word limit rather than a page limit.
 
 
-### Citing sources
+<h3 id="citing-srcs">Citing sources</h3>
 
 Cite your sources in the text using a parenthetical format such as MLA. If you already know and prefer APA form, that is fine too.
 

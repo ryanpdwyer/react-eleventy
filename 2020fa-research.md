@@ -26,7 +26,7 @@ This video goes over the specific project you'll be working on.
 
 For the project we're working on, you'll want to follow along with the [computational chemistry instructions](https://docs.google.com/document/d/1zm7U5qoFyNJYc0dvGbU2kWR4PTDE0ciP5P_AYWbRHsc/edit?usp=sharing).
 
-There is a [WebMO](https://webmo.osc.edu) account set up for you already (password your first name, all lowercase).
+There is a [WebMO](https://webmo.osc.edu) account set up for you already (username your Mount Union email without the @mountunion.edu, password your first name, all lowercase).
 
 Here's an example of setting up a first calculation:
 

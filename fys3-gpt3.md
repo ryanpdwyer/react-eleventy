@@ -12,7 +12,7 @@ GPT-3, which was released this summer, takes the same approach, but increases th
 
 <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/_x9AwxfjxvE?start=164" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-Here's two different models that will help us investigate GPT-3. [Shortly Read](https://www.shortlyread.com/) and [AI Dungeon](https://play.aidungeon.io).
+Here's two different models that will help us investigate GPT-3: [Shortly Read](https://www.shortlyread.com/) and [AI Dungeon](https://play.aidungeon.io).
 
 
 

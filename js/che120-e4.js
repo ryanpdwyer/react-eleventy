@@ -221,7 +221,6 @@ function chooseUnknowns(event) {
     const unknownsVal = Object.fromEntries(unknowns.map((x,i) => [x, i+1]));
     const rng = new Math.seedrandom(document.getElementById("nameInput").value);
     myUnknowns = range(0, unknowns.length-1,rng).slice(0,3).map(i=>unknowns[i]);
-    console.log(myUnknowns);
     document.getElementById('assignedUnknowns').style.display='block';
     const sampleIDs = myUnknowns.map( x => Math.floor(rng()*10000))
                                 .sort()
@@ -230,14 +229,18 @@ function chooseUnknowns(event) {
         const num = unknownsVal[x];
         const s = sampleIDs[i];
         if (num < 10) {
-            return s.slice(0, 3) + num.toString() + s.slice(3);
+            let initial_id = s.slice(0, 3) + num.toString() + s.slice(3);
+            if (initial_id[1] == "1") {
+                let new_char_1 = ((Math.floor(rng()*9)+2) % 10).toString();
+                let index = 1;
+                initial_id = initial_id.substring(0, index) + new_char_1 + initial_id.substring(index + 1);
+            }
+            return initial_id
         }
         else {
             return s[0] + "1" + s[2] + num.toString()[1] + s.slice(3);
         }
     })
-    console.log(sampleIDs);
-    console.log(unknownIDs);
     ['1', '2', '3'].forEach( (x, i) => {
         document.getElementById(`unknown`+x).innerText = unknownIDs[i];
     });

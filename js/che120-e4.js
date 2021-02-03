@@ -28,6 +28,7 @@ function show(element) {
 	el.removeAttribute("hidden");
 }
 
+window.show = show
 
 function hide(element) {
 	const el  = document.getElementById(element);

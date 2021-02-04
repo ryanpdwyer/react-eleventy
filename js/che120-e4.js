@@ -241,8 +241,9 @@ function chooseUnknowns(event) {
         else {
             return s[0] + "1" + s[2] + num.toString()[1] + s.slice(3);
         }
-    })
-    ['1', '2', '3'].forEach( (x, i) => {
+    });
+    const numbers = ['1', '2', '3'];
+    numbers.forEach( (x, i) => {
         document.getElementById(`unknown`+x).innerText = unknownIDs[i];
     });
 }

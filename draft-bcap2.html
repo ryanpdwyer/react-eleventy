@@ -1,0 +1,99 @@
+---
+layout: vanillabootflex-mount.njk
+title: Video 01
+js: preact.js
+styles:
+	- fys.css
+---
+
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Biochemistry</a>
+                <a class="nav-link" id="v-pills-courses-tab" data-toggle="pill" href="#v-pills-courses" role="tab" aria-controls="v-pills-courses" aria-selected="false">Courses</a>
+                <a class="nav-link" id="v-pills-careers-tab" data-toggle="pill" href="#v-pills-careers" role="tab" aria-controls="v-pills-careers" aria-selected="false">Jobs, Careers, and Internships</a>
+                <a class="nav-link" id="v-pills-students-tab" data-toggle="pill" href="#v-pills-students" role="tab" aria-controls="v-pills-students" aria-selected="false">Students</a>
+                <a class="nav-link" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="false">Faculty</a>
+                <a class="nav-link" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab" aria-controls="v-pills-2" aria-selected="false">Alumni</a>
+                <a class="nav-link" id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3" role="tab" aria-controls="v-pills-3" aria-selected="false">News</a>
+                <a class="nav-link" id="v-pills-4-tab" data-toggle="pill" href="#v-pills-4" role="tab" aria-controls="v-pills-4" aria-selected="false">Research and Facilities</a>
+                <a class="nav-link" id="v-pills-5-tab" data-toggle="pill" href="#v-pills-5" role="tab" aria-controls="v-pills-5" aria-selected="false">American Chemical Society</a>
+                <a class="nav-link" id="v-pills-6-tab" data-toggle="pill" href="#v-pills-6" role="tab" aria-controls="v-pills-6" aria-selected="false">Current Student Resources</a>
+                <a class="nav-link" id="v-pills-7-tab" data-toggle="pill" href="#v-pills-7" role="tab" aria-controls="v-pills-7" aria-selected="false">Contact Us</a>
+              </div>
+        </div>
+        <div class="col-9">
+            <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+            This is back to the main biochemistry page area.
+            </div>
+        <div class="tab-pane fade" id="v-pills-courses" role="tabpanel" aria-labelledby="v-pills-courses-tab">
+            <h2>Courses</h2>
+            A nice list of biochemistry courses (required for major, by year / number, etc).
+        </div>
+        <div class="tab-pane fade" id="v-pills-careers" role="tabpanel" aria-labelledby="v-pills-careers-tab">
+            <h2>Jobs, Careers, and Internships</h2>
+            Job placement information, etc...
+        </div>
+        <div class="tab-pane fade" id="v-pills-students" role="tabpanel" aria-labelledby="v-pills-students-tab">
+            <h2>Students</h2>
+            <p>Presumably this is highlighted students who've chosen to be on the website (can/should everyone go here?) </p>
+            <div class="row">
+                <div class="col-sm-6">
+                  <div class="card">
+                          <div class="card-body">
+                          <img class="card-img-top" src="https://picsum.photos/200" alt="Pose estimation points that can be sent to Wekinator" width="220px" />
+                          <h5>Student A</h5>
+                    A key quote or piece of information about Student A.
+                          </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="card">
+                  <div class="card-body">
+                    <img class="card-img-top" src="https://picsum.photos/200" alt="People posing, tracked by Teachable Machine" width="220px" />
+                    <h5>Student B</h5>
+                    A key quote or piece of information about Student B.</div>
+                  </div>
+                </div>
+                </div>
+                      <div class="row">
+                <div class="col-sm-6">
+                  <div class="card">
+                    <div class="card-body">
+                      <img class="card-img-top" src="https://picsum.photos/200" alt="Images tracked by Teachable Machine" width="220px" />
+                    <h5>Teachable Machine Image</h5>
+                    <a href="#" data-ref="teachable-image.html" class="stretched-link internal-link"></a> Use an Image classifier with Wekinator.
+                    </div>
+                  </div>
+                </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
+          <h2>Faculty</h2>
+        </div>
+        <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab">
+            <h2>Alumni</h2>
+        </div> 
+      <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-3-tab">
+          <h2>News</h2>
+      </div>
+    <div class="tab-pane fade" id="v-pills-4" role="tabpanel" aria-labelledby="v-pills-4-tab">
+        <h2>Research and Facilities</h2>
+    </div>
+    <div class="tab-pane fade" id="v-pills-5" role="tabpanel" aria-labelledby="v-pills-5-tab">
+        <h2>American Chemical Society</h2>
+    </div>
+    <div class="tab-pane fade" id="v-pills-6" role="tabpanel" aria-labelledby="v-pills-6-tab">
+        <h2>Current Student Resources</h2>
+    </div>
+    <div class="tab-pane fade" id="v-pills-7" role="tabpanel" aria-labelledby="v-pills-7-tab">
+        <h2>Contact Us</h2>
+        <p>Andrea, or another email/contact person?</p>
+    </div>
+</div>      
+        </div>
+    </div>
+</div>
+<br>

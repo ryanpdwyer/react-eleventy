@@ -2,12 +2,14 @@
 layout: vanillabootflex-full.njk
 title: Scholar Day Test
 ---
+<script src= "https://player.twitch.tv/js/embed/v1.js"></script>
+
 
 <h2>Scholar Day Test Webpage</h2>
 
+<h3>Microsoft Teams Live Event</h3>
 
-
-<div class="card" style="width: 18rem;">
+<div class="card col-xs-12 col-md-9 col-lg-6">
     <div class="card-body">
       <h5 class="card-title">Session 1A (11 am-1 pm)</h5>
       <p class="card-text">
@@ -19,12 +21,61 @@ title: Scholar Day Test
 
             <li>12:00 pm: "A interesting research topic title," by Charlie Smith</li>
         </ul>  
+        Try joining using the web interface to see how things work for people without Teams. Note the Q&A function, etc. 
+    </p>
+    <p>Unfortunately, we cannot embed the livestream right onto the webpage like we can for YouTube or others.
       </p>
-      <a href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_YjMwNjAzNzktMDdjNC00ZjdhLTg0MmQtZTM1MDZhY2UwZGU5%40thread.v2/0?context=%7b%22Tid%22%3a%221c60af7a-ceae-4c39-b574-45d284c025d3%22%2c%22Oid%22%3a%2292f5a7b9-c0d4-4ef3-b8ac-684c5dded0ed%22%2c%22IsBroadcastMeeting%22%3atrue%7d" class="card-link">Virtual Presentation</a>
+      <a href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_YjMwNjAzNzktMDdjNC00ZjdhLTg0MmQtZTM1MDZhY2UwZGU5%40thread.v2/0?context=%7b%22Tid%22%3a%221c60af7a-ceae-4c39-b574-45d284c025d3%22%2c%22Oid%22%3a%2292f5a7b9-c0d4-4ef3-b8ac-684c5dded0ed%22%2c%22IsBroadcastMeeting%22%3atrue%7d" class="card-link">Presentation Livestream</a>
     </div>
   </div>
 
+  <br>
+
+<h3>Livestream</h3>
+
+<p>Similar to YouTube Livestream, you have to use a separate streaming application such as OBS-this would presumably be difficult to use for a mixed live/virtual presentation. 
+</p>
+
+<div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Session 1A (11 am-1 pm)</h5>
+      
 <div class="embed-responsive embed-responsive-16by9">
-<iframe src="">
-</iframe>
+    <div id="twitch-player-1">
+    </div>
 </div>
+<br>
+<iframe src="https://www.twitch.tv/embed/ryanpdwyer/chat?parent=condescending-clarke-40026b.netlify.app"
+    height="200px"
+    width="100%">
+</iframe>
+      <p class="card-text">
+        <ul>
+            <li>11 am: "A interesting research topic title," by John Smith</li>
+            <li>11:20 am: "A interesting research topic title," by Alice Smith</li>
+
+            <li>11:40 am: "A interesting research topic title," by Bob Smith</li>
+
+            <li>12:00 pm: "A interesting research topic title," by Charlie Smith</li>
+        </ul>  
+        Should be able to play directly from the webpage, ask questions using the chat.
+    </p>
+
+    </div>
+  </div>
+
+
+<script type="text/javascript">
+    var options = {
+      width: 640,
+      height: 360,
+      channel: "ryanpdwyer",
+    };
+    var player = new Twitch.Player("twitch-player-1", options);
+    player.setVolume(0.5);
+</script>
+
+<br>
+<br>
+
+<iframe width="640px" height= "480px" src= "https://forms.office.com/Pages/ResponsePage.aspx?id=eq9gHK7OOUy1dEXShMAl07mn9ZLUwPNOuKxoTF3e0O1URE4zTEc1OUJNSTg5S1gwQVFPRTM2NUdWSC4u&embed=true" frameborder= "0" marginwidth= "0" marginheight= "0" style= "border: none; max-width:100%; max-height:100vh" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>

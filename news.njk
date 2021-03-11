@@ -1,0 +1,20 @@
+---
+nav: News
+title: Dwyer Group News
+pagetitle: Dwyer Group News
+layout: dwyer.njk
+pagelead: 
+--- 
+  <div class="row"> 
+  {%- for post in collections.news -%}
+  <div class="card col-xs-12 col-md-11">
+      <div class="card-body">
+          <h4> {{post.data.title}} </h4>
+          <div class="container">
+          {{ post.templateContent | safe }}
+          </div>
+          <footer class="blockquote-footer">Posted {{post.data.date.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric' })}}</footer>
+      </div>
+  </div>
+  {%- endfor -%}
+  </div>

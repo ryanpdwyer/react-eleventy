@@ -28,6 +28,7 @@ pagelead: Information about current and former group members.
 ## Former
 
 <script>
+// This is a good way of doing things - use a little script at the bottom of the page to restyle everything.
 document.querySelectorAll("dt").forEach(x => x.classList.add("col-md-3"));
 document.querySelectorAll("dd").forEach(x => x.classList.add("col-md-9"));
 </script>

@@ -7,17 +7,17 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run eleventy && npm run babel",
     "eleventy": "eleventy",
-    "babel": "babel -d _site/js js" 
+    "babel": "babel -d _site/js js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@11ty/eleventy": "^0.11.0",
+    "@11ty/eleventy": "^0.12.1",
     "@11ty/eleventy-plugin-syntaxhighlight": "^3.0.1",
     "@babel/cli": "^7.10.5",
     "@babel/core": "^7.11.1",
-    "@babel/plugin-transform-react-jsx": "^7.10.4",
+    "@babel/plugin-transform-react-jsx": "^7.13.12",
     "babel-core": "^6.26.3",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-react-app": "^3.1.2",

@@ -6,7 +6,7 @@ layout: dwyer.njk
 ---
 
 
-## Physical Chemistry and Material Science Laboratory
+<h2>Physical Chemistry and Nanoscale Science</h2>
 
-We have a variety of advanced instrumentation available for Physical Chemistry and Material Science experiments. 
+We have a variety of advanced instrumentation available for Physical Chemistry and nanoscale science experiments. 
 

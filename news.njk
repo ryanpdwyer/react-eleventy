@@ -6,8 +6,8 @@ layout: dwyer.njk
 pagelead: 
 --- 
   <div class="row"> 
-  {%- for post in collections.news -%}
-  <div class="card col-xs-12 col-md-11">
+  {%- for post in collections.news | reverse -%}
+  <div class="card col-xs-12 col-md-11 mb-2">
       <div class="card-body">
           <h4> {{post.data.title}} </h4>
           <div class="container">

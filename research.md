@@ -14,10 +14,13 @@ Can "messy" materials sense better in messy environments?
 </small>
 </h2>
 
+<div class="row">
+<img src="/img/oect-2.png" alt="Organic Electrochemical Transistor" class="img-fluid rounded mx-auto" style="max-width: 600px">
+</div>
+
 Modern electronics are powered by billions of silicon transistors. However, these silicon devices are not necessarily biocompatible.
 
 **Potential Skills Developed:** Electrochemistry, nanoscale fabrication and patterning, sensor design and fabrication.
-</div>
 
 
 <div class="project">

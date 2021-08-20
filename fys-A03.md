@@ -41,7 +41,9 @@ Not an exhaustive list: there are many other options!
 <div class="randomize-list">
 
 - NSynth: [Video](https://nsynthsuper.withgoogle.com) [Play]( https://experiments.withgoogle.com/ai/sound-maker/view/)
-- [Magenta](https://magenta.tensorflow.org/demos/web/):  Lots of interesting demos to play with. 
+- [ImageNet Object Identifier](/fys-imagenet-demo/) Guess the object in front of the camera using your webcam
+- [Magenta](https://magenta.tensorflow.org/demos/web/):  Lots of interesting demos to play with.
+    - [RUNN Game](https://vibertthio.com/runn/), see the [blog post](https://medium.com/@vibertthio/i-built-2-games-to-make-machine-learning-fun-3668ef871eae) for more information.
 - Photo filters / augmentation: choose your favorite app (FaceApp, etc...)
 - Computational photography: Night mode, portrait mode, etc, many others. For example, [What does A.I. have to do with this selfie?](https://youtu.be/WHmp26bh0tI)
 - [How Does Your Phone Know This Is A Dog?](https://www.youtube.com/watch?v=bHvf7Tagt18)

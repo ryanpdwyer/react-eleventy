@@ -1,3 +1,4 @@
 {
-    "editor.wordWrap": "wordWrapColumn"
+    "editor.wordWrap": "wordWrapColumn",
+    "python.pythonPath": "/Users/dwyerry/anaconda3/envs/py38/bin/python"
 }

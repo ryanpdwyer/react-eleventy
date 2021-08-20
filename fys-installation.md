@@ -82,5 +82,5 @@ Here's an example of me doing all three on Windows:
 4. **If you had any issues installing/opening any of the applications, include a screenshot showing your problem, and/or contact me via [email](mailto:dwyerry@mountunion.edu). We can make sure you get everything installed correctly for the next class meeting.**
 
 
-5. **Submit the assignment to the [Dropbox folder](https://d2l.mountunion.edu/d2l/le/content/35016/viewContent/395465/View)** on D2L.
+5. **Submit the assignment to the [Dropbox folder](https://d2l.mountunion.edu/d2l/le/content/43087/viewContent/551651/View)** on D2L.
 

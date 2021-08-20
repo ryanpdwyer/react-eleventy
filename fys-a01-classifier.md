@@ -4,6 +4,8 @@ title: A2 Building a classifier model
 js: fys-installation-g.js
 ---
 
+# FYS A2 Building a classifier model
+
 ### Goals
 
 - Build a classifier AI model using Wekinator. 
@@ -52,7 +54,7 @@ js: fys-installation-g.js
 <iframe width="640" height="360" src="https://www.youtube.com/embed/oUrMZeCINgQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 5. Record your roughly 1 minute video, including all three parts described [above](#task), using [Screencast-o-matic](https://screencast-o-matic.com/). Make sure your voice is audible on the recording.
-6. Upload your video to [Youtube](https://youtube.com/upload) or Screencast-o-matic and submit the link to the [D2L Dropbox](https://d2l.mountunion.edu/d2l/le/content/35016/viewContent/397801/View).
+6. Upload your video to [Youtube](https://youtube.com/upload) or Screencast-o-matic and submit the link to the [D2L Dropbox](https://d2l.mountunion.edu/d2l/le/content/43087/viewContent/551590/View).
 
 <iframe width="640" height="360" src="https://www.youtube.com/embed/fP0VIrNPWW8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 

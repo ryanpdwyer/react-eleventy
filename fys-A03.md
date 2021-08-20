@@ -3,7 +3,6 @@ layout: vanillabootflex-full.njk
 title: A3 Discussion of Classifiers and Regression
 js: fys-installation.js
 ---
-
 ## Goals
 
 - Practice writing and editing
@@ -63,4 +62,4 @@ Not an exhaustive list: there are many other options!
 
 </div>
 
-**Due: Thursday 09/03 by 12 pm ** Start your new thread on the [A3 Discussion Board](https://d2l.mountunion.edu/d2l/le/content/35016/viewContent/397849/View)
+**Due: Monday 08/30 by 12 pm ** Start your new thread on the [A3 Discussion Board](https://d2l.mountunion.edu/d2l/le/content/43087/viewContent/551653/View)

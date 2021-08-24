@@ -37,7 +37,7 @@ You are welcome to work together on a project, just make sure that you would eac
     - Measure the kinetics of a chemical reaction
     - Measure the activation energy of a chemical reaction
     - Determine the mechanism of a chemical reaction
-    - Characterize the stability of gold nanoparticles created over the last 2 years
+    - Characterize the stability of gold nanoparticles created over the last 3 years
 - Electrochemistry
     - The EPA action level for lead in drinking water is 15 parts per billion (ppb). Using anodic stripping voltammetry, determine the limit of detection and quantification for this technique in our lab (method of standard additions). See [Screen-printed electrodes for environmental monitoring of heavy metal ions: a review](https://link.springer.com/article/10.1007/s00604-015-1651-0).
         - We have mercury-coated paper electrodes (like the carbon-coated electrodes used in lab).

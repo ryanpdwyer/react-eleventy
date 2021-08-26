@@ -1,6 +1,6 @@
 ---
 layout: vanillabootflex-full.njk
-title: Classifier and Regression Models...
+title: Changing Classifier Models
 js: V04-fys.js
 styles:
 	- fys.css
@@ -9,6 +9,9 @@ styles:
 <!-- To do: Consider making this check-in anonymous, or adding another college check-in here... -->
 
 ## Goals
+
+- Learn what specific models and algorithms Wekinator is using to do AI
+- Learn how to change the classifier model Wekinator is using
 
 ### Video
 
@@ -22,7 +25,7 @@ styles:
 
 Consider the following data trying to make a classifier to detect "in the box" (class 1, red) versus not in the box (class 2, blue). Unfortunately, the training data had an error - there was a point in the box mislabeled as outside of the box (this is common in real-world AI and machine learning!).
 
-Here are 2 picture showing two different models trained on the same training data:
+Here are pictures showing two different models trained on the same training data:
 
 ![Wekinator example 1](/img/nn-pictures.png)
 
@@ -31,4 +34,4 @@ Here are 2 picture showing two different models trained on the same training dat
 
 ### Check-in questions
 
-**By 12 pm Thursday, complete the check-in quiz** [C3: Models and College](https://d2l.mountunion.edu/d2l/lms/quizzing/user/quiz_summary.d2l?qi=20018&ou=35016)
+**By 12 pm Monday, complete the check-in quiz** [C3: Models and College](https://d2l.mountunion.edu/d2l/lms/quizzing/user/quiz_summary.d2l?qi=20018&ou=35016)

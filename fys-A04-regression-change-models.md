@@ -51,4 +51,4 @@ Here's an example of a classifier. Make sure you use **3 or more classes** in yo
 
 ### Submitting
 
-**Due: Tuesday 09/08 at 12 pm:** Upload your video to YouTube / Screencast-o-matic and submit the link to the [A4 Dropbox](https://d2l.mountunion.edu/d2l/le/content/35016/viewContent/400873/View?ou=35016)
+**Due: Friday 09/03 at 12 pm:** Upload your video to YouTube / Screencast-o-matic and submit the link to the [A4 Dropbox](https://d2l.mountunion.edu/d2l/le/content/43087/viewContent/551660/View?ou=43087)

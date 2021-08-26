@@ -5,6 +5,8 @@ title: P Chem Lab 4 - Project Choice
 
 # L1: UV-Vis spectroscopy of an indicator
 
+This page shows the lab experiment in a virtual lab environment.
+
 <div id="vlab">
 </div>
 

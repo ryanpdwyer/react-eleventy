@@ -24,4 +24,4 @@ styles:
 
 ### Check-in questions
 
-**By 10 am Tuesday, complete the check-in quiz** [C2: Regression](https://d2l.mountunion.edu/d2l/lms/quizzing/user/quiz_summary.d2l?qi=19905&ou=35016).
+**By 12 pm Friday, complete the check-in quiz** [C2: Regression](https://d2l.mountunion.edu/d2l/lms/quizzing/user/quiz_summary.d2l?qi=551658&ou=43087).

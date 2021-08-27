@@ -1,4 +1,8 @@
 {
     "editor.wordWrap": "wordWrapColumn",
-    "python.pythonPath": "/Users/dwyerry/anaconda3/envs/py38/bin/python"
+    "python.pythonPath": "/Users/dwyerry/anaconda3/envs/py38/bin/python",
+    "cSpell.enableFiletypes": [
+        "markdown",
+        "php"
+    ]
 }

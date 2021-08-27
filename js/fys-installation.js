@@ -13,6 +13,17 @@ function hide(element) {
 window.show = show;
 window.hide = hide;
 
+function toggle(element) {
+	const el  = document.getElementById(element);
+	if (el.getAttribute("hidden")) {
+		el.removeAttribute("hidden");
+	} else {
+		el.setAttribute("hidden", true);
+	}
+}
+
+window.toggle = toggle
+
 function randomizeElements(listEl) {
 	for (var i = listEl.children.length; i >= 0; i--) {
     listEl.appendChild(listEl.children[Math.random() * i | 0]);

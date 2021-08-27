@@ -7,7 +7,9 @@ css: lit.css
 
 # Tools for searching, managing, and citing scientific literature
 
-This page will briefly introduce you to these tools and provide links to more in-depth information to help you become more proficient using them over the course of the semester (**Learn more** boxes).
+This page will briefly introduce you to these tools and provide links to more in-depth information to help you become more proficient using them over the course of the semester (see **Learn more** boxes).
+
+Here is the [corresponding assignment](/img/lit-assignment.docx) that goes along with this page in Chemistry Seminar.
 
 ## Searching scientific literature
 

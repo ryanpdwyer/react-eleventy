@@ -10,6 +10,9 @@ function hide(element) {
 	el.setAttribute("hidden", true);
 }
 
+window.show = show;
+window.hide = hide;
+
 function randomizeElements(listEl) {
 	for (var i = listEl.children.length; i >= 0; i--) {
     listEl.appendChild(listEl.children[Math.random() * i | 0]);

@@ -3,14 +3,15 @@ layout: vanillabootflex-full.njk
 title: A3 Discussion of Classifiers and Regression
 js: fys-installation.js
 ---
+
 ## Goals
 
 - Practice writing and editing
 - Connect AI / machine learning theory to applications
+# A3 Discussion post: Classifiers and Regression in the wild
 
-# A3: Discussion post: Classifiers and Regression in the wild
 
-Choose an application of AI / machine learning. It could be from the list of applications below or any others you can think of or find on your own. Write a discussion post that "reviews" the application:
+Choose an application of AI / machine learning. It could be from the list of applications below or any others you can think of or find on your own. Write a discussion post that "reviews" the application for your classmates:
 
 1) Includes a descriptive title
 2) Briefly explains the application and its purpose
@@ -31,7 +32,7 @@ Also, check to make sure your post avoids these **critical mistakes:**
 2) Run-on sentences (comma splices and fused sentences)
 3) Sentence sprawl (Long sentences that contain many clauses which makes it hard to infer the meaning that the writer is trying to get across because all of those extra words and clauses get in the way of the reader's comprehension-like this sentence!)
 
-Also check for basic spelling errors, typos, capitalization errors.
+Also check for basic spelling errors, typos, and capitalization errors.
 
 ## Potential Topics
 

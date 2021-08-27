@@ -45,9 +45,9 @@ function App (props) {
   <h4>Which type of model?</h4>
   <p>For each task below, determine whether you would use a machine learning classification, regression, or time (dynamic time warping) model.</p>
     <li>
-		<MCQ name="w1" options={buildOptions(['Nodding or shaking your head are two categories or classes, but they are gestures that vary with time.', 'There is no continuous output here - we are trying to identify when we see a person nodding their head (1) or shaking their head (2)',
+		<MCQ name="w1" options={buildOptions(['Nodding or shaking your head are two categories or classes, but they are gestures that vary with time, and we want to identify the precise moment the person begins nodding or shaking', 'There is no continuous output here - we are trying to identify when we see a person nodding their head (1) or shaking their head (2)',
 		'Yes, because we are categorizing gestures (that depend on time)'], 'T')}>
-	Play a sound when a person nods or shakes their head.
+	Play a sound when a person begins to nod or shake their head.
   </MCQ>
 	</li>
 <li>

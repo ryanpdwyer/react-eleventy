@@ -34,4 +34,4 @@ Here are pictures showing two different models trained on the same training data
 
 ### Check-in questions
 
-**By 12 pm Monday, complete the check-in quiz** [C3: Models and College](https://d2l.mountunion.edu/d2l/lms/quizzing/user/quiz_summary.d2l?qi=20018&ou=35016)
+**By 12 pm Monday, complete the check-in quiz** [C3: Models and College](https://d2l.mountunion.edu/d2l/le/content/43087/viewContent/551660/View?ou=43087)

@@ -15,7 +15,7 @@ Here is the [corresponding assignment](/img/lit-assignment.docx) that goes along
 
 There are many sources listed on the library's [Chemistry Resources](https://www.mountunion.edu/academics/library/chemistry-resources) page.
 
-**Learn more:**  [Chemistry Literature Tutorial](https://guides.lib.utexas.edu/chemistry/literaturetutorial)
+**Learn more:**  [Chemistry Literature Tutorial](https://guides.lib.utexas.edu/chemistry/literaturetutorial) This University of Texas LibGuide is a fantastic resource; I strongly reccomend referring back to it when you do your own literature searches.
 
 ### SciFinder Registration
 
@@ -24,7 +24,7 @@ There are many sources listed on the library's [Chemistry Resources](https://www
 <div id="scifinder-reg" markdown="1">
 
 - [SciFinder](https://login.mt.opal-libraries.org/login?url=https://scifinder.cas.org/scifinder/login?TYPE=33554433&REALMOID=06-b7b15cf0-642b-1005-963a-830c809fff21&GUID=&SMAUTHREASON=0&METHOD=GET&SMAGENTNAME=-SM-wNXZ1RZQlZLQYv7NUS67HRPrsFE4zQPPc65bhKZLnR6OPJ9%2bos7bfMIDylPOZvbo&TARGET=-SM-http%3a%2f%2fscifinder%2ecas%2eorg%3a443%2fscifinder%2f) Bookmark this link for easy access to SciFinder from off campus.
-    - To sign up, [register here](https://login.mt.opal-libraries.org/login?url=https://scifinder.cas.org/registration/index.html?corpKey=E530CBEA-86F3-50AB-7B49-7B248AED8219). Users must complete a self registration form using a "@mountunion.edu" email address. **PLEASE READ THE FOLLOW-UP EMAIL AND FOLLOW DIRECTIONS TO ACCESS SciFinder.**
+    
 
 </div>
 
@@ -32,9 +32,10 @@ There are many sources listed on the library's [Chemistry Resources](https://www
 
 Some of the most commonly used in biochemistry and chemistry are
 
-- [SciFinder](https://login.mt.opal-libraries.org/login?url=https://scifinder.cas.org/scifinder/login?TYPE=33554433&REALMOID=06-b7b15cf0-642b-1005-963a-830c809fff21&GUID=&SMAUTHREASON=0&METHOD=GET&SMAGENTNAME=-SM-wNXZ1RZQlZLQYv7NUS67HRPrsFE4zQPPc65bhKZLnR6OPJ9%2bos7bfMIDylPOZvbo&TARGET=-SM-http%3a%2f%2fscifinder%2ecas%2eorg%3a443%2fscifinder%2f) Lots of chemical information not available anywhere else.
-- [PubMed](https://www.ncbi.nlm.nih.gov/pubmed/) 
-- [Web of Science](https://login.mt.opal-libraries.org/login?url=https://app.webofknowledge.com) 
+- [SciFinder](https://login.mt.opal-libraries.org/login?url=https://scifinder.cas.org/scifinder/login?TYPE=33554433&REALMOID=06-b7b15cf0-642b-1005-963a-830c809fff21&GUID=&SMAUTHREASON=0&METHOD=GET&SMAGENTNAME=-SM-wNXZ1RZQlZLQYv7NUS67HRPrsFE4zQPPc65bhKZLnR6OPJ9%2bos7bfMIDylPOZvbo&TARGET=-SM-http%3a%2f%2fscifinder%2ecas%2eorg%3a443%2fscifinder%2f) Lots of chemical information not available anywhere else. Bookmark the link for easy access from off campus. **New SciFinder user?**
+    - To sign up, [register here](https://login.mt.opal-libraries.org/login?url=https://scifinder.cas.org/registration/index.html?corpKey=E530CBEA-86F3-50AB-7B49-7B248AED8219) using your mountunion.edu email address. PLEASE READ THE FOLLOW-UP EMAIL AND FOLLOW DIRECTIONS TO ACCESS SciFinder.
+- [PubMed](https://www.ncbi.nlm.nih.gov/pubmed/) Free database of medical research.
+- [Web of Science](https://login.mt.opal-libraries.org/login?url=https://app.webofknowledge.com) A good general-purpose scientific search tool with a few capabilities not found in SciFinder. Bookmark the link for easy access from off-campus.
 
 ## Reference management software
 
@@ -75,7 +76,6 @@ A variety of search strategies are shown below:
 
 The best way to do this depends on the particular search engine you use. See the [assignment](/img/lit-assignment.docx) for a walk-through.
 
-
 ### Searching by molecule
 
 - See SciFinder's substance identifier tool.
@@ -92,9 +92,7 @@ In Web of Science, use the Times Cited box:
 
 From there, the citations can be systematically analyzed, and refined in various ways. This can be an especially useful technique for a paper that helped launch a new field or sub-field (like Frances Arnold's paper ["Tuning the activity of an enzyme for unusual environments: sequential random mutagenesis of subtilisin E for catalysis in dimethylformamide,"](http://dx.doi.org/10.1073/pnas.90.12.5618) the first paper demonstrating directed evolution, for which she won half of the 2018 Nobel Prize in Chemistry). Since future papers in the field should always cite this original work, the cited references can help you see the current state of the field.
 
-
-
-## Other useful tools 
+## Other useful tools
 ### Accessing sources off-campus
 
 <a href="javascript:void(location.href=%22http://mt.opal-libraries.org/login?url=%22+location.href);">UMU proxy</a>
@@ -105,9 +103,6 @@ Drag the link above to the bookmark toolbar or on mobile devices, bookmark any p
 
 To use the bookmarklet, nagivate to the journal article or off-campus resource you want to use, then click the bookmarklet to re-direct through the Mount Union library proxy.
 
-
 ### Looking up articles by citation
 
-[Crossref](https://search.crossref.org/) is very useful for this (Google has gotten much better at this, but still sometimes fails to find the correct citation). Just paste the citation, and it should return the correct article at or near the top of the search results.
-
-
+[Crossref](https://search.crossref.org/) is very useful for this (Google has gotten much better, but still sometimes fails to find the correct citation). Just paste the citation, and it should return the correct article at or near the top of the search results.

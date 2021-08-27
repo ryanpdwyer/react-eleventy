@@ -1,7 +1,8 @@
 ---
-layout: vanillabootflex-md.njk
+layout: vanillabootflex-md-pdflib.njk
 title: Searching, managing, and citing literature
 js: fys-installation.js
+css: lit.css
 ---
 
 # Tools for searching, managing, and citing scientific literature
@@ -70,7 +71,7 @@ A variety of search strategies are shown below:
 
 ### Searching by topic
 
-The best way to do this depends on the particular search engine you use. See the [assignment](/img/lit-assigment.docx) for a walk-through.
+The best way to do this depends on the particular search engine you use. See the [assignment](/img/lit-assignment.docx) for a walk-through.
 
 
 ### Searching by molecule

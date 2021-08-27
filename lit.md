@@ -49,6 +49,7 @@ For an overview of how to import items into Zotero, see [Getting stuff into your
 3.  A plug-in for Word so that references and bibliographies can be imported and managed *automatically* (using the correct citation style, automatic numbering, etc...). In Zotero, this appears as its own menu in the ribbon:
 <img class="img-fluid" alt="Zotero word plug-in" src="/img/zotero-word.png">
 with options for adding citations, adding a bibliography, and preferences for managing how the citations and bibliography appear. For more information, see [Using the Zotero Word Plugin](https://www.zotero.org/support/word_processor_plugin_usage).
+    - You may need to manually install the plugin - see the [manual installation instructions](https://www.zotero.org/support/word_processor_plugin_manual_installation) or contact me (<a href='mailto&#58;dwyer%72&#121;&#64;&#109;&#111;u&#110;t%75&#110;i%6&#70;n&#46;edu'>&#100;wyerry&#64;mount&#117;nion&#46;ed&#117;</a>).
 
 
 For a more general overview of Zotero's features, see the [Quick Start Guide](https://www.zotero.org/support/quick_start_guide). For other questions, see the complete [documentation](https://www.zotero.org/support/start) (or feel free to ask me).
@@ -69,7 +70,7 @@ A variety of search strategies are shown below:
 
 ### Searching by topic
 
-The best way to do this depends on the par
+The best way to do this depends on the particular search engine you use. See the [assignment](/img/lit-assigment.docx) for a walk-through.
 
 
 ### Searching by molecule

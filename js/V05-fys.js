@@ -73,4 +73,7 @@ const div = document.getElementById("question-node");
 
 ReactDOM.render(<App />, div);
 
+window.show = show;
+window.hide = hide;
+
 // document.getElementById("v1").play();

@@ -64,18 +64,12 @@ Can't decide? Hit the button for a random suggestion.
 - [LeapMotion Hand Tracking](https://www.ultraleap.com/product/leap-motion-controller/) via [Processing](http://www.doc.gold.ac.uk/~mas01rf/WekinatorDownloads/wekinator_examples/all_source_zips/LeapMotionViaProcessing.zip) I have one available if you are interested.
 </div>
 
-### Check-in Due Wednesday night 11:59 pm
+### Check-in Due Wednesday 12 pm
 
-Check-in ([C5: Build an AI Project topic](https://d2l.mountunion.edu/d2l/lms/quizzing/user/quiz_summary.d2l?qi=20021&ou=35016)) is due earlier so I can read through your model ideas before class.
+Check-in ([C5: Build an AI Project topic](https://d2l.mountunion.edu/d2l/le/content/43087/viewContent/551612/View?ou=43087) The questions are listed below.
 
-The questions are listed below.
-
-1. What model would you like to build?
+1. What model would you like to build? What will it do?
 2. What kind of inputs could you use (from the list above: Teachable Machine Image, Teachable Machine Audio, Wekinator Machine Face...)?
     What kind of outputs (classification, regression, dynamic time warping...)?
 3. What different or modified project/model would you be interested in? (This could be something completely different, or just a small variation).
 4. What was unclear, or what is one remaining question you have?
-
-
-
-

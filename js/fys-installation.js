@@ -31,6 +31,25 @@ function randomizeElements(listEl) {
 }
 
 
+function toggleWindowsMac(event) {
+	if (windowsVisible){
+		hide('windows-install');
+		show('mac-install');
+		document.getElementById("video-heading").innerText = "Mac"
+		document.getElementById("button").innerText = "Show Windows"
+		windowsVisible = false;
+	} else {
+		show('windows-install');
+		hide('mac-install');
+		document.getElementById("video-heading").innerText = "Windows"
+		document.getElementById("button").innerText = "Show Mac"
+		windowsVisible = true;
+	}
+}
+
+window.toggleWindowsMac = toggleWindowsMac;
+
+
 
 function randomInput() {
 	const modelOptions = [ {"Teachable Machine Image": ["Classifier", "Dynamic Time Warping"]},

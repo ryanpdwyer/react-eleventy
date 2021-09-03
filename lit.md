@@ -23,7 +23,7 @@ There are many sources listed on the library's [Chemistry Resources](https://www
 
 <div id="scifinder-reg" markdown="1">
 
-- [SciFinder](https://login.mt.opal-libraries.org/login?url=https://scifinder.cas.org/scifinder/login?TYPE=33554433&REALMOID=06-b7b15cf0-642b-1005-963a-830c809fff21&GUID=&SMAUTHREASON=0&METHOD=GET&SMAGENTNAME=-SM-wNXZ1RZQlZLQYv7NUS67HRPrsFE4zQPPc65bhKZLnR6OPJ9%2bos7bfMIDylPOZvbo&TARGET=-SM-http%3a%2f%2fscifinder%2ecas%2eorg%3a443%2fscifinder%2f) Bookmark this link for easy access to SciFinder from off campus.
+- [SciFinder](https://login.mt.opal-libraries.org/login?url=https://scifinder.cas.org/) Bookmark this link for easy access to SciFinder from off campus.
     
 
 </div>
@@ -32,7 +32,7 @@ There are many sources listed on the library's [Chemistry Resources](https://www
 
 Some of the most commonly used in biochemistry and chemistry are
 
-- [SciFinder](https://login.mt.opal-libraries.org/login?url=https://scifinder.cas.org/scifinder/login?TYPE=33554433&REALMOID=06-b7b15cf0-642b-1005-963a-830c809fff21&GUID=&SMAUTHREASON=0&METHOD=GET&SMAGENTNAME=-SM-wNXZ1RZQlZLQYv7NUS67HRPrsFE4zQPPc65bhKZLnR6OPJ9%2bos7bfMIDylPOZvbo&TARGET=-SM-http%3a%2f%2fscifinder%2ecas%2eorg%3a443%2fscifinder%2f) Lots of chemical information not available anywhere else. Bookmark the link for easy access from off campus. **New SciFinder user?**
+- [SciFinder](https://login.mt.opal-libraries.org/login?url=https://scifinder.cas.org/) Lots of chemical information not available anywhere else. Bookmark the link for easy access from off campus. **New SciFinder user?**
     - To sign up, [register here](https://login.mt.opal-libraries.org/login?url=https://scifinder.cas.org/registration/index.html?corpKey=E530CBEA-86F3-50AB-7B49-7B248AED8219) using your mountunion.edu email address. PLEASE READ THE FOLLOW-UP EMAIL AND FOLLOW DIRECTIONS TO ACCESS SciFinder.
 - [PubMed](https://www.ncbi.nlm.nih.gov/pubmed/) Free database of medical research.
 - [Web of Science](https://login.mt.opal-libraries.org/login?url=https://app.webofknowledge.com) A good general-purpose scientific search tool with a few capabilities not found in SciFinder. Bookmark the link for easy access from off-campus.

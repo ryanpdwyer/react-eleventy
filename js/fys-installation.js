@@ -30,6 +30,9 @@ function randomizeElements(listEl) {
 	}
 }
 
+let windowsVisible = true;
+
+window.windowsVisible = windowsVisible;
 
 function toggleWindowsMac(event) {
 	if (windowsVisible){
@@ -37,13 +40,13 @@ function toggleWindowsMac(event) {
 		show('mac-install');
 		document.getElementById("video-heading").innerText = "Mac"
 		document.getElementById("button").innerText = "Show Windows"
-		windowsVisible = false;
+		window.windowsVisible = false;
 	} else {
 		show('windows-install');
 		hide('mac-install');
 		document.getElementById("video-heading").innerText = "Windows"
 		document.getElementById("button").innerText = "Show Mac"
-		windowsVisible = true;
+		window.windowsVisible = true;
 	}
 }
 

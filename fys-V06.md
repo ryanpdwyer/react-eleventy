@@ -18,11 +18,18 @@ We'll be working on this project for the next 4 weeks of the semester.
 
 ### Video
 
+Here are some of the possible inputs you could use:
+
 <iframe width="640" height="360" src="https://www.youtube.com/embed/jb45WGyTrf8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+This video lays out what to do for Wednesday:
+
+<iframe width="640" height="360" src="https://www.youtube.com/embed/NRYBpwDipIc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
 <h4>Wekinator Machine</h4>
 
-To follow along with the last part of the video, install Wekinator Machine by downloading here: [Windows](https://github.com/ryanpdwyer/wekinator-machine/releases/download/v1.2.6/WekinatorMachine-1.2.6.Setup.exe) or [Mac](https://github.com/ryanpdwyer/wekinator-machine/releases/download/v1.2.6/WekinatorMachine-darwin-x64-1.2.6.zip). For help completing the installation, see the video below:
+To follow along with the first video, install Wekinator Machine by downloading here: [Windows](https://github.com/ryanpdwyer/wekinator-machine/releases/download/v1.2.6/WekinatorMachine-1.2.6.Setup.exe) or [Mac](https://github.com/ryanpdwyer/wekinator-machine/releases/download/v1.2.6/WekinatorMachine-darwin-x64-1.2.6.zip). For help completing the installation, see the video below:
 
 <h5 id="video-heading">Windows</h5>
 

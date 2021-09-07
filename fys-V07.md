@@ -11,14 +11,15 @@ This page has resources for Week 4, where you will work on your AI model project
 
 ### Helpful Hints
 
-- **Take notes**
+- **Take notes** (A Word or Google doc tracking your progress is useful)
+- **Save your models!** 
+	- Remember to save using `File > Save Project` in Wekinator or `≡ > Save Project to Drive` in Teachable Machine.
 - **Talk to your classmates and me**
-	- [Model Talk Discussion](https://d2l.mountunion.edu/d2l/le/content/35016/viewContent/426682/View)
+	- [Model Talk Discussion](https://d2l.mountunion.edu/d2l/le/content/43087/viewContent/551614/View) is a good place to post issues, etc.
 
-### 2. Building your model (due Tuesday 09/15)
+### 2. Building your model (due Monday 09/13)
 
-- Build at least **2** versions of your model (make sure to save them in Google Drive or your computer).
-	- For *some* teachable Machine models, that may be difficult. In that case, make sure to post a link to your model on the discussion forum so you can have more data with other people testing it out.
+- Build at least **2** versions of your model (**make sure to save them in Google Drive or your computer**).
 - Compare and contrast to figure out what works well or poorly. Really try your best to think of ways to "fool" the model---seeing where the models fail helps you learn more about the model!
 
 
@@ -33,12 +34,17 @@ When you have a reasonable version of your model, record a short video in which 
 **Note: If you have had trouble with your microphone, try headphones and check this [video](https://www.youtube.com/watch?v=KoMqLEbUdMg) for tips.**
 
 
-**Due: Tuesday 09/15 at 10 am (so I can check them before class)** [A5: Dropbox](https://d2l.mountunion.edu/d2l/le/content/35016/viewContent/426857/View)
+**Due: Monday 09/13 at 12 pm** [A5: Dropbox](https://d2l.mountunion.edu/d2l/le/content/35016/viewContent/426857/View)
 
-### 3. Background information and applications (Thursday 09/17)
 
-You are responsible for learning a bit about the models you use to build your model. Here are some potentially useful starting points. You should also check out the list of models from [assignment A3](/fys-A03) as well.
+- post a link to your model on the discussion forum so you can have more data with other people testing it out.
 
+### 3. Background information and applications (due Wednesday 09/15)
+
+You are responsible for learning a bit about the AI models you used to build your model - this will help you explain what your AI is and how it works in your paper. Here are some potentially useful starting points. You should also check out the list of models from [assignment A3](/fys-A03) as well.
+
+
+- [Transfer learning](https://www.youtube.com/watch?v=kRpZ5OqUY6Y) All three of the Teachable Machine classifiers, and the face mesh model are built using transfer learning. This is an extremely powerful technique that has made it easy for anyone to quickly build their own AI.
 - Teachable Machine
 	- [Designing and Learning Teachable Machine](https://design.google/library/designing-and-learning-teachable-machine/) A nice article talking about how the original teachable machine was designed.
 	- [Teachable Machine 2.0](https://venturebeat.com/2019/11/07/google-teachable-machine-2-ai-machine-learning/)
@@ -68,6 +74,4 @@ You are responsible for learning a bit about the models you use to build your mo
 	- [On-Device, Real-Time Hand Tracking with MediaPipe](https://ai.googleblog.com/2019/08/on-device-real-time-hand-tracking-with.html)
 	- [MediaPipe Hands Model Card](https://drive.google.com/file/d/14pjkgLl3t3jiTiCFuvWGB-uAX_aVZOS5/view)
 	- [](https://analyticsindiamag.com/google-open-sources-new-real-time-hand-gesture-tracking-ml-pipeline/)
-
-All three of the Teachable Machine classifiers, and the face mesh model are built using [transfer learning](https://www.youtube.com/watch?v=kRpZ5OqUY6Y).
 

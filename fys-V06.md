@@ -35,6 +35,14 @@ To follow along with the first video, install Wekinator Machine by downloading h
 
 <button id="button" onclick="toggleWindowsMac();">Show Mac</button>
 
+
+<iframe width="640" height="360" src="https://www.youtube.com/embed/zE_7wf6Z-F8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
+id='windows-install'></iframe>
+
+<iframe width="640" height="360" src="https://www.youtube.com/embed/xbYMMi0bSZY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
+id='mac-install' hidden></iframe>
+
+
 ### Potential Inputs
 
 See the list of potential inputs (discussed in the video) below. 

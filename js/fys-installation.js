@@ -35,7 +35,7 @@ let windowsVisible = true;
 window.windowsVisible = windowsVisible;
 
 function toggleWindowsMac(event) {
-	if (windowsVisible){
+	if (window.windowsVisible){
 		hide('windows-install');
 		show('mac-install');
 		document.getElementById("video-heading").innerText = "Mac"

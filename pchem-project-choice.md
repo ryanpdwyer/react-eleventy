@@ -37,6 +37,7 @@ You are welcome to work together on a project, just make sure that you would eac
     - Utilize the variable temperature add-on to measure the variation of the equilibrium constant with temperature, enabling you to determine the enthalpy change \\(\Delta H^\circ\\) and entropy change \\(\Delta S^\circ \\) for the reaction.
     - Measure the kinetics of a chemical reaction
     - Measure the activation energy of a chemical reaction
+    - Time-resolved measurements: [Flash Photolysis Experiment of o-Methyl Red as a Function of pH: A Low-Cost Experiment for the Undergraduate Physical Chemistry Lab](https://doi.10.1021/acs.jchemed.6b00403)
     - Determine the mechanism of a chemical reaction
     - Characterize the stability of gold nanoparticles created over the last 3 years
 - Electrochemistry
@@ -51,21 +52,38 @@ You are welcome to work together on a project, just make sure that you would eac
         - There are also good applications of contact angle measurements to better understand what the surfaces look like.
     - Perform an electrochemical titration.
     - Coat an electrode with gold nanoparticles and investigate its utility as a sensor.
-    - Electroplate metals onto a carbon electrode, measure how much metal is deposited (team electrochemistry did most of this on Thursday).
+    - Electroplate metals onto a carbon electrode, measure how much metal is deposited (team electrochemistry did most of this on Thursday), see [Metal Electrodeposition on an Integrated, Screen-Printed Electrode Assembly](https://doi.org/10.1021/ed085p565)
 - Contact angle measurement
     - Modify the surface of glass, ITO, and gold materials with self-assembled monolayers or electrochemically grown layers, quantify using the contact angle.
+        - Gold: [Patterning Self-Assembled Monolayers on Gold. Green Materials Chemistry in the Teaching Laboratory](https://doi.org/10.1021/ed081p545)
     - Determine the reproducibility of our contact angle setup (± how many degrees for a single measurement)
     - Quantify the roughness of electrochemically grown electrodes (roughness affects the contact angle)
 - Stamping (contact lithography)
 - Spin-coating
 - Projects using multiple techniques
     - Spin-coat a \[Ru(bipy)<sub>3</sub>\]<sup>3+</sup> film and measure its electochemical and electroluminescent properties. See [Using Organic Light-Emitting Electrochemical Thin-Film Devices To Teach Materials Science](https://pubs.acs.org/doi/pdf/10.1021/ed081p1620).
+    - [Conductive PEDOT Covalently Bound to Transparent FTO Electrodes](https://doi.org/10.1021/jp412758g)
 - Polarimetry 
     - Set up a polarimeter to measure optical rotation (how much light is rotated by chiral molecules)
+    - See [Low-Cost 3D-Printed Polarimeter](https://doi.org/10.1021/acs.jchemed.9b01083), possibly even simpler
+- Set up our Raman spectrometer! Based on [Inexpensive Raman Spectrometer for Undergraduate and Graduate Experiments and Research](https://doi.org/10.1021/ed800081t)
+    ![Raman spectrometer](/img/Raman-Spectrometer-Green.png)
+    - Measure fluorescence of fluorescin to align the instrument
+    - Use the [Tollens reaction](https://edu.rsc.org/exhibition-chemistry/the-silver-mirror-test/2020077.article) to make a nice silver-coated microscope slide
 - Electrical measurements
     - Another way to measure the properties of conductive films, like PEDOT.
+    - Constructing a nice 4-point probe: [Studying Electrical Conductivity Using a 3D Printed Four-Point Probe Station](10.1021/acs.jchemed.7b00119)
+- 3D Printing
+    - [Using Open-Source, 3D Printable Optical Hardware To Enhance Student Learning in the Instrumental Analysis Laboratory](https://doi.org/10.1021/acs.jchemed.7b00480)
 - Calorimetry
     - Measure \\(\Delta H^\circ\\) and \\( K \\) or activation energy using a simple calorimeter. See [Efficient Method for the Determination of the Activation Energy of the Iodide-Catalyzed Decomposition of Hydrogen Peroxide](https://doi.org/10.1021/ed500116g).
 - Differential Scanning calorimetry
     - Not working well, but you could try to measure the melting point / purity of gallium, gallium-indium eutectic, and other low-melting point materials (chocolate?). There would certainly be some good applications, even if you data wouldn't be great.
 
+<script>
+const imgs = document.querySelectorAll("img")
+imgs.forEach(function (img) {
+    img.style = "max-width: 80%;"
+}
+)
+</script>

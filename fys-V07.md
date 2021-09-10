@@ -21,11 +21,13 @@ This page has resources for Week 4, where you will work on your AI model project
 
 - Build at least **2** versions of your model (**make sure to save them in Google Drive or your computer**).
 - Compare and contrast to figure out what works well or poorly. Really try your best to think of ways to "fool" the model---seeing where the models fail helps you learn more about the model!
+- Think about what you want your model's output to control - whether you want to control a game, or show some text, or play music / sounds. How can we edit one of the existing outputs to do what you want?
 
 
-When you have a reasonable version of your model, record a short video in which you 
 
-1. State what the purpose of your model is.
+When you have a reasonable version of your AI model, record a short video in which you 
+
+1. State what the purpose of your project is.
 2. Show the model running, talking about how well it works.
 3. Show another version of the model running, comparing/contrasting with the first version of your model. **Note: It's okay not to have this if you can't come up with another version of the model. If so, talk through other versions of the model you could make.** It's also okay if the other version of your model is really bad-remember how badly some of those other classifier models did in your last video.
 4. Ask any questions you have about your project, next steps, etc...
@@ -37,7 +39,7 @@ When you have a reasonable version of your model, record a short video in which 
 **Due: Monday 09/13 at 12 pm** [A5: Dropbox](https://d2l.mountunion.edu/d2l/le/content/35016/viewContent/426857/View)
 
 
-- post a link to your model on the discussion forum so you can have more data with other people testing it out.
+- Post a link to your model on the discussion forum so you can have more data with other people testing it out.
 
 ### 3. Background information and applications (due Wednesday 09/15)
 

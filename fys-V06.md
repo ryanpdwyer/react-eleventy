@@ -60,6 +60,12 @@ See the list of potential inputs (discussed in the video) below.
 
 </div>
 
+### Potential outputs
+
+Think about what you want your model to do - it should be pretty clear whether you need classifier, continuous (regression), or gesture recognition (dynamic time warping outputs). If you're not sure, let me know and I can give you feedback via D2L, in-class or office hours.
+
+Beyond just what outputs, think about what will make your model appealing - is there a way to tweak one of our Processing outputs to do something more interesting?
+
 <h4> Random Suggested Input and Output </h4>
 
 Can't decide? Hit the button for a random suggestion.

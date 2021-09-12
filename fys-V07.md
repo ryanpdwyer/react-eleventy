@@ -5,9 +5,11 @@ styles:
 	- fys.css
 ---
 
-# Building an AI model Project
+# Building an AI Model Project
 
-This page has resources for Week 4, where you will work on your AI model project.
+This page has resources for Week 4, where you will work on your AI model project. 
+
+**Previous:** See [Building an AI Model Project Overview](/fys-V06) for an overview of the whole project and the list of all the different potential inputs (and some of the potential outputs).
 
 ### Helpful Hints
 
@@ -36,14 +38,16 @@ When you have a reasonable version of your AI model, record a short video in whi
 **Note: If you have had trouble with your microphone, try headphones and check this [video](https://www.youtube.com/watch?v=KoMqLEbUdMg) for tips.**
 
 
-**Due: Monday 09/13 at 12 pm** [A5: Dropbox](https://d2l.mountunion.edu/d2l/le/content/35016/viewContent/426857/View)
+**Due: Monday 09/13 at 12 pm** [A6: Building an AI Project model Dropbox](https://d2l.mountunion.edu/d2l/le/content/43087/viewContent/50574/View)
 
 
-- Post a link to your model on the discussion forum so you can have more data with other people testing it out.
-
+- If you model uses Teachable Machine, post a link to your model on our shared Google Doc so others can try it out in class on Monday (and you can get more information about how well/poorly your model works).
 ### 3. Background information and applications (due Wednesday 09/15)
 
 You are responsible for learning a bit about the AI models you used to build your model - this will help you explain what your AI is and how it works in your paper. Here are some potentially useful starting points. You should also check out the list of models from [assignment A3](/fys-A03) as well.
+
+
+**Due Wednesday 09/15** Fill out the template document on D2L, then submit your outline / references.
 
 
 - [Transfer learning](https://www.youtube.com/watch?v=kRpZ5OqUY6Y) All three of the Teachable Machine classifiers, and the face mesh model are built using transfer learning. This is an extremely powerful technique that has made it easy for anyone to quickly build their own AI.
@@ -76,4 +80,6 @@ You are responsible for learning a bit about the AI models you used to build you
 	- [On-Device, Real-Time Hand Tracking with MediaPipe](https://ai.googleblog.com/2019/08/on-device-real-time-hand-tracking-with.html)
 	- [MediaPipe Hands Model Card](https://drive.google.com/file/d/14pjkgLl3t3jiTiCFuvWGB-uAX_aVZOS5/view)
 	- [](https://analyticsindiamag.com/google-open-sources-new-real-time-hand-gesture-tracking-ml-pipeline/)
+
+
 

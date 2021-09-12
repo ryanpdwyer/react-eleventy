@@ -1,10 +1,10 @@
 ---
 layout: vanillabootflex-katex.njk
-title: P Chem Lab A4 - Comp Chem and Spectroscopy
+title: P Chem A5 - Comp Chem and Spectroscopy
 js: pchem.js
 ---
 
-# CHE 341 A4: Computational Chemistry and Spectroscopy Problems
+# CHE 341 A5: Computational Chemistry and Spectroscopy Problems
 
 These videos walk through the Problems 4 and 5 on Assignment 4. 
 

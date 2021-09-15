@@ -23,6 +23,21 @@ After the coordinate scan finishes:
 <iframe width="640" height="360" src="https://www.youtube.com/embed/jmNkoJgTzn8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
+### Last part (f)
+Look at the videos below to see what the equilibrium distribution of butate looks like at different temperatures.
+
+Butane at low temperature (115 K):
+
+<video controls src="/img/butane-low-T.mov"></video>
+
+Butane at room temperature  (~300 K):
+
+<video controls src="/img/butane-RT.mov"></video>
+
+Butane at high temperature (~800 K):
+
+<video controls src="/img/butane-high-T.mov"></video>
+
 ## 5 Rotational and Roto-vibrational spectra of CO
 
 In the video below, I walk through doing this problem for NO, which has a somewhat different rotational constant \\(B\\).

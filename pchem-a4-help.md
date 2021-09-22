@@ -48,5 +48,5 @@ In the video below, I walk through doing this problem for NO, which has a somewh
 
 Here's an animation of a toy model of the roto-vibrational spectrum as the temperature changes in Mathematica:
 
-<video width="378" height="253" src="/img/CO-Vibration-vs-T.mov" loop autoplay>
+<video width="378" height="253" src="/img/CO-Vibration-vs-T.mov" loop autoplay controls>
 </video>

@@ -12,7 +12,7 @@ js: fys-installation.js
 
 ### Assignment
 
-For Thursday, we won't do a full reflection. Just answer these questions in a Word doc.
+For Wednesday, we won't do a full reflection. Just answer these questions in a Word doc.
 
 1. Briefly (2-3 sentences) explain **one** of the key terms introduced in this chapter, such as:
     - Deepfakes
@@ -28,5 +28,5 @@ For Thursday, we won't do a full reflection. Just answer these questions in a Wo
 4. What's a question you have, or something that's unclear?
 
 
-**Due by Thursday October 15th at 12 pm** to the [D2L Dropbox](https://d2l.mountunion.edu/d2l/le/content/35016/viewContent/438381/View)
+**Due by Wednesday October 13th at 12 pm** to the [D2L Dropbox](https://d2l.mountunion.edu/d2l/le/content/43087/viewContent/551566/View)
 

@@ -34,5 +34,5 @@ The prompt is meant to guide your reading and reflection-you are free to choose 
 - Describe one principle and one rule that is the most interesting or surprising to you. 
 - Or write about any other part of the reading you had a strong reaction to!
 
-**Due by Tuesday October 13th at 12 pm** to the [D2L Dropbox](https://d2l.mountunion.edu/d2l/le/content/35016/viewContent/436830/View)
+**Due by Monday October 11th at 12 pm** to the [D2L Dropbox](https://d2l.mountunion.edu/d2l/le/content/43087/viewContent/551562/View)
 

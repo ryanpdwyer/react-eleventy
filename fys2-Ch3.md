@@ -7,7 +7,11 @@ js: fys-installation.js
 ### Goals
 
 
-- Gain a basic familiarity with common machine learning algorithms and strategies
+- Describe common machine learning algorithms and strategies
+
+
+**Why is this important?** The "learning" isn't magic - computers are still just blindly following your directions.
+
 
 <!--  Why is this important? The learning isn't magic.
       Computers are still just following your directions blindly.
@@ -31,12 +35,9 @@ The prompt is meant to guide your reading and reflection-you are free to choose 
 As usual, feel free to reflect on something else of interest if you prefer!
 
 
-
-
 <!-- Do this in class. Choose one of the applications to reflect on (200-300 words)
 
 -->
 <!-- **Prompt:** Choose a potential topic for the second paper / presentation. Using some of what you learned in Chapter 3, describe how your AI learns. -->
 
-**Due by Tuesday October 20th at 12 pm** to the [D2L Dropbox](https://d2l.mountunion.edu/d2l/le/content/43087/viewContent/439672/View)
-
+**Due by Tuesday October 19th at 12 pm** to the [D2L Dropbox](https://d2l.mountunion.edu/d2l/le/content/43087/viewContent/551569/View)

@@ -41,12 +41,12 @@ Image models:
 **Prompts:** Again, feel free to use any these prompts as the basis of your reflection (or choose your own).
 
 - Give an example of an AI that solves the wrong problem, and explain why it is solving the wrong problem. It may be helpful to reference the overall explanations from the beginning of the chapter: (1) They develop their own ways of solving a problem (rather than relying on step-by-step instructions from a programmer); and (2) They lack the contextual knowledge to understand when their solutions are not what humans would have preferred.
-- Google researcher Alex Irpan imagines AI "as a demon that's deliberately misinterpreting your reward and actively searching for the laziest possible way local optima." Explain the meaning of this quote and give examples of AIs that behave in this way.
+- Google researcher Alex Irpan imagines AI "as a demon that's deliberately misinterpreting your reward and actively searching for the laziest possible local optima." Explain the meaning of this quote and give examples of AIs that behave in this way.
 - Discuss an AI's goal (**reward function**, or **fitness**), and why it can cause so many potential problems; see the sections Reward Function Hacking and Beware the Faulty Reward Function.
 - Why are curiosity-driven AIs a potentially promising alternative to a normal, explicitly programmed reward function? 
 - Discuss **overfitting** and why it is such a problem in AI.
 <!-- - Why are so many AI's taught using simulations rather than the real world? Why is this a potential problem when it comes to actually using the AIs for real-world tasks? -->
 
-**Due by Tuesday October 27th at 12 pm** to the [D2L Dropbox](#)
+**Due by Monday October 25th at 12 pm** to the [D2L Dropbox](#)
 
 

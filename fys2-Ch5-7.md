@@ -17,11 +17,16 @@ Many options within huggingface:
 - [Bart zero-shot classification](https://huggingface.co/facebook/bart-large-mnli?text=Last+week+I+upgraded+my+iOS+version+and+ever+since+then+my+phone+has+been+overheating+whenever+I+use+your+app.&labels=mobile%2C+website%2C+billing%2C+account+access&multiclass=false)
 - [Distilbert Sentiment Classification](https://huggingface.co/distilbert-base-uncased-finetuned-sst-2-english)
 - [Long-form question answering](https://huggingface.co/qa/)
+- [Another question answering model](https://huggingface.co/deepset/roberta-base-squad2)
+- [Biomedical language model](https://huggingface.co/microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract-fulltext?text=The+femur+is+a+%5BMASK%5D.) This is a cool one looking at more specialized applications.
+- [https://huggingface.co/spaces/lewtun/amazon-reviews-demo](https://huggingface.co/spaces/lewtun/amazon-reviews-demo)
+- [Question Gen](https://huggingface.co/spaces/Vaibhavbrkn/Question-gen) This model generates questions from a given piece of text.
 
 AllenAI Demos:
 - [AllenAI Unified Question Answering](https://unifiedqa.apps.allenai.org)
 - [RuleTaker True or False Answering](https://rule-reasoning.apps.allenai.org)
 - [Crowdsense](https://crowdsense.apps.allenai.org)
+- [Delphi](https://delphi.allenai.org) Commonsense "moral" reasoning - this could be a fun one to show where AI goes wrong...
 
 Reply AI:
 - [Reply.ai Question-answering](https://www.reply.ai/demo-qa/)
@@ -30,6 +35,8 @@ Image models:
 - [Visual Chatbot](http://demo.visualdialog.org) Two different models. You upload an image and ask an AI questions about it.
 - [Google Cloud Vision API](https://cloud.google.com/vision/docs/drag-and-drop) Get a wealth of information about a photo.
 - Word or PowerPoint automatic image captioning / alt-text generation.
+
+- [DALLE mini](https://huggingface.co/spaces/flax-community/dalle-mini) Generate an image from text!
 
 
 ### Reading
@@ -47,6 +54,6 @@ Image models:
 - Discuss **overfitting** and why it is such a problem in AI.
 <!-- - Why are so many AI's taught using simulations rather than the real world? Why is this a potential problem when it comes to actually using the AIs for real-world tasks? -->
 
-**Due by Monday October 25th at 12 pm** to the [D2L Dropbox](#)
+**Due by Monday October 25th at 12 pm** to the **D2L dropbox**
 
 

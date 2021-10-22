@@ -8,7 +8,7 @@ js: fys-installation.js
 
 With [Write with Transformer](https://transformer.huggingface.co) or [Talk to Transformer](https://app.inferkit.com/demo), you can see how large neural nets can generate text based on your prompts. These models use neural networks with between 1 billion (Write with transformer) and 11 billion parameters (Talk to transformer).
 
-GPT-3, which was released this summer, takes the same approach, but increases the size of the neural network dramatically, to 175 billion parameters! Here's some examples of demos people have made using this gigantic language model:
+GPT-3, which was released last summer, takes the same approach, but increases the size of the neural network dramatically, to 175 billion parameters! Here's some examples of demos people have made using this gigantic language model:
 
 <iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/_x9AwxfjxvE?start=164" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 

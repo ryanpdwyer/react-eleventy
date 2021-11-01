@@ -9,6 +9,13 @@ js: fys-installation.js
 
 
 - [Are We on the Verge of Chatting with Whales?](https://www.hakaimagazine.com/features/are-we-on-the-verge-of-chatting-with-whales/)
+- [The AI oracle of Delphi uses the problems of Reddit to offer dubious moral advice](https://www.theverge.com/2021/10/20/22734215/ai-ask-delphi-moral-ethical-judgement-demo)
+- [This free web tool is a fast and easy way to remove objects from images](https://www.theverge.com/2021/10/25/22744431/remove-edit-objects-images-photos-ai-free-cleanup-pictures)
+- [Pixel 6 Magic Eraser Demo](https://www.youtube.com/watch?v=vdpu1wPh0Kw)
+- [AlphaFold2: A.I. Predicts the Shapes of Molecules to Come](https://www.nytimes.com/2021/07/22/technology/deepmind-ai-proteins-folding.html)
+- [AI Fake Faces](https://www.nytimes.com/interactive/2020/11/21/science/artificial-intelligence-fake-people-faces.html)
+
+
 - [Drivers react to Tesla's full self-driving beta release](https://arstechnica.com/cars/2020/10/tesla-is-now-beta-testing-self-driving-software-on-public-roads/)
 - [AI camera operator repeatedly confuses bald head for soccer ball during live stream](https://www.theverge.com/tldr/2020/11/3/21547392/ai-camera-operator-football-bald-head-soccer-mistakes)
 

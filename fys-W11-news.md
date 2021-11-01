@@ -7,6 +7,8 @@ js: fys-installation.js
 # AI in the News
 
 
+
+- [Are We on the Verge of Chatting with Whales?](https://www.hakaimagazine.com/features/are-we-on-the-verge-of-chatting-with-whales/)
 - [Drivers react to Tesla's full self-driving beta release](https://arstechnica.com/cars/2020/10/tesla-is-now-beta-testing-self-driving-software-on-public-roads/)
 - [AI camera operator repeatedly confuses bald head for soccer ball during live stream](https://www.theverge.com/tldr/2020/11/3/21547392/ai-camera-operator-football-bald-head-soccer-mistakes)
 

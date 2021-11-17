@@ -11,6 +11,14 @@ Individual is fine if you prefer, but I'd strongly reccomend working **with a pa
 
 ## Topic Ideas?
 
+
+### Future AI and Science Fiction
+
+Science fiction writing is a great way to think about future AI. Also great to see how things can be analyzed with our AI Weirdness principles.
+
+- [The Lifecycle of Software Objects](https://cpb-us-w2.wpmucdn.com/voices.uchicago.edu/dist/8/644/files/2017/08/Chiang-Lifecycle-of-Software-Objects-q3tsuw.pdf) Very immersive story.
+
+
 ### AI in Sports
 
 - [Gatorade Sweat patch](https://www.gatorade.com/gx/sweatpatch) One potential group could try this out
@@ -38,7 +46,8 @@ See [How I’m using AI to write my next novel](https://www.vox.com/future-perfe
 ### General AI
 
 - [Teachable Machine](https://teachablemachine.withgoogle.com) Go back and build a new Teachable machine model; connect it with a cool output.
-- [LeapMotion](https://www.ultraleap.com/tracking/)
+- [LeapMotion](https://www.ultraleap.com/tracking/) Try out our LeapMotion handtracker to make a processing model.
+
 
 <!-- 
 - Processing - go all the way back to the beginning and work on Processing; consider trying out some of the different inputs available -->

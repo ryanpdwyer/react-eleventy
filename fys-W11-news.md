@@ -16,6 +16,8 @@ js: fys-installation.js
 - [AI Fake Faces](https://www.nytimes.com/interactive/2020/11/21/science/artificial-intelligence-fake-people-faces.html)
 
 
+
+
 - [Drivers react to Tesla's full self-driving beta release](https://arstechnica.com/cars/2020/10/tesla-is-now-beta-testing-self-driving-software-on-public-roads/)
 - [AI camera operator repeatedly confuses bald head for soccer ball during live stream](https://www.theverge.com/tldr/2020/11/3/21547392/ai-camera-operator-football-bald-head-soccer-mistakes)
 

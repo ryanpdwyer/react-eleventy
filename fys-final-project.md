@@ -23,7 +23,9 @@ Science fiction writing is a great way to think about future AI. In your present
 
 A lot of these you could frame as product reviews: are they worth it? Is the AI adding something or is it just a buzzword?
 
-- [Gatorade Sweat patch](https://www.gatorade.com/gx/sweatpatch) One potential group could try this out
+- [TopTen.AI reccomendations](https://topten.ai/best-ai-fitness-and-trainer-apps-review/) Some interesting ones here
+    - Several iOS apps that could be interesting: [Exer Plank](https://www.exer.ai/plank), [Artifit](https://artifit.app/), [Powermove](https://apps.apple.com/us/app/powermove-a-i-home-workouts/id1506826636), [FitnessAI - no free version but does have a 7-day free trial](https://www.fitnessai.com/)
+- [Gatorade Sweat patch](https://www.gatorade.com/gx/sweatpatch) One potential group could try this out (I have two patches - you could get more if needed/desired)
     - [Gatorade intro video](https://www.youtube.com/watch?v=j-DOS8sUx0k)
     - [Gatorade Gx Sweat Patch: good or gimmick?](https://www.youtube.com/watch?v=UgFIKS143Rc)
 - [Freeletics Workout AI Coach](https://www.freeletics.com/en/training/coach/get/)
@@ -36,6 +38,9 @@ A lot of these you could frame as product reviews: are they worth it? Is the AI 
 - [TrainerRoad](https://www.outsideonline.com/health/training-performance/app-future-ai-workouts/)
 - Feel free to pick another!
 
+### AI and photos
+
+- [Five options](https://www.makeuseof.com/ai-photo-editors-transform-pictures-without-knowing-image-editing/)
 ### AI in Writing
 
 Try writing a story (or something else) in conjungtion with the AI; how does it go? How good are these products / what is the future of AI-assisted writing? 
@@ -45,7 +50,7 @@ See [How I’m using AI to write my next novel](https://www.vox.com/future-perfe
 - [Writer](https://ai-writer.com), see [Writing 101](https://writer.com/blog/category/writing-101/)
 - [ShortlyAI](https://shortlyai.com)
 - [Rytr](https://rytr.me)
-- [AI Dungeon](https://play.aidungeon.io)
+- [AI Dungeon](https://play.aidungeon.io) (this is also gaming as well)
 
 
 ### AI in Media

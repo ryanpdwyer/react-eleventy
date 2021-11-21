@@ -38,9 +38,12 @@ A lot of these you could frame as product reviews: are they worth it? Is the AI 
 - [TrainerRoad](https://www.outsideonline.com/health/training-performance/app-future-ai-workouts/)
 - Feel free to pick another!
 
-### AI and photos
+### AI and photos / drawing
 
 - [Five options](https://www.makeuseof.com/ai-photo-editors-transform-pictures-without-knowing-image-editing/)
+    - Some are web-based, others are phone-based
+- [AutoDraw - use Google QuickDraw to make your own drawings](https://www.autodraw.com/) This is another fun one!
+
 ### AI in Writing
 
 Try writing a story (or something else) in conjungtion with the AI; how does it go? How good are these products / what is the future of AI-assisted writing? 

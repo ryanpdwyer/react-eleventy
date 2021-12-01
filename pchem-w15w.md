@@ -1,6 +1,6 @@
 ---
 layout: vanillabootflex-full.njk
-title: Week 15: Oxyacetylene torch
+title: Week 15 - Oxyacetylene torch
 styles:
     - fys.css
 js: pchem-ch1.js

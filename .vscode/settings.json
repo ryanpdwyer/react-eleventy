@@ -4,5 +4,9 @@
     "cSpell.enableFiletypes": [
         "markdown",
         "php"
+    ],
+    "cSpell.words": [
+        "pdflib",
+        "vanillabootflex"
     ]
 }

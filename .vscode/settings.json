@@ -8,5 +8,7 @@
     "cSpell.words": [
         "pdflib",
         "vanillabootflex"
-    ]
+    ],
+    "MarkdownPaste.path": "./img",
+    "MarkdownPaste.enableImgTag": false
 }

@@ -203,7 +203,7 @@ export function MCQ({name, options, defaultFeedback,
 	update=()=>null,
  ...props}) {
 
-	let [selected, setSelected] = useState(-1);
+	let [selected, setSelected] = useState(-9999);
 	const [userGuesses, setUserGuesses] = useState(0);
 
 	let answer = options.findIndex(x => x.correct);

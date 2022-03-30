@@ -19,19 +19,24 @@ function shuffle(arrayIn) {
 }
 
 const coeffChoices = [1, 1, 2, 2, 3, 4, 6];
-const phaseChoices = ["aq", "aq", "s", "g", "g", "l"];
+const phaseChoices = ["aq", "aq", 
+                      "s",
+                      "g", "g",
+                      "l"];
 
 const products = [{coeff: randomChoice(coeffChoices), phase: randomChoice(phaseChoices), species: "C"}, {coeff: randomChoice(coeffChoices), phase: randomChoice(phaseChoices), species: "D"}];
+
 const reactants = [{coeff: randomChoice(coeffChoices), phase: randomChoice(phaseChoices), species: "A"}, {coeff: randomChoice(coeffChoices), phase: randomChoice(phaseChoices), species: "B"}];
 
 const species = ["A", "B", "C", "D"];
 
 const questionStems = {mol: "How will the moles of ", direction: "Which direction will the reaction shift when ", K: "How will the equilibrium constant change when ", Q: "How will the reactant quotient Q change immediately after "};
 
-const disturbanceChoices = {addX: "is added?", removeX: "is removed?", addAr: "the pressure is increased by adding Ar(g)?", increaseP: "the pressure is increased by reducing the volume?", decreaseP: "the pressure is decreased by increasing the volume?"};
+const disturbanceChoices = {addX: "is added?", removeX: "is removed?", addAr: "the pressure is increased by adding Ar(g)?", increaseP: "the pressure is increased by reducing the volume?", decreaseP: "the pressure is decreased by increasing the volume?",dilution: "water is added?"};
 
 const questionChoices = {mol: ["Increase", "Decrease", "Unchanged"],
-     direction: ["Left (towards reactants)", "Right (towards products)", "No change"], K: ["Increase", "Decrease", "Unchanged"], Q: ["Increase", "Decrease", "Unchanged"]};
+     direction: ["Right (towards products)", "Left (towards reactants)", "No change"], K: ["Increase", "Decrease", "Unchanged"],
+     Q: ["Increase", "Decrease", "Unchanged"]};
 
 // Shift right = 1, shift left = -1, no change = 0
 // 
@@ -43,10 +48,10 @@ function notInQ(x) {
 function answers(products, reactants, species) {
     const out = {products: products,
             reactants: reactants, 
-           nGP: molesGas(products),
-           nGR: molesGas(reactants),
-           nAqP: molesAq(products),
-           nAqR: molesAq(reactants),
+           nGP: 0,
+           nGR: 0,
+           nAqP: 0,
+           nAqR: 0,
            a: reactants[0].coeff,
            ap: reactants[0].phase,
            b: reactants[1].coeff,
@@ -56,6 +61,23 @@ function answers(products, reactants, species) {
            d: products[1].coeff,
            dp: products[1].phase
             };
+
+    reactants.forEach( x=> {
+        if (x.phase === "g") {
+            out.nGR += x.coeff;
+        } else if (x.phase === "aq") {
+            out.nAqR += x.coeff;
+        }
+    });
+
+    products.forEach( x=> {
+        if (x.phase === "g") {
+            out.nGP += x.coeff;
+        } else if (x.phase === "aq") {
+            out.nAqP += x.coeff;
+        }
+    });
+
     // Increase pressure, shift to side with fewer moles of gas to relieve pressure
     out.increaseP = -1*Math.sign(out.nGP-out.nGR)
     out.diluteSoln = -1*Math.sign(out.nAqR - out.nAqP)
@@ -82,44 +104,89 @@ function answerMol(Xchanged, out, removed=false) {
     return out.speciesSigns[Xchanged]*resp*-1;
 }
 
-const directionAnswer = {1: questionChoices.direction[0], "-1": questionChoices.direction[1], 0: questionChoices.direction[2]};
+const directionAnswer = {1: questionChoices.direction[0],
+                        "-1": questionChoices.direction[1],
+                        0: questionChoices.direction[2]};
 
-const QAnswer = {1: questionChoices.Q[0], "-1": questionChoices.Q[1], 0: questionChoices.Q[2]};
+const incDec = {1: questionChoices.Q[0],
+                "-1": questionChoices.Q[1],
+                0: questionChoices.Q[2]};
 
 const molMult = {C: 1, D: 1, A: -1, B: -1};
 
 
-const stemAnswers = {
-    mol: {addX: "Unchanged", removeX: "Unchanged", addAr: "Unchanged", increaseP: "Unchanged", decreaseP: "Unchanged"},
-    direction: {addX: "Unchanged", removeX: "Unchanged", addAr: "No change", increaseP: "Unchanged", decreaseP: "Unchanged"},
-    Q: {addX: "Unchanged", removeX: "Unchanged", addAr: "Unchanged", increaseP: "Unchanged", decreaseP: "Unchanged"},
-    K: {addX: "Unchanged", removeX: "Unchanged", addAr: "Unchanged", increaseP: "Unchanged", decreaseP: "Unchanged"}
-}
+// const stemAnswers = {
+//     mol: {addX: "Unchanged", removeX: "Unchanged", addAr: "Unchanged", increaseP: "Unchanged", decreaseP: "Unchanged"},
+//     direction: {addX: "Unchanged", removeX: "Unchanged", addAr: "No change", increaseP: "Unchanged", decreaseP: "Unchanged"},
+//     Q: {addX: "Unchanged", removeX: "Unchanged", addAr: "Unchanged", increaseP: "Unchanged", decreaseP: "Unchanged"},
+//     K: {addX: "Unchanged", removeX: "Unchanged", addAr: "Unchanged", increaseP: "Unchanged", decreaseP: "Unchanged"}
+// }
 
 const props = answers(products, reactants, species);
 
-
-function randomQuestion(questionStems, disturbanceChoices, questionChoices, species, out) {
+function randomQuestionFormatted(questionStems, disturbanceChoices, questionChoices, species, out, name) {
     const spec = shuffle(species);
-    const stems = Object.keys(questionStems);
+    const stems = ["mol", "mol", "direction", "direction", "K", "Q"];
     const stemChosen = randomChoice(stems);
     let stemConnector = "";
     if (stemChosen === "mol") {
         stemConnector = spec[0]+" change when ";
     }
-    const disturbance = randomChoice(Object.keys(disturbanceChoices));
+    const disturbance = randomChoice(
+    ["removeX", "removeX", "addX", "addX",  "addAr", "increaseP", "decreaseP", "dilution"]);
+
     let disturbConnector = "";
     if (disturbance === "addX" || disturbance === "removeX") {
         disturbConnector = spec[1]+" ";
     }
-    const stemAnswers = {
-        mol: {addX: QAnswer[molMult[spec[0]]*answerMol(spec[1], out)], removeX: QAnswer[molMult[spec[0]]*answerMol(spec[1], out, true)], addAr: "Unchanged", increaseP: QAnswer[out.increaseP*molMult[spec[0]]], decreaseP: QAnswer[out.increaseP*molMult[spec[0]]*-1]},
-        direction: {addX: directionAnswer[answerMol(spec[1], out)], removeX: directionAnswer[answerMol(spec[1], out, true)], addAr: directionAnswer[0], increaseP: "Unchanged", decreaseP: "Unchanged"},
-        Q: {addX: QAnswer[answerMol(spec[1], out)*-1], removeX: QAnswer[answerMol(spec[1], out, true)*-1], addAr: "Unchanged", increaseP: QAnswer[out.increaseP], decreaseP: QAnswer[out.increaseP*-1]},
-        K: {addX: "Unchanged", removeX: "Unchanged", addAr: "Unchanged", increaseP: "Unchanged", decreaseP: "Unchanged"}
-    };
 
-    return questionStems[stemChosen]+stemConnector+disturbConnector+disturbanceChoices[disturbance]+"  Choices: "+questionChoices[stemChosen].join(" ")+" Correct: "+stemAnswers[stemChosen][disturbance]
+    const spec_added = spec[1];
+    const spec_meas = spec[0];
+    const Q_added = out.speciesSigns[spec_added] // 1 for prod, -1 for react, 0 for no change...
+    const X_product = molMult[spec_meas];
+    const Q_inc_P = out.increaseP*-1;
+    const Q_dilute = out.diluteSoln*-1;
+
+    console.log(out.increaseP)
+    console.log(out.speciesSigns)
+    console.log(Q_added)
+
+    const stemAnswers = {
+        mol: {addX: incDec[Q_added*X_product*-1],
+             removeX: incDec[-1*Q_added*X_product*-1],
+             addAr: incDec[0],
+             increaseP: incDec[-1*Q_inc_P*X_product],
+             decreaseP: incDec[Q_inc_P * X_product],
+             dilution: incDec[-1*Q_dilute* X_product]},
+        direction: {addX: directionAnswer[Q_added*-1],
+                    removeX: directionAnswer[Q_added],
+                    addAr: directionAnswer[0],
+                    increaseP: directionAnswer[-1*Q_inc_P],
+                    decreaseP: directionAnswer[Q_inc_P],
+                    dilution: directionAnswer[-1*Q_dilute]},
+        Q: {addX: incDec[Q_added],
+            removeX: incDec[Q_added*-1],
+            addAr: incDec[0],
+            increaseP: incDec[Q_inc_P],
+            decreaseP: incDec[Q_inc_P*-1],
+            dilution: incDec[Q_dilute]
+        },
+        K: {addX: "Unchanged",
+            removeX: "Unchanged",
+            addAr: "Unchanged",
+            increaseP: "Unchanged",
+            decreaseP: "Unchanged",
+            dilution: "Unchanged"}
+    };
+    
+    console.log(stemAnswers);
+
+    const opts = questionChoices[stemChosen].map(x => {
+        return {children: x, correct: x === stemAnswers[stemChosen][disturbance]};
+    }
+    );
+
+    return <MCQ name={name} options={opts}>{questionStems[stemChosen]+stemConnector+disturbConnector+disturbanceChoices[disturbance]}</MCQ>;
 }
 
 
@@ -133,39 +200,25 @@ function Chem({coeff, phase, ...props}) {
 
 
 
+
 function App ({a, ap, b, bp, c, cp, d, dp, ...props}) {
+    const questions = ["mcq-a", "mcq-b", "mcq-c", "mcq-d"];
+    const mcq = questions.map(x => {
+        return (<li key={"li-"+x}>
+            {randomQuestionFormatted(questionStems, disturbanceChoices, questionChoices, species, props, x)}
+        </li>);
+    }
+    );
+
     return (<>
     <p>Consider the reaction</p>
     <p><Chem coeff={a} phase={ap}>A</Chem> + <Chem coeff={b} phase={bp}>B</Chem> ⇌ <Chem coeff={c} phase={cp}>C</Chem> + <Chem coeff={d} phase={dp}>D</Chem>,</p>
     <p>initially at equilibrium.</p>
     <br></br>
-    <p>What will happen to the moles of C when the following changes occur?</p>
     <ol>
-    <li>
-    <MCQ name="mcq-a" options={[
-  		{children: `Increase`, correct: true
-            },
-  		{children: `Decrease`,
-  			feedback: `No, remember that adding moles of the aqueous species A will disturb equilibrium - how will the system respond to the disturbance?`},
-  		{children: `Unchanged`,
-  			feedback: ``}
-  		]}>
-        A is added.
-    </MCQ>
-    <MCQ name="mcq-b" options={[
-  		{children: `Increase`, correct: true
-            },
-  		{children: `Decrease`,
-  			feedback: `No, remember that adding moles of the aqueous species A will disturb equilibrium - how will the system respond to the disturbance?`},
-  		{children: `Unchanged`,
-  			feedback: ``}
-  		]}>
-        The pressure is increased by reducing the volume.
-    </MCQ>
-    </li>
+    {mcq}
     </ol>
-    <p>{randomQuestion(questionStems, disturbanceChoices, questionChoices, species, props)}</p>
-    <p>{Object.entries(props.speciesSigns)}</p>
+    {/* <p>{Object.entries(props.speciesSigns)}</p> */}
     </>
     );
 }

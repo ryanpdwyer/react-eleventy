@@ -24,6 +24,10 @@ const phaseChoices = ["aq", "aq",
                       "g", "g",
                       "l"];
 
+const thermicityChoices = ['endothermic', 'exothermic'];
+
+const thermicity = randomChoice(thermicityChoices);
+
 const products = [{coeff: randomChoice(coeffChoices), phase: randomChoice(phaseChoices), species: "C"}, {coeff: randomChoice(coeffChoices), phase: randomChoice(phaseChoices), species: "D"}];
 
 const reactants = [{coeff: randomChoice(coeffChoices), phase: randomChoice(phaseChoices), species: "A"}, {coeff: randomChoice(coeffChoices), phase: randomChoice(phaseChoices), species: "B"}];
@@ -32,7 +36,10 @@ const species = ["A", "B", "C", "D"];
 
 const questionStems = {mol: "How will the moles of ", direction: "Which direction will the reaction shift when ", K: "How will the equilibrium constant change when ", Q: "How will the reactant quotient Q change immediately after "};
 
-const disturbanceChoices = {addX: "is added?", removeX: "is removed?", addAr: "the pressure is increased by adding Ar(g)?", increaseP: "the pressure is increased by reducing the volume?", decreaseP: "the pressure is decreased by increasing the volume?",dilution: "water is added?"};
+const disturbanceChoices = {addX: "is added?", removeX: "is removed?", addAr: "the pressure is increased by adding Ar(g)?", increaseP: "the pressure is increased by reducing the volume?", decreaseP: "the pressure is decreased by increasing the volume?",dilution: "the solution is diluted by adding water?",
+increaseT: "the temperature is increased?",
+decreaseT: "the temperature is decreased?"
+};
 
 const questionChoices = {mol: ["Increase", "Decrease", "Unchanged"],
      direction: ["Right (towards products)", "Left (towards reactants)", "No change"], K: ["Increase", "Decrease", "Unchanged"],
@@ -45,7 +52,7 @@ function notInQ(x) {
     return x === "s" || x === "l";
 }
 
-function answers(products, reactants, species) {
+function answers(products, reactants, species, thermicity) {
     const out = {products: products,
             reactants: reactants, 
            nGP: 0,
@@ -59,7 +66,9 @@ function answers(products, reactants, species) {
            c: products[0].coeff,
            cp: products[0].phase,
            d: products[1].coeff,
-           dp: products[1].phase
+           dp: products[1].phase,
+           thermicity: thermicity,
+           delta_H_sign: thermicity === "endothermic" ? 1 : -1,
             };
 
     reactants.forEach( x=> {
@@ -122,7 +131,7 @@ const molMult = {C: 1, D: 1, A: -1, B: -1};
 //     K: {addX: "Unchanged", removeX: "Unchanged", addAr: "Unchanged", increaseP: "Unchanged", decreaseP: "Unchanged"}
 // }
 
-const props = answers(products, reactants, species);
+const props = answers(products, reactants, species, thermicity);
 
 function randomQuestionFormatted(questionStems, disturbanceChoices, questionChoices, species, out, name) {
     const spec = shuffle(species);
@@ -133,7 +142,7 @@ function randomQuestionFormatted(questionStems, disturbanceChoices, questionChoi
         stemConnector = spec[0]+" change when ";
     }
     const disturbance = randomChoice(
-    ["removeX", "removeX", "addX", "addX",  "addAr", "increaseP", "decreaseP", "dilution"]);
+    ["removeX", "removeX", "addX", "addX",  "addAr", "increaseP", "decreaseP", "dilution", "increaseT", "decreaseT"]);
 
     let disturbConnector = "";
     if (disturbance === "addX" || disturbance === "removeX") {
@@ -146,6 +155,8 @@ function randomQuestionFormatted(questionStems, disturbanceChoices, questionChoi
     const X_product = molMult[spec_meas];
     const Q_inc_P = out.increaseP*-1;
     const Q_dilute = out.diluteSoln*-1;
+    const K_inc_T = out.delta_H_sign;
+    
 
     console.log(out.increaseP)
     console.log(out.speciesSigns)
@@ -157,26 +168,37 @@ function randomQuestionFormatted(questionStems, disturbanceChoices, questionChoi
              addAr: incDec[0],
              increaseP: incDec[-1*Q_inc_P*X_product],
              decreaseP: incDec[Q_inc_P * X_product],
-             dilution: incDec[-1*Q_dilute* X_product]},
+             dilution: incDec[-1*Q_dilute* X_product],
+             increaseT: incDec[K_inc_T* X_product],
+             decreaseT: incDec[-K_inc_T* X_product]
+        },
         direction: {addX: directionAnswer[Q_added*-1],
                     removeX: directionAnswer[Q_added],
                     addAr: directionAnswer[0],
                     increaseP: directionAnswer[-1*Q_inc_P],
                     decreaseP: directionAnswer[Q_inc_P],
-                    dilution: directionAnswer[-1*Q_dilute]},
+                    dilution: directionAnswer[-1*Q_dilute],
+                    increaseT: directionAnswer[K_inc_T],
+                    decreaseT: directionAnswer[-1*K_inc_T],
+                },
         Q: {addX: incDec[Q_added],
             removeX: incDec[Q_added*-1],
             addAr: incDec[0],
             increaseP: incDec[Q_inc_P],
             decreaseP: incDec[Q_inc_P*-1],
-            dilution: incDec[Q_dilute]
+            dilution: incDec[Q_dilute],
+            increaseT: incDec[0],
+            decreaseT: incDec[0]
         },
         K: {addX: "Unchanged",
             removeX: "Unchanged",
             addAr: "Unchanged",
             increaseP: "Unchanged",
             decreaseP: "Unchanged",
-            dilution: "Unchanged"}
+            dilution: "Unchanged",
+            increaseT: incDec[K_inc_T],
+            decreaseT: incDec[-1*K_inc_T]
+        }
     };
     
     console.log(stemAnswers);
@@ -201,8 +223,8 @@ function Chem({coeff, phase, ...props}) {
 
 
 
-function App ({a, ap, b, bp, c, cp, d, dp, ...props}) {
-    const questions = ["mcq-a", "mcq-b", "mcq-c", "mcq-d"];
+function App ({a, ap, b, bp, c, cp, d, dp, thermicity, ...props}) {
+    const questions = ["mcq-a", "mcq-b", "mcq-c", "mcq-d", "mcq-e"];
     const mcq = questions.map(x => {
         return (<li key={"li-"+x}>
             {randomQuestionFormatted(questionStems, disturbanceChoices, questionChoices, species, props, x)}
@@ -211,7 +233,7 @@ function App ({a, ap, b, bp, c, cp, d, dp, ...props}) {
     );
 
     return (<>
-    <p>Consider the reaction</p>
+    <p>Consider the {thermicity} reaction</p>
     <p><Chem coeff={a} phase={ap}>A</Chem> + <Chem coeff={b} phase={bp}>B</Chem> ⇌ <Chem coeff={c} phase={cp}>C</Chem> + <Chem coeff={d} phase={dp}>D</Chem>,</p>
     <p>initially at equilibrium.</p>
     <br></br>

@@ -1,5 +1,6 @@
-import { React, ReactDOM } from 'https://unpkg.com/es-react/dev';
+import { React, ReactDOM, PropTypes } from 'https://unpkg.com/es-react/dev';
 import { QuestionLimF, MCQ } from './QuestionLim.js';
+import {Obfuscate} from './obfuscate.js';
 
 const reduceSum = (accumulator, currentValue) => accumulator + currentValue;
 const molesGas = x => x.filter(x => x.phase === "g").reduce(reduceSum, 0);
@@ -232,15 +233,25 @@ function App ({a, ap, b, bp, c, cp, d, dp, thermicity, ...props}) {
     }
     );
 
-    return (<>
+    const reaction = (<div className='rxn'>
     <p>Consider the {thermicity} reaction</p>
     <p><Chem coeff={a} phase={ap}>A</Chem> + <Chem coeff={b} phase={bp}>B</Chem> ⇌ <Chem coeff={c} phase={cp}>C</Chem> + <Chem coeff={d} phase={dp}>D</Chem>,</p>
     <p>initially at equilibrium.</p>
-    <br></br>
+    </div>);
+
+    return (<>
+    {reaction}
     <ol>
     {mcq}
     </ol>
-    {/* <p>{Object.entries(props.speciesSigns)}</p> */}
+
+    <h5>Questions or Problems?</h5>
+    <p>If you notice an error / bug, or have questions about one of the questions, send me an email: <Obfuscate email="dwyerry@mountunion.edu"
+                        headers={{
+                            subject: 'Le Chatelier Practice',
+                            body: `\n\n---\nConsider the ${thermicity} reaction:\n${a}A(${ap}) + ${b}B(${bp}) ⇌ ${c}C(${cp}) + ${d}D(${dp})`
+                          }}/>. One point quiz bonus for any bugs you find!
+    </p>
     </>
     );
 }

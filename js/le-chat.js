@@ -244,7 +244,6 @@ function App ({a, ap, b, bp, c, cp, d, dp, thermicity, ...props}) {
     <ol>
     {mcq}
     </ol>
-
     <h5>Questions or Problems?</h5>
     <p>If you notice an error / bug, or have questions about one of the questions, send me an email: <Obfuscate email="dwyerry@mountunion.edu"
                         headers={{

@@ -9,11 +9,11 @@ const div = document.getElementById("app");
 render(
 html`<div className="contact">
 <h1>Obfuscate Preact Example</h1>
-You can contact us by <${Obfuscate}
+You can contact us by email at <${Obfuscate}
     email="info@chemcollective.org"
     headers=${{
         body: "\n\n---\nURL: https://chemcollective.org/my-current-url\nVLab: assignmentPath",
     }}
-    >email<//>.
+    />.
 </div>`,
 div);

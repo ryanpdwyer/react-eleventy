@@ -14,12 +14,9 @@ document.getElementById("check-NaOH-submit").addEventListener("click", function(
     const molarity_given = parseFloat(document.getElementById("molarity-NaOH").value);
 
     if (Math.abs(molarity - molarity_given) / (molarity) * 100 < 0.2) {
-        document.getElementById("check-NaOH-result").innerHTML = "Correct!";
+        document.getElementById("correct-molarity").innerHTML = "Correct!";
     } else {
-        document.getElementById("check-NaOH-result").innerHTML = "Incorrect. Perhaps you make a calculation or significant figures error? Try again.";
+        document.getElementById("correct-molarity").innerHTML = "Incorrect. Perhaps you make a calculation or significant figures error? Try again.";
     }
-
-
-    document.getElementById("molarity").innerHTML = molarity.toFixed(4);
 }
 );

@@ -14,11 +14,13 @@ The goal of this lab is to identify 3 unknown compounds contained in a drinking 
 
 Enter your name (first and last), Mount Union email, and section below to be assigned a set of unknown samples:
 
-<form class="form">
+<form class="form" netlify id="120-water-22fa">
 <div>
 <div class="form-group">
 <label for="nameInput">Name:</label><input id="nameInput" oninput="checkReady();" class="form-control"></input>
 </div>
+
+
 
 
 <div class="form-group">

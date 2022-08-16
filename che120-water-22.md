@@ -17,7 +17,7 @@ Enter your name (first and last), Mount Union email, and section below to be ass
 <form class="form" netlify id="120-water-22fa">
 <div>
 <div class="form-group">
-<label for="nameInput">Name:</label><input id="nameInput" oninput="checkReady();" class="form-control"></input>
+<label for="nameInput">Name:</label><input id="nameInput" name="nameInput" oninput="checkReady();" class="form-control"></input>
 </div>
 
 
@@ -25,7 +25,7 @@ Enter your name (first and last), Mount Union email, and section below to be ass
 
 <div class="form-group">
     <label for="emailInput">Email:</label>
-    <input type="email" id="emailInput" oninput="checkReady();" class="form-control"></input>
+    <input type="email" id="emailInput" name="emailInput" oninput="checkReady();" class="form-control"></input>
 </div>
 
 <p for="sectionInput">Choose your section:</p>

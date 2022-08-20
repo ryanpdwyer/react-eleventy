@@ -4,6 +4,41 @@
     <meta charset='utf-8' />
     <link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" />
     <script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script>
+      function start() {
+        // 2. Initialize the JavaScript client library.
+        gapi.client.init({
+          'apiKey': 'AIzaSyC7aYrXkyVxZxbxlkM5oO0xHzeXcFXwnvU'
+        }).then(function() {
+          // 3. Initialize and make the API request.
+          return gapi.client.request({
+            'path': "https://www.googleapis.com/drive/v3/files?q='1as_gsIftF83931VSQpS0iUW4-0PoPtyp'%20in%20parents%20and%20trashed=false"
+          })
+        }).then(function(response) {
+            const file_id = response.result.files[0].id;
+            console.log(file_id);
+            return gapi.client.request({path: 
+              `https://www.googleapis.com/drive/v3/files/${file_id}?acknowledgeAbuse=true&alt=media`
+            });
+        })
+        .then(function(response) {
+          const events = response.result;
+
+          const events2 = events.map(x => {
+                      return {id: x.id, start: x.startWithTimeZone, end: x.endWithTimeZone, title: `${x.subject}`, location: x.location}
+                  });
+            
+            // Add events to the calendar
+            cal.createEvents(events2);
+          })
+        .catch( function(reason) {
+          console.log('Error: ' + reason.result.error.message);
+        });
+      };
+
+      </script>
+
     <style>
       #calendar {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -73,23 +108,9 @@
         },
       });
 
+      // 1. Load the JavaScript client library.
+      gapi.load('client', start);
       
-      const r = fetch("https://www.googleapis.com/drive/v3/files?q='1as_gsIftF83931VSQpS0iUW4-0PoPtyp'%20in%20parents%20and%20trashed=false&key=AIzaSyC7aYrXkyVxZxbxlkM5oO0xHzeXcFXwnvU")
-                  .then(resp => resp.json())
-                  .then(x => {
-                    const file_id = x.files[0].id;
-                    return fetch(`https://www.googleapis.com/drive/v3/files/${file_id}?acknowledgeAbuse=true&alt=media&key=AIzaSyC7aYrXkyVxZxbxlkM5oO0xHzeXcFXwnvU`)
-                  })
-                    .then(resp => resp.json())
-                    .then( events => {
-
-            const events2 = events.map(x => {
-                      return {id: x.id, start: x.startWithTimeZone, end: x.endWithTimeZone, title: `${x.subject}`, location: x.location}
-                  });
-            
-            // Add events to the calendar
-            cal.createEvents(events2);
-                    });
       });
 
 

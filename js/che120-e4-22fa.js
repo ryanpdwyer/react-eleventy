@@ -4,6 +4,43 @@
 
 const { PDFDocument } = PDFLib
 
+
+
+
+
+// const client = new netlify.NetlifyAPI('AwXJ-jyOxtWjtbDogyY47R-kLhrVaJes4G_0ruxkAYs')
+
+
+
+// console.log(await client.listSites());
+
+// console.log(await client.listSiteForms({site_id: "478409f0-d08b-41a2-99c0-824b316b1b24"}))
+
+function fetchForms() {
+    return fetch("https://api.netlify.com/api/v1/forms/62fbf80c9660f800088788ce/submissions", {headers: {Authorization: "Bearer AwXJ-jyOxtWjtbDogyY47R-kLhrVaJes4G_0ruxkAYs"}});
+}
+
+// Just do this client-side...
+async function getSampleId(mySection, myEmail) {
+
+    const formSubmissions = await fetchForms().then(x => x.json()).catch(err => console.log(err));
+
+    const formsMapped = formSubmissions.filter(x => x.data.sectionInput === mySection);
+    const formEmails = formsMapped.map(x => x.data.emailInput);
+
+    const formsUnique = Object.fromEntries(formSubmissions.filter( (x, i) => formEmails.indexOf(x.data.emailInput) === i)
+                                        .map( (x, i) => [x.data.emailInput, {sample: i+1, time: x.created_at}]))
+
+    return formsUnique[myEmail]
+};
+
+
+
+// console.log(await client.listSites());
+
+// console.log(await client.listSiteForms({site_id: "478409f0-d08b-41a2-99c0-824b316b1b24"}))
+
+
 const handleSubmit = (e) => {
     e.preventDefault();
     let myForm = document.getElementById("120-water-22fa");
@@ -14,6 +51,10 @@ const handleSubmit = (e) => {
       body: new URLSearchParams(formData).toString(),
     })
       .then(() => console.log("Form successfully submitted"))
+      .then( () => {
+        console.log(fetchForms());
+      })
+      .then( (e) => chooseUnknowns(e))
       .catch((error) => alert(error));
   };
 
@@ -100,9 +141,23 @@ let myUnknowns = ["A", "B", "C"];
 function chooseUnknowns(event) {
     const unknowns = "ABCDEFGHIJKLMN".split("");
     const unknownsVal = Object.fromEntries(unknowns.map((x,i) => [x, i+1]));
-    const rng = new Math.seedrandom(document.getElementById("nameInput").value+'2022'+'spring-CHE120');
-    myUnknowns = range(0, unknowns.length-1,rng).slice(0,3).map(i=>unknowns[i]);
+
+    const unknownsNumbered = Object.fromEntries(unknowns.map((x, i) => [i+1, x]));
+
+    // Need to get unknown number from netlify api call:
+    const labUnknown = {sample: 3, time: "2020-04-22T20:00:00.000Z"};
+
+
+
+
+    const rng = new Math.seedrandom(document.getElementById("nameInput").value+'2022'+'fall-CHE120');
+    
+    myUnknowns = range(0, unknowns.length-1, rng).slice(0,3).map(i=>unknowns[i]);
+
+
+
     document.getElementById('assignedUnknowns').style.display='block';
+    
     const sampleIDs = myUnknowns.map( x => Math.floor(rng()*10000))
                                 .sort()
                                 .map(x=>x.toString().padStart(4, "0"));

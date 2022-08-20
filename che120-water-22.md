@@ -51,7 +51,7 @@ Enter your name (first and last), Mount Union email, and section below to be ass
 </div>
 
 
-<button type="submit" id="submitName" onclick="chooseUnknowns();" disabled class="btn btn-primary">Submit</button>
+<button type="submit" id="submitName" disabled class="btn btn-primary">Submit</button>
 </form>
 
 <div style="display:none;" id="assignedUnknowns">

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8' />
+    <link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" />
+    <script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script>
+    <style>
+      #calendar {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .toastui-calendar-allday {
+        display: none;
+      }
+      .toastui-calendar-allday + div {
+        display: none;
+      }
+
+      .toastui-calendar-event-time {
+        word-wrap: break-word;
+      }
+
+      .toastui-calendar-event-time-content {
+        word-wrap: break-word;
+      }
+
+      .toastui-calendar-event-time span {
+        font-size: 1rem;
+        word-wrap: break-word;
+      }
+
+      .toastui-calendar-template-timegridDisplayPrimaryTime {
+        font-size: 1rem;
+      }
+    </style>
+    <script>
+
+    let cal;
+
+      function changeView(e) {
+        const button = e.target;
+        const states = {'week': 'day', 'day': 'week'};
+        const currentState = button.dataset.currentView;
+        const nextState = states[currentState];
+        cal.changeView(nextState);
+        button.innerText = currentState.charAt(0).toUpperCase() + currentState.slice(1) + ' View';
+        button.dataset.currentView = nextState;
+
+      }
+
+
+      // 
+
+      /// Hide using class toastui-calendar-allday-panel (hidden)
+
+    /* in the browser environment namespace */
+    const Calendar = tui.Calendar;
+
+      document.addEventListener('DOMContentLoaded', function() {
+        
+
+        cal = new Calendar('#calendar', {
+        defaultView: 'week',
+        isReadOnly: false,
+        useDetailPopup: true,
+        month: {
+          workweek: true,
+        },
+        week: {
+          taskView: false,
+          workweek: true,
+          hourStart: 7,
+          hourEnd: 21
+        },
+      });
+
+      
+      const r = fetch("https://www.googleapis.com/drive/v3/files?q='1as_gsIftF83931VSQpS0iUW4-0PoPtyp'%20in%20parents%20and%20trashed=false&key=AIzaSyC7aYrXkyVxZxbxlkM5oO0xHzeXcFXwnvU")
+                  .then(resp => resp.json())
+                  .then(x => {
+                    const file_id = x.files[0].id;
+                    return fetch(`https://www.googleapis.com/drive/v3/files/${file_id}?acknowledgeAbuse=true&alt=media&key=AIzaSyC7aYrXkyVxZxbxlkM5oO0xHzeXcFXwnvU`)
+                  })
+                    .then(resp => resp.json())
+                    .then( events => {
+
+            const events2 = events.map(x => {
+                      return {id: x.id, start: x.startWithTimeZone, end: x.endWithTimeZone, title: `${x.subject}`, location: x.location}
+                  });
+            
+            // Add events to the calendar
+            cal.createEvents(events2);
+                    });
+      });
+
+
+    </script>
+  </head>
+  <body>
+    <!--- Next and previous buttons -->
+    <div>
+      <button id="prev" onclick="cal.prev();" class="button">Previous</button>
+      <button id="today" onclick="cal.today();" class="button">Today</button>
+      <button id="changeView" data-current-view="week" class="button">Day View</button>
+      
+      <button id="next" onclick="cal.next();" class="button">Next</button>
+    </div>
+    <div id="calendar" style="height: 800px"></div>
+
+    <script>
+      document.getElementById("changeView").addEventListener('click', changeView);
+    </script>
+  </body>
+</html>

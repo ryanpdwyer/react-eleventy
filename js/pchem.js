@@ -16,3 +16,8 @@ function randomizeElements(listEl) {
 	}
 }
 
+
+window.show = show;
+window.hide = hide;
+window.randomizeElements = randomizeElements;
+

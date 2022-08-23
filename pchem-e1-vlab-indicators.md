@@ -419,7 +419,6 @@ This page shows the lab experiment in a virtual lab environment.
                 "saturation": 87.0,
                 "value": 86.0,
                 "colorConcentration": 1e-6
-
             },
         ]
     }

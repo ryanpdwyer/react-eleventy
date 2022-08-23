@@ -10,6 +10,13 @@ styles:
 
 The goal of this lab is to identify 3 unknown compounds contained in a drinking water sample.
 
+Come back soon - the unknown assignments are still being completed!
+
+<img src="/img/OE60SH0.jpg" alt="Under maintenance"  class="img-fluid" >
+
+<a href="https://www.freepik.com/vectors/maintenance">Under maintenance vector created by rwdd_studios - www.freepik.com</a>
+
+<!-- 
 ## Your unknowns
 
 Enter your name (first and last), Mount Union email, and section below to be assigned a set of unknown samples:
@@ -77,4 +84,4 @@ Remember to print out your spectra and bring them to lab.
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js">
-</script>
+</script> -->

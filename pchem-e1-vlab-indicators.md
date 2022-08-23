@@ -7,6 +7,10 @@ title: P Chem Lab 4 - Project Choice
 
 This page shows the lab experiment in a virtual lab environment.
 
+Note that you can see the UV/Vis absorbance spectrum of each solution when it is selected. The spectrum assumes that you collect it in the usual way, by transferring 2-4 mL of solution to 1 cm path length cuvette. 
+
+Experimentally, remember that it is difficult to measure absorbances above about 1.5.
+
 <div id="vlab">
 </div>
 
@@ -17,10 +21,10 @@ This page shows the lab experiment in a virtual lab environment.
 <script>
         var data = {
             assignment: {
-	"assignmentText" : "<em>Indicator<\/em>  Using the Virtual Laboratory, analyze the ferric thiocyanate equilibrium using Le Chatelier's principle."
+	"assignmentText" : "<em>Indicator<\/em>  Using the Virtual Laboratory, check your work to determine what solutions you should prepare for lab on Thursday."
 },
             configuration: {
-  "title": "Iron Thiocyanate Equilibrium",
+  "title": "Indicator Physical Chemistry Experiment 1",
     "solutionModellers": {
       "specificHeat": "solvent2"
   },
@@ -49,7 +53,7 @@ This page shows the lab experiment in a virtual lab environment.
     },
     {
       "id": "spectrometer",
-      "displayDefault": false
+      "displayDefault": true
     },
     {
       "id": "particleView",

@@ -113,6 +113,12 @@ This page shows the lab experiment in a virtual lab environment.
  {"id": 101, "coefficient": 1}
  ]
       },
+        {
+        "SPECIES_REF": [{"id": 102, "coefficient": -1},
+ {"id": 1, "coefficient": 1},
+ {"id": 103, "coefficient": 1}
+ ]
+      },
       {
       "SPECIES_REF": [{"id": 50, "coefficient": -1},
  {"id": 1, "coefficient": 1},
@@ -196,6 +202,15 @@ This page shows the lab experiment in a virtual lab environment.
                  {"id": 0},
                  {"id": 101, "amount": 0.1/327.33},
                  {"id": 7, "amount": 0.1/327.33}
+                 ]
+               },
+              {"name": "0.1% Bromocresol green",
+               "description": "0.1% Bromocresol green",
+                "volume": 0.1,
+                 "species": [
+                 {"id": 0},
+                 {"id": 102, "amount": 0.1/698.01},
+                 {"id": 7, "amount": 0.1/698.01}
                  ]
                },
                 {"name": "0.10 M NH<sub>3</sub>",
@@ -343,7 +358,6 @@ This page shows the lab experiment in a virtual lab environment.
                 "specificHeat": 0/(4.184*17.031),
                 "molecularWeight": 17.031
             },
-
             {
                 "id": 100,
                 "name": "Methyl orange acid",
@@ -373,6 +387,39 @@ This page shows the lab experiment in a virtual lab environment.
                 "saturation": 70.0,
                 "value": 86.0,
                 "colorConcentration": 0.00004
+            },
+            {
+                "id": 102,
+                "name": "Bromocresol green (acid)",
+                "simpleName": "BrCresol Green<sup>-</sup>",
+                "state": "aq",
+                "enthalpy": 0,
+                "entropy": 0,
+                "charge": -1,
+                "density": 3,
+                "specificHeat": 0,
+                "molecularWeight": 698.01,
+                "hue": 60.0,
+                "saturation": 70.0,
+                "value": 86.0,
+                "colorConcentration": 1e-6
+            },
+            {
+                "id": 103,
+                "name": "Bromocresol green (base)",
+                "simpleName": "BrCresol Green <sup>2-</sup>",
+                "state": "aq",
+                "enthalpy": 24.4,
+                "entropy": -10,
+                "density": 3,
+                "charge": -2,
+                "specificHeat": 0,
+                "molecularWeight": 697.01,
+                "hue": 247.0,
+                "saturation": 87.0,
+                "value": 86.0,
+                "colorConcentration": 1e-6
+
             },
         ]
     }
@@ -412,7 +459,23 @@ This page shows the lab experiment in a virtual lab environment.
                "e": 0.8e4,
             }
             ]
-         }
+         },
+         {
+            "id": "102", 
+            "BAND": [{
+               "wavelength": 442, 
+               "width": 110, 
+               "e": 5e6,
+            },
+          {
+            "id": "103", 
+            "BAND": [{
+               "wavelength": 616, 
+               "width": 70, 
+               "e": 1.4e7,
+            }
+            ]
+         },
       ]
    }
 }

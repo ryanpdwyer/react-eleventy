@@ -465,20 +465,20 @@ This page shows the lab experiment in a virtual lab environment.
                "wavelength": 442, 
                "width": 110, 
                "e": 5e6,
-            },
+            }],
+         },
           {
             "id": "103", 
             "BAND": [{
                "wavelength": 616, 
                "width": 70, 
                "e": 1.4e7,
-            }
-            ]
-         },
+            }]
+          }
       ]
+         }
    }
-}
-        };
+};
 
   const language = 'en';
   const allowLoadAssignment = false;

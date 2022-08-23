@@ -11,11 +11,7 @@ This page shows the lab experiment in a virtual lab environment.
 </div>
 
 
-<link href="https://nifty-newton-c83258.netlify.app/bundled/911.css" rel="stylesheet">
-<script src="https://nifty-newton-c83258.netlify.app/bundled/850.js"></script>
-<script src="https://nifty-newton-c83258.netlify.app/bundled/526.js"></script>
-<script src="https://nifty-newton-c83258.netlify.app/bundled/911.js"></script>
-<script src="https://nifty-newton-c83258.netlify.app/bundled/lib.js"></script>
+<script defer="defer" src="https://6304b336932f81000908fc39--melodious-granita-c9c445.netlify.app/850-3137d0eefbbd05a57734.js"></script><script defer="defer" src="https://6304b336932f81000908fc39--melodious-granita-c9c445.netlify.app/526-2ab1d3475c35ab8befd6.js"></script><script defer="defer" src="https://6304b336932f81000908fc39--melodious-granita-c9c445.netlify.app/896-34ad65b8615baff8603d.js"></script><script defer="defer" src="https://6304b336932f81000908fc39--melodious-granita-c9c445.netlify.app/lib-3f0127fb962df241e57c.js"></script><link rel="stylesheet" href="https://6304b336932f81000908fc39--melodious-granita-c9c445.netlify.app/896.css">
 
 
 <script>
@@ -143,6 +139,16 @@ This page shows the lab experiment in a virtual lab environment.
                      }
                   ]
                },
+                {
+                 "name": "1.0 M HCl",
+                 "description": "1.0 M Hydrochloric acid",
+                 "volume": 0.1,
+                 "species": [
+                 {"id": 0},
+                 {"id": 1, "amount": 0.1},
+                 {"id": 9, "amount": 0.1}
+                 ]
+               },
                {
                  "name": "1.0 M HNO<sub>3</sub>",
                  "description": "1.0 M Nitric acid",
@@ -183,13 +189,13 @@ This page shows the lab experiment in a virtual lab environment.
                  {"id": 7, "amount": 1.0}
                  ]
                },
-               {"name": "1.0 mM Nile Blue chloride",
-               "description": "1.0 mM Nile Blue chloride",
+               {"name": "0.1% Methyl orange",
+               "description": "0.1% Methyl orange",
                 "volume": 0.1,
                  "species": [
                  {"id": 0},
-                 {"id": 100, "amount": 0.1*1e-3},
-                 {"id": 9, "amount": 0.1*1e-3}
+                 {"id": 101, "amount": 0.1/327.33},
+                 {"id": 7, "amount": 0.1/327.33}
                  ]
                },
                 {"name": "0.10 M NH<sub>3</sub>",
@@ -340,33 +346,33 @@ This page shows the lab experiment in a virtual lab environment.
 
             {
                 "id": 100,
-                "name": "Nile blue cation",
-                "simpleName": "NB+",
+                "name": "Methyl orange acid",
+                "simpleName": "H-MeOrange",
                 "state": "aq",
                 "enthalpy": 0,
                 "entropy": 0,
                 "density": 3,
                 "specificHeat": 0,
-                "molecularWeight": 318.4,
-                "hue": 232.0,
-                "saturation": 74.0,
-                "value": 92.0,
-                "colorConcentration": 0.0001
+                "molecularWeight": 305.35,
+                "hue": 0.0,
+                "saturation": 81.0,
+                "value": 91.0,
+                "colorConcentration": 0.00002
             },
             {
                 "id": 101,
-                "name": "Nile blue",
-                "simpleName": "NB",
+                "name": "Methyl Orange (base)",
+                "simpleName": "MeOrange<sup>-</sup>",
                 "state": "aq",
-                "enthalpy": 5.76*9.7,
-                "entropy": 0,
+                "enthalpy": 17.1,
+                "entropy": -8.8,
                 "density": 3,
                 "specificHeat": 0,
                 "molecularWeight": 317.4,
-                "hue": 0.0,
-                "saturation": 76.0,
-                "value": 92.0,
-                "colorConcentration": 0.0001
+                "hue": 60.0,
+                "saturation": 70.0,
+                "value": 86.0,
+                "colorConcentration": 0.00004
             },
         ]
     }
@@ -375,20 +381,37 @@ This page shows the lab experiment in a virtual lab environment.
    "SPECTRA_LIST": {
       "SPECIES": [
          {
-            "id": "100", 
-            "BAND": [{
-               "wavelength": 635, 
-               "width": 100, 
-               "e": 1e4
-            }]
-         }, 
-         {
             "id": "101", 
             "BAND": [{
+               "wavelength": 460, 
+               "width": 120, 
+               "e": 2.9e4
+            },
+            {
+               "wavelength": 400, 
+               "width": 60, 
+               "e": 0.8e4
+            },
+            {
+               "wavelength": 290, 
+               "width": 75, 
+               "e": 1.24
+            }
+            ]
+         }, 
+         {
+            "id": "100", 
+            "BAND": [{
                "wavelength": 522, 
-               "width": 100, 
-               "e": 1e4,
-            }]
+               "width": 60, 
+               "e": 5.5e4,
+            },
+            {
+               "wavelength": 327, 
+               "width": 25, 
+               "e": 0.8e4,
+            }
+            ]
          }
       ]
    }
@@ -398,9 +421,15 @@ This page shows the lab experiment in a virtual lab environment.
   const language = 'en';
   const allowLoadAssignment = false;
   const showFirstTimeTips = false;
-  const appModel = new VLab.AppModel();
-  const appView = new VLab.AppView({ model: appModel,
-  el: document.getElementById("vlab"),
-  vlab: data,
-  domain: "https://chemcollective.org/chem/jsvlab/"});
+  let appModel;
+  let appView;
+
+  window.addEventListener('load', function () {
+    appModel = new VLab.AppModel();
+    appView = new VLab.AppView({ model: appModel,
+    el: document.getElementById("vlab"),
+    vlab: data,
+    domain: "https://chemcollective.org/chem/jsvlab/"});
+  }
+  )
   </script>

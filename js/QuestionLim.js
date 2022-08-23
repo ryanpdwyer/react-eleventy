@@ -104,7 +104,7 @@ export function QuestionLimF({correctFeedback="Correct!",
 						onKeyPress={handleKeyPress} />
 					&nbsp;
 					{props.inputLabel}
-					<button className="check" onClick={check}
+					<button className="check btn btn-primary" onClick={check}
 							disabled={disabled}>
 						Check
 					</button>
@@ -166,7 +166,7 @@ export function QuestionF({correctFeedback="Correct!",
 						onKeyPress={handleKeyPress} />
 					&nbsp;
 					{props.inputLabel}
-					<button className="check" onClick={check}
+					<button className="check btn btn-primary" onClick={check}
 							disabled={disabled}>
 						Check
 					</button>
@@ -303,7 +303,7 @@ export function MCQMulti({name, options, defaultFeedback,
 	let jsx = (<div className="question">
 	{props.children}
 	{optionsJsx}
-	<button onClick={checkAnswer}>Check answer</button>
+	<button onClick={checkAnswer} class="btn btn-primary">Check answer</button>
 	<br/>
 	<div className="feedback">
 	<DispP display={correct}>{correctFeedback}</DispP>

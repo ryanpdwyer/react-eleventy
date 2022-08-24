@@ -26,11 +26,12 @@
           const events = response.result;
 
           const events2 = events.map(x => {
-                      return {id: x.id, start: x.startWithTimeZone, end: x.endWithTimeZone, title: `${x.subject}`, location: x.location}
+                      return {id: x.id, start: x.startWithTimeZone, end: x.endWithTimeZone, title: `${x.subject}`, location: x.location, calendarId: '1'}
                   });
             
             // Add events to the calendar
             cal.createEvents(events2);
+            cal.setCalendarColor('1', {backgroundColor: '#da8bfc'});
           })
         .catch( function(reason) {
           console.log('Error: ' + reason.result.error.message);

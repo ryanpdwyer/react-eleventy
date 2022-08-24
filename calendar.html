@@ -2,6 +2,7 @@
 <html lang='en'>
   <head>
     <meta charset='utf-8' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" />
     <script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script>
     <script src="https://apis.google.com/js/api.js"></script>
@@ -119,14 +120,17 @@
   </head>
   <body>
     <!--- Next and previous buttons -->
+    <div class="container">
+      <h3>Dr. Dwyer's Calendar</h1>
     <div>
-      <button id="prev" onclick="cal.prev();" class="button">Previous</button>
-      <button id="today" onclick="cal.today();" class="button">Today</button>
-      <button id="changeView" data-current-view="week" class="button">Day View</button>
+      <button id="prev" onclick="cal.prev();" class="btn btn-secondary">Previous</button>
+      <button id="today" onclick="cal.today();" class="btn btn-primary">Today</button>
+      <button id="changeView" data-current-view="week" class="btn btn-info">Day View</button>
       
-      <button id="next" onclick="cal.next();" class="button">Next</button>
+      <button id="next" onclick="cal.next();" class="btn btn-secondary">Next</button>
     </div>
     <div id="calendar" style="height: 800px"></div>
+  </div>
 
     <script>
       document.getElementById("changeView").addEventListener('click', changeView);

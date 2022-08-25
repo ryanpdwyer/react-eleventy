@@ -34,6 +34,19 @@ async function getSampleId(mySection, myEmail) {
     return formsUnique[myEmail]
 };
 
+function assignSampleId(jsonData, mySection, myEmail) {
+
+    // Needs to be in submission order (not reverse chronological...)
+    const formsMapped = jsonData.sort( (x,y) => x.number < y.number)
+                                .filter(x => x.data.sectionInput === mySection);
+    const formEmails = formsMapped.map(x => x.data.emailInput);
+
+    const formsUnique = Object.fromEntries(formsMapped.filter( (x, i) => formEmails.indexOf(x.data.emailInput) === i)
+                                        .map( (x, i) => [x.data.emailInput, {sample: i+1 + (parseInt(mySection)-1)*18, time: x.created_at}]))
+
+    return formsUnique[myEmail]
+} 
+
 
 
 // console.log(await client.listSites());
@@ -45,6 +58,8 @@ const handleSubmit = (e) => {
     e.preventDefault();
     let myForm = document.getElementById("120-water-22fa");
     let formData = new FormData(myForm);
+    const mySection = formData.get('sectionInput')
+    const myEmail = formData.get('emailInput');
     fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -52,9 +67,17 @@ const handleSubmit = (e) => {
     })
       .then(() => console.log("Form successfully submitted"))
       .then( () => {
-        console.log(fetchForms());
+        return fetchForms();
       })
-      .then( (e) => chooseUnknowns(e))
+      .then( (e) => {
+        return e.json();
+      })
+      .then( (x) => {
+        return assignSampleId(x, mySection, myEmail)
+      })
+      .then((y) => {
+        console.log(y);
+      })
       .catch((error) => alert(error));
   };
 

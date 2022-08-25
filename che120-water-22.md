@@ -10,13 +10,13 @@ styles:
 
 The goal of this lab is to identify 3 unknown compounds contained in a drinking water sample.
 
-<!-- Come back soon - the unknown assignments are still being completed! -->
+Come back soon - the unknown assignments are still being completed!
 
-<!-- <img src="/img/OE60SH0.jpg" alt="Under maintenance"  class="img-fluid" >
+<img src="/img/OE60SH0.jpg" alt="Under maintenance"  class="img-fluid" >
 
-<a href="https://www.freepik.com/vectors/maintenance">Under maintenance vector created by rwdd_studios - www.freepik.com</a> -->
+<a href="https://www.freepik.com/vectors/maintenance">Under maintenance vector created by rwdd_studios - www.freepik.com</a> 
 
-
+<!---
 ## Your unknowns
 
 Enter your name (first and last), Mount Union email, and section below to be assigned a set of unknown samples:
@@ -42,15 +42,15 @@ Enter your name (first and last), Mount Union email, and section below to be ass
 </div>
 
 <div class="form-check">
-<label class="form-check-label" for="2"><input type="radio" class="form-check-input" value="2" name="sectionInput" oninput="checkReady();"></input> Tuesday 12:30 pm ()</label>
+<label class="form-check-label" for="2"><input type="radio" class="form-check-input" value="2" name="sectionInput" oninput="checkReady();"></input> Tuesday 12:30 pm (Miller)</label>
 </div>
 
 <div class="form-check">
-<label class="form-check-label" for="3"> <input type="radio" class="form-check-input" value="3" name="sectionInput" oninput="checkReady();"></input> Wednesday 12:30 pm ()</label>
+<label class="form-check-label" for="3"> <input type="radio" class="form-check-input" value="3" name="sectionInput" oninput="checkReady();"></input> Wednesday 12:30 pm (Miller)</label>
 </div>
 
 <div class="form-check">
-<label class="form-check-label" for="4"> <input type="radio" class="form-check-input" value="4" name="sectionInput" oninput="checkReady();"></input> Thursday 7:30 am ()</label>
+<label class="form-check-label" for="4"> <input type="radio" class="form-check-input" value="4" name="sectionInput" oninput="checkReady();"></input> Thursday 7:30 am (Reid)</label>
 </div>
 
 <div class="form-check">
@@ -85,3 +85,4 @@ Remember to print out your spectra and bring them to lab.
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js">
 </script>
+--->

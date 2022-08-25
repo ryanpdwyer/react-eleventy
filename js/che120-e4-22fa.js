@@ -37,8 +37,8 @@ async function getSampleId(mySection, myEmail) {
 function assignSampleId(jsonData, mySection, myEmail) {
 
     // Needs to be in submission order (not reverse chronological...)
-    const formsMapped = jsonData.sort( (x,y) => x.number < y.number)
-                                .filter(x => x.data.sectionInput === mySection);
+    jsonData.reverse();
+    const formsMapped = jsonData.filter(x => x.data.sectionInput === mySection);
     const formEmails = formsMapped.map(x => x.data.emailInput);
 
     const formsUnique = Object.fromEntries(formsMapped.filter( (x, i) => formEmails.indexOf(x.data.emailInput) === i)
@@ -76,7 +76,7 @@ const handleSubmit = (e) => {
         return assignSampleId(x, mySection, myEmail)
       })
       .then((y) => {
-        console.log(y);
+        chooseUnknowns(y);
       })
       .catch((error) => alert(error));
   };
@@ -161,21 +161,35 @@ function range( min, max, rng ) {
 
 let myUnknowns = ["A", "B", "C"];
 
-function chooseUnknowns(event) {
+function chooseUnknowns(sampleId) {
+    const paperUnknownMod = sampleId.sample % 14;
+    let paperUnknown = paperUnknownMod;
+    if (paperUnknown === 0) {
+        paperUnknown = 14;
+    }
     const unknowns = "ABCDEFGHIJKLMN".split("");
     const unknownsVal = Object.fromEntries(unknowns.map((x,i) => [x, i+1]));
 
     const unknownsNumbered = Object.fromEntries(unknowns.map((x, i) => [i+1, x]));
 
-    // Need to get unknown number from netlify api call:
-    const labUnknown = {sample: 3, time: "2020-04-22T20:00:00.000Z"};
+    const paperUnknownLetter = unknownsNumbered[paperUnknown];
 
 
 
 
-    const rng = new Math.seedrandom(document.getElementById("nameInput").value+'2022'+'fall-CHE120');
+    const rng = new Math.seedrandom(document.getElementById("emailInput").value+'2022'+'fall-CHE120');
+
     
-    myUnknowns = range(0, unknowns.length-1, rng).slice(0,3).map(i=>unknowns[i]);
+    let myUnknownsTemp = range(0, unknowns.length-1, rng).slice(0,3).map(i=>unknowns[i]);
+
+    if (myUnknownsTemp[0] === paperUnknownLetter) {
+        myUnknownsTemp[0] = myUnknownsTemp[2];
+    } else if (myUnknownsTemp[1] === paperUnknownLetter) {
+        myUnknownsTemp[1] = myUnknownsTemp[2];
+    }
+    // This should deal with any duplicated unknowns
+    myUnknowns = [myUnknownsTemp[0], myUnknownsTemp[1], paperUnknownLetter];
+
 
 
 
@@ -200,6 +214,7 @@ function chooseUnknowns(event) {
             return s[0] + "1" + s[2] + num.toString()[1] + s.slice(3);
         }
     });
+    unknownIDs[2] = sampleId.sample;
     const numbers = ['1', '2', '3'];
     numbers.forEach( (x, i) => {
         document.getElementById(`unknown`+x).innerText = unknownIDs[i];
@@ -218,13 +233,13 @@ async function copyPages() {
     const fileName = (x) => baseUrl+x+'.pdf.pdf';
     const pdf1 =  await fetch(fileName(myUnknowns[0])).then(res => res.arrayBuffer());
     const pdf2 =  await fetch(fileName(myUnknowns[1])).then(res => res.arrayBuffer());
-    const pdf3 =  await fetch(fileName(myUnknowns[2])).then(res => res.arrayBuffer());
+    // const pdf3 =  await fetch(fileName(myUnknowns[2])).then(res => res.arrayBuffer());
 
 
 
     const pdfDoc1 = await PDFDocument.load(pdf1);
     const pdfDoc2 = await PDFDocument.load(pdf2);
-    const pdfDoc3 = await PDFDocument.load(pdf3);
+    // const pdfDoc3 = await PDFDocument.load(pdf3);
 
 
     
@@ -235,25 +250,34 @@ async function copyPages() {
     // the 743rd page from the second donor document
     const [p11, p12] = await pdfDoc.copyPages(pdfDoc1, [0, 1])
     const [p21, p22] = await pdfDoc.copyPages(pdfDoc2, [0, 1])
-    const [p31, p32] = await pdfDoc.copyPages(pdfDoc3, [0, 1])
+    // const [p31, p32] = await pdfDoc.copyPages(pdfDoc3, [0, 1])
 
     // Add the first copied page
     pdfDoc.addPage(p11);
     pdfDoc.addPage(p12);
     pdfDoc.addPage(p21);
     pdfDoc.addPage(p22);
-    pdfDoc.addPage(p31);
-    pdfDoc.addPage(p32);
+    // pdfDoc.addPage(p31);
+    // pdfDoc.addPage(p32);
     
     const pages = pdfDoc.getPages()
 
     const unknowns = ['1', '2', '3'].map(x=>document.getElementById(`unknown`+x).innerText)
 
-    const inds = [0, 1, 2];
+    const inds = [0, 1];
     inds.forEach(i=>{
-        pages[i*2].drawText(`${name} ${unknowns[i]} IR`);
+        if (i ===0 ) {
+            pages[i*2].drawText(`${name} ${unknowns[i]} IR. 3rd Sample is sample vial ${unknowns[2]}.`);
+        } else {
+            pages[i*2].drawText(`${name} ${unknowns[i]} IR`);
+        }
         pages[i*2+1].drawText(`${name} ${unknowns[i]} NMR`);
     });
+
+    pages[0].moveDown(18)
+    pages[0].drawText(``);
+
+
     
     
     // Serialize the PDFDocument to bytes (a Uint8Array)

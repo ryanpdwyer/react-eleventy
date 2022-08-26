@@ -50,7 +50,7 @@ Enter your name (first and last), Mount Union email, and section below to be ass
 </div>
 
 <div class="form-check">
-<label class="form-check-label" for="5"> <input type="radio" class="form-check-input" value="5" name="sectionInput" oninput="checkReady();"></input> Thursday 12:30 pm ()</label>
+<label class="form-check-label" for="5"> <input type="radio" class="form-check-input" value="5" name="sectionInput" oninput="checkReady();"></input> Thursday 12:30 pm (McLachlan)</label>
 </div>
 
 

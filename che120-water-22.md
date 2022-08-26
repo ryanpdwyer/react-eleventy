@@ -10,7 +10,7 @@ styles:
 
 The goal of this lab is to identify 3 unknown compounds contained in a drinking water sample.
 
-** Note: If you completed the form before Thursday at 10 am, your unknowns were not assigned correctly - please fill out the form again. **
+**Note: If you completed the form before Thursday at 10 am, your unknowns were not assigned correctly - please fill out the form again.**
 
 
 ## Your unknowns

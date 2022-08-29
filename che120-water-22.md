@@ -24,8 +24,6 @@ Enter your name (first and last), Mount Union email, and section below to be ass
 </div>
 
 
-
-
 <div class="form-group">
     <label for="emailInput">Email:</label>
     <input type="email" id="emailInput" name="emailInput" oninput="checkReady();" class="form-control"></input>

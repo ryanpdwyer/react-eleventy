@@ -12,7 +12,7 @@ styles:
 
 - Review types of Chemical Bonding
 - Review Lewis structures, including skeletal structures (see Experiment 2 from lab)
-- Resonance structures and formal charge
+- Resonance structures and formal charge (next page)
 
 ## Basic concepts of chemical bonding
 
@@ -67,22 +67,4 @@ For larger molecules, you should be able to write the Lewis structure from the c
 
 <br>
 
-## Resonance and Formal Charge
-
-<div class="alert alert-primary">
-<strong>Resonance</strong> and <strong>formal charge</strong> are new concepts that you most likely have not seen in prior chemistry classes. 
-</div>
-
-<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
-    <iframe style="position: absolute; width: 100%; height: 100%; border: 0;" scrolling="no" src="https://expl.ai/ZZLAUZM?mode=embed" frameborder="0" allowfullscreen></iframe>
-</div>
-
-<br>
-
-The video below shows the solution to the problem posted at the end of the previous video, and ties together most of the material on Lewis structures, resonance, and formal charge.
-
-<br>
-
-<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
-    <iframe style="position: absolute; width: 100%; height: 100%; border: 0;" scrolling="no" src="https://expl.ai/JXKBVNE?mode=embed" frameborder="0" allowfullscreen></iframe>
-</div>
+This section continues with [Resonance and Formal Charge](/che120-08-Resonance-FC)

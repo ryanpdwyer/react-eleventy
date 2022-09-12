@@ -11,7 +11,7 @@ styles:
 ## Goals
 
 - Review types of Chemical Bonding
-- Review Lewis structures, including skeletal structures (see Virtual Experiment 2 from lab)
+- Review Lewis structures, including skeletal structures (see Experiment 2 from lab)
 - Resonance structures and formal charge
 
 ## Basic concepts of chemical bonding
@@ -26,7 +26,7 @@ This video introduces ionic and covalent bonding as well as our last periodic tr
 
 ## Lewis structures
 
-For covalent bonding, Lewis structures describe how electrons are shared. You have seen these before in prior chemistry classes and virtual experiment 2. There are many ways to write correct Lewis structure; the procedure shown here is designed to help you consistently write the correct Lewis structure. 
+For covalent bonding, Lewis structures describe how electrons are shared. You have seen these before in prior chemistry classes and  Experiment 2. There are many ways to write correct Lewis structure; the procedure shown here is designed to help you consistently write the correct Lewis structure. 
 
 <div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
     <iframe style="position: absolute; width: 100%; height: 100%; border: 0;" scrolling="no" src="https://expl.ai/BUVGAXV?mode=embed" frameborder="0" allowfullscreen></iframe>

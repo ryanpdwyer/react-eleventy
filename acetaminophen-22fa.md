@@ -5,7 +5,7 @@ layout: vanillabootflex-full.njk
 
 ## Acetaminophen class data
 
-Class data for all 37 °C data (showing the mean).
+Class data for all 37 °C data (showing the mean). Averaging the data in the flat region after each has leveled off, the class average of the acetaminophen recovered was 558 mg for the caplet, 566 mg for the tablet, and 618 mg for the Gel Cap.
 
 <style>
 .container-iframe {

@@ -51,7 +51,7 @@ function App() {
     <MCQ name="prelab-b-explain-observation" options={
         [
             {children: <p>H<sup>+</sup> is reduced</p>},
-            {children: <p>MnO<sub>4</sub><sup>+</sup> increases</p>, correct: true},
+            {children: <p>MnO<sub>4</sub><sup>-</sup> increases</p>, correct: true},
             {children: <p>CO<sub>2</sub>(g) decreases</p>}
         ]
     }>

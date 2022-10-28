@@ -1,7 +1,7 @@
 ---
 layout: vanillabootmath.njk
 title: E5 Formation of Ferroin
-js: che120-e4-22.js
+js: hon160n-e5-week2.js
 styles:
     - che120.css
 ---
@@ -17,12 +17,15 @@ For an overview of some of the factors relevant for your control experiments, se
 </div>
 
 
+## Post-lab calculations from week 1
+
+You are encouraged (but not required) to make your standard curve (Absorbance versus ferroin concentration) using last week's data before coming to lab. You can copy and paste or duplicate from your Experiment 3 standard curve, then change the numbers. You should get an updated estimate for the slope of the calibration curve and the molar absorptivity ε at λ<sub>max</sub>. 
+
 ## Hand and Excel Calculations
 
 Your calculations for the equilibrium constant rely on filling out an ICE (Initial Change Equilibrium) table for the reaction. You are encouraged to run through the sample calculation shown below, and use that to construct an Excel table that you can then plug in your experimental data once you have your results in lab Monday.
 
 Consider an example (not an experiment you performed) for reaction mixture 5:
-
 
 <img src="/img/solution-table-hon160e5.png" alt="Solution Table" class="img-fluid" style="max-width:500px;" >
 
@@ -47,3 +50,13 @@ If your Excel table is set up correctly, all of your calculations will just invo
 
 
 Then you can do an average and standard deviation as usual...
+
+
+### Sample calculation help
+
+Here's step-by-step help with the sample calculation.
+
+<div id="app">
+</div>
+
+Using the steps above, you should be able to plug the equilibrium row of your ICE table into \\(K=Q=\\frac{[\text{products}]^\text{coeffs}}{[\text{reactants}]^\text{coeffs}}\\).

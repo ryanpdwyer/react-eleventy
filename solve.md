@@ -8,8 +8,34 @@ styles:
 
 ## Equilibrium Example - Quadratic vs Solver
 
-Here is the video using the quadratic formula (also includes all the set up)
-https://youtu.be/n_gbIUqt7UQ
 
-Here is the video using solver.
-https://www.youtube.com/watch?v=NQE7hHZ7gSo 
+
+### Problem setup and quadratic
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/n_gbIUqt7UQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+Chapters let you jump around to any area you have / had trouble with.
+
+### Equation Solver
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/iV2n2xG3z3Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
+## Help with the next problem
+
+Try the next problem on your own - if you need help, see the videos below:
+
+
+### Setup
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/By78nQ024ao" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+### Successive Approximations
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/I6jWYRGSgJ0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+### Solver
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/NQE7hHZ7gSo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

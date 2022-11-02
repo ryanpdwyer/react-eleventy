@@ -6,7 +6,7 @@ styles:
 	- che120.css
 ---
 
-## Equilibrium Example - Quadratic vs Solver
+## Equilibrium Example 1 - Quadratic vs Solver
 
 
 
@@ -24,11 +24,10 @@ Chapters let you jump around to any area you have / had trouble with.
 
 ## Help with the next problem
 
-Try the next problem on your own - if you need help, see the videos below:
+This practices successive approximations or solver again. Try it yourself then see the videos below for help.
 
 
 ### Setup
-
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/By78nQ024ao" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 

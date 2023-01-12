@@ -10,13 +10,12 @@ styles:
 
 The goal of this lab is to identify 3 unknown compounds contained in a drinking water sample.
 
-**The form assigning the unknowns will be make active at the end of the first week of classes.**
 
 <div markdown=1>
 
 ## Your unknowns
 
-Enter your name (first and last) and Mount Union email and section below to be assigned a set of unknown samples:
+Enter your name (first and last) and Mount Union email below to be assigned a set of unknown samples:
 
 <form class="form" id="120-water-23sp">
 <div>

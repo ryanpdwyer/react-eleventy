@@ -954,7 +954,7 @@ function chooseUnknowns(obj) {
     const sampleIDs = myUnknowns.slice(0,-1).map( x => Math.floor(rng()*10000))
                                 .sort()
                                 .map(x=>x.toString().padStart(4, "0"));
-                                
+
     const unknownIDs = myUnknowns.slice(0,-1).map((x,i)=>{
         const num = parseInt(x);
         const s = sampleIDs[i];
@@ -1024,7 +1024,7 @@ async function copyPages() {
     const inds = [0, 1];
     inds.forEach(i=>{
         if (i ===0 ) {
-            pages[i*2].drawText(`${name} ${unknowns[i]} IR. 3rd Sample is sample vial ${unknowns[2]}.`);
+            pages[i*2].drawText(`2023 ${name} ${unknowns[i]} IR. In lab, measure vial ${unknowns[2]}.`);
         } else {
             pages[i*2].drawText(`${name} ${unknowns[i]} IR`);
         }

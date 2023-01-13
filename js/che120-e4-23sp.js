@@ -934,7 +934,7 @@ function range( min, max, rng ) {
          .sort().map(function( v ) { return v[ 1 ] });
 }
 
-let myUnknowns = ["A", "B", "C"];
+let unknownLetters = ["A", "B", "C"];
 
 function chooseUnknowns(obj) {
     const unknowns = "ABCDEFGHIJKLMN".split("");
@@ -946,12 +946,15 @@ function chooseUnknowns(obj) {
 
 
     const myUnknowns = [obj.U1, obj.U2, obj.Vial];
+    unknownLetters[0] = unknownsNumbered[myUnknowns[0]];
+    unknownLetters[1] = unknownsNumbered[myUnknowns[1]];
 
     document.getElementById('assignedUnknowns').style.display='block';
     
     const sampleIDs = myUnknowns.slice(0,-1).map( x => Math.floor(rng()*10000))
                                 .sort()
                                 .map(x=>x.toString().padStart(4, "0"));
+                                
     const unknownIDs = myUnknowns.slice(0,-1).map((x,i)=>{
         const num = parseInt(x);
         const s = sampleIDs[i];
@@ -985,8 +988,8 @@ async function copyPages() {
 
     const baseUrl = '/pdf/'
     const fileName = (x) => baseUrl+x+'.pdf.pdf';
-    const pdf1 =  await fetch(fileName(myUnknowns[0])).then(res => res.arrayBuffer());
-    const pdf2 =  await fetch(fileName(myUnknowns[1])).then(res => res.arrayBuffer());
+    const pdf1 =  await fetch(fileName(unknownLetters[0])).then(res => res.arrayBuffer());
+    const pdf2 =  await fetch(fileName(unknownLetters[1])).then(res => res.arrayBuffer());
     // const pdf3 =  await fetch(fileName(myUnknowns[2])).then(res => res.arrayBuffer());
 
 

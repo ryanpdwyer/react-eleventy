@@ -990,7 +990,6 @@ async function copyPages() {
     const fileName = (x) => baseUrl+x+'.pdf.pdf';
     const pdf1 =  await fetch(fileName(unknownLetters[0])).then(res => res.arrayBuffer());
     const pdf2 =  await fetch(fileName(unknownLetters[1])).then(res => res.arrayBuffer());
-    // const pdf3 =  await fetch(fileName(myUnknowns[2])).then(res => res.arrayBuffer());
 
 
 
@@ -1034,8 +1033,6 @@ async function copyPages() {
     pages[0].moveDown(18)
     pages[0].drawText(``);
 
-
-    
     
     // Serialize the PDFDocument to bytes (a Uint8Array)
     const pdfBytes = await pdfDoc.save()

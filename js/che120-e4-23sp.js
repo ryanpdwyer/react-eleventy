@@ -1023,7 +1023,7 @@ async function copyPages() {
     const inds = [0, 1];
     inds.forEach(i=>{
         if (i ===0 ) {
-            pages[i*2].drawText(`2023 ${name} ${unknowns[i]} IR. In lab, measure vial ${unknowns[2]}.`);
+            pages[i*2].drawText(`2023 ${name} ${unknowns[i]} IR. In lab: measure vial ${unknowns[2]}`);
         } else {
             pages[i*2].drawText(`${name} ${unknowns[i]} IR`);
         }

@@ -8,15 +8,22 @@ styles:
 
 # CHE 120 08 Part 2: Resonance and Formal Charge
 
+**Previous video:** [08 Lewis structures](/che120-08-Bonding) 
+
+
+<div class="alert alert-secondary">
+For Friday , you could skip directly to <a href="/che120-09-VSEPR">VSEPR theory</a>.
+</div>
+
+
 ## Goals
 
 - Resonance structures and formal charge
 
-
 ## Resonance and Formal Charge
 
 <div class="alert alert-primary">
-<strong>Resonance</strong> and <strong>formal charge</strong> are new concepts that you most likely have not seen in prior chemistry classes. 
+<strong>Resonance</strong> and <strong>formal charge</strong> are new concepts that you most likely have not seen in prior chemistry classes. We'll look at these topics more in-class.
 </div>
 
 <div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
@@ -32,3 +39,5 @@ The video below shows the solution to the problem posted at the end of the previ
 <div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
     <iframe style="position: absolute; width: 100%; height: 100%; border: 0;" scrolling="no" src="https://expl.ai/JXKBVNE?mode=embed" frameborder="0" allowfullscreen></iframe>
 </div>
+
+**Next:** [VSEPR theory](/che120-09-VSEPR)

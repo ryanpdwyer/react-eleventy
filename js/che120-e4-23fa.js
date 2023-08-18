@@ -847,7 +847,7 @@ function assignSampleId(jsonData, myEmail) {
 
 const handleSubmit = (e) => {
     e.preventDefault();
-    let myForm = document.getElementById("120-water-23sp");
+    let myForm = document.getElementById("120-water-23fa");
     let formData = new FormData(myForm);
     const mySection = formData.get('sectionInput')
     const myEmail = formData.get('emailInput');
@@ -864,7 +864,7 @@ const handleSubmit = (e) => {
 }
 
 document
-  .getElementById("120-water-23sp")
+  .getElementById("120-water-23fa")
   .addEventListener("submit", handleSubmit);
 
 
@@ -882,7 +882,15 @@ function checkReady() {
     }
 }
 
-window.checkReady = checkReady;
+document
+  .getElementById("nameInput")
+  .addEventListener("change", checkReady);
+
+document
+  .getElementById("emailInput")
+  .addEventListener("change", checkReady);
+
+// window.checkReady = checkReady;
 
 function mod(n, m) {
     return ((n % m) + m) % m;
@@ -942,7 +950,7 @@ function chooseUnknowns(obj) {
 
     const unknownsNumbered = Object.fromEntries(unknowns.map((x, i) => [i+1, x]));
 
-    const rng = new Math.seedrandom(obj.Email+'2023'+'spring-CHE120');
+    const rng = new Math.seedrandom(obj.Email+'2023'+'fall-CHE120-some_more-text');
 
 
     const myUnknowns = [obj.U1, obj.U2, obj.Vial];
@@ -987,7 +995,7 @@ async function copyPages() {
     const name = document.getElementById("nameInput").value;
 
     const baseUrl = '/pdf/'
-    const fileName = (x) => baseUrl+x+'.pdf.pdf';
+    const fileName = (x) => baseUrl+x+'.pdf';
     const pdf1 =  await fetch(fileName(unknownLetters[0])).then(res => res.arrayBuffer());
     const pdf2 =  await fetch(fileName(unknownLetters[1])).then(res => res.arrayBuffer());
 

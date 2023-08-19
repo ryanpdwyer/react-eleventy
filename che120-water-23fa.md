@@ -10,11 +10,7 @@ styles:
 
 The goal of this lab is to identify 3 unknown compounds contained in a drinking water sample. 
 
-Check this page later to download your unknowns.
-
-
-
-<!-- <div markdown=1>
+<div markdown=1>
 
 ## Your unknowns
 
@@ -23,13 +19,13 @@ Enter your name (first and last) and Mount Union email below to be assigned a se
 <form class="form" id="120-water-23fa">
 <div>
 <div class="form-group">
-<label for="nameInput">Name:</label><input id="nameInput" name="nameInput" oninput="checkReady();" class="form-control"></input>
+<label for="nameInput">Name:</label><input id="nameInput" name="nameInput" class="form-control"></input>
 </div>
 
 
 <div class="form-group">
     <label for="emailInput">Mount Union Email:</label>
-    <input type="email" id="emailInput" name="emailInput" oninput="checkReady();" class="form-control"></input>
+    <input type="email" id="emailInput" name="emailInput" class="form-control"></input>
 </div>
 
 <button type="submit" id="submitName" disabled class="btn btn-primary">Submit</button>
@@ -61,4 +57,5 @@ Sorry, your email address was not found in the class list - check whether you ty
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js">
-</script> -->
+</script>
+

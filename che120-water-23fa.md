@@ -10,6 +10,9 @@ styles:
 
 The goal of this lab is to identify 3 unknown compounds contained in a drinking water sample. 
 
+This year's unknowns have not been posted yet - check back later.
+
+<!-- 
 <div markdown=1>
 
 ## Your unknowns
@@ -53,7 +56,7 @@ Remember to print out your spectra and bring them to lab.
 
 <div style="display:none;" id="email-not-found" markdown="1">
 Sorry, your email address was not found in the class list - check whether you typed your email address correctly. If your email address is correct, <a href="mailto: dwyerry@mountunion.edu">email Dr. Dwyer</a>
-</div>
+</div> -->
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js">

@@ -6,7 +6,7 @@ js: fys-installation-g.js
 
 # AI for Everyone
 
-This has links to material on my website that go along with the AI content in the course. You can see my [schedule here](/schedule/).
+This has links to material on my website that go along with the AI content in the course. You can see my [calendar here](/calendar/).
 
 ## Week 1
 

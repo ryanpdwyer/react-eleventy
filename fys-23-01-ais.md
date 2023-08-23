@@ -1,5 +1,5 @@
 ---
-layout: vanillabootflex-full.njk
+layout: vanillabootflex-fys.njk
 title: FYS Introduction to AI
 js: fys-installation-g.js
 ---

@@ -1,5 +1,5 @@
 ---
-layout: vanillabootflex-full.njk
+layout: vanillabootflex-fys.njk
 title: A2 Building a classifier model
 js: fys-installation-g.js
 tags: fys23
@@ -12,11 +12,10 @@ tags: fys23
 - Build a classifier AI model using Wekinator. 
 - Demonstrate and explain your model in a short (about 1 minute) video.
 
-
 ### Prerequisites
 
 - Installed all the software from [FYS: Setting up your computer](/fys-installation)
-- Completed [What is AI? videos](/fys-v01/)
+- Completed [What is AI? videos](/fys-v01-23/)
 
 <h2 id="task">Task</h2>
 

@@ -6,20 +6,20 @@ js: fys-installation-g.js
 
 # Classifiers and Regression in the wild
 
-Choose an application of AI / machine learning. It could be from the list of applications below or any others you can think of or find on your own. Write a discussion post that
+Choose an application of AI / machine learning. It could be from the list of applications below or any others you can think of or find on your own. Write a one-page, double-spaced essay reviewing the application that includes
 
-1) Includes a descriptive title
+1) A descriptive or interesting title
 2) Briefly explains the application and its purpose
 3) Describes the AI model (what inputs? Is the output a **classifier, regression, both, or neither?** Anything interesting about how is the model is "trained"?)
-4) What's something interesting about the application? (a connection to what you've learned, a connection to any of your other interests...)
-5) links to 1 or more sources that you used (videos, websites, etc...)
+4) What's something interesting about the application? (a connection to what you've learned, or a connection to any of your other interests...)
+5) links to 1 or more sources that you used (videos, websites, etc - APA, MLA, or just the link is fine for this assignment)
 6) Includes an image if appropriate.
 
 A good post will be 1 (or maybe 2 short) well-written paragraphs. What is well-written? Check that your post 
 
 - Is understandable to your audience, your fellow classmates
 
-Also, check to make sure your post avoids these **critical mistakes:**
+Also, check to make sure your essay avoids these **critical mistakes:**
 
 1) Sentence fragments (incomplete sentences)
 2) Run-on sentences (comma splices and fused sentences)

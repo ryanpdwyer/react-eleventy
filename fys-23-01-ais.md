@@ -65,8 +65,8 @@ With someone next to you, ask the AI model questions about each other. -->
 medium -- poem, song, etc...) describing a recent fictional event that
 occurred at Mount Union. Make sure the article includes a good title.
 
-**Goals:** The goal is for you and your partner to come up with the most creative possible fictional event and make the AI write the most entertaining and funny,
-article (or poem, song, etc) possible about it. This will also be an opportunity to learn more about what the AI is good and bad at.
+**Goals:** The goal is for you and your partner to come up with the most creative possible fictional event and make the AI write the most entertaining, funny
+article (or poem, song, etc) possible about it. This will also help you learn more about what the AI is good and bad at.
 
 
 **Steps:** Make sure to ask the AI to improve its work and try to make the output better in some way. Some ideas:

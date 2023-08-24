@@ -10,7 +10,7 @@ This has links to material on my website that go along with the AI content in th
 
 ## Week 1
 
-1. [Intro to AI](/fys-23-01-ais/) This content has the links needed for our in-class AI activities on Tuesday.
-2. [Installation of Processing and Wekinator](/fys-installation/) These programs will need to be installed for next Tuesday; feel free to start now!
+1. [Intro to AI](/fys-23-01-ais/) This content has the links needed for our in-class AI activities on Tuesday and Thursday.
+2. [Installation of Processing and Wekinator](/fys-installation/) These programs will need to be installed for next Tuesday; feel free to start now! **Don't wait until Monday night to complete the assignment - start Thursday or Friday so you can get help if you need it!**
 <!-- 3. [AI Writing](/fys-23-02-ai-writing)  -->
 

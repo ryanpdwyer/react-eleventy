@@ -1,5 +1,5 @@
 ---
-layout: vanillabootflex-full.njk
+layout: vanillabootflex-md-pchem.njk
 title: Distribution of Energy
 styles:
     - fys.css

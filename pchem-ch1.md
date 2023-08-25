@@ -1,9 +1,10 @@
 ---
-layout: vanillabootflex-full.njk
+layout: vanillabootflex-md-pchem.njk
 title: Probability
 styles:
     - fys.css
 js: pchem-ch1.js
+tags: pchem23
 ---
 
 ## Probability: Distributions and chemical equilibrium

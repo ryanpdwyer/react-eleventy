@@ -15,7 +15,7 @@ tags: fys23
 ### Prerequisites
 
 - Installed all the software from [FYS: Setting up your computer](/fys-installation)
-- Completed [What is AI? videos](/fys-v01-23/)
+- Attended class, learning about [What is AI?](/fys-v01-23/) (video link provides optional review)
 
 <h2 id="task">Task</h2>
 
@@ -29,11 +29,11 @@ tags: fys23
 
 1. In the `wekinator_examples/inputs` folder, there are several possible inputs you could use:
 	<pre>
-	├── Avatar_2Inputs (similar to the one I used in the video)
-	├── Flexible_2Inputs (similar to the one I used in the video)
-	├── Mountain_2Inputs (similar to the one I used in the video)
+	├── Avatar_2Inputs (similar to the one I used)
+	├── Flexible_2Inputs (similar to the one I used)
+	├── Mountain_2Inputs (similar to the one I used)
 	├── Mouse_ForDTW_2Inputs (<b>don't use</b>)
-	├── Pirate_2Inputs (from the <a href="/fys-v01/">What is AI?</a> videos)
+	├── Pirate_2Inputs (from the <a href="/fys-v01/">What is AI?</a> videos / class)
 	├── SimpleWebcam_100Inputs (<b>don't use</b>)
 	├── Simple_MouseXY_2Inputs (<b>Hard to train with</b>)
 	└── Simple_Mouse_DraggedObject_2Inputs 
@@ -54,7 +54,7 @@ tags: fys23
 <iframe width="640" height="360" src="https://www.youtube.com/embed/oUrMZeCINgQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 5. Record your roughly 1 minute video, including all three parts described [above](#task), using [Screencast-o-matic](https://screencast-o-matic.com/). Make sure your voice is audible on the recording.
-6. Upload your video to [Youtube](https://youtube.com/upload) or Screencast-o-matic and submit the link to the [D2L Dropbox](https://d2l.mountunion.edu/d2l/le/content/43087/viewContent/551590/View).
+6. Upload your video to [Youtube](https://youtube.com/upload) or Screencast-o-matic and submit the link to the [D2L Dropbox](https://d2l.mountunion.edu/d2l/le/content/54369/viewContent/819510/View).
 
 <iframe width="640" height="360" src="https://www.youtube.com/embed/fP0VIrNPWW8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 

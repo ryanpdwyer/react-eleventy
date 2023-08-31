@@ -15,7 +15,7 @@ tags: fys23
 ### Prerequisites
 
 - Installed all the software from [FYS: Setting up your computer](/fys-installation)
-- Attended class, learning about [What is AI?](/fys-v01-23/) (video link provides optional review)
+- Attended class, learning about [What is AI?](/fys-v01-23/) (video link provides optional review of material from class)
 
 <h2 id="task">Task</h2>
 
@@ -29,7 +29,7 @@ tags: fys23
 
 1. In the `wekinator_examples/inputs` folder, there are several possible inputs you could use:
 	<pre>
-	├── Avatar_2Inputs (similar to the one I used)
+	├── <a href='/img/Avatar_2Inputs.pde' download="Avatar_2Inputs.pde">Avatar_2Inputs</a> (similar to the one I used - use link to download a working version)
 	├── Flexible_2Inputs (similar to the one I used)
 	├── Mountain_2Inputs (similar to the one I used)
 	├── Mouse_ForDTW_2Inputs (<b>don't use</b>)

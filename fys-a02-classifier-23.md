@@ -33,7 +33,7 @@ tags: fys23
 	├── Flexible_2Inputs (similar to the one I used)
 	├── Mountain_2Inputs (similar to the one I used)
 	├── Mouse_ForDTW_2Inputs (<b>don't use</b>)
-	├── Pirate_2Inputs (from the <a href="/fys-v01/">What is AI?</a> videos / class)
+	├── Pirate_2Inputs (from the <a href="/fys-v01-23/">What is AI?</a> videos / class)
 	├── SimpleWebcam_100Inputs (<b>don't use</b>)
 	├── Simple_MouseXY_2Inputs (<b>Hard to train with</b>)
 	└── Simple_Mouse_DraggedObject_2Inputs 

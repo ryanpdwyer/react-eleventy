@@ -9,7 +9,7 @@ js: fys-installation-g.js
 Choose an application of AI / machine learning. It could be from the list of applications below or any others you can think of or find on your own. Write a one-page, double-spaced essay reviewing the application that includes
 
 1) A descriptive or interesting title
-2) Briefly explains the application and its purpose
+2) A brief explanation of the application and its purpose
 3) Describes the AI model (what inputs? Is the output a **classifier, regression, both, or neither?** Anything interesting about how is the model is "trained"?)
 4) What's something interesting about the application? (a connection to what you've learned, or a connection to any of your other interests...)
 5) links to 1 or more sources that you used (videos, websites, etc - APA, MLA, or just the link is fine for this assignment)

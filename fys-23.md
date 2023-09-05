@@ -8,6 +8,10 @@ js: fys-installation-g.js
 
 This has links to material on my website that go along with the AI content in the course.
 
+## Week 3
+1. [Building a regression model and changing models](/fys-A04-regression-change-models-23/) This follows along with the first part of class Tuesday
+2. [A3 Essay: Reviewing an AI application - identifying classifiers and regression in the wild](/fys-A03-23/) This is your assignment due **Thursday**
+
 ## Week 2
 
 1. [Classifier models](/fys-V01-23/) This contains information that follows along with our in-class presentation about classifiers.

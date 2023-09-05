@@ -42,6 +42,9 @@ Here's an example of a classifier. Make sure you use **3 or more classes** in yo
 
 <iframe width="640" height="360" src="https://www.youtube.com/embed/PMl-LJ-snyU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-### Submitting
+## Submitting (during class)
 
-**Due: Friday 09/03 at 12 pm:** Upload your video to YouTube / Screencast-o-matic and submit the link to the [A4 Dropbox](https://d2l.mountunion.edu/d2l/le/content/43087/viewContent/551595/View)
+Label your models and paste screenshots of your classifiers into the Word document: [FYS Classifier model comparison](https://mountunion-my.sharepoint.com/:w:/g/personal/dwyerry_mountunion_edu/Ef-uyf4r95FKnolavcBmJbYB9-TZ_bO_5pYqb-x6JxHPCw?e=3DvElX)
+
+<iframe src="https://mountunion-my.sharepoint.com/personal/dwyerry_mountunion_edu/_layouts/15/Doc.aspx?sourcedoc={fec9aeff-f72b-4a91-9e89-5abdc06625b6}&amp;action=embedview" width="640px" height="480px" frameborder="0">This is an embedded <a target="_blank" href="https://office.com">Microsoft Office</a> document, powered by <a target="_blank" href="https://office.com/webapps">Office</a>.</iframe>
+

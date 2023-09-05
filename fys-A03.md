@@ -28,11 +28,17 @@ A good post will be 1-2 well-written paragraphs. What is well-written? Check tha
 
 Also, check to make sure your post avoids these **critical mistakes:**
 
+
 1) Sentence fragments (incomplete sentences)
 2) Run-on sentences (comma splices and fused sentences)
 3) Sentence sprawl (Long sentences that contain many clauses which makes it hard to infer the meaning that the writer is trying to get across because all of those extra words and clauses get in the way of the reader's comprehension-like this sentence!)
 
 Also check for basic spelling errors, typos, and capitalization errors.
+
+<div class="alert alert-warning" role="alert">
+  These are the class's Gateway Criteria - see the handout from class or the link for more detail. If you have more than two of these mistakes per page, the assignment will be given back ungraded until you correct them.
+</div>
+
 
 ## Potential Topics
 

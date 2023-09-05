@@ -28,6 +28,16 @@ For help completing the steps, see the following videos:
 
 **For my regression model, I chose to make the output color match the input color.** Feel free to use the same for yours - or be creative if you have another idea.
 
+<!--Bootstrap warning / caution -->
+
+<div class="alert alert-warning" role="alert">
+To use Avatar_2Inputs, download it here: <a href='/img/Avatar_2Inputs.pde' download="Avatar_2Inputs.pde">Avatar_2Inputs</a>
+</div>
+
+
+The relevant outputs (`Processing_Color_2Continuous` and `Processing_Color_3Continuous`) are located in `wekinator_examples/outputs`.
+
+
 <iframe width="640" height="360" src="https://www.youtube.com/embed/RrUmydE5itg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 Don't worry if your model doesn't work perfectly - it's harder to make the colors match exactly everywhere.

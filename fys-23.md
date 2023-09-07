@@ -14,7 +14,8 @@ This has links to material on my website that go along with the AI content in th
 ## Week 3
 1. [Building a regression model and changing models](/fys-A04-regression-change-models-23/) This follows along with the first part of class Tuesday
 2. [A3 Essay: Reviewing an AI application - identifying classifiers and regression in the wild](/fys-A03-23/) This is your assignment due **Thursday**
-4. [A4 - Building an AI Project Model choices](/fys-V06-23) Watch the videos to see an overview of the types of models you could build. Remember your model choice is due **Tuesday**
+3. [Teachable Machine](https://teachablemachine.withgoogle.com/) We'll use Teachable machine to build a model during class
+4. [A4 - Building an AI Project Model choices](/fys-V06-23) Watch the videos to see an overview of the types of models you could build. Remember your model choice is due **Tuesday** <a target="_blank" href="https://d2l.mountunion.edu/d2l/le/content/54369/viewContent/820927/View">A4 Build an AI Project Topic</a>
 
 
 ## Week 2

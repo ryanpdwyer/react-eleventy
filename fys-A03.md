@@ -8,6 +8,7 @@ js: fys-installation.js
 
 - Practice writing and editing
 - Connect AI / machine learning theory to applications
+
 # A3 Discussion post: Classifiers and Regression in the wild
 
 
@@ -38,6 +39,7 @@ Also check for basic spelling errors, typos, and capitalization errors.
 <div class="alert alert-warning" role="alert">
   These are the class's Gateway Criteria - see the handout from class or the link for more detail. If you have more than two of these mistakes per page, the assignment will be given back ungraded until you correct them.
 </div>
+
 
 
 ## Potential Topics

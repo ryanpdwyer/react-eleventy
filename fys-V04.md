@@ -32,6 +32,6 @@ Here are pictures showing two different models trained on the same training data
 
 <div id="question-node"></div>
 
-### Check-in questions
+<!-- ### Check-in questions -->
 
-**By 12 pm Monday, complete the check-in quiz** [C3: Models and College](https://d2l.mountunion.edu/d2l/le/content/43087/viewContent/551660/View?ou=43087)
+<!-- **By 12 pm Monday, complete the check-in quiz** [C3: Models and College](https://d2l.mountunion.edu/d2l/le/content/43087/viewContent/551660/View?ou=43087) -->

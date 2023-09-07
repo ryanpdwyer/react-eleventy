@@ -5,6 +5,13 @@ previousClass = -1;
 
 let initialized = false;
 
+let initialTimestamp = null;
+let classChangeTimestamp = null;
+
+let classSeekPositions = {};
+
+window.classSeekPositions = classSeekPositions;
+
 async function init() {
     if (initialized) {
         return;
@@ -19,6 +26,9 @@ async function init() {
     // Note: the pose library adds a tmPose object to your window (window.tmPose)
     model = await tmImage.load(modelURL, metadataURL);
     maxPredictions = model.getTotalClasses();
+    for (let i = 0; i < maxPredictions; i++) {
+        classSeekPositions[i] = 0;
+    };
 
     // Convenience function to setup a webcam
     const size = 400;
@@ -26,6 +36,7 @@ async function init() {
     webcam = new tmImage.Webcam(size, size, flip); // width, height, flip
     await webcam.setup(); // request access to the webcam
     await webcam.play();
+
     window.requestAnimationFrame(loop);
 
     // append/get elements to the DOM
@@ -39,8 +50,12 @@ async function init() {
 document.getElementById("start-button").addEventListener("click", init);
 
 async function loop(timestamp) {
+    if (initialTimestamp == null) {
+        initialTimestamp = timestamp;
+        classChangeTimestamp = timestamp;
+    }
     webcam.update(); // update the webcam frame
-    await predict();
+    await predict(timestamp);
     window.requestAnimationFrame(loop);
 }
 
@@ -84,6 +99,7 @@ window.onSpotifyIframeApiReady = (IFrameAPI) => {
         const i = event.detail.class;
         const url = document.getElementById(`class-${i}-input`).value;
         EmbedController.loadUri(urlToURI(url));
+        // EmbedController.seek(Math.round(classSeekPositions[i-1]/1000.0));
         EmbedController.play();
         });
       };
@@ -91,7 +107,7 @@ window.onSpotifyIframeApiReady = (IFrameAPI) => {
     };
 
 
-async function predict() {
+async function predict(timestamp) {
     // Prediction 2: run input through teachable machine classification model
     const prediction = await model.predict(webcam.canvas);
 
@@ -115,8 +131,11 @@ async function predict() {
         }
     }
     
-
     if (iMax != previousClass) {
+        if (previousClass != -1) {
+            classSeekPositions[previousClass] += timestamp - classChangeTimestamp;
+        }
+        classChangeTimestamp = timestamp;
         previousClass = iMax;
         document.getElementById("play").dispatchEvent(tmEvent(iMax+1));
     }

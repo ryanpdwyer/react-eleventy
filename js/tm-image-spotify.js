@@ -121,3 +121,29 @@ async function predict() {
         document.getElementById("play").dispatchEvent(tmEvent(iMax+1));
     }
 }
+
+
+// Save the state of all input elements to localStorage
+function saveState() {
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => {
+      localStorage.setItem(input.id, input.value);
+    });
+  }
+  
+  // Load the state of all input elements from localStorage
+  function loadState() {
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => {
+      const value = localStorage.getItem(input.id);
+      if (value !== null) {
+        input.value = value;
+      }
+    });
+  }
+  
+  // Call saveState() whenever an input element changes
+  document.addEventListener('input', saveState);
+  
+  // Call loadState() when the page loads
+  window.addEventListener('load', loadState);

@@ -54,6 +54,9 @@
         <footer><img src="/img/Mount-Union-Logo.jpg" alt="Mount Union Logo" style="max-height: 72px;"></footer>
     </div>
     </body>
+        <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
     <script type="module" src="/js/{{ js }}"></script>
         <script>
         const activeEl = document.getElementById("nav-"+ "{{ nav }}");

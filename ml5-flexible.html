@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>ml5.js Supervised Learning Example</title>
+    <!-- <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.7.0/lib/p5.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.dom.min.js"></script> -->
+    <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+    <style>
+      .p5Canvas {
+        border: 1px solid black;
+        position: relative;
+      }
+      #box {
+        width: 50px;
+        height: 50px;
+        background-color: red;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+        <p>There are some unknown number of inputs - keep inputs in a object or array?</p>
+        <p>I must choose the number of outputs - let's do that here (and how many classes per output)</p>
+        <p>I must choose the number of hidden layers and the number of nodes per layer</p>
+    </div>
+    <!--Create input elements and a button to choose the settings-->
+    <div>
+        <label for="numInputs">Number of inputs:</label>
+        <input type="number" id="numInputs" value="2">
+        <label for="numOutputs">Number of outputs:</label>
+        <input type="number" id="numOutputs" value="1">
+        <label for="numClassesPerOutput">Number of classes per output:</label>
+        <input type="number" id="numClassesPerOutput" value="5">
+        <label for="numHiddenLayers">Number of hidden layers:</label>
+        <input type="number" id="numHiddenLayers" value="1">
+        <label for="numNodesPerLayer">Number of nodes per hidden layer:</label>
+        <input type="number" id="numNodesPerLayer" value="1">
+        <button type="button" id="choose-settings">Choose Settings</button>
+    <!--I need this section below to be created dynamically by an onclick event listener from the choose-settings button; each should include a heading at the top: Output 1, Output 2, etc-->
+    <div id="outputContainer"></div>
+    <div>
+        <button type="button" id="record-examples">Record Examples</button>
+        <button type="button" id="clear-examples" onclick="classifier.clearAll();">Clear Examples</button>
+    </div>
+    <div>
+      <button onclick="train();">Train</button>
+      <button onclick="toggle_run();">Run</button>
+    </div>
+    <p>Output: <span id="output-span"></span></p>
+    <div id="canvas"></div>
+    <script>
+      let classifier;
+      let box;
+      let bx=0;
+    let by=0;
+    let boxSize = 50;
+    let overBox = false;
+    let locked = false;
+    let xOffset = 0.0;
+    let recording = false;
+    let yOffset = 0.0;
+    let frame = 0;
+    let running = false;
+
+    document.getElementById('choose-settings').addEventListener('click', function() {
+        const numInputs = document.getElementById('numInputs').value;
+        const numOutputs = document.getElementById('numOutputs').value;
+        const numClassesPerOutput = document.getElementById('numClassesPerOutput').value;
+        const numHiddenLayers = document.getElementById('numHiddenLayers').value;
+        const numNodesPerLayer = document.getElementById('numNodesPerLayer').value;
+        const outputContainer = document.getElementById('outputContainer');
+        outputContainer.innerHTML = '';
+        for (let i = 0; i < numOutputs; i++) {
+            const outputDiv = document.createElement('div');
+            outputDiv.id = `output${i}`;
+            outputDiv.innerHTML = `<h3>Output ${i+1}</h3>`;
+            for (let j = 0; j < numClassesPerOutput; j++) {
+                const classDiv = document.createElement('div');
+                classDiv.innerHTML = `<label for="class${j}">Class ${j+1}:</label>
+                <input type="text" id="class${j}" value="${j+1}">`;
+                outputDiv.appendChild(classDiv);
+            }
+            outputContainer.appendChild(outputDiv);
+        }
+    });
+
+        const classInputs = document.querySelectorAll('input[type="text"]');
+      const classSelect = document.getElementById('classSelect');
+      classInputs.forEach(input => {
+        const option = document.createElement('option');
+        option.value = input.value;
+        option.text = input.value;
+        classSelect.add(option);
+      });
+
+      function updateClasses() {
+        const classInputs = document.querySelectorAll('input[type="text"]');
+        const classSelect = document.getElementById('classSelect');
+        classSelect.innerHTML = '';
+        classInputs.forEach(input => {
+          const option = document.createElement('option');
+          option.value = input.value;
+          option.text = input.value;
+          classSelect.add(option);
+        });
+      }
+
+      document.querySelectorAll('input[type="text"]').forEach(input => {
+        input.addEventListener('change', updateClasses);
+      });
+
+      function setup() {
+        canvas = createCanvas(400, 400);
+        canvas.parent('canvas');
+        // box = createBox();
+        classifier = ml5.neuralNetwork({
+          inputs: ['x', 'y'],
+          outputs: ['label'],
+          task: 'classification',
+          debug: true
+        });
+        frameRate(30);
+      }
+
+      function draw() {
+        frame+=1;
+  background(237, 34, 93);
+
+  // Test if the cursor is over the box
+  if (
+    mouseX > bx - boxSize &&
+    mouseX < bx + boxSize &&
+    mouseY > by - boxSize &&
+    mouseY < by + boxSize
+  ) {
+    overBox = true;
+    if (!locked) {
+      stroke(255);
+      fill(244, 122, 158);
+    }
+  } else {
+    stroke(156, 39, 176);
+    fill(244, 122, 158);
+    overBox = false;
+  }
+
+  // Draw the box
+  rect(bx, by, boxSize, boxSize);
+
+  if (frame % 5 == 0) {
+    if (recording) {
+        add_example();
+    } else if (running) {
+        classifier.classify([bx, by], writeResult)
+    }
+  }
+
+}
+
+    function add_example() {
+        classifier.addData([bx, by], [document.getElementById('classSelect').value]);
+    }
+
+    function toggle_recording() {
+        recording = !recording;
+        running = false;
+        if (recording) {
+            document.getElementById('record-examples').innerHTML = 'Stop Recording';
+        } else {
+            document.getElementById('record-examples').innerHTML = 'Record Examples';
+        }
+    }
+
+    document.getElementById('record-examples').addEventListener('click', toggle_recording);
+
+    function train() {
+        classifier.normalizeData();
+        classifier.train({epochs: 50}, finishedTraining);
+      }
+    
+    function toggle_run() {
+        running = !running;
+        recording = false;
+        if (running) {
+            document.getElementById('run').innerHTML = 'Stop';
+        } else {
+            document.getElementById('run').innerHTML = 'Run';
+        }
+    }
+
+    function writeResult(error, result) {
+        const outputEl = document.getElementById('output-span')
+        if (error) {
+          console.error(error);
+          outputEl.innerHTML = 'Error';
+        } else {
+          outputEl.innerHTML = result[0].label;
+        }
+    }
+
+      function finishedTraining() {
+        console.log('Finished training!');
+      }
+
+      function mousePressed() {
+        if (overBox) {
+            locked = true;
+            fill(255, 255, 255);
+        } else {
+            locked = false;
+        }
+        xOffset = mouseX - bx;
+        yOffset = mouseY - by;
+        }
+
+        function mouseDragged() {
+        if (locked) {
+            bx = mouseX - xOffset;
+            by = mouseY - yOffset;
+        }
+        }
+
+        function mouseReleased() {
+        locked = false;
+        }
+
+
+
+    </script>
+  </body>
+</html>

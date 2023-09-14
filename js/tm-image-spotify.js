@@ -79,7 +79,7 @@ window.onSpotifyIframeApiReady = (IFrameAPI) => {
       const options = {
         width: '100%',
         height: '200',
-        uri: 'spotify:episode:7makk4oTQel546B0PZlDM5'
+        uri: 'spotify:track:5Zsr1AWKUcxDGMlIaDXFru'
       };
 
       const callback = (EmbedController) => {

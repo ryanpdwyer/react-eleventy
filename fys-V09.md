@@ -25,6 +25,6 @@ tags: fys
 
 - [Pose Model Instruments](/tm-pose/)
 - [Image Model Instruments](/tm-image/)
-- [Pose Model Spotify](/tm-pose-spotify/)
+- [Pose Model Spotify](/tm-pose-spotify2/)
 - [Image Model Spotify](/tm-image-spotify/)
 - [Pose Model Doodle Jump](https://editor.p5js.org/ryanpdwyer/full/wRpcePuXj)

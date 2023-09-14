@@ -8,6 +8,8 @@ tags: fys
 
 # Building an AI Project: Interesting Outputs
 
+**Previous:** See [Week 4: Building an AI Model Project](/fys-V07-23) for an overview of the steps from week 4.
+
 ## Goals
 
 - Connect your AI model to different outputs
@@ -21,5 +23,8 @@ tags: fys
 
 ### Web Examples
 
-- [Pose Model Music](/tm-pose/)
-- [Image Model Music](/tm-image/)
+- [Pose Model Instruments](/tm-pose/)
+- [Image Model Instruments](/tm-image/)
+- [Pose Model Spotify](/tm-pose-spotify/)
+- [Image Model Spotify](/tm-image-spotify/)
+- [Pose Model Doodle Jump](https://editor.p5js.org/ryanpdwyer/full/wRpcePuXj)

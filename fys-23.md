@@ -6,10 +6,13 @@ js: fys-installation-g.js
 
 # AI for Everyone
 
-This has links to material on my website that go along with the AI content in the course.
+This has links to material on my website that go along with the AI content in the course. 
+
+[D2L page](https://d2l.mountunion.edu/d2l/home/54369)
 
 ## Week 4
 1. [Building an AI Model Project: The gory details](/fys-V07-23) The details for the steps you'll be completing during week 4. *You are welcome to work ahead!*
+2. [Interesting outputs](/fys-V09/)
 
 ## Week 3
 1. [Building a regression model and changing models](/fys-A04-regression-change-models-23/) This follows along with the first part of class Tuesday

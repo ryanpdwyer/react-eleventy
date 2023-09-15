@@ -28,6 +28,7 @@ tags: fys
 - [Pose Model Spotify](/tm-pose-spotify2/)
 - [Image Model Spotify](/tm-image-spotify/)
 - [Pose Model Doodle Jump](https://editor.p5js.org/ryanpdwyer/full/wRpcePuXj)
+- [Audio Model Doodle Jump](https://editor.p5js.org/ryanpdwyer/full/vDYzcd2kI)
 
 ## Processing
 

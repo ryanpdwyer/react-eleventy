@@ -8,14 +8,14 @@ js: fys-installation-g.js
 
 Choose an application of AI / machine learning. It could be from the list of applications below or any others you can think of or find on your own. Write a one-page, double-spaced essay reviewing the application that includes
 
-1) A descriptive or interesting title
+1) An interesting and descriptive title
 2) A brief explanation of the application and its purpose
 3) Describes the AI model (what inputs? Is the output a **classifier, regression, both, or neither?** Anything interesting about how is the model is "trained"?)
 4) What's something interesting about the application? (a connection to what you've learned, or a connection to any of your other interests...)
-5) links to 1 or more sources that you used (videos, websites, etc - APA, MLA, or just the link is fine for this assignment)
+5) Links to 1 or more sources that you used (videos, websites, etc - APA, MLA, or just the link is fine for this assignment)
 6) Includes an image if appropriate.
 
-A good post will be 1 (or maybe 2 short) well-written paragraphs. What is well-written? Check that your post 
+A good post will be a few well-organized paragraphs (introducing your topic, going into detail, and then concluding). What is well-written? Check that your post 
 
 - Is understandable to your audience, your fellow classmates
 
@@ -26,6 +26,8 @@ Also, check to make sure your essay avoids these **critical mistakes:**
 3) Sentence sprawl (Long sentences that contain many clauses which makes it hard to infer the meaning that the writer is trying to get across because all of those extra words and clauses get in the way of the reader's comprehension; this sentence is an example of sentence sprawl, if you could even read all the way to the end of it.)
 
 Also check for basic spelling errors, typos, capitalization errors.
+
+Feel free to use AI tools to assist you, but you must cite their use.
 
 
 ## Potential Topics

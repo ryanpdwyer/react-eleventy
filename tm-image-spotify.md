@@ -26,9 +26,7 @@ js: tm-image-spotify.js
         font-weight: bold;
     }
 
-  </style>
-
-
+</style>
 
 ## Connect to Spotify!
 
@@ -45,11 +43,16 @@ Put your model url here.
 </div>
 
 
-To get full songs, not just 30 second previews, link your Spotify account here [Spotify Developer](https://developer.spotify.com/).
+<button class="play" id="play">Play / Pause</button>
+</div>
 
-Put the link to the Spotify songs you want to use for each class here (I )
+<div id="embed-iframe"></div>
 
-<img width="400" src="/img/spotify-song-url.jpg" alt="Spotify song url" />
+
+### Spotify songs
+
+To get full songs, not just 30 second previews, link your Spotify account here [Spotify Developer](https://developer.spotify.com/) and/or login to spotify above.
+
 
 <div class="form-group">
 <label for="class-1-input">Class 1</label>
@@ -67,12 +70,10 @@ Put the link to the Spotify songs you want to use for each class here (I )
   </input>
 </div>
 
-<div class="episodes">
+Put the link to the Spotify songs you want to use for each class here (I used AI / robot themed songs initially). To choose a song, use the share menu on spotify:
 
-<button class="play" id="play">Play / Pause</button>
-</div>
+<img width="400" src="/img/spotify-song-url.jpg" alt="Spotify song url" />
 
-<div id="embed-iframe"></div>
 
 <script src="https://open.spotify.com/embed-podcast/iframe-api/v1" async></script>
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>

@@ -9,10 +9,11 @@ css: lit.css
 
 Newly updated, the [ACS Guide to Scholarly Communication](https://pubs.acs.org/doi/book/10.1021/acsguide) has great general information on formatting, tables, figures, etc.
 
-Look back at [Searching and Citing Literature](/lit) as well - now that you've done some relatively intensive searching, I would highly reccomend looking at that 
+Look back at [Searching and Citing Literature](/lit/) as well - now that you've done some relatively intensive searching, I would highly recommend looking at that. 
+
 ## Making Figures
 
-Making your own figures to explain / diagram experiments, syntheses, etc is highly reccomended! 
+Making your own figures to explain / diagram experiments, syntheses, etc is highly recommended! 
 
 ### Scientific Illustration
 
@@ -21,12 +22,13 @@ Making your own figures to explain / diagram experiments, syntheses, etc is high
 
 ### Chemical structures or reactions
 
-- **ChemDraw** We have licenses on some computer in the 3rd floor Bracy computer room. There is also a 2 week [free trial option](http://scistore.cambridgesoft.com/ScistoreSoftwareDisplay.aspx?Trial=Trial) if you want to use it to draw a bunch of reactions without having to use those computers.
+- **ChemDraw** We have licenses on some computers. There is also a 2 week [free trial option](http://scistore.cambridgesoft.com/ScistoreSoftwareDisplay.aspx?Trial=Trial) if you want to use it to draw a bunch of reactions without having to use those computers.
     - Note: The defaults are not good! Use ACS 1996 settings.
-- [MarvinJS](https://marvinjs-demo.chemaxon.com/latest/) A free alternative - a nice set of defaults for organic-chemistry-style structures is
+    - We have a new site license; hopefully you will be able to use that if needed before the end of the semester.
+- [ChemDraw JS](https://chemdrawdirect.perkinelmer.cloud/js/sample/index.html) This is a limited, free version of ChemDraw in the browser.
+- [MarvinJS](https://marvinjs-demo.chemaxon.com/latest/) A free alternative - a nice set of defaults for organic-chemistry-style structures is 
 
 <img alt="Settings for MarvinJS" src="/img/marvin-js-settings.png" width="50%"/>
-
 
 **Learn more:**
 
@@ -39,7 +41,6 @@ Making your own figures to explain / diagram experiments, syntheses, etc is high
 - [Vectr](https://vectr.com/) or [Canva](https://canva.com) 
 - [The Noun Project](https://thenounproject.com) Icons!
 - If you have drawing abilities, hand-drawn (or with a Surface / iPad pencil) can be a nice touch in places! 
-
 
 
 **Learn more:**

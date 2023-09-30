@@ -7,6 +7,8 @@ js: pchem-ch1.js
 tags: pchem23
 ---
 
+**Next:** [1st Law: 3 gas processes](/pchem1-thermo-02)
+
 ## Definition of work
 
 The video below finishes the first set of 1st law notes, defining mechanical work $w_\text{m}$ and electrical work $w_\text{e}$.

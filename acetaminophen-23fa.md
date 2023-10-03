@@ -5,7 +5,7 @@ layout: vanillabootflex-full.njk
 
 ## Acetaminophen class data
 
-The class data from 2022 and 2023 is shown below, broken down by different conditions. The error bars show the standard error, which gives an estimate of where the mean occurs 68% percent of the time.
+The class data from 2022 and 2023 is shown below, broken down by different conditions. The error bars show the standard error, which gives an estimate of where the mean occurs 68% percent of the time. You can download the data to estimate the overall amount released, or the time to release 100 mg, etc.
 
 
 ### Formulation data

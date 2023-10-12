@@ -22,13 +22,10 @@ function App (props) {
   return (
     <>
     <h3>Questions</h3>
-    <p>
-        The questions below are designed to help you answer the questions on the report; please let me know if you have any questions !(<Obfuscate email="dwyerry@mountunion.edu" headers={{subject: "CHE 341 Thermo 2"}}/>)
-    </p>
     <p> Consider an ideal gas expanding at constant pressure. What can you say about the sign of each quantity during this process?</p>
     <ol>
         <li>
-    <MCQ name="const-pressure-work" options={[{children: "The work is zero", feedback: <p>The mechanical work is w<sub>m</sub> = ∫ P<sub>ext</sub>  d V, so the change in volume will determine the sign of the work </p>}, {children: "The work is negative", correct: true}, {children: "The work is positive", feedback: "When a gas expands against an external pressure, is it doing work on the surroundings (losing energy), or having work done on it (gaining energy)?"}]}>
+    <MCQ name="const-pressure-work" options={[{children: "The work is zero", feedback: <p>The mechanical work is w<sub>m</sub> = -∫ P<sub>ext</sub>  d V, so the change in volume will determine the sign of the work </p>}, {children: "The work is negative", correct: true}, {children: "The work is positive", feedback: "When a gas expands against an external pressure, is it doing work on the surroundings (losing energy), or having work done on it (gaining energy)?"}]}>
         What is the sign of the work $w$?
         </MCQ>
         </li>

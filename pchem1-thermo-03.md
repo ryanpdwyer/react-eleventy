@@ -8,6 +8,8 @@ tags: pchem23
 
 **Previous:** [1st Law: 3 gas processes](/pchem1-thermo-02)
 
+**Next:** [2nd Law](/pchem1-thermo-04-2nd-law)
+
 ## First law of thermodynamics III
 
 This section covers the remaining topics related to the first law of thermodynamics.

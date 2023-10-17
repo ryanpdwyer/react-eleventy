@@ -14,6 +14,9 @@ tags: pchem23
 
 1. [1st Law: Definition of work and internal energy versus temperature of common gases](/pchem1-thermo-01/)
 2. [1st Law: 3 common gas processes](/pchem1-thermo-02)
+3. [1st Law III](/pchem1-thermo-03)
+4. [2nd Law](/pchem1-thermo-04-2nd-law)
+5. [2nd Law II: Applications to chemistry](/pchem1-thermo-05-2nd-law-2)
 
 
 ## Exam 1

@@ -9,6 +9,8 @@ js: pchem-thermo-04.js
 
 **Previous:** [1st Law III](/pchem1-thermo-03)
 
+**Next:** [2nd Law II](/pchem1-thermo-05-2nd-law-2)
+
 ## Second law of thermodynamics
 
 This section covers the entropy change for isothermal, isobaric, and reversible adiabatic processes. 

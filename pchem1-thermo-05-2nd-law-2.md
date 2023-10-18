@@ -9,6 +9,8 @@ js: pchem-thermo-04.js
 
 **Previous:** [2nd Law](/pchem1-thermo-04-2nd-law)
 
+**Next:** [2nd Law 3](/pchem1-thermo-06-2nd-law-3)
+
 <script>
     function show(element) {
 	const el  = document.getElementById(element);

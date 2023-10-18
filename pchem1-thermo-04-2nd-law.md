@@ -15,7 +15,7 @@ js: pchem-thermo-04.js
 
 This section covers the entropy change for isothermal, isobaric, and reversible adiabatic processes. 
 
-<iframe width="640" height="360" src="https://www.youtube.com/embed/3PdXccS0LEY?si=MQIhxjiLqqQjw403" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+<iframe width="640" height="480" src="https://www.youtube.com/embed/3PdXccS0LEY?si=MQIhxjiLqqQjw403" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
 </iframe>
 
 <div id="question-node">

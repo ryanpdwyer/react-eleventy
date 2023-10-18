@@ -22,7 +22,7 @@ js: pchem-thermo-04.js
 
 This section covers applications of the second law to chemical and physical processes.
 
-<iframe width="640" height="360" src="https://www.youtube.com/embed/pvrgC99CZqM?si=m_e-7kmV411w5UBI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="640" height="480" src="https://www.youtube.com/embed/pvrgC99CZqM?si=m_e-7kmV411w5UBI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 The solutions to the problems are shown below.
 
@@ -41,11 +41,11 @@ To see the solution, see the following video:
 <button class="btn btn-primary" onclick="show('soln-ex2');">Show next video</button>
 
 <div markdown=1 id="soln-ex2" hidden>
-<iframe width="640" height="360" src="https://www.youtube.com/embed/jSfsg1XgLgs?si=tUuT8redC9FDSaOr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="640" height="480" src="https://www.youtube.com/embed/jSfsg1XgLgs?si=tUuT8redC9FDSaOr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 The final part of the notes is shown below.
 
-<iframe width="640" height="360" src="https://www.youtube.com/embed/XR_0rPMWJRo?si=9VguObdmkGsdePki" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="640" height="480" src="https://www.youtube.com/embed/XR_0rPMWJRo?si=9VguObdmkGsdePki" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 </div>
 
 

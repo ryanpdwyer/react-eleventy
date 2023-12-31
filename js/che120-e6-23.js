@@ -538,6 +538,7 @@ function ForwardBackList(props) {
     return (<div>
         <button onClick={back}>Back</button>
         <button onClick={forward}>Forward</button>
+        <p>{index + 1} / {length}</p>
         {item}
     </div>);
 }

@@ -12,6 +12,15 @@
         {% for style in styles %}
             <link rel="stylesheet" href="/css/{{ style }}">
         {% endfor %}
+        <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6WGFZM6DVM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6WGFZM6DVM');
+</script>
     </head>
     <body>
     <div class="container-md">

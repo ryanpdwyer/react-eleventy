@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://chemcollective.org/chem/jsvlab/bundled/911.css" rel="stylesheet">
+        <script src="https://chemcollective.org/chem/jsvlab/bundled/850.js"></script>
+        <script src="https://chemcollective.org/chem/jsvlab/bundled/526.js"></script>
+        <script src="https://chemcollective.org/chem/jsvlab/bundled/911.js"></script>
+        <script src="https://chemcollective.org/chem/jsvlab/bundled/lib.js"></script>
+        <title>{{ title }}</title>
+        {% for style in styles %}
+            <link rel="stylesheet" href="/css/{{ style }}">
+        {% endfor %}
+    </head>
+    <body>
+    <div class="container">
+        {{ content | safe }}
+    </div>
+    </body>
+    <script type="module" src="/js/{{ js }}"></script>
+</html>

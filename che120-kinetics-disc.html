@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Choose a Virtual Lab</title>
+        <script src="https://chemcollective.org/chem/jsvlab/850-3137d0eefbbd05a57734.js"></script><script src="https://chemcollective.org/chem/jsvlab/755-11c3fd056b5886c797a7.js"></script><script src="https://chemcollective.org/chem/jsvlab/896-b74b634d43b84b4eeadd.js"></script><script src="https://chemcollective.org/chem/jsvlab/bundle-53476da848dc380a2b44.js"></script><script src="https://chemcollective.org/chem/jsvlab/526-2ab1d3475c35ab8befd6.js"></script><script src="https://chemcollective.org/chem/jsvlab/lib-3f0127fb962df241e57c.js"></script><link href="https://chemcollective.org/chem/jsvlab/896.css" rel="stylesheet">        
+      </script>
+    </head>
+    <body>
+        <style>
+            .hidden {
+                display: none;
+            }
+        </style>
+
+       <h2>Experiment 4 Discussion Question 2</h2>
+        Fill out your email, then complete your discussion question using the virtual lab below.
+        <!-- Put a name blank here; students should fill their name and email to access the virtual lab -->
+        <form id="student-name-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Your name here">
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" placeholder="Your email here" style="width: 30ch;">
+            <input type="submit" value="Submit">
+        </form>
+
+        <p id="email-incorrect" class="hidden">Your email address was not found in the CHE 120 classlist. Check that it is typed in correctly and contact <a href="mailto:dwyerry@mountunion.edu">Dr. Dwyer</a> if there's any problems.</p>
+        
+        <div id="vlab-content" class="hidden">
+        <p>
+          To use the virtual lab, select a solution from the sidebar. 
+        </p>
+        <!-- Use google firebase to handle form submissions? -->
+        <!-- Only display the virtual lab once the form has been submitted-->
+        <div id="vlab-placeholder" style="width:800px; height:600px; background-color: #f2f2f2; display: flex; justify-content: center; align-items: center;">
+            <p style="font-size: 24px; color: #999;">Virtual lab will be displayed here after it is loaded.</p>
+        </div>
+        <div id="vlab" style="height:650px; width: 950px;" class="hidden">
+              <script>
+                function getCurrentVessel(appView) {
+                var currentWorkbenchCid = appView.model.get("currentWorkbenchCid");
+                var workbenchCollection = appView.model.get("workbenches");
+                var workbench = workbenchCollection.get(currentWorkbenchCid);
+                var currentVesselCid = workbench.get("currentVesselCid");
+                var vesselCollection = workbench.get("vesselCollection");
+                var vessel = vesselCollection.get(currentVesselCid);
+                return vessel;
+                }
+              </script>
+              <script>
+                     // Load the activity only if the form has been submitted and the email is in the email list...
+            const emails = ["dwyerry@mountunion.edu", "test2@mountunion.edu", "knochja2023@mountunion.edu"];
+            const form = document.getElementById("student-name-form");
+            function validateForm() {
+                const name = document.getElementById("name").value;
+                const email = document.getElementById("email").value;
+                if (emails.includes(email)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+                    // Synchronous load of the activity list contained in output.json - use browser methods, not jQuery
+                    const vlab_placeholder = document.getElementById("vlab-placeholder");
+                    const vlab_el = document.getElementById("vlab");
+                    function showVlabHidePlaceholder() {
+                        vlab_placeholder.classList.add("hidden");
+                        vlab_el.classList.remove("hidden");
+                    }
+                    const language = 'en';
+                    const allowLoadAssignment = false;
+                    const showFirstTimeTips = false;
+                    let appModel = new VLab.AppModel();
+                    let appView = null;
+                    let data;
+
+                    form.addEventListener("submit", function(e) {
+                e.preventDefault();
+                if (validateForm()) {
+                    const vlab_content = document.getElementById("vlab-content");
+                    vlab_content.classList.remove("hidden");
+                    showVlabHidePlaceholder();
+                    appView = new VLab.AppView({ model: appModel,
+                                                       el: vlab_el,
+                                                       vlab: data,
+                                                       domain: "https://chemcollective.org/chem/jsvlab/"});
+                }
+            });
+
+                </script>
+                <script>
+                data = {
+  "solutions": {
+    "FILESYSTEM": {
+      "DIRECTORY": [
+        
+      {
+          "name": "stockroom",
+          "SOLUTION": [
+            {
+              "name": "Distilled H<sub>2</sub>O",
+              "description": "Distilled Water",
+              "volume": "3.0",
+              "vessel": "3LCarboy",
+              "species": [
+                {
+                  "id": 0
+                }
+              ]
+            },
+            {
+              "name": "1.0 M A",
+              "description": "1.0 M A",
+              "volume": 0.1,
+              "species": [
+                {
+                  "id": 0
+                },
+                {
+                  "id": 3,
+                  "amount": 0.1
+                }
+              ]
+            },
+{
+    "name": "1.0 M B",
+    "description": "1.0 M B",
+    "volume": 0.1,
+    "species": [
+        {
+            "id": 0
+        },
+        {
+            "id": 4,
+            "amount": 0.1
+        }
+    ]
+},
+{
+    "name": "0.5 M A",
+    "description": "0.5 M A",
+    "volume": 0.1,
+    "species": [
+        {
+            "id": 0
+        },
+        {
+            "id": 3,
+            "amount": 0.05
+        }
+    ]
+},
+{
+    "name": "0.5 M B",
+    "description": "0.5 M B",
+    "volume": 0.1,
+    "species": [
+        {
+            "id": 0
+        },
+        {
+            "id": 4,
+            "amount": 0.05
+        }
+    ]
+},
+      ]
+    }
+    ]
+  }
+},
+  "species": {
+    "SPECIES_LIST": {
+      "SPECIES": [
+        {
+          "id": 0,
+          "name": "H<sub>2</sub>O",
+          "enthalpy": -285.83,
+          "entropy": 69.91,
+          "state": "l",
+          "molecularWeight": 18.016,
+          "specificHeat": 1
+        },
+        {
+          "id": 1,
+          "name": "H<sup>+</sup>",
+          "enthalpy": 0,
+          "entropy": 0,
+          "molecularWeight": 1.008
+        },
+        {
+          "id": 2,
+          "name": "OH<sup>-</sup>",
+          "enthalpy": -229.99,
+          "entropy": -10.75,
+          "molecularWeight": 17.008
+        },
+        {
+          "id": 3,
+          "name": "A",
+          "simpleName": "A",
+          "state": "aq",
+          "enthalpy": 0,
+          "entropy": 0,
+          "density": 1.5,
+          "specificHeat": 0,
+          "molecularWeight": 100,
+          "hue": 44,
+          "saturation": 72,
+          "value": 96,
+          "colorConcentration": 0.1
+        },
+        {
+          "id": 4,
+          "name": "B",
+          "simpleName": "B",
+          "state": "aq",
+          "enthalpy": 0,
+          "entropy": 0,
+          "density": 3,
+          "specificHeat": -0.01,
+          "molecularWeight": 50
+        },
+        {
+          "id": 5,
+          "name": "C",
+          "simpleName": "C",
+          "state": "aq",
+          "enthalpy": -30,
+          "entropy": -10,
+          "density": 5,
+          "specificHeat": -0.01,
+          "molecularWeight": 150,
+          "hue": 0,
+          "saturation": 98,
+          "value": 54,
+          "colorConcentration": 0.1
+        },
+          {
+          "id": 50,
+          "name": "C",
+          "simpleName": "C",
+          "state": "s",
+          "enthalpy": -39.7,
+          "entropy": -10,
+          "density": 2.5,
+          "specificHeat": -0.01,
+          "molecularWeight": 150,
+			"hue": 0,
+          "saturation": 98,
+          "value": 54,
+          "colorConcentration": 0.1
+        }
+      ]
+    }
+  },
+  "assignment": {
+    "assignmentText": "<em>Kinetics:</em> Using the Virtual Laboratory, design and perform an experiment to determine the rate law for the reaction between A and B. You do not need to determine the rate constant, just the order in each reactant. It may be useful to know that the product C precipitates at a concentration of 0.020 M."
+  },
+  "spectra": {
+    "SPECTRA_LIST": {
+      "SPECIES": []
+    }
+  },
+  "reactions": {
+    "REACTIONS": {
+      "REACTION": [
+        {
+          "SPECIES_REF": [
+            {
+              "id": "0",
+              "coefficient": "-1"
+            },
+            {
+              "id": "1",
+              "coefficient": "1"
+            },
+            {
+              "id": "2",
+              "coefficient": "1"
+            }
+          ]
+        },
+        {
+          "SPECIES_REF": [
+            {
+              "id": 3,
+              "coefficient": -1,
+              "order": 1
+            },
+            {
+              "id": 4,
+              "coefficient": -1
+            },
+            {
+              "id": 5,
+              "coefficient": 1
+            }
+          ],
+          "KINETICS": {
+            "Ea": 30,
+            "k298": 0.0030,
+          }
+        },
+        {"SPECIES_REF": [
+          {"id": 5,
+           "coefficient":-1
+          },
+          {"id": 50,
+           "coefficient": 1
+          }
+          ]
+        }
+      ]
+    }
+  },
+  "configuration": {
+    "title": "CHE 120 E4 Virtual Lab",
+    "solutionModellers": {
+      "specificHeat": "solvent2"
+    },
+    "solutionViewers": [
+      {
+        "id": "solutionProperties",
+        "displayDefault": true,
+        "args": {
+          "honorSignificantFigures": false
+        }
+      },
+      {
+        "id": "aqueous",
+        "displayDefault": true,
+        "args": {
+          "unitsToggleEnabled": true
+        }
+      },
+      {
+        "id": "solid",
+        "displayDefault": true,
+        "args": {
+          "unitsToggleEnabled": true
+        }
+      },
+      {
+        "id": "spectrometer",
+        "displayDefault": false
+      },
+      {
+        "id": "particleView",
+        "displayDefault": false
+      },
+      {
+        "id": "thermometer",
+        "displayDefault": true
+      },
+      {
+        "id": "pH",
+        "displayDefault": true
+      },
+      {
+        "id": "vesselTrackingControl",
+        "displayDefault": false
+      }
+    ],
+    "transfer": [
+      "precise",
+      "significantFigures",
+      "realistic"
+    ]
+  }
+};
+                </script>
+                </div>
+            </body>
+        </html>

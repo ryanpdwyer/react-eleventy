@@ -13,7 +13,7 @@ Remember that for each time a stress is applied to the system at equilibrium, yo
 
 3. **Explain observations:** How does the system's Le Chatelier response explain your experimental observations. 
 
-### Prelab example
+### Example
 
 <div id="app">
 </div>
@@ -21,7 +21,7 @@ Remember that for each time a stress is applied to the system at equilibrium, yo
 
 ### Solutions
 
-#### Prelab example
+#### Example
 
 <div style="max-width: 800px;">
 <div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">

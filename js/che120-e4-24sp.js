@@ -37,7 +37,7 @@ const data = [
 
 const handleSubmit = (e) => {
     e.preventDefault();
-    let myForm = document.getElementById("120-water-23fa");
+    let myForm = document.getElementById("120-water-24sp");
     let formData = new FormData(myForm);
     const mySection = formData.get('sectionInput')
     const myEmail = formData.get('emailInput');
@@ -221,7 +221,7 @@ async function copyPages() {
     const inds = [0, 1];
     inds.forEach(i=>{
         if (i ===0 ) {
-            pages[i*2].drawText(`2023 ${name} ${unknowns[i]} IR. In lab: measure vial ${unknowns[2]}`);
+            pages[i*2].drawText(`2024 ${name} ${unknowns[i]} IR. In lab: measure vial ${unknowns[2]}`);
         } else {
             pages[i*2].drawText(`${name} ${unknowns[i]} IR`);
         }

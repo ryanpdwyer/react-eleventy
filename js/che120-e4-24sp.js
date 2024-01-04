@@ -219,13 +219,15 @@ async function copyPages() {
     const unknowns = ['1', '2', '3'].map(x=>document.getElementById(`unknown`+x).innerText)
 
     const inds = [0, 1];
+    const yPos = 8;
+    const fontSize = 14;
     inds.forEach(i=>{
         if (i ===0 ) {
-            pages[i*2].drawText(`2024 ${name} ${unknowns[i]} IR. In lab: measure vial ${unknowns[2]}`);
+            pages[i*2].drawText(`2024 ${name} ${unknowns[i]} IR. In lab: measure vial ${unknowns[2]}`, {size: fontSize, y: yPos});
         } else {
-            pages[i*2].drawText(`${name} ${unknowns[i]} IR`);
+            pages[i*2].drawText(`${name} ${unknowns[i]} IR`, {size: fontSize, y: yPos});
         }
-        pages[i*2+1].drawText(`${name} ${unknowns[i]} NMR`);
+        pages[i*2+1].drawText(`${name} ${unknowns[i]} NMR`, {size: fontSize, y: yPos});
     });
 
     pages[0].moveDown(18)

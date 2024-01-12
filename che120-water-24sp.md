@@ -1,7 +1,7 @@
 ---
 layout: vanillabootflex-full-pdflib.njk
 title: CHE 120 E4
-js: che120-e4-24sp.js
+js: che120-e4-24sp-test.js
 styles:
     - che120.css
 ---

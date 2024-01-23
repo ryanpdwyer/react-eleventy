@@ -482,6 +482,24 @@ const HeatQuestions = (props) => {
     ;
     const [heat, setHeat] = React.useState("none")
     const [arrow, setArrow] = React.useState("none");
+    const [submitState, setSubmitState] = React.useState("none");
+
+    const feedback = {
+      none_reactant: <><b>Incorrect.</b> You need an arrow (increasing ↑ or decreasing ↓) attached to heat to see how the equilibrium is disturbed.</>,
+      none_product: <><b>Incorrect.</b> You need an arrow (increasing ↑ or decreasing ↓) attached to heat to see how the equilibrium is disturbed.</>,
+      increasing_product: <><b>Incorrect.</b> The reaction is cooled, and the color of the solution becomes a darker blue. Since the reaction is cooled, it is an indication that heat is decreased in this reaction scheme, causing the shift in the equilibrium towards the products, making the solution a darker blue.</>,
+      decreasing_reactant: <><b>Incorrect.</b> The temperature is cooled, suggesting that heat is decreased. But, since the color of the solution becomes a darker blue, the result of the stress should shift the solution to the products. If this heat stressor is in the reactants, the solution would become a lighter color.</>,
+      increasing_reactant: <><b>Incorrect.</b> The temperature is cooled, thus the stressor is a decrease in heat. If heat is increased and is a part of the reactants, the solution would become a darker blue and shift to the right (products). However, heat is decreased, resulting in the shift to the products. This selection would result in the correct color change, but the incorrect stressor.</>,
+      decreasing_product: <><b>Correct!</b> The temperature of the solution is cooled which causes the solution to become a darker blue, indicating that the result of the temperature stressor shifted the equilibrium to the products (right). Since the temperature (heat) is decreased, causing the equilibrium to shift to the products, the temperature stressor would be on the products side, making this solution / reaction an exothermic reaction.</>
+    }
+
+    const FeedbackElement = ({submitState}) => {
+      if (submitState == "none") {
+        return null;
+      } else {
+        return <p>{feedback[submitState]}</p>
+      }
+    }
 
     return (<div>
       <p>Fill in the selections below to explain how decreasing the temperature affected the reaction.</p>
@@ -499,10 +517,12 @@ const HeatQuestions = (props) => {
         {Object.keys(arrow_choice_obj).map((key) => <option value={key}>{arrow_choice_obj[key]}</option>)}
         </select>
       </p>
-      <div style={{textAlign: "center"}}>
+      <div style={{textAlign: "center", fontSize: "1.25em"}}>
         <p> <Heat location="reactant" locationValue={heat} arrowValue={arrow} arrowDisplay={arrowDisplay} /> M<sup>2+</sup>(aq) + 4OH<sup>-</sup>(aq) ⇌ M(OH)<sub>4</sub><sup>2-</sup>(aq)
         <Heat location="product" locationValue={heat} arrowValue={arrow} arrowDisplay={arrowDisplay} /> </p>
         </div>
+        <button disabled={heat=='none'} onClick={e => setSubmitState(arrow+"_"+heat)}>Submit</button>
+        <FeedbackElement submitState={submitState}/>
     </div>);
 }
 

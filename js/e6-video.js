@@ -88,7 +88,7 @@ function App() {
      {children: "Shifted right (towards products)"},
      {children: "No change"}
     ]}
-    correctFeedback="Correct! Since the product is a red, the lighter color indicates the reaction shifted left toward the pale yellow reactants."
+    correctFeedback="Correct! Since the product is red, the lighter color indicates the reaction shifted left toward the pale yellow reactants."
     >
         From the observations, which direction did the reaction shift when temperature was increased?
     </MCQ>

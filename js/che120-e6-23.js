@@ -1,4 +1,4 @@
-import { React, ReactDOM } from 'https://unpkg.com/es-react/dev';
+import { React, ReactDOM, StrictMode } from 'https://unpkg.com/es-react/dev';
 import { QuestionLimF, MCQ } from './QuestionLim.js';
 import {Obfuscate} from './obfuscate.js';
 
@@ -367,7 +367,7 @@ const data = {
       }
     },
    "assignment": {
-      "assignmentText": "<em>LeChatlier's Principle:</em> <p><p><b>Objective:</b>    Use the virural lab to gain an understanding of LeChatlier's principle by observing the effects of induced perturbations on the equilibrium distribution of the Copper (II) reaction. <p><p><b>Assignment:</b> Consider the reaction scheme below:<p align=\"center\">2 MnO<sub><font size=\"-2\">4</font></sub><sup>-</ font></sup>(aq) + 5 C<sub><font size=\"-2\">2</font></sub>O<sub><font size=\"-2\">4</font></sub><sup>2-</ font></sup>(aq) + 16 H<sup><font size=\"-2\">+</font></sup>(aq) ⇌ 2 Mn<sup><font size=\"-2\">2+</font></sup>(aq) + 10 CO<sub><font size=\"-2\">2</font></sub>(g) + 8 H<sub><font size=\"-2\">2</font></sub>O(l)</p> <p><p><b>NOTE:</b>  The MnO<sub><font size=\"-2\">4</font></sub><sup>-</ font></sup> ion is purple. The Mn<sup><font size=\"-2\">2+</font></sup> ion is pink. All of the other substances are colorless. <p><p><b>1.</b> What is the equilibrium constant expression (K) for the permanganate redox reaction? <p><p><b>2.</b> To the system at equilibrium, remove the gas from the system. <b>What is being removed from the system? Is it a reactant or product? What happens to the color of the solution? State the Le Chatelier response to the stress (shift left / right), and use the Le Chatelier response to explain the experimental observations</b> <p><p><b>3.</b> In another equilibrated vessle, add NaOH to the system.<b>What happens to the color of the solution? State the Le Chatelier response to the stress (shift left / right), and use the Le Chatelier response to explain the experimental observations</b> <p><p><b>4.</b> In another equilibrated vessle, add H<sub>2</sub>SO<sub>4</sub> to the system. <b>What happens to the color of the solution? State the Le Chatelier response to the stress (shift left / right), and use the Le Chatelier response to explain the experimental observations</b>"
+      "assignmentText": "<em>LeChatlier's Principle:</em> <p></p><p><b>Objective:</b>    Use the virtual lab to gain an understanding of Le Chatlier's principle.</p>"
     },
     "configuration": {
       "title": "Le Chatelier's Principle Prelab",
@@ -456,6 +456,59 @@ What was the specific stress or disturbance that affected the equilibrium?
 </MCQ>,
 <MCQ name="part_b-shift" options={children([{children: "Towards reactants (to the left)", correct: true}, {children: "Toward products (to the right)"}, "No shift"])}>In response to the stress/disturbance, what direction does the reaction shift?</MCQ>,
 <MCQ name="part_b-observations" options={children([{children: "reactants / increase / decrease", correct: true}, "reactants / decrease / increase", "products / increase / decrease", {children: "products / decrease / increase", correct: false}])}>How does this shift explain the observation? The shift toward _____ causes an _____ in the light blue M²⁺ ion and a ______  in the dark blue M(OH)₂²⁻ ion.</MCQ>
+];
+
+
+const Heat = ({location, locationValue, arrowValue, arrowDisplay}) => {
+  if (location != locationValue) {
+    return <span></span>
+  }
+  const arrowText = arrowDisplay[arrowValue];
+  if (location == "reactant") {
+    return <span>{arrowText}heat + </span>
+  } else if (location == "product") {
+    return <span> + heat{arrowText}</span>
+  } else {
+    return <span></span>
+  }
+}
+
+const HeatQuestions = (props) => {
+    // This should ask 
+    // This should use a select box with 3 choices for the heat... (reactant / product / none)
+    const heat_choice_obj = {none: "", reactant: "reactant", product: "product"}
+    const arrow_choice_obj = {none: "no arrow", increasing: "increasing (↑)", decreasing: "decreasing (↓)"}
+    const arrowDisplay = {none: "", increasing: "↑", decreasing: "↓"}
+    ;
+    const [heat, setHeat] = React.useState("none")
+    const [arrow, setArrow] = React.useState("none");
+
+    return (<div>
+      <p>Fill in the selections below to explain how decreasing the temperature affected the reaction.</p>
+      <p>
+      <label>Heat should be written in the reaction as a </label><select
+      value={heat} // ...force the select's value to match the state variable...
+      onChange={e => setHeat(e.target.value)} // ... and update the state variable on any change!
+      >
+        {Object.keys(heat_choice_obj).map((key) => <option value={key}>{heat_choice_obj[key]}</option>)}
+      </select>
+      </p>
+      <p>
+        <label>The heat should have an arrow showing heat </label> 
+        <select value={arrow} onChange={e => setArrow(e.target.value)}>
+        {Object.keys(arrow_choice_obj).map((key) => <option value={key}>{arrow_choice_obj[key]}</option>)}
+        </select>
+      </p>
+      <div style={{textAlign: "center"}}>
+        <p> <Heat location="reactant" locationValue={heat} arrowValue={arrow} arrowDisplay={arrowDisplay} /> M<sup>2+</sup>(aq) + 4OH<sup>-</sup>(aq) ⇌ M(OH)<sub>4</sub><sup>2-</sup>(aq)
+        <Heat location="product" locationValue={heat} arrowValue={arrow} arrowDisplay={arrowDisplay} /> </p>
+        </div>
+    </div>);
+}
+
+const part_c = [<MCQ options={[{children: "became darker blue", correct: true}, {children: "became lighter blue"}, {children: "didn't change color"}]}name="part_c-observations_color">What did you observe when decreasing the temperature of the solution?</MCQ>,
+<MCQ name="part_c-shift" options={children([{children: "Towards reactants (to the left)"}, {children: "Toward products (to the right)", correct: true}, "No shift"])}>Based on your observations, what direction did the reaction shift?</MCQ>,
+<HeatQuestions/>,
 ];
 
 {/* <MCQ name="isothermal-entropy" correctFeedback={<p>At constant temperature, increasing the volume, or equivalently, decreasing the pressure, causes an increase in entropy because of the equation ΔS = nRln(V<sub>f</sub>/V<sub>i</sub>). You can also reason that there are more possible microstates for the gas when the volume is larger.</p>}options={[{
@@ -588,9 +641,12 @@ function App(props) {
             {part_b.map((item, index) => <li key={index}>{item}</li>)}
         </ol>
         <p> Part c)	Starting from the initial equilibrium mixture, decrease the temperature to 0 °C (Right- or two-finger-click and select "Thermal Properties", then choose "Insulated from surroundings" and type in the temperature). Keep a version of the solution at 25 °C for comparison.</p>
+        <ol>
+            {part_c.map((item, index) => <li key={index}>{item}</li>)}
+        </ol>
     </>
     );
 }
 
 const div = document.getElementById("questions");
-ReactDOM.render(<App />, div);
+ReactDOM.render(<StrictMode> <App /> </StrictMode>, div);

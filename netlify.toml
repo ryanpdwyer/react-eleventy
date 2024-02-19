@@ -7,5 +7,9 @@
   to = "/fys-23"
 
 [[redirects]]
+  from = "/che120-kinetics-disc"
+  to = 'https://vlab-chatbot.vercel.app/vlab'
+
+[[redirects]]
   from = "/e4"
   to = "https://docs.google.com/spreadsheets/d/1OBuUOFg07zGcEDAF-knNW9CCH2KxGT3CeUi2-mFdNNw/edit?usp=sharing"

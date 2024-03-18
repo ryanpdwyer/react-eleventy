@@ -88,24 +88,6 @@ const data = {
                     }
                   ]
                 },
-                {
-                  "name": "Conc. M<sup>2+</sup> solution",
-                  "description": "Metal Solution",
-                  "volume": "0.1",
-                  "species": [
-                    {
-                      "id": "0"
-                    },
-                    {
-                      "id": "300",
-                      "amount": ".1"
-                    },
-                    {
-                      "id": "30",
-                      "amount": ".1"
-                    }
-                  ]
-                },
                     {
                 "name": "Distilled H<sub>2</sub>O",
                 "description": "Distilled Water",
@@ -121,20 +103,6 @@ const data = {
         ]
       }
     },
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
    "species": {
       "SPECIES_LIST": {
         "SPECIES": [
@@ -149,28 +117,13 @@ const data = {
             "id": "0"
           },
           
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
           {
             "entropy": "0.0",
             "name": "H<sup>+</sup>",
             "enthalpy": "0.0",
             "id": "1"
           },
-          
-          
-          
-          
-          
-          
+
           
           {
             "entropy": "-10.75",
@@ -178,11 +131,7 @@ const data = {
             "enthalpy": "-229.99",
             "id": "2"
           },
-          
-          
-        
-          
-          
+
    {
               "id": 6,
               "name": "NH<sub>4</sub><sup>+</sup>",
@@ -489,8 +438,8 @@ const HeatQuestions = (props) => {
       none_product: <><b>Incorrect.</b> You need an arrow (increasing ↑ or decreasing ↓) attached to heat to see how the equilibrium is disturbed.</>,
       increasing_product: <><b>Incorrect.</b> The reaction is cooled, and the color of the solution becomes a darker blue. Since the reaction is cooled, it is an indication that heat is decreased in this reaction scheme, causing the shift in the equilibrium towards the products, making the solution a darker blue.</>,
       decreasing_reactant: <><b>Incorrect.</b> The temperature is cooled, suggesting that heat is decreased. But, since the color of the solution becomes a darker blue, the result of the stress should shift the solution to the products. If this heat stressor is in the reactants, the solution would become a lighter color.</>,
-      increasing_reactant: <><b>Incorrect.</b> The temperature is cooled, thus the stressor is a decrease in heat. If heat is increased and is a part of the reactants, the solution would become a darker blue and shift to the right (products). However, heat is decreased, resulting in the shift to the products. This selection would result in the correct color change, but the incorrect stressor.</>,
-      decreasing_product: <><b>Correct!</b> The temperature of the solution is cooled which causes the solution to become a darker blue, indicating that the result of the temperature stressor shifted the equilibrium to the products (right). Since the temperature (heat) is decreased, causing the equilibrium to shift to the products, the temperature stressor would be on the products side, making this solution / reaction an exothermic reaction.</>
+      increasing_reactant: <><b>Incorrect.</b> The temperature is cooled, thus the stressor is a decrease in heat. If heat is increased and is a part of the reactants, the solution would become a darker blue and shift to the right (products). However, heat is decreased, resulting in the shift to the reactants. This selection would result in the correct color change, but the incorrect stressor.</>,
+      decreasing_product: <><b>Correct!</b> The temperature of the solution is cooled which causes the solution to become a darker blue, indicating that the result of the temperature stressor shifted the equilibrium to the products (right). Since the temperature (heat) is decreased, heat must be on the products side so that decreasing heat causes a shift right towards products. Therefore, this is an exothermic reaction.</>
     }
 
     const FeedbackElement = ({submitState}) => {
@@ -639,14 +588,15 @@ function App(props) {
         <h3>Questions</h3>
         <p>The questions below are designed to help guide you through the pre-lab. Make sure to record your answers / explanations on the paper pre-lab as well.</p>
         <p>
-        Apply the following stresses to an equilibrium system and explain your observations using Le Chatelier’s principle. Each explanation should 
+        Apply the following stresses to an equilibrium system and explain your observations using Le Chatelier's principle. Each explanation should 
         </p>
         <ol>
             <li>state the specific stress/disturbance to equilibrium,</li>
             <li>state the Le Chatelier response to the stress (shift left / right), and</li>
             <li>use the Le Chatelier response to explain the experimental observations.</li>
         </ol>
-        <p> Part a). 5 mL of 3 M NaOH is added. </p>
+        <p> Part a) 5 mL of 3 M NaOH is added to the initial equilibrium solution (the first solution in the stockroom) </p>
+        <img src="/img/vlab-equilibrium-solution.png" alt="Initial equilibrium solution" width="140px" />
         <ol>
             {part_a.map((item, index) => <li key={index}>{item}</li>)}
         </ol>
@@ -660,7 +610,10 @@ function App(props) {
         <ol>
             {part_b.map((item, index) => <li key={index}>{item}</li>)}
         </ol>
-        <p> Part c)	Starting from the initial equilibrium mixture, decrease the temperature to 0 °C (Right- or two-finger-click and select "Thermal Properties", then choose "Insulated from surroundings" and type in the temperature). Keep a version of the solution at 25 °C for comparison.</p>
+        <p> Part c)	<strong>Starting from the initial equilibrium mixture</strong>, decrease the temperature to 0 °C (Right- or two-finger-click and select "Thermal Properties", then choose "Insulated from surroundings" and type in the temperature). Keep a version of the solution at 25 °C so you can compare the colors. If you need help, see the animation below.</p>
+        <ShowHideContents title="Animation">
+        <img src="/img/vlab-change-temp-slower.gif" alt="Change Temperature Animation" width="400px" />
+        </ShowHideContents>
         <ol>
             {part_c.map((item, index) => <li key={index}>{item}</li>)}
         </ol>

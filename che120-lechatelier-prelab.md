@@ -11,7 +11,6 @@ js: che120-e6-23.js
 </style>
 
 
-
 <script>
 
 function getCurrentVessel(appView) {
@@ -50,11 +49,31 @@ function getCurrentVessel(appView) {
 
 ## Experiment 6 Prelab
 
-<div id="youtube-placeholder" style="width:640px; height:540px; background-color: #f2f2f2; display: flex; justify-content: center; align-items: center;">
-<p style="font-size: 24px; color: #999;">YouTube video (about 1 minute) will be displayed here after it is created.</p>
-</div>
 
-To see what to do, use your pre-lab handout and/or follow along with the questions below.
+To see what to do, use your pre-lab handout ([pdf](/img/che120-e6-prelab-24sp.pdf)) and/or follow along with the questions below.
+
+For help changing the temperature, see the animation below.
+
+<button id='top-button-gif' onclick="toggleAnimation('animation', 'top-button-gif')">Show Animation</button>
+
+<script>
+function toggleAnimation(id, buttonId) {
+    const animationDiv = document.getElementById(id);
+    const button = document.getElementById(buttonId);
+    if (animationDiv.style.display === "none") {
+        animationDiv.style.display = "block";
+        button.textContent = "Hide Animation";
+    } else {
+        animationDiv.style.display = "none";
+        button.textContent = "Show Animation";
+    }
+}
+</script>
+
+
+<div id="animation" style="display: none;">
+<img src="/img/vlab-change-temp-slower.gif" alt="Change Temperature Animation" width="400px" />
+</div>
 
 <div id="vlab-placeholder" style="width:800px; height:600px; background-color: #f2f2f2; display: flex; justify-content: center; align-items: center;">
 <p style="font-size: 24px; color: #999;">Virtual lab will be displayed here after it is loaded.</p>

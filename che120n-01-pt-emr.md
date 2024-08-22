@@ -1,6 +1,6 @@
 ---
 layout: vanillabootflex-md-che120n.njk
-title: Periodic table, atomic structure, and EMR
+title: 01 Periodic table, atomic structure, and EMR
 styles:
     - fys.css
 tags: 
@@ -12,7 +12,7 @@ tags:
 ## Objectives
 
 1. Use charge, mass number, and chemical identity to determine protons, neutrons, and electrons (or vice-versa) 
-2. Relate frequency $\nu$, wavelength $\lambda$, and energy $E$ for light
+2. Calculate frequency $\nu$, wavelength $\lambda$, and photon energy $E$ for light
 
 ## Slides
 

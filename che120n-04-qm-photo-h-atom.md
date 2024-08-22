@@ -1,6 +1,6 @@
 ---
 layout: vanillabootflex-md-che120n.njk
-title: Periodic table, atomic structure, and EMR
+title: Photoelectric effect and H atom
 styles:
     - fys.css
 tags: 
@@ -23,7 +23,6 @@ The slides for the videos below are linked here as pdfs or as 3 slide to a page 
 [04 Photoelectric effect and H atom]()
 
 [04 Photoelectric effect and H atom handout]()
-
 
 
 

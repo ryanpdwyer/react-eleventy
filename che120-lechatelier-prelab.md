@@ -49,12 +49,15 @@ function getCurrentVessel(appView) {
 
 ## Experiment 6 Prelab
 
+For help using the virtual lab, see the video below.
+
+<iframe width="640" height="360" src="https://www.youtube.com/embed/9JstXSGvikA?si=3W1kHbf2Ne_xHDWj" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 To see what to do, use your pre-lab handout ([pdf](/img/che120-e6-prelab-24sp.pdf)) and/or follow along with the questions below.
 
 For help changing the temperature, see the animation below.
 
-<button id='top-button-gif' onclick="toggleAnimation('animation', 'top-button-gif')">Show Animation</button>
+<button id='top-button-gif' onclick="toggleAnimation('animation', 'top-button-gif')">Hide Animation</button>
 
 <script>
 function toggleAnimation(id, buttonId) {
@@ -71,7 +74,7 @@ function toggleAnimation(id, buttonId) {
 </script>
 
 
-<div id="animation" style="display: none;">
+<div id="animation">
 <img src="/img/vlab-change-temp-slower.gif" alt="Change Temperature Animation" width="400px" />
 </div>
 
@@ -79,6 +82,5 @@ function toggleAnimation(id, buttonId) {
 <p style="font-size: 24px; color: #999;">Virtual lab will be displayed here after it is loaded.</p>
 </div>
 <div id="vlab" style="height:650px; width: 950px;" class="hidden"></div>
-
 
 <div id="questions"></div>

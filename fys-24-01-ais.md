@@ -88,7 +88,7 @@ occurred at Mount Union. Make sure the article includes a good title.
 
 -   Ask it to write a poem or a song
 
-Talk with your partner about what the best articles / results are. Think
+Talk with your group about what the best articles / results are. Think
 about the AI's
 
 -   Organization
@@ -106,16 +106,12 @@ Take it with a grain of salt, but think about the AI's
 **Output:** When you're done
 
 - paste your article into the [class Word
-doc](https://mountunion-my.sharepoint.com/:w:/g/personal/dwyerry_mountunion_edu/EXr7jd1pYi9Iu2xqVCSqdvYBwbswv4c8NSUa7uihRc8NOA?e=jd5C8L)
+doc](https://mountunion-my.sharepoint.com/:w:/g/personal/dwyerry_mountunion_edu/EUoeY6DG9g5OrR9UApJGs6UB8SIrujafZZHe1Sw-PN4MxQ?e=29KyPh)
 - choose a good section from the article that you will read to the class (along with the title and perhaps a bit about the topic / subject of your story)
-
 
 **Team with the best/funniest response also gets to skip a reflection.**
 
-
-
-
-
+[Last year's articles](https://mountunion-my.sharepoint.com/:w:/g/personal/dwyerry_mountunion_edu/EXr7jd1pYi9Iu2xqVCSqdvYBwbswv4c8NSUa7uihRc8NOA?e=jd5C8L)
 
 
 <!-- #### Notes - Getting to know your classmates example

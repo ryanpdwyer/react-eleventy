@@ -36,9 +36,7 @@ The references can be sorted into collections (the folder symbols), tagged with 
 <img class="img-fluid" style="max-width:600px; display:block;" alt="Zotero plug-in" src="/img/zotero-web-extension.png">
 For an overview of how to import items into Zotero, see [Getting stuff into your library](https://www.zotero.org/support/getting_stuff_into_your_library).
 
-    Note: For Mac users, only the beta version of Zotero is compatible with Safari—you have to use Chrome or Firefox instead to save directly from the browser.
-
-    **Other ways to get references into Zotero:**
+    **Other good ways to get references into Zotero:**
     - The magic wand (type a DOI, PMID, or other identifying number)
     - Drag and drop the pdf into Zotero
 

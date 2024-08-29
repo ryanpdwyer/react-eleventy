@@ -1,7 +1,7 @@
 ---
 layout: vanillabootflex-full-pdflib.njk
 title: CHE 120 E4
-js: che120-e4-24sp-test.js
+js: che120-e4-24fa.js
 styles:
     - che120.css
 ---
@@ -17,7 +17,7 @@ The goal of this lab is to identify 3 unknown compounds contained in a drinking 
 
 Enter your name (first and last) and Mount Union email below to be assigned a set of unknown samples:
 
-<form class="form" id="120-water-24sp">
+<form class="form" id="120-water-24fa">
 <div>
 <div class="form-group">
 <label for="nameInput">Name:</label><input id="nameInput" name="nameInput" class="form-control"></input>

@@ -25,9 +25,10 @@ js: fys-installation.js
 
 The prompt is meant to guide your reading and reflection-you are free to choose any of these bullet points as the basis of your reflection or to focus on another area of the book that you found interesting, surprising, funny, unexpected, etc. **Your reflections should be 1 page long double-spaced (12 point font size, Times New Roman, 1-inch margins, etc).**
 
-**Title and Header: ** Include a descriptive / engaging title and your name in the header or at the top of the page.
+**Title and Header:** Include a descriptive / engaging title and your name in the header or at the top of the page.
 
-**Prompts:** Discuss one of the examples of AI and machine learning discussed in the chapter, including any interesting applications, anything you learned, or anything about our AI Weirdness principles / Signs of AI Doom that's relevant
+**Prompts:** Discuss one of the examples of AI and machine learning discussed in the chapter, including any interesting applications, anything you learned, or anything about our AI Weirdness principles / Signs of AI Doom that's relevant.
+
 - Neural networks
 - Markov chains (feel free to try some of the experiments using your phone's auto-correct; however, this has been changed to a transformer-based model for current phones)
 - Random forests
@@ -43,7 +44,7 @@ A good reflection will be organized and well-written. What is well-written? Chec
 - Is understandable to your audience, your fellow classmates
 - Develops logically, using effective and smooth transitions
 - Engages the reader, making points clearly and concisely
-- Citations: The book can be cited in APA style as (Shane, 2019, p. 23).  
+- Cites its source. Here, the book can be cited just with the page number - other sources, if used, should use APA / MLA style.
 
 Also, check to make sure your reflection avoids these **critical mistakes:**
 

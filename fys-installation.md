@@ -31,11 +31,17 @@ If you have any installation issues, take a screenshot (Windows+Shift+S) showing
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/5vc7XYNXXGg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="windows-processing"></iframe>
 
+4. Open Processing and install the following libraries by selecting `Sketch > Import Library... > Manage Libraries`. In the resulting window, search for the following libraries and click install for each.
 
-4. [Wekinator Example Bundle](https://github.com/ryanpdwyer/wekinator_examples/archive/refs/tags/v1.3.zip) Download the linked zip file, extract the zip file, and move the folder to your FYS folder.
+    - oscP5
+    - ControlP5
+    - Minim
+    - Sound
+
+
+5. [Wekinator Example Bundle](https://github.com/ryanpdwyer/wekinator_examples/archive/refs/tags/v1.3.zip) Download the linked zip file, extract the zip file, and move the folder to your FYS folder or another convenient location.
 
 Complete the [assignment shown below](#assignment).
-
 
 <h2 id="mac">Mac</h2>
 
@@ -51,7 +57,14 @@ If you have any installation issues, take a screenshot (⌘+Ctrl+Shift+4 or ⌘+
 3. [Processing](https://github.com/processing/processing4/releases/download/processing-1293-4.3/processing-4.3-macos-aarch64.zip) Download the Mac version (you probably want the *Apple Silicon* version, linked first - otherwise choose the Intel version [here](https://processing.org/download/)) and move the application to your Applications folder. Right-click and open the application the first time, just like you did with Wekinator. <button class="btn btn-link" onclick="show('mac-processing-video')">Need help? Watch the video below:</button>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/-6Mcr76sfFY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="mac-processing-video" hidden></iframe>
 
-4. [Wekinator Example Bundle](https://github.com/ryanpdwyer/wekinator_examples/archive/refs/tags/v1.3.zip) Download the linked zip file, extract the zip file, and move the folder to your FYS folder.
+4. Open Processing and install the following libraries by selecting `Sketch > Import Library... > Manage Libraries`. In the resulting window, search for the following libraries and click install for each.
+
+    - oscP5
+    - ControlP5
+    - Minim
+    - Sound
+
+5. [Wekinator Example Bundle](https://github.com/ryanpdwyer/wekinator_examples/archive/refs/tags/v1.3.zip) Download the linked zip file, extract the zip file, and move the folder to your FYS folder.
 
 Complete the assignment below.
 
@@ -69,12 +82,8 @@ Create a Microsoft Word document with your name at the top. Show that you've ins
 ![Processing welcome screen](/img/welcome-picture.png)
 
 
-Here's an example of me doing both on Windows:
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/4dKeHUp4khQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-4. **If you had any issues installing/opening any of the applications, include a screenshot showing your problem, and/or contact me via [email](mailto:dwyerry@mountunion.edu). We can make sure you get everything installed correctly for the next class meeting.**
+3. **If you had any issues installing/opening any of the applications, include a screenshot showing your problem, and/or contact me via [email](mailto:dwyerry@mountunion.edu). We can make sure you get everything installed correctly for the next class meeting.**
 
 
-5. **Submit the assignment to the [Dropbox folder]** on D2L (10 pts).
+4. **Submit the assignment to the [Dropbox folder]** on D2L (10 pts).
 

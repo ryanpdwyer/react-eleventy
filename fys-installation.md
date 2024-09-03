@@ -4,7 +4,7 @@ title: FYS Setting up your Computer
 js: fys-installation-g.js
 ---
 
-# A1: Setting up your computer
+# A2: Setting up your computer
 
 ### Goals
 

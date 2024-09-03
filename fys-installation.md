@@ -85,5 +85,5 @@ Create a Microsoft Word document with your name at the top. Show that you've ins
 3. **If you had any issues installing/opening any of the applications, include a screenshot showing your problem, and/or contact me via [email](mailto:dwyerry@mountunion.edu). We can make sure you get everything installed correctly for the next class meeting.**
 
 
-4. **Submit the assignment to the [Dropbox folder]** on D2L (10 pts).
+4. **Submit the assignment to the [Dropbox folder](https://d2l.mountunion.edu/d2l/lms/dropbox/user/folder_submit_files.d2l?db=97791&grpid=0&isprv=0&bp=0&ou=59787)** on D2L (10 pts).
 

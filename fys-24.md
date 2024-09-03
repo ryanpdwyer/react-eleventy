@@ -24,7 +24,8 @@ This has links to material on my website that go along with the AI content in th
 1. [Teachable Machine](https://teachablemachine.withgoogle.com/) We'll use Teachable machine to build a model during class (see handout, or pdf here).
 2. [Interesting outputs](/fys-outputs/) Once you have a teachable machine model, you can connect it to outputs here.
 3. [Generative AI alternative](https://js.munano.org/) Try "training" the same model as Teachable Machine just using GPT-4o-mini at the link here - just edit the prompt to do what you want. 
-4. [Installation of Processing and Wekinator](/fys-installation/) These programs will need to be installed for next Tuesday; feel free to start now! **Don't wait until Monday night to complete the assignment - start Thursday or Friday so you can get help if you need it!**
+4. [Word doc - Model results](https://mountunion-my.sharepoint.com/:w:/g/personal/dwyerry_mountunion_edu/ERE6lCuyi55Oh-ZfIOAc2zwBtKfSzBG3NN-VGuj8WA5jYw?e=4wbYkF) Put your group's teachable machine model here.
+5. [Installation of Processing and Wekinator](/fys-installation/) These programs will need to be installed for next Tuesday; feel free to start now! **Don't wait until Monday night to complete the assignment - start Thursday or Friday so you can get help if you need it!**
 
 <!-- 1. [Classifier models](/fys-V01-23/) This contains information that follows along with our in-class presentation about classifiers.
 2. [Regression models](/fys-V03/) Similarly, this follows along with our information about regression models.

@@ -10,7 +10,7 @@ This has links to material on my website that go along with the AI content in th
 
 <!-- ## Week 4
 1. [Building an AI Model Project: The gory details](/fys-V07-23) The details for the steps you'll be completing during week 4. *You are welcome to work ahead!*
-2. [Interesting outputs](/fys-V09/)
+
 
 ## Week 3
 1. [Building a regression model and changing models](/fys-A04-regression-change-models-23/) This follows along with the first part of class Tuesday
@@ -21,8 +21,10 @@ This has links to material on my website that go along with the AI content in th
 
 ## Week 2
 
-1. [Installation of Processing and Wekinator](/fys-installation/) These programs will need to be installed for next Tuesday; feel free to start now! **Don't wait until Monday night to complete the assignment - start Thursday or Friday so you can get help if you need it!**
-2. [Teachable Machine](https://teachablemachine.withgoogle.com/) We'll use Teachable machine to build a model during class
+1. [Teachable Machine](https://teachablemachine.withgoogle.com/) We'll use Teachable machine to build a model during class
+2. [Interesting outputs](/fys-V09/)
+3. [Installation of Processing and Wekinator](/fys-installation/) These programs will need to be installed for next Tuesday; feel free to start now! **Don't wait until Monday night to complete the assignment - start Thursday or Friday so you can get help if you need it!**
+
 <!-- 1. [Classifier models](/fys-V01-23/) This contains information that follows along with our in-class presentation about classifiers.
 2. [Regression models](/fys-V03/) Similarly, this follows along with our information about regression models.
 3. [A2 Classifier Model](/fys-a02-classifier-23/) This contains the assignment for next Tuesday, building your own classifier model. -->

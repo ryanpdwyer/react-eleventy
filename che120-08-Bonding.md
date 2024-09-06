@@ -59,7 +59,7 @@ If you want to see the step by step solutions, you can watch those below.
 
 ## Skeletal structures
 
-For larger molecules, you should be able to write the Lewis structure from the condensed molecular formula. There were a few examples of this in your virtual lab.
+For larger molecules, you should be able to write the Lewis structure from the condensed molecular formula. There were a few examples of this in experiment 2.
 
 <div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;">
     <iframe style="position: absolute; width: 100%; height: 100%; border: 0;" scrolling="no" src="https://expl.ai/JUBVDFJ?mode=embed" frameborder="0" allowfullscreen></iframe>
@@ -67,4 +67,4 @@ For larger molecules, you should be able to write the Lewis structure from the c
 
 <br>
 
-This section continues with [Resonance and Formal Charge](/che120-08-Resonance-FC)
+<!-- This section continues with [Resonance and Formal Charge](/che120-08-Resonance-FC) -->

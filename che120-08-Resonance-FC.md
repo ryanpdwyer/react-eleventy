@@ -12,7 +12,7 @@ styles:
 
 
 <div class="alert alert-secondary">
-For Friday , you could skip directly to <a href="/che120-09-VSEPR">VSEPR theory</a>.
+For Class, you could skip directly to <a href="/che120-09-VSEPR">VSEPR theory</a>. This content will be covered in class.
 </div>
 
 

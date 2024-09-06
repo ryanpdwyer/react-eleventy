@@ -8,7 +8,7 @@ styles:
 
 # CHE 120 09 VSEPR theory
 
-**Previous videos:** [08 Lewis structures](/che120-08-Bonding) and [08 Resonance and Formal Charge](/che120-08-Resonance-FC).
+**Previous videos:** [08 Lewis structures](/che120-08-Bonding)
 
 
 ## Goals

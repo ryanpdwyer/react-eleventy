@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+/* Previous styles remain the same through .debug-log */
+.calculator {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.display {
+  background: #e8f4f8;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+#equationInput {
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-family: monospace;
+}
+
+.variables {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.variable-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.variable-input label {
+  min-width: 30px;
+  font-weight: bold;
+}
+
+.variable-input input {
+  width: 100px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.solve-btn {
+  padding: 5px 15px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.solve-btn:hover {
+  background: #45a049;
+}
+
+.result {
+  font-size: 18px;
+  margin-top: 15px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 5px;
+}
+
+.debug-section {
+  margin-top: 20px;
+}
+
+.debug-log {
+  font-family: monospace;
+  background: #1e1e1e;
+  color: #00ff00;
+  padding: 15px;
+  margin-top: 10px;
+  border-radius: 5px;
+  max-height: 300px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  display: none;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+.mode-select {
+  margin-bottom: 15px;
+}
+
+.debug-toggle {
+  margin: 10px 0;
+}
+</style>
+</head>
+<body>
+<div class="calculator">
+  <div class="mode-select">
+    <label>Equation Mode:</label>
+    <select id="equationMode" onchange="updateEquationFormat()">
+      <option value="arbitrary">Arbitrary (a + b = c + d)</option>
+      <option value="standard">Standard (0 = expression)</option>
+    </select>
+  </div>
+  
+  <div class="display">
+    <input type="text" id="equationInput" placeholder="Enter equation (e.g., x + y = 10 or 0 = x**2 + 2*x - 5)" />
+    <div id="error" class="error"></div>
+  </div>
+
+  <div class="variables" id="variableInputs">
+    <!-- Variables will be added here dynamically -->
+  </div>
+
+  <div class="result" id="result"></div>
+  
+  <div class="debug-toggle">
+    <label>
+      <input type="checkbox" id="verboseMode" onchange="toggleDebugDisplay()">
+      Verbose mode
+    </label>
+  </div>
+  <div class="debug-log" id="debugLog"></div>
+</div>
+
+<script>
+
+function formatNumber(num) {
+  if (num < 1e-3 || num > 5e5) {
+    return num.toExponential();
+  }
+  return num.toString();
+}
+
+let debugLog = [];
+
+function toggleDebugDisplay() {
+    const debugLog = document.getElementById('debugLog');
+    debugLog.style.display = document.getElementById('verboseMode').checked ? 'block' : 'none';
+}
+
+function log(message) {
+  // Always add to debugLog
+  debugLog.push(message);
+  document.getElementById('debugLog').textContent = debugLog.join('\n');
+}
+
+function clearLog() {
+  debugLog = [];
+  document.getElementById('debugLog').textContent = '';
+}
+
+// Previous helper functions remain the same through solve()
+function preprocessExpression(expr) {
+  expr = expr.replace(/\^/g, '**');
+  return expr;
+}
+
+function evaluateExpression(expr, variables) {
+  expr = preprocessExpression(expr);
+  
+  const substitutedExpr = Object.entries(variables).reduce((acc, [name, value]) => {
+    return acc.replaceAll(name, `(${value})`);
+  }, expr);
+  
+  try {
+    const mathContext = Object.getOwnPropertyNames(Math).reduce((acc, name) => {
+      acc[name] = Math[name];
+      return acc;
+    }, {});
+    
+    return Function(...Object.keys(variables), ...Object.keys(mathContext),
+      `return ${expr}`)(...Object.values(variables), ...Object.values(mathContext));
+  } catch (e) {
+    throw new Error('Invalid expression');
+  }
+}
+
+function updateEquationFormat() {
+  const mode = document.getElementById('equationMode').value;
+  const input = document.getElementById('equationInput');
+  
+  if (mode === 'standard') {
+    if (!input.value.startsWith('0 =')) {
+      input.value = '0 = ' + input.value;
+    }
+  }
+}
+
+function parseEquation(equation) {
+  const mode = document.getElementById('equationMode').value;
+  let leftSide, rightSide;
+  
+  if (mode === 'standard') {
+    if (!equation.startsWith('0 =')) {
+      throw new Error('Standard mode equations must start with "0 ="');
+    }
+    leftSide = '0';
+    rightSide = equation.substring(2).trim();
+  } else {
+    const parts = equation.split('=');
+    if (parts.length !== 2) {
+      throw new Error('Equation must contain exactly one equals sign');
+    }
+    [leftSide, rightSide] = parts.map(p => p.trim());
+  }
+  
+  leftSide = preprocessExpression(leftSide);
+  rightSide = preprocessExpression(rightSide);
+  
+  return { leftSide, rightSide };
+}
+
+function extractVariables(equation) {
+  const variables = new Set(equation.match(/[a-df-zA-DF-Z]/g)) || [];
+  const variableInputs = document.getElementById('variableInputs');
+  
+  
+  
+  
+  variableInputs.innerHTML = '';
+  
+  variables.forEach(variable => {
+    const div = document.createElement('div');
+    div.className = 'variable-input';
+    div.innerHTML = `
+      <label>${variable} =</label>
+      <input type="number" id="var_${variable}" value="1" step="0.1" />
+      <button class="solve-btn" onclick="solve('${variable}')">Solve</button>
+    `;
+    variableInputs.appendChild(div);
+  });
+}
+
+document.getElementById('equationInput').addEventListener('input', function(e) {
+  try {
+    const equation = e.target.value;
+    extractVariables(equation);
+    document.getElementById('error').textContent = '';
+  } catch (err) {
+    document.getElementById('error').textContent = err.message;
+  }
+});
+
+function getVariableValues(excludeVariable) {
+  const values = {};
+  const inputs = document.querySelectorAll('.variable-input input');
+  inputs.forEach(input => {
+    const variable = input.id.replace('var_', '');
+    if (variable !== excludeVariable) {
+      values[variable] = parseFloat(input.value);
+    }
+  });
+  return values;
+}
+
+function solve(targetVariable) {
+  clearLog();
+  try {
+    const equation = document.getElementById('equationInput').value;
+    const { leftSide, rightSide } = parseEquation(equation);
+    const initialGuess = parseFloat(document.getElementById(`var_${targetVariable}`).value);
+    
+    let x = initialGuess;
+    const maxIterations = 100;
+    const tolerance = 1e-10;
+    const variables = getVariableValues(targetVariable);
+    
+    log(`Starting solution for ${targetVariable}...`);
+    
+    for (let i = 0; i < maxIterations; i++) {
+      variables[targetVariable] = x;
+      log(`\nIteration ${i + 1}:`);
+      log(`Current guess: ${x.toFixed(6)}`);
+      
+      const fx = evaluateExpression(leftSide, variables) - evaluateExpression(rightSide, variables);
+      
+      if (Math.abs(fx) < tolerance) {
+        document.getElementById(`var_${targetVariable}`).value = x.toFixed(6);
+        document.getElementById('result').textContent = `${targetVariable} = ${x.toFixed(6)}`;
+        log(`\nSolution found: ${targetVariable} = ${x.toFixed(6)}`);
+        return;
+      }
+      
+      const h = 1e-7;
+      variables[targetVariable] = x + h;
+      const fxh = evaluateExpression(leftSide, variables) - evaluateExpression(rightSide, variables);
+      const derivative = (fxh - fx) / h;
+      log(`Numerical derivative: ${derivative.toFixed(6)}`);
+      
+      const nextX = x - fx / derivative;
+      log(`Next guess: ${nextX.toFixed(6)}`);
+      
+      if (Math.abs(nextX - x) < tolerance) {
+        document.getElementById(`var_${targetVariable}`).value = formatNumber (0.1);
+        document.getElementById('result').textContent = `${targetVariable} = ${x.toFixed(6)}`;
+        log(`\nSolution found: ${targetVariable} = ${x.toFixed(6)}`);
+        return;
+      }
+      
+      x = nextX;
+    }
+    
+    throw new Error('Solution did not converge after maximum iterations');
+  } catch (err) {
+    document.getElementById('error').textContent = err.message;
+    document.getElementById('result').textContent = 'Unable to find solution';
+    log(`Error: ${err.message}`);
+  }
+}
+
+// Initialize debug display on page load
+toggleDebugDisplay();
+</script>
+</body>
+</html>

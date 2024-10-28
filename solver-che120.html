@@ -20,12 +20,29 @@
   border: 1px solid #ccc;
 }
 
+.equation-display {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.equation-prefix {
+  font-size: 18px;
+  font-family: monospace;
+  display: none;
+  white-space: nowrap;
+  flex-shrink: 0;  /* Prevents the prefix from shrinking */
+  padding-right: 5px;  /* Add some spacing between 0 = and the input */
+}
+
 #equationInput {
   width: 100%;
   padding: 10px;
   font-size: 18px;
   margin-bottom: 10px;
   font-family: monospace;
+  flex: 1;  /* Allows input to take remaining space */
 }
 
 .variables {
@@ -121,7 +138,10 @@
   </div>
   
   <div class="display">
-    <input type="text" id="equationInput" placeholder="Enter equation (e.g., x + y = 10 or 0 = x**2 + 2*x - 5)" />
+    <div class="equation-display">
+      <span class="equation-prefix">0 =</span>
+      <input type="text" id="equationInput" placeholder="Enter equation (e.g., x + y = 10 or 0 = x^2 + 2*x - 5)" />
+    </div>
     <div id="error" class="error"></div>
   </div>
 
@@ -196,11 +216,15 @@ function evaluateExpression(expr, variables) {
 function updateEquationFormat() {
   const mode = document.getElementById('equationMode').value;
   const input = document.getElementById('equationInput');
+  const prefix = document.querySelector('.equation-prefix');
   
   if (mode === 'standard') {
-    if (!input.value.startsWith('0 =')) {
-      input.value = '0 = ' + input.value;
+    prefix.style.display = 'block';
+    if (input.value.startsWith('0 =')) {
+      input.value = input.value.substring(2).trim();
     }
+  } else {
+    prefix.style.display = 'none';
   }
 }
 
@@ -209,11 +233,8 @@ function parseEquation(equation) {
   let leftSide, rightSide;
   
   if (mode === 'standard') {
-    if (!equation.startsWith('0 =')) {
-      throw new Error('Standard mode equations must start with "0 ="');
-    }
     leftSide = '0';
-    rightSide = equation.substring(2).trim();
+    rightSide = equation.trim();
   } else {
     const parts = equation.split('=');
     if (parts.length !== 2) {
@@ -242,7 +263,7 @@ function extractVariables(equation) {
     div.className = 'variable-input';
     div.innerHTML = `
       <label>${variable} =</label>
-      <input type="number" id="var_${variable}" value="1" step="0.1" />
+      <input type="number" id="var_${variable}" value="0" step="1e-3" />
       <button class="solve-btn" onclick="solve('${variable}')">Solve</button>
     `;
     variableInputs.appendChild(div);
@@ -270,54 +291,109 @@ function getVariableValues(excludeVariable) {
   });
   return values;
 }
-
 function solve(targetVariable) {
   clearLog();
   try {
     const equation = document.getElementById('equationInput').value;
     const { leftSide, rightSide } = parseEquation(equation);
-    const initialGuess = parseFloat(document.getElementById(`var_${targetVariable}`).value);
-    
-    let x = initialGuess;
-    const maxIterations = 100;
+    let x0 = parseFloat(document.getElementById(`var_${targetVariable}`).value);
+    let x1 = x0 * 1.1 + 0.1; // Offset for second point
+    const maxIterations = 500;
     const tolerance = 1e-10;
     const variables = getVariableValues(targetVariable);
-    
-    log(`Starting solution for ${targetVariable}...`);
-    
-    for (let i = 0; i < maxIterations; i++) {
+
+    // Function to evaluate f(x) = leftSide - rightSide
+    function evaluate(x) {
       variables[targetVariable] = x;
-      log(`\nIteration ${i + 1}:`);
-      log(`Current guess: ${x.toFixed(6)}`);
-      
-      const fx = evaluateExpression(leftSide, variables) - evaluateExpression(rightSide, variables);
-      
-      if (Math.abs(fx) < tolerance) {
-        document.getElementById(`var_${targetVariable}`).value = x.toFixed(6);
-        document.getElementById('result').textContent = `${targetVariable} = ${x.toFixed(6)}`;
-        log(`\nSolution found: ${targetVariable} = ${x.toFixed(6)}`);
-        return;
-      }
-      
-      const h = 1e-7;
-      variables[targetVariable] = x + h;
-      const fxh = evaluateExpression(leftSide, variables) - evaluateExpression(rightSide, variables);
-      const derivative = (fxh - fx) / h;
-      log(`Numerical derivative: ${derivative.toFixed(6)}`);
-      
-      const nextX = x - fx / derivative;
-      log(`Next guess: ${nextX.toFixed(6)}`);
-      
-      if (Math.abs(nextX - x) < tolerance) {
-        document.getElementById(`var_${targetVariable}`).value = formatNumber (0.1);
-        document.getElementById('result').textContent = `${targetVariable} = ${x.toFixed(6)}`;
-        log(`\nSolution found: ${targetVariable} = ${x.toFixed(6)}`);
-        return;
-      }
-      
-      x = nextX;
+      return evaluateExpression(leftSide, variables) - evaluateExpression(rightSide, variables);
     }
-    
+
+    log(`Starting solution for ${targetVariable}...`);
+    let fx0 = evaluate(x0);
+    let fx1 = evaluate(x1);
+
+    // Initialize bounds
+    let leftBound = x0;
+    let rightBound = x1;
+    let fLeft = fx0;
+    let fRight = fx1;
+
+    // Search for bounds if initial points don't bracket root
+    if (fLeft * fRight > 0) {
+      log(`Initial points don't bracket root, searching for bounds...`);
+      let delta = Math.abs(rightBound - leftBound);
+      
+      for (let i = 0; i < 20 && fLeft * fRight > 0; i++) {
+        if (Math.abs(fLeft) < Math.abs(fRight)) {
+          leftBound -= delta;
+          fLeft = evaluate(leftBound);
+        } else {
+          rightBound += delta;
+          fRight = evaluate(rightBound);
+        }
+        delta *= 1.4;
+      }
+
+      if (fLeft * fRight > 0) {
+        throw new Error('Could not find bounds that bracket the root');
+      }
+      log(`Found bounds: [${leftBound.toFixed(6)}, ${rightBound.toFixed(6)}]`);
+    }
+
+    let currentX = x1;
+    let lastStepWasSecant = false;
+
+    for (let i = 0; i < maxIterations; i++) {
+      log(`\nIteration ${i + 1}:`);
+      log(`Current bounds: [${leftBound.toFixed(6)}, ${rightBound.toFixed(6)}]`);
+
+      // Calculate secant step
+      const secantDelta = -fx1 * (x1 - x0) / (fx1 - fx0);
+      const xSecant = x1 + secantDelta;
+
+      // Check if secant step is within bounds
+      const isSecantSafe = xSecant >= Math.min(leftBound, rightBound) && 
+                          xSecant <= Math.max(leftBound, rightBound);
+
+      // Choose method and calculate next point
+      let nextX;
+      if (isSecantSafe && lastStepWasSecant) {
+        nextX = xSecant;
+        log(`Using secant method - step: ${secantDelta.toFixed(6)}`);
+      } else {
+        nextX = (leftBound + rightBound) / 2;
+        log(`Using bisection method - midpoint: ${nextX.toFixed(6)}`);
+      }
+
+      const fNext = evaluate(nextX);
+
+      // Update bounds
+      if (fNext * fLeft < 0) {
+        rightBound = nextX;
+        fRight = fNext;
+      } else {
+        leftBound = nextX;
+        fLeft = fNext;
+      }
+
+      // Update secant points
+      x0 = x1;
+      fx0 = fx1;
+      x1 = nextX;
+      fx1 = fNext;
+
+      lastStepWasSecant = isSecantSafe;
+
+      // Check convergence
+      if (Math.abs(fNext) < tolerance || Math.abs(rightBound - leftBound) < tolerance) {
+        const result = nextX.toFixed(6);
+        document.getElementById(`var_${targetVariable}`).value = result;
+        document.getElementById('result').textContent = `${targetVariable} = ${result}`;
+        log(`\nSolution found: ${targetVariable} = ${result}`);
+        return;
+      }
+    }
+
     throw new Error('Solution did not converge after maximum iterations');
   } catch (err) {
     document.getElementById('error').textContent = err.message;

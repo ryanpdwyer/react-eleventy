@@ -9,6 +9,23 @@ const data = {
           {
             "name": "stockroom",
             "SOLUTION": [
+                {"name": "Initial equilibrium solution",
+                "description": "Initial equilibrium solution",
+                "volume": "0.1",
+                "species": [
+                  {
+                    "id": "0",
+                  },
+                  {
+                    "id": "10",
+                    "amount": "0.025"
+                  },
+                  {
+                    "id": "11",
+                    "amount": "0.025"
+                  }
+                ]
+                },
                 {
                     "name": "A solution",
                     "description": "Reactant A solution",
@@ -23,7 +40,7 @@ const data = {
                   {
                     "name": "B gas",
                     "description": "Reactant B gas",
-                    "volume": "0.1",
+                    "volume": "0.0",
                     "species": [
                       {
                         "id": "11",
@@ -34,7 +51,7 @@ const data = {
                   {
                     "name": "C solid",
                     "description": "Product C solid",
-                    "volume": "0.1",
+                    "volume": "0.0",
                     "species": [
                       {
                         "id": "12",
@@ -134,7 +151,11 @@ const data = {
             "entropy": "0",
             "molecularWeight": "75",
             "density": "1.2",
-            "specificHeat": "1.0"
+            "specificHeat": "1.0",
+            "hue": "12",
+            "saturation": "86",
+            "value": "70",
+            "colorConcentration": ".08"
           }
 
         ]
@@ -319,9 +340,9 @@ const HeatQuestions = (props) => {
       none_reactant: <><b>Incorrect.</b> You need an arrow (increasing ↑ or decreasing ↓) attached to heat to see how the equilibrium is disturbed.</>,
       none_product: <><b>Incorrect.</b> You need an arrow (increasing ↑ or decreasing ↓) attached to heat to see how the equilibrium is disturbed.</>,
       increasing_product: <><b>Incorrect.</b> The reaction is cooled, and the color of the solution becomes a darker blue. Since the reaction is cooled, it is an indication that heat is decreased in this reaction scheme, causing the shift in the equilibrium towards the products, making the solution a darker blue.</>,
-      decreasing_reactant: <><b>Incorrect.</b> The temperature is cooled, suggesting that heat is decreased. But, since the color of the solution becomes a darker blue, the result of the stress should shift the solution to the products. If this heat stressor is in the reactants, the solution would become a lighter color.</>,
+      decreasing_reactant: <><b>Incorrect.</b>  The temperature is cooled, suggesting that heat is decreased. But, since the color of the solution becomes a darker blue, the result of the stress should shift the solution to the products. If this heat stressor is in the reactants, the solution would become a lighter color.</>,
       increasing_reactant: <><b>Incorrect.</b> The temperature is cooled, thus the stressor is a decrease in heat. If heat is increased and is a part of the reactants, the solution would become a darker blue and shift to the right (products). However, heat is decreased, resulting in the shift to the reactants. This selection would result in the correct color change, but the incorrect stressor.</>,
-      decreasing_product: <><b>Correct!</b> The temperature of the solution is cooled which causes the solution to become a darker blue, indicating that the result of the temperature stressor shifted the equilibrium to the products (right). Since the temperature (heat) is decreased, heat must be on the products side so that decreasing heat causes a shift right towards products. Therefore, this is an exothermic reaction.</>
+      decreasing_product: <><b>Correct!</b> The reaction is exothermic, so heat is a product. The temperature of the solution is cooled, so the stress is decreasing heat. The decreasing heat (product) causes a shift right towards products. </>
     }
 
     const FeedbackElement = ({submitState}) => {
@@ -349,7 +370,7 @@ const HeatQuestions = (props) => {
         </select>
       </p>
       <div style={{textAlign: "center", fontSize: "1.25em"}}>
-        <p> <Heat location="reactant" locationValue={heat} arrowValue={arrow} arrowDisplay={arrowDisplay} /> M<sup>2+</sup>(aq) + 4OH<sup>-</sup>(aq) ⇌ M(OH)<sub>4</sub><sup>2-</sup>(aq)
+        <p> <Heat location="reactant" locationValue={heat} arrowValue={arrow} arrowDisplay={arrowDisplay} /> 3A(aq) + 2B(g) ⇌ C(s) + D(aq)
         <Heat location="product" locationValue={heat} arrowValue={arrow} arrowDisplay={arrowDisplay} /> </p>
         </div>
         <button disabled={heat=='none'} onClick={e => setSubmitState(arrow+"_"+heat)}>Submit</button>
@@ -357,9 +378,10 @@ const HeatQuestions = (props) => {
     </div>);
 }
 
-const part_c = [<MCQ options={[{children: "became darker blue", correct: true}, {children: "became lighter blue"}, {children: "didn't change color"}]}name="part_c-observations_color">What did you observe when decreasing the temperature of the solution?</MCQ>,
-<MCQ name="part_c-shift" options={children([{children: "Towards reactants (to the left)"}, {children: "Toward products (to the right)", correct: true}, "No shift"])}>Based on your observations, what direction did the reaction shift?</MCQ>,
+const part_c = [
 <HeatQuestions/>,
+<MCQ name="part_c-shift" options={children([{children: "Towards reactants (to the left)"}, {children: "Toward products (to the right)", correct: true}, "No shift"])}> What direction did the reaction shift?</MCQ>,
+<MCQ name="part_c-c-grams" options={children([{children: "Increase", correct: true}, {children: "Decrease" }, "No shift"])}> How did the grams of solid C change?</MCQ>,
 ];
 
 {/* <MCQ name="isothermal-entropy" correctFeedback={<p>At constant temperature, increasing the volume, or equivalently, decreasing the pressure, causes an increase in entropy because of the equation ΔS = nRln(V<sub>f</sub>/V<sub>i</sub>). You can also reason that there are more possible microstates for the gas when the volume is larger.</p>}options={[{
@@ -468,16 +490,10 @@ const part_a_explanation = [<div>
 function App(props) {
     return (<>
         <h3>Questions</h3>
-        <p>The questions below are designed to help guide you through the pre-lab. Make sure to record your answers / explanations on the paper pre-lab as well.</p>
         <p>
-        Apply the following stresses to an equilibrium system and explain your observations using Le Chatelier's principle. Each explanation should 
+        Predict the effect of each change using Le Chatelier's principle. The balanced chemical equation is 3A(aq) + 2B(g) ⇌ C(s) + D(aq) and the reaction is exothermic.
         </p>
-        <ol>
-            <li>state the specific stress/disturbance to equilibrium,</li>
-            <li>state the Le Chatelier response to the stress (shift left / right), and</li>
-            <li>use the Le Chatelier response to explain the experimental observations.</li>
-        </ol>
-        <p> Part a) 5 mL of 3 M NaOH is added to the initial equilibrium solution (the first solution in the stockroom) </p>
+        <p> More C is added to the solution.</p>
         <img src="/img/vlab-equilibrium-solution.png" alt="Initial equilibrium solution" width="140px" />
         <ol>
             {part_a.map((item, index) => <li key={index}>{item}</li>)}
@@ -488,11 +504,13 @@ function App(props) {
         </div>
         <ForwardBackList items={part_a_explanation}/>
         </ShowHideContents>
-        <p> Part b) 3 mL of 3 M sulfuric acid (H₂SO₄) is added</p>
+        <p> Part b) Which direction will the reaction shift when the solution is diluted by adding water?  </p>
         <ol>
             {part_b.map((item, index) => <li key={index}>{item}</li>)}
         </ol>
-        <p> Part c)	<strong>Starting from the initial equilibrium mixture</strong>, decrease the temperature to 0 °C (Right- or two-finger-click and select "Thermal Properties", then choose "Insulated from surroundings" and type in the temperature). Keep a version of the solution at 25 °C so you can compare the colors. If you need help, see the animation below.</p>
+        <p> Part c) How will the grams of C change when A is added?</p>
+        <p> Part d) How will K change when B is removed? </p>
+        <p> Part e)	How will the grams of C change when the temperature is decreased?  <strong>Starting from the initial equilibrium mixture</strong>, decrease the temperature to 0 °C (Right- or two-finger-click and select "Thermal Properties", then choose "Insulated from surroundings" and type in the temperature). Keep a version of the solution at 25 °C so you can compare the colors and the moles of C, etc. If you need help, see the animation below.</p>
         <ShowHideContents title="Animation">
         <img src="/img/vlab-change-temp-slower.gif" alt="Change Temperature Animation" width="400px" />
         </ShowHideContents>

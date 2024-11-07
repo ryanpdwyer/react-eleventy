@@ -71,6 +71,11 @@ function toggleAnimation(id, buttonId) {
 <img src="/img/vlab-change-temp-slower.gif" alt="Change Temperature Animation" width="400px" />
 </div>
 
+The balanced equation for the exothermic reaction is
+ 3A(aq) + 2B(g) ⇌ C(s) + D(aq).
+
+The product D is a red color - all other species are colorless.
+
 <div id="vlab-placeholder" style="width:800px; height:600px; background-color: #f2f2f2; display: flex; justify-content: center; align-items: center;">
 <p style="font-size: 24px; color: #999;">Virtual lab will be displayed here after it is loaded.</p>
 </div>

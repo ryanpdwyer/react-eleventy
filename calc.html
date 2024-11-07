@@ -145,11 +145,26 @@
     <div id="error" class="error"></div>
   </div>
 
+
+
+
   <div class="variables" id="variableInputs">
     <!-- Variables will be added here dynamically -->
   </div>
 
   <div class="result" id="result"></div>
+  
+<div id="bounds-container" style="display:none;">
+  <label for="bound-lower"> Lower bound <input type="numeric" id="bound-lower"> </label>
+  <label for="bound-upper"> Upper bound <input type="numeric" id="bound-upper"> </label>
+</div>
+
+  <div id="bounds-toggle">
+    <label>
+      <input type="checkbox" id="toggleBounds" onchange="toggleBoundsDisplay()">
+      Use bounds
+    </label>
+  </div>
   
   <div class="debug-toggle">
     <label>
@@ -157,6 +172,7 @@
       Verbose mode
     </label>
   </div>
+  
   <div class="debug-log" id="debugLog"></div>
 </div>
 
@@ -174,6 +190,11 @@ let debugLog = [];
 function toggleDebugDisplay() {
     const debugLog = document.getElementById('debugLog');
     debugLog.style.display = document.getElementById('verboseMode').checked ? 'block' : 'none';
+}
+
+function toggleBoundsDisplay() {
+    const bounds = document.getElementById('bounds-container');
+    bounds.style.display = document.getElementById('toggleBounds').checked ? 'block' : 'none';
 }
 
 function log(message) {
@@ -296,27 +317,45 @@ function solve(targetVariable) {
   try {
     const equation = document.getElementById('equationInput').value;
     const { leftSide, rightSide } = parseEquation(equation);
-    let x0 = parseFloat(document.getElementById(`var_${targetVariable}`).value);
-    let x1 = x0 * 1.1 + 0.1; // Offset for second point
+
     const maxIterations = 500;
     const tolerance = 1e-10;
     const variables = getVariableValues(targetVariable);
-
+    let x0 = parseFloat(document.getElementById(`var_${targetVariable}`).value);
+    let x1 = x0 * 1.1 + 0.1; // Offset for second point
     // Function to evaluate f(x) = leftSide - rightSide
     function evaluate(x) {
       variables[targetVariable] = x;
       return evaluateExpression(leftSide, variables) - evaluateExpression(rightSide, variables);
     }
 
+
+  // Initialize bounds
+    let leftBound = x0;
+    let rightBound = x1;
+
+    if (document.getElementById('toggleBounds').checked) {
+      leftBound = parseFloat(document.getElementById('bound-lower').value);
+      rightBound =  parseFloat(document.getElementById('bound-upper').value);
+      if (isNaN(leftBound) || isNaN(rightBound)) {
+        throw new Error('Invalid bounds');
+      }
+      if (leftBound >= rightBound) {
+        throw new Error('Lower bound must be less than upper bound');
+      }
+      x1 = Math.min(rightBound, x1);
+      if (x0 < leftBound || x0 > rightBound || x1 < leftBound || x1 > rightBound) {
+        throw new Error('Initial points must be within bounds');
+      }
+      log(`Using bounds: [${leftBound}, ${rightBound}]`);
+    }
+
     log(`Starting solution for ${targetVariable}...`);
     let fx0 = evaluate(x0);
     let fx1 = evaluate(x1);
 
-    // Initialize bounds
-    let leftBound = x0;
-    let rightBound = x1;
-    let fLeft = fx0;
-    let fRight = fx1;
+    let fLeft = evaluate(leftBound);
+    let fRight = evaluate(rightBound);
 
     // Search for bounds if initial points don't bracket root
     if (fLeft * fRight > 0) {

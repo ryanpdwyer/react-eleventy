@@ -16,6 +16,10 @@ js: fys-installation-g.js
 
 [Connect Four](https://crimson-grizzled-father.glitch.me/) Play Connect Four against ChatGPT.
 
+## Project 4
+
+[AI Boxing](https://sprightly-kleicha-7a163c.netlify.app/)
+
 ## Project 5
 
 [Bloom Heating customer service](https://crimson-grizzled-father.glitch.me/)

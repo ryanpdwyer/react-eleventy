@@ -29,7 +29,7 @@ The prompt is meant to guide your reading and reflection-you are free to choose 
 
 **Prompt:** The key ideas presented in the reading are the 5 principles of AI weirdness (in the introduction) and the 4 rules of AI doom (in Chapter 1).
 
-- From the book, the news, your everyday life, or any of the models you've built or looked at already in this class, analyze a case where an AI fails using the principles/rules.
+- From the book, the news, your everyday life, or any AI model you've used before, analyze a case where an AI fails using the principles/rules.
 - What do you think of the principles and rules? Are there any that particularly stand out to you?
 - Describe one principle and one rule that is the most interesting or surprising to you. 
 - Or write about any other part of the reading you had a strong reaction to!

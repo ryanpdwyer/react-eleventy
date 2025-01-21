@@ -303,7 +303,7 @@ export function MCQMulti({name, options, defaultFeedback,
 	let jsx = (<div className="question">
 	{props.children}
 	{optionsJsx}
-	<button onClick={checkAnswer} class="btn btn-primary">Check answer</button>
+	<button onClick={checkAnswer} className="btn btn-primary">Check answer</button>
 	<br/>
 	<div className="feedback">
 	<DispP display={correct}>{correctFeedback}</DispP>

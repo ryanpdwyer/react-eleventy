@@ -267,6 +267,8 @@ function range( min, max, rng ) {
 
 let unknownLetters = ["A", "B", "C"];
 
+let unknownIDs = ["", "", ""];
+
 function chooseUnknowns(obj) {
     const unknowns = "ABCDEFGHIJKLMN".split("");
     const unknownsVal = Object.fromEntries(unknowns.map((x,i) => [x, i+1]));
@@ -287,7 +289,7 @@ function chooseUnknowns(obj) {
                                 .sort()
                                 .map(x=>x.toString().padStart(4, "0"));
 
-    const unknownIDs = myUnknowns.map((x,i)=>{
+    unknownIDs = myUnknowns.map((x,i)=>{
         const num = parseInt(x);
         const s = sampleIDs[i];
         if (num < 10) {
@@ -351,9 +353,9 @@ async function copyPages() {
     
     const pages = pdfDoc.getPages()
 
-    const unknowns = ['1', '2', '3'].map(x=>document.getElementById(`unknown`+x).innerText)
+    const unknowns = unknownIDs;
 
-    const inds = [0, 1];
+    const inds = [0, 1, 2];
     const yPos = 8;
     const fontSize = 14;
     inds.forEach(i=>{
@@ -376,7 +378,6 @@ async function copyPages() {
     // Trigger the browser to download the PDF document
     download(pdfBytes, `CHE 120 ${name} E1 Spectra.pdf`, "application/pdf");
 }
-
 
 
 document.getElementById('download-spectra').addEventListener('click', function() {

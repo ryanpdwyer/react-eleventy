@@ -10,7 +10,6 @@ styles:
 
 The goal of this lab is to identify 3 unknown compounds contained in a drinking water sample. 
 
-
 <div markdown=1>
 
 ## Your unknowns

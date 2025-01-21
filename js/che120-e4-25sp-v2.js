@@ -157,9 +157,9 @@ function UnknownEx (props) {
 
 function TableData (props) {
     return (<ol>
-        <h5>Table 4.2 IR Prediction</h5>
+        <h5>Table 1.2 IR Prediction</h5>
     <li>
-        <QuestionF answer={4}>How many molecules have an O-H functional group?</QuestionF>
+        <QuestionF answer={1}>How many molecules have an O-H functional group?</QuestionF>
     </li>
     <li>
     <QuestionF answer={4}>How many molecules have a C=O functional group?</QuestionF>
@@ -173,7 +173,7 @@ function TableData (props) {
     <li>
     <QuestionF answer={3}>How many molecules have a C-H(benzene ring) functional group?</QuestionF>
     </li>
-    <h5>Table 4.3 NMR Prediction</h5>
+    <h5>Table 1.3 NMR Prediction</h5>
     <li>
     <QuestionF answer={3}>How many molecules have 1 peak?</QuestionF>
     </li>

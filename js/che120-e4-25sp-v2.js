@@ -159,7 +159,7 @@ function TableData (props) {
     return (<ol>
         <h5>Table 1.2 IR Prediction</h5>
     <li>
-        <QuestionF answer={1}>How many molecules have an O-H functional group?</QuestionF>
+        <QuestionF answer={4}>How many molecules have an O-H functional group?</QuestionF>
     </li>
     <li>
     <QuestionF answer={4}>How many molecules have a C=O functional group?</QuestionF>

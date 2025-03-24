@@ -1,4 +1,4 @@
-import { React, useState, useRef } from 'https://unpkg.com/es-react/dev';
+import { React, useState, useRef } from 'https://cdn.jsdelivr.net/npm/es-react@16.13.1/+esm';
 
 import { almostEq, getFunctionByName } from './util.js';
 

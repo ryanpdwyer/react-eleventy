@@ -1,5 +1,5 @@
 
-// import { React, ReactDOM } from 'https://unpkg.com/es-react/dev';
+// import { React, ReactDOM } from 'https://cdn.jsdelivr.net/npm/es-react@16.13.1/+esm';
 // import { QuestionLimF, MCQ, MCQMulti, QuestionF} from './QuestionLim.js';
 
 const { PDFDocument } = PDFLib

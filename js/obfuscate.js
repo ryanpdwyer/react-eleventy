@@ -1,4 +1,4 @@
-import {React,  useState, PropTypes} from 'https://unpkg.com/es-react/dev';
+import {React,  useState, PropTypes} from 'https://cdn.jsdelivr.net/npm/es-react@16.13.1/+esm';
 
 
 const T = PropTypes;

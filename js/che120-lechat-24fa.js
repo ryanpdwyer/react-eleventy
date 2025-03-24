@@ -1,4 +1,4 @@
-import { React, ReactDOM, StrictMode } from 'https://unpkg.com/es-react/dev';
+import { React, ReactDOM, StrictMode } from 'https://cdn.jsdelivr.net/npm/es-react@16.13.1/+esm';
 import { QuestionLimF, MCQ } from './QuestionLim.js';
 import {Obfuscate} from './obfuscate.js';
 

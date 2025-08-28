@@ -34,10 +34,10 @@ Enter your name (first and last) and Mount Union email below to be assigned a se
 
 <div style="display:none;" id="assignedUnknowns">
 <p>
-You are assigned to analyze the IR and NMR spectra for water samples with sample ID numbers: <span id="unknown1"></span> and  <span id="unknown2"></span>. During lab, you will collect the IR and NMR spectra for the sample contained in Vial <span id="unknown3"></span>.
+You are assigned to analyze the IR and NMR spectra for water sample <span id="unknown3" class="unknown3"></span>. During lab, you will collect the IR and NMR spectra for the sample contained in Vial <span class="unknown3"></span>A.
 </p>
 
-<p>Click the button to download the spectra of the first two unknowns. 
+<p>Click the button to download the spectra of <span class="unknown3"></span> B and C.
 </p>
 <button onclick="copyPages()" class="btn btn-primary">Download Spectra</button>
 <p>

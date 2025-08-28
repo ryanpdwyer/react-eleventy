@@ -6,7 +6,7 @@ styles:
     - che120.css
 ---
 
-# L1 What's in the Water? Draft for 2025 Fall
+# L1 What's in the Water?
 
 The goal of this lab is to identify 3 unknown compounds contained in a drinking water sample. 
 
@@ -14,53 +14,9 @@ The goal of this lab is to identify 3 unknown compounds contained in a drinking 
 
 ## Your unknowns
 
-**You may use the email address** studentA@mountunion.edu (or studentB, studentC, or studentD) to download the spectra and test the activity. The unknowns in each group are (for the purposes of testing)
+Enter your name (first and last) and Mount Union email below to be assigned a set of unknown samples:
 
-<div class="table-responsive">
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th>Student</th>
-      <th>Unknown 1</th>
-      <th>Unknown 2</th>
-      <th>Vial (In Lab)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Student A</td>
-      <td>methyl acetate</td>
-      <td>acetone</td>
-      <td>tert-butanol</td>
-    </tr>
-    <tr>
-      <td>Student B</td>
-      <td>ethyl formate</td>
-      <td>ethanol</td>
-      <td>acetone</td>
-    </tr>
-    <tr>
-      <td>Student C</td>
-      <td>ethyl acetate</td>
-      <td>1,4-dichlorobutane</td>
-      <td>benzene</td>
-    </tr>
-    <tr>
-      <td>Student D</td>
-      <td>acetone</td>
-      <td>methyl acetate</td>
-      <td>ethyl acetate</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-<br>
-<br>
-
-Enter your name (first and last) and Mount Union email below to be assigned a set of unknown samples: 
-
-<form class="form" id="120-water-25sp">
+<form class="form" id="120-water-25fa">
 <div>
 <div class="form-group">
 <label for="nameInput">Name:</label><input id="nameInput" name="nameInput" class="form-control"></input>
@@ -68,7 +24,7 @@ Enter your name (first and last) and Mount Union email below to be assigned a se
 
 <div class="form-group">
     <label for="emailInput">Mount Union Email:</label>
-    <input type="email" id="emailInput" name="emailInput" value="studentA@mountunion.edu" class="form-control"></input>
+    <input type="email" id="emailInput" name="emailInput" class="form-control"></input>
 </div>
 
 <button type="submit" id="submitName" disabled class="btn btn-primary">Submit</button>
@@ -78,10 +34,10 @@ Enter your name (first and last) and Mount Union email below to be assigned a se
 
 <div style="display:none;" id="assignedUnknowns">
 <p>
-You are assigned to analyze the IR and NMR spectra for water sample <span id="unknown3" class="unknown3"></span>. During lab, you will collect the IR and NMR spectra for the sample contained in Vial <span class="unknown3"></span>A.
+You are assigned to analyze the IR and NMR spectra for water samples with sample ID numbers: <span id="unknown1"></span> and  <span id="unknown2"></span>. During lab, you will collect the IR and NMR spectra for the sample contained in Vial <span id="unknown3"></span>.
 </p>
 
-<p>Click the button to download the spectra of <span class="unknown3"></span> B and C.
+<p>Click the button to download the spectra of the first two unknowns. 
 </p>
 <button onclick="copyPages()" class="btn btn-primary">Download Spectra</button>
 <p>

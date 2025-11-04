@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Lab Tutorial</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #f5f5f5;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .help-toggle-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 2rem auto;
+            display: block;
+            transition: background 0.3s ease;
+        }
+
+        .help-toggle-btn:hover {
+            background: #5568d3;
+        }
+
+        .screenshot-carousel {
+            display: none;
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .screenshot-carousel.visible {
+            display: block;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .carousel-slide {
+            display: none;
+        }
+
+        .carousel-slide.active {
+            display: block;
+        }
+
+        .carousel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .carousel-caption h3 {
+            margin: 0;
+            color: #667eea;
+            font-size: 1.5rem;
+        }
+
+        .carousel-nav {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .carousel-caption p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .carousel-slide img {
+            max-width: 640px;
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin: 0 auto;
+        }
+
+        .carousel-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-btn:hover {
+            background: #5568d3;
+        }
+
+        .carousel-btn:disabled {
+            background: #ddd;
+            cursor: not-allowed;
+        }
+
+        .carousel-btn svg {
+            color: white;
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .carousel-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ddd;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-indicator.active {
+            background: #667eea;
+            width: 24px;
+            border-radius: 5px;
+        }
+
+        .carousel-indicator:hover {
+            background: #aaa;
+        }
+
+        .help-section {
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .help-section h2 {
+            color: #333;
+            margin-top: 0;
+        }
+
+        .help-section a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .help-section a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>How to Use the Virtual Lab</h1>
+
+    <button class="help-toggle-btn" id="helpToggle">Need help? Show virtual lab tutorial</button>
+
+    <div class="screenshot-carousel" id="labTutorial">
+        <div class="carousel-container">
+            <!-- Slide 1 -->
+            <div class="carousel-slide active">
+                <div class="carousel-header">
+                    <div class="carousel-caption">
+                        <h3>Step 1</h3>
+                    </div>
+                    <div class="carousel-nav">
+                        <button class="carousel-btn carousel-btn-prev" aria-label="Previous slide">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="15 18 9 12 15 6"></polyline>
+                            </svg>
+                        </button>
+                        <button class="carousel-btn carousel-btn-next" aria-label="Next slide">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="carousel-caption">
+                    <p>Click on the beakers in the stockroom ((left panel) to add A and B to the workbench.</p>
+                </div>
+                <img src="/img/vlab-pilot-1.png" alt="Step 1: Opening the lab interface">
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-slide">
+                <div class="carousel-header">
+                    <div class="carousel-caption">
+                        <h3>Step 2</h3>
+                    </div>
+                    <div class="carousel-nav">
+                        <button class="carousel-btn carousel-btn-prev" aria-label="Previous slide">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="15 18 9 12 15 6"></polyline>
+                            </svg>
+                        </button>
+                        <button class="carousel-btn carousel-btn-next" aria-label="Next slide">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="carousel-caption">
+                    <p>Mix the solutions by clicking one beaker, dragging it onto the other,  typing in 100 mL for the volume, and then clicking Pour. Aferwards, press the × to close. </p>
+                </div>
+                <img src="/img/vlab-pilot-2.png" alt="Step 2: Selecting reagents">
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-slide">
+                <div class="carousel-header">
+                    <div class="carousel-caption">
+                        <h3>Step 3</h3>
+                    </div>
+                    <div class="carousel-nav">
+                        <button class="carousel-btn carousel-btn-prev" aria-label="Previous slide">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="15 18 9 12 15 6"></polyline>
+                            </svg>
+                        </button>
+                        <button class="carousel-btn carousel-btn-next" aria-label="Next slide">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="carousel-caption">
+                    <p>Read the final moles from the left information panel after mixing.</p>
+                </div>
+                <img src="/img/vlab-pilot-3.png" alt="Step 3: Mixing solutions">
+            </div>
+
+            <!-- Slide 4
+            <div class="carousel-slide">
+                <div class="carousel-header">
+                    <div class="carousel-caption">
+                        <h3>Step 4</h3>
+                    </div>
+                    <div class="carousel-nav">
+                        <button class="carousel-btn carousel-btn-prev" aria-label="Previous slide">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="15 18 9 12 15 6"></polyline>
+                            </svg>
+                        </button>
+                        <button class="carousel-btn carousel-btn-next" aria-label="Next slide">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="carousel-caption">
+                    <p>Use the initial and final moles to determine the stoichiometry of the reaction.</p>
+                </div>
+                <img src="/img/vlab-pilot-4.png" alt="Step 4: Recording observations">
+            </div>
+        </div>
+         -->
+
+        <div class="carousel-indicators"></div>
+    </div>
+
+    <script>
+    (function() {
+        const helpToggle = document.getElementById('helpToggle');
+        const carousel = document.getElementById('labTutorial');
+        const slides = carousel.querySelectorAll('.carousel-slide');
+        const indicatorsContainer = carousel.querySelector('.carousel-indicators');
+
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+
+        // Toggle carousel visibility
+        helpToggle.addEventListener('click', function() {
+            carousel.classList.toggle('visible');
+            if (carousel.classList.contains('visible')) {
+                this.textContent = 'Hide tutorial';
+            } else {
+                this.textContent = 'Need help? Show virtual lab tutorial';
+            }
+        });
+
+        // Create indicators
+        function createIndicators() {
+            for (let i = 0; i < totalSlides; i++) {
+                const indicator = document.createElement('button');
+                indicator.classList.add('carousel-indicator');
+                indicator.setAttribute('aria-label', `Go to slide ${i + 1}`);
+                if (i === 0) indicator.classList.add('active');
+
+                indicator.addEventListener('click', () => goToSlide(i));
+                indicatorsContainer.appendChild(indicator);
+            }
+        }
+
+        // Update slide display
+        function updateSlides() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+            });
+
+            // Update indicators
+            const indicators = indicatorsContainer.querySelectorAll('.carousel-indicator');
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        // Go to specific slide
+        function goToSlide(n) {
+            currentSlide = n;
+            if (currentSlide >= totalSlides) currentSlide = 0;
+            if (currentSlide < 0) currentSlide = totalSlides - 1;
+            updateSlides();
+        }
+
+        // Next slide
+        function nextSlide() {
+            goToSlide(currentSlide + 1);
+        }
+
+        // Previous slide
+        function prevSlide() {
+            goToSlide(currentSlide - 1);
+        }
+
+        // Event delegation for prev/next buttons
+        carousel.addEventListener('click', function(e) {
+            if (e.target.closest('.carousel-btn-prev')) {
+                prevSlide();
+            } else if (e.target.closest('.carousel-btn-next')) {
+                nextSlide();
+            }
+        });
+
+        // Keyboard navigation (only when carousel is visible)
+        document.addEventListener('keydown', (e) => {
+            if (carousel.classList.contains('visible')) {
+                if (e.key === 'ArrowLeft') prevSlide();
+                if (e.key === 'ArrowRight') nextSlide();
+            }
+        });
+
+        // Initialize
+        createIndicators();
+    })();
+    </script>
+</body>
+</html>

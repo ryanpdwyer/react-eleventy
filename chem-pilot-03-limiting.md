@@ -42,7 +42,7 @@ Checking with mole to mole conversions (using the 0.10 mol C because it was the 
 \\]
 which matches the observations above.
 
-It can also be useful to organize this information into a table as below.
+Organizing into a table:
 
   <table class="table table-bordered" style="max-width: 700px; margin: 1rem auto;">
       <thead>

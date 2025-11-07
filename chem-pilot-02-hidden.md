@@ -9,7 +9,7 @@ styles:
 
 ## Solution
 
-**Experimental Strategy:** Many strategies can be used to solve the problem. Whichever you use, you should notice that a reaction only happens when B and D are both present in the solution. 
+**Experimental Strategy:** Many strategies can be used to solve the problem. Whichever you use, a reaction only happens when B and D are both present in the solution. Any other combination gives no reaction, important evidence that B and D are the **reactants**.
 
 For example, if you mixed 100. mL of 1.0 M B and 100. mL of 1.0 M D, you start with \\(0.1 \\, \text{L}\times \frac{1.0\\,\text{mol B}}{1 \\, \text{L}} = 0.10 \\, \text{mol B} \\) and also 0.10 mol D. **Note:** Species B or D is hidden from your view, so you'll need to work together to see the complete picture! Looking at the combined information from both students after mixing,
 
@@ -30,7 +30,7 @@ Checking with mole to mole conversions:
 \\]
 which matches the observations above.
 
-It can also be useful to organize this information into a table as below.
+It can also be useful to organize this information into a table:
 
   <table class="table table-bordered" style="max-width: 650px; margin: 1rem auto;">
       <thead>

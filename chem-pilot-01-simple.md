@@ -13,7 +13,7 @@ When 100. mL of 1.0 M A and 100. mL of 1.0 M B are mixed, we start with \\(0.1 \
 
 <img src="/img/vlab-pilot-3-moles-only.png" alt="The solution contains 0.0 mol A, 0.0 mol B, and 0.20 mol C after mixing" style="max-width: 250px; display: block; margin: 1rem 0;">
 
-Mixing equal moles of A and B caused a complete reaction with no excess reagent leftover, so we know A and B react in a 1:1 mol ratio. Since 0.10 mol A were enough to create 0.20 mol C, we know the coefficient on C must be 2, so A + B → 2C. Checking with the mole to mole conversions, we have
+Mixing equal moles of A and B caused a complete reaction with no excess reagent leftover, so we know A and B react in a 1:1 mole ratio. Since 0.10 mol A were enough to create 0.20 mol C, we know the coefficient on C must be 2, so A + B → 2C. Checking with the mole to mole conversions, we have
 \\[
 0.10 \\, \text{mol A} \times \left ( \frac{2\\, \text{mol C}}{1 \\, \text{mol A}}  \right )= 0.20 \\, \text{mol C}
 \\]

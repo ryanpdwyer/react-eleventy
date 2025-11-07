@@ -9,7 +9,10 @@ styles:
 
 ## Solution
 
-In this case, the concentration always changes when any species are mixed together because of dilution-100 mL of 1.0 M A and 100 mL of 1.0 M B, when mixed, result in 0.10 mol of A in 200 mL = 0.200 L = 0.050 M. Or use the dilution equation, \\(M_1 V_1 = M_2 V_2 \\) - the total volume \\(V_2 = 200\\, \text{mL}\\). But you will only find products being produced when B and C are mixed. If mixing 100 mL of 1.0 M B and C, you find
+**Experimental Strategy:** In this case, the concentration always changes when any species are mixed together because of dilution. 100 mL of 1.0 M A and 100 mL of 1.0 M B, when mixed, result in 0.10 mol of A in 200 mL = 0.200 L, so the concentration (Molarity = mol/L) is \\(\frac{0.10 \\, \text{mol}}{0.20\\, \text{L}} = 0.50 \\, \text{M}\\). Or use the dilution equation, \\(M_1 V_1 = M_2 V_2 \\) - the total volume \\(V_2 = 200\\, \text{mL}\\). Once you get past these changes in concentration, you will recognize that products are only formed when B and C are mixed, so those must be the reactants. 
+
+
+If mixing 100 mL of 1.0 M B and C, you find
 
 <img src="/img/vlab-pilot-7.jpg" alt="The solution contains 0 M B, 0.25 M C, 0.25 M A, and 0.75 M D after mixing" style="max-width: 250px; display: block; margin: 1rem 0;">
 

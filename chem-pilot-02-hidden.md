@@ -9,7 +9,9 @@ styles:
 
 ## Solution
 
-First, you should notice that a reaction only happens when B and D are both present in the solution mixture. For example, if you mixed 100. mL of 1.0 M B and 100. mL of 1.0 M D, you start with \\(0.1 \\, \text{L}\times \frac{1.0\\,\text{mol B}}{1 \\, \text{L}} = 0.10 \\, \text{mol B} \\) and also 0.10 mol D. **Note:** Species B or D is hidden from your view, so you'll need to work together to see the complete picture! Looking at the combined information from both students after mixing,
+**Experimental Strategy:** Many strategies can be used to solve the problem. Whichever you use, you should notice that a reaction only happens when B and D are both present in the solution. 
+
+For example, if you mixed 100. mL of 1.0 M B and 100. mL of 1.0 M D, you start with \\(0.1 \\, \text{L}\times \frac{1.0\\,\text{mol B}}{1 \\, \text{L}} = 0.10 \\, \text{mol B} \\) and also 0.10 mol D. **Note:** Species B or D is hidden from your view, so you'll need to work together to see the complete picture! Looking at the combined information from both students after mixing,
 
 <img src="/img/vlab-pilot-5.png" alt="The solution contains 0.0 mol B, 0.0 mol D, 0.10 mol A, and 0.20 mol C after mixing" style="max-width: 500px; display: block; margin: 1rem 0;">
 

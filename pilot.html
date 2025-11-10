@@ -123,7 +123,7 @@ margin-top: 8px;
 <div class="link-section">
 <h3>Step 1: Pre-Test</h3>
 <a id="preTestLink" class="link-button enabled" target="_blank">Start Pre-Test</a>
-<p class="instruction">Complete this test first.</p>
+<p class="instruction">Complete this pre-test first.</p>
 </div>
 
 <div class="link-section">
@@ -228,7 +228,8 @@ updateLinkStates(true, bazaarClicked);
 });
 
 bazaarLink.addEventListener('click', function(e) {
-if (!preTestClicked) {
+const currentPreTestClicked = localStorage.getItem(`pilot_${code}_pretest_clicked`) === 'true';
+if (!currentPreTestClicked) {
 e.preventDefault();
 return;
 }
@@ -237,7 +238,8 @@ updateLinkStates(true, true);
 });
 
 postTestLink.addEventListener('click', function(e) {
-if (!bazaarClicked) {
+const currentBazaarClicked = localStorage.getItem(`pilot_${code}_bazaar_clicked`) === 'true';
+if (!currentBazaarClicked) {
 e.preventDefault();
 return;
 }

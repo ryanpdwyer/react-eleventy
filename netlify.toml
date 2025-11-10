@@ -1,4 +1,8 @@
 [[redirects]]
+  from = "/"
+  to = "/pilot"
+
+[[redirects]]
   from = "/avogadro"
   to = "/che120-e2-instructions"
 

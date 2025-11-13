@@ -9,13 +9,17 @@ styles:
 
 ## Solution
 
-**Experimental Strategy:** Many strategies can be used to solve the problem. Whichever you use, a reaction only happens when B and D are both present in the solution. Any other combination gives no reaction, important evidence that B and D are the **reactants**.
+**Experimental Strategy:** Many strategies can be used to solve the problem. Most mixtures cause no change in moles, so don't cause a reaction:
 
-For example, if you mixed 100. mL of 1.0 M B and 100. mL of 1.0 M D, you start with \\(0.1 \\, \text{L}\times \frac{1.0\\,\text{mol B}}{1 \\, \text{L}} = 0.10 \\, \text{mol B} \\) and also 0.10 mol D. **Note:** Species B or D is hidden from your view, so you'll need to work together to see the complete picture! Looking at the combined information from both students after mixing,
+<img src="/img/vlab-pilot-2-key.png" class="img-fluid" alt="Mixing A and B results in 0.1 mol A and B (no change in moles, so no reaction)">
+
+A reaction (change in moles) only happens when B and D are mixed. Therefore, B and D are the **reactants**.
+
+For example, if you mixed 100. mL of 1.0 M B and 100. mL of 1.0 M D, you start with \\(0.1 \\, \text{L}\times \frac{1.0\\,\text{mol B}}{1 \\, \text{L}} = 0.10 \\, \text{mol B} \\) and also 0.10 mol D. Looking at the combined information from both students after mixing,
 
 <img src="/img/vlab-pilot-5.png" alt="The solution contains 0.0 mol B, 0.0 mol D, 0.10 mol A, and 0.20 mol C after mixing" style="max-width: 500px; display: block; margin: 1rem 0;">
 
-Mixing equal moles of B and D caused a complete reaction with no excess reagent leftover, so we know B and D react in a 1:1 mol ratio. Since 0.10 mol B were enough to create 0.10 mol A and 0.20 mol C, we can determine:
+Mixing **equal moles of B and D** caused a complete reaction with **no excess reactant leftover**, so we know B and D react in a **1:1 ratio**. Since **0.10** mol B were enough to create 0.10 mol A (*same* moles) and **0.20** mol C (*twice* as much), we know:
 - B:A ratio is 1:1 (0.10 mol B → 0.10 mol A)
 - B:C ratio is 1:2 (0.10 mol B → 0.20 mol C)
 

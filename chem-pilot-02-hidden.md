@@ -30,6 +30,8 @@ Checking with mole to mole conversions:
 \\]
 which matches the observations above.
 
+## Optional: Initial Change Final Table
+
 It can also be useful to organize this information into a table:
 
   <table class="table table-bordered" style="max-width: 650px; margin: 1rem auto;">

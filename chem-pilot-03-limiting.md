@@ -42,6 +42,8 @@ Checking with mole to mole conversions (using the 0.10 mol C because it was the 
 \\]
 which matches the observations above.
 
+## Optional: Initial Change Final Table
+
 Organizing into a table:
 
   <table class="table table-bordered" style="max-width: 700px; margin: 1rem auto;">

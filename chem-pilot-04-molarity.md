@@ -50,6 +50,8 @@ Checking with mole to mole conversions (using B as the limiting reactant):
 
 which matches the observations above.
 
+## Optional: Initial Change Final Table
+
 Organizing into a table:
 
   <table class="table table-bordered" style="max-width: 700px; margin: 1rem auto;">

@@ -17,3 +17,7 @@
 [[redirects]]
   from = "/e4"
   to = "https://docs.google.com/spreadsheets/d/1OBuUOFg07zGcEDAF-knNW9CCH2KxGT3CeUi2-mFdNNw/edit?usp=sharing"
+
+[[redirects]]
+  from = "/signup"
+  to = "https://forms.microsoft.com/r/JzzXmmC93Z"

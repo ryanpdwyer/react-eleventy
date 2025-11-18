@@ -9,15 +9,15 @@ styles:
 
 ## Solution
 
-**Experimental Strategy:** Many strategies can be used to solve the problem. Most mixtures cause no change in moles, so don't cause a reaction:
+**Experimental Strategy:** Many strategies can be used to solve the problem. Most mixtures cause no change in moles or temperature, so don't cause a reaction:
 
-<img src="/img/vlab-pilot-2-key.png" class="img-fluid" alt="Mixing A and B results in 0.1 mol A and B (no change in moles, so no reaction)">
+<img src="/img/vlab-pilot-2-key-temp.png" class="img-fluid" alt="Mixing A and B results in 0.1 mol A and B (no change in moles, so no reaction)">
 
 A reaction (change in moles) only happens when B and D are mixed. Therefore, B and D are the **reactants**.
 
 For example, if you mixed 100. mL of 1.0 M B and 100. mL of 1.0 M D, you start with \\(0.1 \\, \text{L}\times \frac{1.0\\,\text{mol B}}{1 \\, \text{L}} = 0.10 \\, \text{mol B} \\) and also 0.10 mol D. Looking at the combined information from both students after mixing,
 
-<img src="/img/vlab-pilot-2-mix-key.png" alt="The solution contains 0.0 mol B, 0.0 mol D, 0.10 mol A, and 0.20 mol C after mixing" class="img-fluid">
+<img src="/img/vlab-pilot-2-mix-key-temp.png" alt="The solution contains 0.0 mol B, 0.0 mol D, 0.10 mol A, and 0.20 mol C after mixing" class="img-fluid">
 
 Mixing **equal moles of B and D** caused a complete reaction with **no excess reactant leftover**, so we know B and D react in a **1:1 ratio**. Since **0.10** mol B were enough to create 0.10 mol A (*same* moles) and **0.20** mol C (*twice* as much), we know:
 - B:A ratio is 1:1 (0.10 mol B → 0.10 mol A)

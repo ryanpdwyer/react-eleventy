@@ -11,7 +11,7 @@ styles:
 
 When 100. mL of 1.0 M A and 100. mL of 1.0 M B are mixed, we start with \\(0.1 \\, \text{L}\times \frac{1.0\\,\text{mol A}}{1 \\, \text{L}} = 0.10 \\, \text{mol A} \\) and also 0.10 mol B. This can be seen in the information column too. 
 
-<img src="/img/vlab-pilot-1-key.png" alt="The solution contains 0.0 mol A, 0.0 mol B, and 0.20 mol C after mixing" style="display: block; margin: 1rem 0;" class="img-fluid">
+<img src="/img/vlab-pilot-1-key-temp.png" alt="The solution contains 0.0 mol A, 0.0 mol B, and 0.20 mol C after mixing" style="display: block; margin: 1rem 0;" class="img-fluid">
 
 Looking at the information after mixing, the product of the reaction was C. There was a complete reaction with **no excess reactant leftover**, so we know A and B react in a 1:1 mole ratio (A+B⟶products). Since **0.10 mol A** were enough to create **0.20 mol C** (twice as much), we know the coefficient on C must be 2, so A + B → **2**C. Checking with the mole to mole conversions, we have
 \\[

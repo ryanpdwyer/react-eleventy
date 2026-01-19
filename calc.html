@@ -125,6 +125,63 @@
 .debug-toggle {
   margin: 10px 0;
 }
+
+.help-section {
+  margin-bottom: 15px;
+}
+
+.help-btn {
+  padding: 8px 15px;
+  background: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.help-btn:hover {
+  background: #1976D2;
+}
+
+.help-content {
+  display: none;
+  background: #fff;
+  padding: 15px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.help-content h4 {
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.help-content table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.help-content td {
+  padding: 5px 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.help-content td:first-child {
+  font-family: monospace;
+  background: #f5f5f5;
+  white-space: nowrap;
+}
+
+.help-content .note {
+  margin-top: 10px;
+  padding: 10px;
+  background: #fff3cd;
+  border-radius: 3px;
+  font-size: 13px;
+}
 </style>
 </head>
 <body>
@@ -136,7 +193,32 @@
       <option value="standard">Standard (0 = expression)</option>
     </select>
   </div>
-  
+
+  <div class="help-section">
+    <button class="help-btn" onclick="toggleHelp()">Help / Syntax Guide</button>
+    <div class="help-content" id="helpContent">
+      <h4>Supported Syntax</h4>
+      <table>
+        <tr><td>x^2</td><td>Exponent (x squared)</td></tr>
+        <tr><td>sqrt(x)</td><td>Square root</td></tr>
+        <tr><td>log(x)</td><td>Natural logarithm (ln)</td></tr>
+        <tr><td>log10(x)</td><td>Base-10 logarithm</td></tr>
+        <tr><td>log2(x)</td><td>Base-2 logarithm</td></tr>
+        <tr><td>exp(x)</td><td>e raised to x (e^x)</td></tr>
+        <tr><td>sin(x), cos(x), tan(x)</td><td>Trig functions (radians)</td></tr>
+        <tr><td>asin(x), acos(x), atan(x)</td><td>Inverse trig (radians)</td></tr>
+        <tr><td>abs(x)</td><td>Absolute value</td></tr>
+        <tr><td>PI</td><td>π ≈ 3.14159</td></tr>
+        <tr><td>E</td><td>e ≈ 2.71828</td></tr>
+      </table>
+      <div class="note">
+        <strong>Important:</strong> Multiplication must be explicit.<br>
+        ✓ <code>2*x</code> &nbsp; ✗ <code>2x</code><br>
+        ✓ <code>x*y</code> &nbsp; ✗ <code>xy</code>
+      </div>
+    </div>
+  </div>
+
   <div class="display">
     <div class="equation-display">
       <span class="equation-prefix">0 =</span>
@@ -192,6 +274,11 @@ function toggleDebugDisplay() {
     debugLog.style.display = document.getElementById('verboseMode').checked ? 'block' : 'none';
 }
 
+function toggleHelp() {
+    const helpContent = document.getElementById('helpContent');
+    helpContent.style.display = helpContent.style.display === 'block' ? 'none' : 'block';
+}
+
 function toggleBoundsDisplay() {
     const bounds = document.getElementById('bounds-container');
     bounds.style.display = document.getElementById('toggleBounds').checked ? 'block' : 'none';
@@ -216,21 +303,47 @@ function preprocessExpression(expr) {
 
 function evaluateExpression(expr, variables) {
   expr = preprocessExpression(expr);
-  
+
   const substitutedExpr = Object.entries(variables).reduce((acc, [name, value]) => {
     return acc.replaceAll(name, `(${value})`);
   }, expr);
-  
+
   try {
     const mathContext = Object.getOwnPropertyNames(Math).reduce((acc, name) => {
       acc[name] = Math[name];
       return acc;
     }, {});
-    
+
     return Function(...Object.keys(variables), ...Object.keys(mathContext),
       `return ${expr}`)(...Object.values(variables), ...Object.values(mathContext));
   } catch (e) {
-    throw new Error('Invalid expression');
+    // Provide more helpful error messages
+    const errorMsg = e.message || '';
+
+    // Check for common mistakes
+    const implicitMult = expr.match(/\d[a-zA-Z]|[a-zA-Z]\d(?!\*\*)/);
+    if (implicitMult) {
+      throw new Error(`Invalid expression: "${implicitMult[0]}" - use explicit multiplication (e.g., 2*x not 2x)`);
+    }
+
+    const unknownFunc = expr.match(/([a-zA-Z]+)\s*\(/);
+    if (unknownFunc) {
+      const func = unknownFunc[1];
+      const validFuncs = ['sin', 'cos', 'tan', 'asin', 'acos', 'atan', 'sqrt', 'log', 'log10', 'log2', 'exp', 'abs', 'pow', 'min', 'max'];
+      if (!validFuncs.includes(func) && !Object.keys(variables).includes(func)) {
+        throw new Error(`Unknown function "${func}". Did you mean: ${validFuncs.filter(f => f.startsWith(func[0])).join(', ') || 'sin, cos, log, sqrt, exp'}?`);
+      }
+    }
+
+    if (errorMsg.includes('Unexpected token')) {
+      throw new Error(`Syntax error in expression: ${errorMsg}. Check for missing operators or parentheses.`);
+    }
+
+    if (errorMsg.includes('is not defined')) {
+      throw new Error(`${errorMsg}. Make sure multiplication is explicit (2*x not 2x).`);
+    }
+
+    throw new Error(`Invalid expression: ${errorMsg || 'Check syntax and use Help for supported functions.'}`);
   }
 }
 

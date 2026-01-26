@@ -16,7 +16,7 @@ d2l_11am: https://d2l.mountunion.edu/d2l/home/68241
 - Write the electron configuration for ground state ions (especially transition metals) and excited states.
 - Define and identify isoelectronic cations and anions.
 
-<iframe width="720" height="540" src="https://www.youtube.com/embed/T_h-RRwB7Eo?start=2250" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="720" height="540" src="https://www.youtube.com/embed/T_h-RRwB7Eo?start=2267" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 
 ## Periodic Trends 1

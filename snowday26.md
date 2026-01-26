@@ -24,7 +24,7 @@ d2l_11am: https://d2l.mountunion.edu/d2l/home/68241
 - Define effective nuclear charge (Z<sub>eff</sub>).
 - For neutral atoms, describe how Z<sub>eff</sub> and shell *n* vary going down a group and across a period of the periodic table.
 
-<iframe width="720" height="540" src="https://www.youtube.com/embed/jIxmQoXSEig?end=1500" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="720" height="540" src="https://www.youtube.com/embed/jIxmQoXSEig?end=1507" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 [Z<sub>eff</sub> calculator](https://js.munano.org/zeff)
 

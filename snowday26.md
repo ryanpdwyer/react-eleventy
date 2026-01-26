@@ -26,6 +26,8 @@ d2l_11am: https://d2l.mountunion.edu/d2l/home/68241
 
 <iframe width="720" height="540" src="https://www.youtube.com/embed/jIxmQoXSEig?end=1507" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
+This video ends at 25 minutes (the atomic radius example). We'll start class Wednesday with ionization energy after the quiz.
+
 [Z<sub>eff</sub> calculator](https://js.munano.org/zeff)
 
 

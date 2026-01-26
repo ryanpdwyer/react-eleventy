@@ -6,6 +6,8 @@ styles:
 tags:
     - che120n
     - exam1
+d2l_10am: https://d2l.mountunion.edu/d2l/home/68379
+d2l_11am: https://d2l.mountunion.edu/d2l/home/68241
 ---
 
 

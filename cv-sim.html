@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyclic Voltammetry Simulation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        body { background: #f8f9fa; }
+        .param-group { margin-bottom: 0.75rem; }
+        .param-group label {
+            font-size: 0.82rem;
+            margin-bottom: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .param-group input {
+            width: 80px;
+            padding: 0.2rem 0.4rem;
+            font-size: 0.85rem;
+        }
+        .param-section {
+            font-weight: 600;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #6c757d;
+            margin: 0.6rem 0 0.25rem;
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 0.15rem;
+        }
+        .plot-container { background: #fff; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+        #reaction {
+            text-align: center;
+            font-size: 1rem;
+            margin: 0.5rem 0;
+            padding: 0.4rem;
+            background: #e9ecef;
+            border-radius: 4px;
+        }
+        .attribution {
+            font-size: 0.78rem;
+            color: #6c757d;
+            margin-top: 1rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #dee2e6;
+        }
+        .attribution a { color: #0d6efd; }
+    </style>
+</head>
+<body>
+<div class="container-fluid py-3">
+    <div class="row g-3">
+        <!-- Sidebar: parameters -->
+        <div class="col-lg-2 col-md-3">
+            <div class="card">
+                <div class="card-body py-2 px-3">
+                    <h6 class="card-title mb-1">CV Simulation</h6>
+
+                    <div id="reaction">O + <span id="rxn-n">1</span>e<sup>&minus;</sup> &#8652; R</div>
+
+                    <div class="param-section">Diffusion</div>
+                    <div class="param-group">
+                        <label>D<sub>O</sub> (&times;10<sup>-5</sup> cm&sup2;/s)
+                            <input type="number" id="Do" value="1" step="0.1" min="0.01">
+                        </label>
+                    </div>
+                    <div class="param-group">
+                        <label>D<sub>R</sub> (&times;10<sup>-5</sup> cm&sup2;/s)
+                            <input type="number" id="Dr" value="1" step="0.1" min="0.01">
+                        </label>
+                    </div>
+                    <div class="param-group">
+                        <label>C<sub>O</sub><sup>0</sup> (M)
+                            <input type="number" id="Co0" value="0.1" step="0.01" min="0.001">
+                        </label>
+                    </div>
+
+                    <div class="param-section">Kinetics</div>
+                    <div class="param-group">
+                        <label>k<sup>0</sup> (cm/s)
+                            <input type="number" id="k0" value="1" step="0.1" min="0.001">
+                        </label>
+                    </div>
+                    <div class="param-group">
+                        <label>&alpha;
+                            <input type="number" id="alpha" value="0.5" step="0.05" min="0" max="1">
+                        </label>
+                    </div>
+                    <div class="param-group">
+                        <label>n
+                            <input type="number" id="nElectrons" value="1" step="1" min="1">
+                        </label>
+                    </div>
+
+                    <div class="param-section">Potential</div>
+                    <div class="param-group">
+                        <label>E<sub>+</sub> (V)
+                            <input type="number" id="Es" value="0.5" step="0.05">
+                        </label>
+                    </div>
+                    <div class="param-group">
+                        <label>E<sub>&minus;</sub> (V)
+                            <input type="number" id="Ee" value="-0.5" step="0.05">
+                        </label>
+                    </div>
+                    <div class="param-group">
+                        <label>E<sup>0</sup> (V)
+                            <input type="number" id="E0" value="0" step="0.05">
+                        </label>
+                    </div>
+
+                    <div class="param-section">Scan</div>
+                    <div class="param-group">
+                        <label>&nu; (V/s)
+                            <input type="number" id="scanRate" value="0.1" step="0.01" min="0.001">
+                        </label>
+                    </div>
+                    <div class="param-group">
+                        <label>dt (ms)
+                            <input type="number" id="dt" value="10" step="1" min="1">
+                        </label>
+                    </div>
+
+                    <div class="param-section">Electrode</div>
+                    <div class="param-group">
+                        <label>A (cm&sup2;)
+                            <input type="number" id="area" value="0.0707" step="0.001" min="0.001">
+                        </label>
+                    </div>
+
+                    <div class="param-section">Display</div>
+                    <div class="param-group">
+                        <label>x<sub>max</sub> (&mu;m)
+                            <input type="number" id="xm" value="100" step="10" min="10">
+                        </label>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-3">
+                        <button id="btn-run" class="btn btn-success btn-sm">&#9654; Play</button>
+                        <button id="btn-reset" class="btn btn-outline-secondary btn-sm">Reset</button>
+                    </div>
+
+                    <div class="mt-2">
+                        <label class="form-label mb-0" style="font-size:0.8rem;">
+                            Speed
+                            <input type="range" class="form-range" id="speed" min="-1" max="1" step="0.01" value="0">
+                        </label>
+                    </div>
+
+                    <div class="attribution">
+                        Based on
+                        <a href="https://doi.org/10.1021/acs.jchemed.1c00944" target="_blank" rel="noopener">
+                            Animated Electrochemistry Simulation Modules</a>,
+                        <em>J.&nbsp;Chem.&nbsp;Educ.</em> 2021, 98, 3603&ndash;3609.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main: plots -->
+        <div class="col-lg-10 col-md-9">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="plot-container">
+                        <div id="plot-et"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="plot-container">
+                        <div id="plot-iv"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-3 mt-1">
+                <div class="col-12">
+                    <div class="plot-container">
+                        <div id="plot-conc"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12 text-center" id="status-bar" style="font-size:0.85rem; color:#6c757d;">
+                    Adjust parameters and click <strong>Play</strong>.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="/js/cv-sim-ui.js"></script>
+</body>
+</html>

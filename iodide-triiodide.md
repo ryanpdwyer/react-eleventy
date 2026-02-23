@@ -31,11 +31,13 @@ This project has three main components: (1) comparing the spectral resolution of
 - **Variable-temperature van't Hoff analysis.** Using the Quantum Northwest controller on the Ocean Optics, measure spectra of a single KI/I<sub>2</sub> solution at temperatures from roughly 15–55 °C. At each temperature, extract [I<sub>3</sub><sup>−</sup>] from the absorbance and calculate \\(K(T)\\). A van't Hoff plot of \\(\ln K\\) vs. \\(1/T\\) yields \\(\Delta H^\circ\\) and \\(\Delta S^\circ\\). Since the reaction is exothermic, you should see \\(K\\) decrease with increasing temperature. The literature values (\\(\Delta H^\circ = -17.0 \pm 0.6\\) kJ/mol, \\(\Delta S^\circ = -0.6 \pm 0.3\\) J/(K·mol)) provide a quantitative benchmark. You can also repeat a few temperatures on the UV-1800 to cross-validate.
 
 
+<!--
 #### Suggested Timeline
 
 - **Week 1 (3-hour session):** Set up and align the Ocean Optics with the cuvette holder and light source. Prepare stock solutions of I<sub>2</sub> (in KI to dissolve) and KI at known concentrations. Record the full UV-Vis spectrum of each stock individually, then prepare the concentration series and record the family of spectra. Run the same key solutions on the UV-1800 for comparison. Identify the isosbestic point and make a first estimate of \\(K\\) at room temperature.
 
 - **Week 2 (3-hour session):** Connect the Quantum Northwest controller. Equilibrate and record spectra at 5–8 temperatures spanning 15–55 °C (allowing time for thermal equilibration at each step). Construct the van't Hoff plot. If time permits, repeat 2–3 temperatures on the UV-1800 as a cross-check.
+-->
 
 
 #### Key Concepts

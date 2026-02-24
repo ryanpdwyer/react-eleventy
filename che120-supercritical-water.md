@@ -13,7 +13,9 @@ A new bipartisan bill (the Hot Rock Act) proposes investing in **supercritical g
 
 Use the phase diagram of water below to answer the following questions.
 
-<img src="/img/water-phase-diagram-supercritical.png" alt="Phase diagram of water showing solid, liquid, gas, and supercritical fluid regions. The triple point is at 0.01 °C and 611 Pa. The critical point is at 374 °C and 22.1 MPa (218 atm)." style="max-width: 600px; width: 100%;">
+<img src="/img/water-phase-diagram-supercritical.jpg" alt="Phase diagram of water showing solid, liquid, gas, and supercritical fluid regions. The triple point (B) is at 0.01 °C and 0.6 kPa. The critical point (C) is at 374 °C and 22,089 kPa (218 atm)." style="max-width: 600px; width: 100%;">
+
+<small>Image: OpenStax Chemistry, CC BY 4.0</small>
 
 <br>
 

@@ -34,7 +34,7 @@ const content = (<>
 </QuestionLimF>
 </li>
 <li key="pKa">
-<QuestionLimF inputLabel="mL" answer={9.25} relErr={0} absErr={0.05} name="pKa">
+<QuestionLimF answer={9.25} relErr={0} absErr={0.05} name="pKa">
     Using the half-equivalence point, what is the pK<sub>a</sub> of the weak base's conjugate acid?
 </QuestionLimF>
 </li>

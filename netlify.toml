@@ -21,3 +21,7 @@
 [[redirects]]
   from = "/signup"
   to = "https://forms.microsoft.com/r/JzzXmmC93Z"
+
+[[redirects]]
+  from = "/acid"
+  to = "/che120acid-base-review"

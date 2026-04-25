@@ -1,0 +1,18 @@
+---
+title: CHE 120 Overall Grade
+layout: vanillabootflex-full.njk
+js: che120-grades.js
+---
+<br>
+<h4>CHE 120 Grade calculator</h4>
+<br>
+<div class="form-group">
+    <p>Lecture grade: &nbsp; <input type="number" step="0.01" id="lecture-grade"/> </p>
+    <p>Lab grade: &nbsp; <input type="number" step="0.01" id="lab-grade"/> </p>
+<p>Grade before final: &nbsp; <input type="number" step="0.01" id="current-grade"/> </p>
+<br>
+<p>Final exam grade: &nbsp; <input type="number" step="0.01" id="final-grade"/> </p>
+<p>Overall CHE 120 grade: &nbsp; <input type="number" step="0.1" id="overall-grade"/></p>
+<button id="calc" class="btn btn-primary">Calculate Overall</button>
+<button id="calc-final" class="btn btn-primary">Calculate Final Exam Grade Needed</button>
+</div>

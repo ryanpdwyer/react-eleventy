@@ -116,7 +116,7 @@
       <h2>Leaderboard
         <button class="refresh" id="refresh-preds" title="Re-fetch predictions">Reload picks</button>
       </h2>
-      <p class="small">Score is the expected # correct picks (out of 8) given the current counts. The interval is an 80% band. Locked categories (✓) are exact; the rest extrapolate to a 90-min ceremony.</p>
+      <p class="small">Score is the expected # correct picks (out of 8); range is the 10th–90th percentile from 1500 simulations that account for uncertainty in the launch time and ceremony end. Speech-phase and walking-phase events are projected within their own active windows. Locked categories (✓) score exactly.</p>
       <table id="leaderboard-table">
         <thead>
           <tr>
@@ -206,14 +206,21 @@
         fill.style.width = (f * 100) + "%";
       }
 
+      // Shared MC samples used by both the per-category P(over) column and the
+      // leaderboard, so they're consistent and inherit duration/launch
+      // uncertainty from a single set of draws.
+      let mcSamples = [];
+      function refreshSamples() {
+        mcSamples = C.sampleFinals(state, Date.now(), 1500);
+      }
+
       function renderCategories() {
         const tbody = document.querySelector("#categories-table tbody");
         tbody.innerHTML = "";
-        const now = Date.now();
         for (const cat of C.CATEGORIES) {
           const count = (state.counts[cat.id] || 0);
           const done = !!state.done[cat.id];
-          const pOver = C.pOverFinal(cat, count, done, now);
+          const pOver = C.pOverFromSamples(mcSamples, cat);
           const tr = document.createElement("tr");
           const countDisplay = (cat.type === "launch" && !done) ? "—" : count;
           let statusPill = "";
@@ -239,22 +246,19 @@
             '</td></tr>';
           return;
         }
-        const now = Date.now();
         const scored = predictions.map(function (p) {
-          const s = C.scorePlayer(p.picks, state, now);
-          return { name: p.name, expected: s.expected, sd: s.sd };
+          const s = C.scorePlayerFromSamples(p.picks, mcSamples);
+          return { name: p.name, expected: s.expected, lo: s.lo, hi: s.hi };
         });
         scored.sort(function (a, b) { return b.expected - a.expected; });
         tbody.innerHTML = "";
         scored.forEach(function (row, i) {
-          const lo = Math.max(0, row.expected - 1.282 * row.sd);
-          const hi = Math.min(C.CATEGORIES.length, row.expected + 1.282 * row.sd);
           const tr = document.createElement("tr");
           tr.innerHTML =
             '<td class="leader-rank">' + (i + 1) + '</td>' +
             '<td class="leader-name">' + escapeHtml(row.name) + '</td>' +
             '<td class="num"><strong>' + fmt(row.expected) + '</strong> / ' + C.CATEGORIES.length + '</td>' +
-            '<td class="num interval">' + fmt(lo) + ' – ' + fmt(hi) + '</td>';
+            '<td class="num interval">' + row.lo + ' – ' + row.hi + '</td>';
           tbody.appendChild(tr);
         });
       }
@@ -267,6 +271,7 @@
 
       backend.onState(function (s) {
         state = s;
+        refreshSamples();
         renderCategories();
         renderLeaderboard();
       });
@@ -283,9 +288,17 @@
       document.getElementById("refresh-preds").addEventListener("click", reloadPredictions);
       reloadPredictions();
 
-      // Tick once a second so the projected scores update smoothly.
-      setInterval(function () { renderStatus(); renderCategories(); renderLeaderboard(); }, 1000);
+      // Re-sample every 2s so projected scores track elapsed time without
+      // burning CPU on every frame.
+      setInterval(function () {
+        renderStatus();
+        refreshSamples();
+        renderCategories();
+        renderLeaderboard();
+      }, 2000);
+      refreshSamples();
       renderStatus();
+      renderCategories();
     })();
   </script>
 </body>

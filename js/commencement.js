@@ -21,16 +21,26 @@ const COMMENCEMENT = (function () {
     rootKey: "commencement2026",
   };
 
+  // phase: "speech" = active from ceremony start until first grad crosses (the
+  // launch value). "walk" = active from launch until ceremony end. "launch" =
+  // single timing event.
   const CATEGORIES = [
-    { id: "journey",  emoji: "\u{1F5E3}\u{FE0F}", title: "Journey Index",           threshold: 2.5,  columnHint: "Journey",            description: "Times \"Journey\" said by a speaker" },
-    { id: "launch",   emoji: "\u{1F680}",         title: "Time to Launch",          threshold: 16.5, columnHint: "Time to Launch",     description: "Min from 1:30pm ET to first grad crossing", type: "launch" },
-    { id: "footwear", emoji: "\u{1F7E3}",         title: "Purple Footprint",        threshold: 52.5, columnHint: "Purple Footprint",   description: "Grads with any purple footwear" },
-    { id: "family",   emoji: "\u{1F46A}",         title: "Family Volume Index",     threshold: 57.5, columnHint: "Family Volume",      description: "Family shouts during name read" },
-    { id: "platform", emoji: "\u{1F57A}",         title: "Platform Energy",         threshold: 15.5, columnHint: "Platform Energy",    description: "Grad celebrates on platform" },
-    { id: "hugs",     emoji: "\u{1F917}",         title: "Diploma Diplomacy",       threshold: 14.5, columnHint: "Diploma Diplomacy",  description: "Grad hugs platform party member" },
-    { id: "noise",    emoji: "\u{1F50A}",         title: "Unauthorized Audio",      threshold: 0.5,  columnHint: "Unauthorized Audio", description: "Artificial noise maker used" },
-    { id: "phone",    emoji: "\u{1F4F1}",         title: "Phone-on-Stage",          threshold: 0.5,  columnHint: "Phone-on-Stage",     description: "Grad with phone on stage" },
+    { id: "journey",  emoji: "\u{1F5E3}\u{FE0F}", title: "Journey Index",           threshold: 2.5,  phase: "speech", columnHint: "Journey",            description: "Times \"Journey\" said by a speaker" },
+    { id: "launch",   emoji: "\u{1F680}",         title: "Time to Launch",          threshold: 16.5, phase: "launch", columnHint: "Time to Launch",     description: "Min from 1:30pm ET to first grad crossing", type: "launch" },
+    { id: "footwear", emoji: "\u{1F7E3}",         title: "Purple Footprint",        threshold: 52.5, phase: "walk",   columnHint: "Purple Footprint",   description: "Grads with any purple footwear" },
+    { id: "family",   emoji: "\u{1F46A}",         title: "Family Volume Index",     threshold: 57.5, phase: "walk",   columnHint: "Family Volume",      description: "Family shouts during name read" },
+    { id: "platform", emoji: "\u{1F57A}",         title: "Platform Energy",         threshold: 15.5, phase: "walk",   columnHint: "Platform Energy",    description: "Grad celebrates on platform" },
+    { id: "hugs",     emoji: "\u{1F917}",         title: "Diploma Diplomacy",       threshold: 14.5, phase: "walk",   columnHint: "Diploma Diplomacy",  description: "Grad hugs platform party member" },
+    { id: "noise",    emoji: "\u{1F50A}",         title: "Unauthorized Audio",      threshold: 0.5,  phase: "walk",   columnHint: "Unauthorized Audio", description: "Artificial noise maker used" },
+    { id: "phone",    emoji: "\u{1F4F1}",         title: "Phone-on-Stage",          threshold: 0.5,  phase: "walk",   columnHint: "Phone-on-Stage",     description: "Grad with phone on stage" },
   ];
+
+  // Priors over ceremony timing (overridden by observed values when available).
+  const TIMING_PRIORS = {
+    launchMean: 16.5,        // expected min from 1:30pm to first grad
+    launchSd: 3,             // uncertainty on the launch time before it's recorded
+    ceremonyEndSd: 10,       // 80% range for total duration is roughly 90 ± 13 min
+  };
 
   function isFirebaseConfigured() {
     const f = CONFIG.firebase;
@@ -45,57 +55,135 @@ const COMMENCEMENT = (function () {
     return Math.min(1, Math.max(0, elapsedMinutes(now) / CONFIG.durationMin));
   }
 
-  // Poisson CDF P(X <= k).
-  function poissonCdf(k, lambda) {
-    if (lambda <= 0) return 1;
-    if (k < 0) return 0;
-    let sum = 0, term = Math.exp(-lambda);
-    for (let i = 0; i <= k; i++) {
-      sum += term;
-      term *= lambda / (i + 1);
-    }
-    return Math.min(1, sum);
+  // ===== Sampling primitives =====
+
+  function sampleNormal(mean, sd) {
+    const u1 = Math.random() || 1e-12;
+    const u2 = Math.random();
+    const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+    return mean + sd * z;
   }
 
-  // P(final count > threshold) given current count, doneness, and elapsed time.
-  // Constant-rate model with a Gamma(α=T/2, β=0.5) prior on events-per-ceremony
-  // so the prior is calibrated to each category's threshold (otherwise a single
-  // prior either dominates the small categories or the large ones).
-  function pOverFinal(category, count, done, now) {
-    const T = category.threshold;
-    if (done) return count > T ? 1 : 0;
-    if (category.type === "launch") {
-      return 0.5;
+  function samplePoisson(lambda) {
+    if (!isFinite(lambda) || lambda <= 0) return 0;
+    if (lambda > 30) {
+      // Normal approximation with continuity correction.
+      const x = sampleNormal(lambda, Math.sqrt(lambda));
+      return Math.max(0, Math.round(x));
     }
+    // Knuth's method.
+    const L = Math.exp(-lambda);
+    let k = 0, p = 1;
+    do {
+      k++;
+      p *= Math.random();
+    } while (p > L);
+    return k - 1;
+  }
+
+  // Per-iteration Monte Carlo sample of ceremony timing.
+  function sampleCeremony(state, now) {
     const elapsedMin = elapsedMinutes(now);
-    if (elapsedMin <= 0) return 0.5;
-    const f = Math.min(1, elapsedMin / CONFIG.durationMin);
-    if (f >= 1) return count > T ? 1 : 0;
-    const alpha = T / 2;
-    const beta = 0.5;
-    const lambda = ((alpha + count) * (1 - f)) / (beta + f);
-    const kThresh = Math.ceil(T) - Math.floor(count) - 1;
-    if (kThresh < 0) return 1;
-    return 1 - poissonCdf(kThresh, lambda);
+    const launchDone = !!(state.done && state.done.launch);
+    let launchValue;
+    if (launchDone) {
+      launchValue = (state.counts && state.counts.launch) != null ? state.counts.launch : TIMING_PRIORS.launchMean;
+    } else {
+      // Prior on launch, conditioned on the fact that launch hasn't happened
+      // yet if we're still observing — so it must be at least the current
+      // elapsed time.
+      const sampled = sampleNormal(TIMING_PRIORS.launchMean, TIMING_PRIORS.launchSd);
+      launchValue = elapsedMin > 0 ? Math.max(elapsedMin, sampled) : Math.max(0, sampled);
+    }
+    const endSampled = sampleNormal(CONFIG.durationMin, TIMING_PRIORS.ceremonyEndSd);
+    const ceremonyEnd = Math.max(elapsedMin + 0.1, launchValue + 0.5, endSampled);
+    return { elapsedMin: elapsedMin, launchValue: launchValue, ceremonyEnd: ceremonyEnd };
   }
 
-  // Score a player. picks: {catId: 'over'|'under'}. state: {counts, done}.
-  function scorePlayer(picks, state, now) {
-    let expected = 0, variance = 0;
-    const perCategory = [];
-    for (const cat of CATEGORIES) {
-      const count = (state.counts && state.counts[cat.id]) || 0;
-      const done = !!(state.done && state.done[cat.id]);
-      const pOver = pOverFinal(cat, count, done, now);
-      const pick = picks[cat.id];
-      let pCorrect = 0;
-      if (pick === "over") pCorrect = pOver;
-      else if (pick === "under") pCorrect = 1 - pOver;
-      expected += pCorrect;
-      variance += pCorrect * (1 - pCorrect);
-      perCategory.push({ catId: cat.id, pOver: pOver, pick: pick, pCorrect: pCorrect, done: done });
+  function phaseWindow(category, ceremony) {
+    if (category.phase === "speech") {
+      return { start: 0, end: ceremony.launchValue };
     }
-    return { expected: expected, variance: variance, sd: Math.sqrt(variance), perCategory: perCategory };
+    if (category.phase === "walk") {
+      return { start: ceremony.launchValue, end: ceremony.ceremonyEnd };
+    }
+    return { start: 0, end: ceremony.ceremonyEnd };
+  }
+
+  // Draw one sample of the final count for a category.
+  function sampleFinalCount(category, state, ceremony) {
+    const id = category.id;
+    const done = !!(state.done && state.done[id]);
+    const count = (state.counts && state.counts[id]) || 0;
+    if (done) return count;
+    if (category.type === "launch") {
+      return ceremony.launchValue;
+    }
+    const w = phaseWindow(category, ceremony);
+    const total = Math.max(0.1, w.end - w.start);
+    const elapsedInPhase = Math.max(0, Math.min(ceremony.elapsedMin - w.start, total));
+    const f = elapsedInPhase / total;
+    if (f >= 1) {
+      // Active phase is over but category not marked done — assume final = count.
+      return count;
+    }
+    // Bayesian Poisson with Gamma(α=T/2, β=0.5) prior on events-per-active-phase
+    // so the prior is calibrated to each category's threshold.
+    const alpha = category.threshold / 2;
+    const beta = 0.5;
+    const lambdaRem = ((alpha + count) * (1 - f)) / (beta + f);
+    return count + samplePoisson(lambdaRem);
+  }
+
+  // Generate Monte Carlo samples of the final state. Each sample contains a
+  // jointly-consistent realization of launch time, ceremony end, and final
+  // counts for every category.
+  function sampleFinals(state, now, n) {
+    n = n || 1500;
+    const samples = new Array(n);
+    for (let i = 0; i < n; i++) {
+      const ceremony = sampleCeremony(state, now);
+      const finals = {};
+      for (const cat of CATEGORIES) {
+        finals[cat.id] = sampleFinalCount(cat, state, ceremony);
+      }
+      samples[i] = finals;
+    }
+    return samples;
+  }
+
+  // P(final > threshold) for a category, estimated from MC samples.
+  function pOverFromSamples(samples, category) {
+    let n = 0;
+    for (let i = 0; i < samples.length; i++) {
+      if (samples[i][category.id] > category.threshold) n++;
+    }
+    return n / samples.length;
+  }
+
+  // Score a player using shared MC samples. Returns {expected, lo, hi} where
+  // lo/hi are the 10th/90th percentiles of the score distribution (80% band).
+  function scorePlayerFromSamples(picks, samples) {
+    const N = samples.length;
+    const totals = new Array(N);
+    for (let i = 0; i < N; i++) {
+      const finals = samples[i];
+      let score = 0;
+      for (const cat of CATEGORIES) {
+        const pick = picks[cat.id];
+        if (!pick) continue;
+        const isOver = finals[cat.id] > cat.threshold;
+        if ((pick === "over" && isOver) || (pick === "under" && !isOver)) score++;
+      }
+      totals[i] = score;
+    }
+    let mean = 0;
+    for (let i = 0; i < N; i++) mean += totals[i];
+    mean /= N;
+    totals.sort(function (a, b) { return a - b; });
+    const lo = totals[Math.floor(0.1 * N)];
+    const hi = totals[Math.min(N - 1, Math.floor(0.9 * N))];
+    return { expected: mean, lo: lo, hi: hi };
   }
 
   // Minimal CSV parser (handles quoted fields, embedded newlines, doubled quotes).
@@ -231,12 +319,14 @@ const COMMENCEMENT = (function () {
   return {
     CONFIG: CONFIG,
     CATEGORIES: CATEGORIES,
+    TIMING_PRIORS: TIMING_PRIORS,
     categoryById: categoryById,
     isFirebaseConfigured: isFirebaseConfigured,
     elapsedMinutes: elapsedMinutes,
     elapsedFraction: elapsedFraction,
-    pOverFinal: pOverFinal,
-    scorePlayer: scorePlayer,
+    sampleFinals: sampleFinals,
+    pOverFromSamples: pOverFromSamples,
+    scorePlayerFromSamples: scorePlayerFromSamples,
     parseCsv: parseCsv,
     parsePredictions: parsePredictions,
     loadPredictions: loadPredictions,

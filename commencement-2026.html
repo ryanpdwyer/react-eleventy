@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Purple Raider Commencement Market 2026 — Live Dashboard</title>
+  <style>
+    :root {
+      --purple: #4d1979;
+      --purple-light: #7b3eb0;
+      --bg: #faf7ff;
+      --text: #1a1a1a;
+      --muted: #666;
+      --good: #2e7d32;
+      --warn: #c77700;
+      --over: #2e7d32;
+      --under: #c62828;
+      --border: #e0d8ec;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .container { max-width: 980px; margin: 0 auto; padding: 1rem; }
+    header { background: var(--purple); color: white; padding: 1.5rem 1rem; }
+    header .container { padding: 0 1rem; }
+    header h1 { margin: 0; font-size: 1.6rem; }
+    header p { margin: 0.25rem 0 0; opacity: 0.9; }
+    .banner {
+      background: #fff3cd; border: 1px solid #ffe69c; padding: 0.75rem 1rem;
+      border-radius: 6px; margin: 1rem 0; font-size: 0.9rem;
+    }
+    .banner code { background: rgba(0,0,0,0.06); padding: 0 0.25em; border-radius: 3px; }
+    section { margin: 1.5rem 0; }
+    h2 { color: var(--purple); border-bottom: 2px solid var(--purple); padding-bottom: 0.25rem; }
+    .status { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 1rem; }
+    .status-row { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; }
+    .status-text { font-size: 1.1rem; font-weight: 600; }
+    .status-sub { color: var(--muted); font-size: 0.9rem; }
+    .bar { height: 10px; background: #eee; border-radius: 5px; overflow: hidden; margin-top: 0.5rem; }
+    .bar-fill { height: 100%; background: linear-gradient(90deg, var(--purple), var(--purple-light)); transition: width 0.5s; }
+    table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; }
+    th, td { text-align: left; padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border); }
+    th { background: #f3edfa; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--purple); }
+    tr:last-child td { border-bottom: none; }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .pill {
+      display: inline-block; padding: 0.1rem 0.5rem; border-radius: 999px;
+      font-size: 0.75rem; font-weight: 600;
+    }
+    .pill.over { background: #e6f4ea; color: var(--over); }
+    .pill.under { background: #fdecec; color: var(--under); }
+    .pill.done { background: #ddd; color: #444; }
+    .pill.live { background: #e6f4ea; color: var(--good); }
+    .cat-emoji { font-size: 1.2rem; margin-right: 0.4rem; }
+    .small { font-size: 0.85rem; color: var(--muted); }
+    details { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 0.5rem 1rem; }
+    details summary { cursor: pointer; font-weight: 600; padding: 0.25rem 0; }
+    details ul { padding-left: 1.25rem; }
+    details a { color: var(--purple); }
+    .leader-rank { width: 2.5rem; text-align: center; font-weight: 700; color: var(--purple); }
+    .leader-name { font-weight: 600; }
+    .interval { color: var(--muted); font-size: 0.85rem; font-variant-numeric: tabular-nums; }
+    .footer-note { color: var(--muted); font-size: 0.85rem; margin-top: 2rem; }
+    button.refresh {
+      background: var(--purple); color: white; border: 0; border-radius: 6px;
+      padding: 0.4rem 0.8rem; cursor: pointer; font-size: 0.85rem;
+    }
+    button.refresh:hover { background: var(--purple-light); }
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.25rem; }
+      th, td { padding: 0.45rem 0.5rem; font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>🎓 Purple Raider Commencement Market 2026</h1>
+      <p>Brueck's UMU Forecast Game — Live Dashboard</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="banner" class="banner" hidden></div>
+
+    <section class="status">
+      <div class="status-row">
+        <span class="status-text" id="status-text">Loading…</span>
+        <span class="status-sub" id="status-sub"></span>
+      </div>
+      <div class="bar"><div class="bar-fill" id="bar-fill" style="width:0%"></div></div>
+    </section>
+
+    <section>
+      <h2>Live Counts</h2>
+      <table id="categories-table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th class="num">Line</th>
+            <th class="num">Count</th>
+            <th class="num">P(Over)</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Leaderboard
+        <button class="refresh" id="refresh-preds" title="Re-fetch predictions">Reload picks</button>
+      </h2>
+      <p class="small">Score is the expected # correct picks (out of 8) given the current counts. The interval is an 80% band. Locked categories (✓) are exact; the rest extrapolate to a 90-min ceremony.</p>
+      <table id="leaderboard-table">
+        <thead>
+          <tr>
+            <th class="leader-rank">#</th>
+            <th>Name</th>
+            <th class="num">Score</th>
+            <th class="num">80% Range</th>
+          </tr>
+        </thead>
+        <tbody><tr><td colspan="4" class="small">Loading predictions…</td></tr></tbody>
+      </table>
+    </section>
+
+    <details>
+      <summary>Stat-keeper links (one per category)</summary>
+      <p class="small">Send each stat-keeper their assigned link. Counts sync live to all viewers.</p>
+      <ul id="counter-links"></ul>
+    </details>
+
+    <p class="footer-note">
+      Counts &amp; "done" flags persist in <span id="backend-kind">…</span>.
+      Predictions read from the published Form responses CSV.
+    </p>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+  <script src="/js/commencement.js"></script>
+  <script>
+    (function () {
+      const C = COMMENCEMENT;
+      const backend = C.createBackend();
+      let state = { counts: {}, done: {} };
+      let predictions = [];
+
+      // Banner if Firebase isn't configured yet.
+      if (!C.isFirebaseConfigured()) {
+        const b = document.getElementById("banner");
+        b.hidden = false;
+        b.innerHTML = "Live sync isn't configured yet — using <code>localStorage</code> (this device only). " +
+          "Edit <code>js/commencement.js</code> and set <code>CONFIG.firebase</code>.";
+      }
+      if (!C.CONFIG.sheetCsvUrl || C.CONFIG.sheetCsvUrl === "TODO") {
+        const b = document.getElementById("banner");
+        b.hidden = false;
+        b.innerHTML = (b.innerHTML ? b.innerHTML + "<br>" : "") +
+          "Predictions CSV URL not set — leaderboard will be empty until <code>CONFIG.sheetCsvUrl</code> is filled in.";
+      }
+      document.getElementById("backend-kind").textContent = backend.kind === "firebase" ? "Firebase Realtime Database" : "browser localStorage";
+
+      // Counter links
+      const linkUl = document.getElementById("counter-links");
+      for (const cat of C.CATEGORIES) {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.href = "/commencement-count/?cat=" + cat.id;
+        a.textContent = cat.emoji + " " + cat.title;
+        li.appendChild(a);
+        linkUl.appendChild(li);
+      }
+
+      function fmt(n, digits) {
+        if (n == null || isNaN(n)) return "—";
+        return Number(n).toFixed(digits == null ? 2 : digits);
+      }
+      function pct(p) { return Math.round(p * 100) + "%"; }
+
+      function renderStatus() {
+        const now = Date.now();
+        const elapsed = C.elapsedMinutes(now);
+        const dur = C.CONFIG.durationMin;
+        const f = C.elapsedFraction(now);
+        const txt = document.getElementById("status-text");
+        const sub = document.getElementById("status-sub");
+        const fill = document.getElementById("bar-fill");
+        const startStr = C.CONFIG.ceremonyStart.toLocaleString(undefined, { weekday: "short", hour: "numeric", minute: "2-digit" });
+        if (elapsed < 0) {
+          txt.textContent = "⏳ Ceremony starts " + startStr;
+          sub.textContent = Math.round(-elapsed) + " min from now";
+        } else if (f >= 1) {
+          txt.textContent = "🎉 Ceremony complete — final scores";
+          sub.textContent = "Started " + startStr;
+        } else {
+          txt.textContent = "🔴 LIVE · " + Math.round(elapsed) + " / " + dur + " min";
+          sub.textContent = pct(f) + " elapsed";
+        }
+        fill.style.width = (f * 100) + "%";
+      }
+
+      function renderCategories() {
+        const tbody = document.querySelector("#categories-table tbody");
+        tbody.innerHTML = "";
+        const now = Date.now();
+        for (const cat of C.CATEGORIES) {
+          const count = (state.counts[cat.id] || 0);
+          const done = !!state.done[cat.id];
+          const pOver = C.pOverFinal(cat, count, done, now);
+          const tr = document.createElement("tr");
+          const countDisplay = (cat.type === "launch" && !done) ? "—" : count;
+          let statusPill = "";
+          if (done) statusPill = '<span class="pill done">✓ done</span>';
+          else if (cat.type === "launch") statusPill = '<span class="pill live">awaiting</span>';
+          else statusPill = '<span class="pill live">live</span>';
+          tr.innerHTML =
+            '<td><span class="cat-emoji">' + cat.emoji + '</span>' + cat.title +
+              '<div class="small">' + cat.description + '</div></td>' +
+            '<td class="num">' + cat.threshold + '</td>' +
+            '<td class="num"><strong>' + countDisplay + '</strong></td>' +
+            '<td class="num">' + pct(pOver) + '</td>' +
+            '<td>' + statusPill + '</td>';
+          tbody.appendChild(tr);
+        }
+      }
+
+      function renderLeaderboard() {
+        const tbody = document.querySelector("#leaderboard-table tbody");
+        if (!predictions.length) {
+          tbody.innerHTML = '<tr><td colspan="4" class="small">' +
+            (C.CONFIG.sheetCsvUrl === "TODO" ? "Set <code>sheetCsvUrl</code> to load picks." : "No responses yet.") +
+            '</td></tr>';
+          return;
+        }
+        const now = Date.now();
+        const scored = predictions.map(function (p) {
+          const s = C.scorePlayer(p.picks, state, now);
+          return { name: p.name, expected: s.expected, sd: s.sd };
+        });
+        scored.sort(function (a, b) { return b.expected - a.expected; });
+        tbody.innerHTML = "";
+        scored.forEach(function (row, i) {
+          const lo = Math.max(0, row.expected - 1.282 * row.sd);
+          const hi = Math.min(C.CATEGORIES.length, row.expected + 1.282 * row.sd);
+          const tr = document.createElement("tr");
+          tr.innerHTML =
+            '<td class="leader-rank">' + (i + 1) + '</td>' +
+            '<td class="leader-name">' + escapeHtml(row.name) + '</td>' +
+            '<td class="num"><strong>' + fmt(row.expected) + '</strong> / ' + C.CATEGORIES.length + '</td>' +
+            '<td class="num interval">' + fmt(lo) + ' – ' + fmt(hi) + '</td>';
+          tbody.appendChild(tr);
+        });
+      }
+
+      function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, function (c) {
+          return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c];
+        });
+      }
+
+      backend.onState(function (s) {
+        state = s;
+        renderCategories();
+        renderLeaderboard();
+      });
+
+      async function reloadPredictions() {
+        try {
+          predictions = await C.loadPredictions();
+        } catch (e) {
+          console.error(e);
+          predictions = [];
+        }
+        renderLeaderboard();
+      }
+      document.getElementById("refresh-preds").addEventListener("click", reloadPredictions);
+      reloadPredictions();
+
+      // Tick once a second so the projected scores update smoothly.
+      setInterval(function () { renderStatus(); renderCategories(); renderLeaderboard(); }, 1000);
+      renderStatus();
+    })();
+  </script>
+</body>
+</html>

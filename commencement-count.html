@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <title>Counter — Commencement 2026</title>
+  <style>
+    :root {
+      --purple: #4d1979;
+      --purple-light: #7b3eb0;
+      --bg: #faf7ff;
+      --text: #1a1a1a;
+      --muted: #666;
+      --plus: #2e7d32;
+      --minus: #c62828;
+      --border: #e0d8ec;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { height: 100%; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      margin: 0; background: var(--bg); color: var(--text);
+      display: flex; flex-direction: column; min-height: 100vh;
+    }
+    header { background: var(--purple); color: white; padding: 0.75rem 1rem; }
+    header a { color: white; opacity: 0.85; font-size: 0.85rem; text-decoration: none; }
+    main {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; padding: 1rem; gap: 1.25rem;
+      text-align: center;
+    }
+    .cat-title { font-size: 1.75rem; margin: 0; line-height: 1.2; }
+    .cat-emoji { font-size: 2.5rem; display: block; margin-bottom: 0.25rem; }
+    .desc { color: var(--muted); margin: 0; max-width: 28rem; }
+    .line { color: var(--muted); font-size: 0.9rem; }
+    .count {
+      font-size: 6rem; font-weight: 800; color: var(--purple);
+      line-height: 1; font-variant-numeric: tabular-nums;
+      margin: 0.5rem 0;
+    }
+    .row { display: flex; gap: 1rem; width: 100%; max-width: 28rem; }
+    button.big {
+      flex: 1; font-size: 2rem; font-weight: 700; padding: 1.5rem 0;
+      border-radius: 14px; border: 0; color: white; cursor: pointer;
+      box-shadow: 0 3px 0 rgba(0,0,0,0.15);
+      touch-action: manipulation;
+    }
+    button.big:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(0,0,0,0.15); }
+    button.plus { background: var(--plus); }
+    button.minus { background: var(--minus); }
+    button.record {
+      width: 100%; max-width: 28rem; font-size: 1.5rem; font-weight: 700;
+      padding: 1.75rem 1rem; border-radius: 14px; border: 0;
+      background: var(--purple); color: white; cursor: pointer;
+      box-shadow: 0 3px 0 rgba(0,0,0,0.15);
+    }
+    button.record:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(0,0,0,0.15); }
+    button.done {
+      background: white; border: 2px solid var(--purple); color: var(--purple);
+      font-size: 1rem; font-weight: 600; padding: 0.75rem 1.25rem; border-radius: 999px;
+      cursor: pointer; margin-top: 0.5rem;
+    }
+    button.done.is-done { background: #ddd; border-color: #aaa; color: #444; }
+    .small { font-size: 0.85rem; color: var(--muted); }
+    .banner {
+      background: #fff3cd; border: 1px solid #ffe69c; padding: 0.5rem 0.75rem;
+      border-radius: 6px; font-size: 0.85rem; max-width: 28rem;
+    }
+    .picker { padding: 1rem; }
+    .picker ul { list-style: none; padding: 0; max-width: 28rem; margin: 0 auto; }
+    .picker li { margin: 0.5rem 0; }
+    .picker a {
+      display: block; padding: 0.75rem 1rem; background: white; border: 1px solid var(--border);
+      border-radius: 8px; text-decoration: none; color: var(--text);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/commencement-2026/">&larr; Dashboard</a>
+  </header>
+  <main id="app"></main>
+
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+  <script src="/js/commencement.js"></script>
+  <script>
+    (function () {
+      const C = COMMENCEMENT;
+      const app = document.getElementById("app");
+      const params = new URLSearchParams(location.search);
+      const catId = params.get("cat");
+      const cat = catId && C.categoryById(catId);
+
+      if (!cat) {
+        renderPicker();
+        return;
+      }
+
+      const backend = C.createBackend();
+      let state = { counts: {}, done: {} };
+
+      function renderPicker() {
+        app.classList.add("picker");
+        let html = '<h2>Pick a category to count</h2><ul>';
+        for (const c of C.CATEGORIES) {
+          html += '<li><a href="?cat=' + c.id + '">' + c.emoji + ' ' + c.title + '</a></li>';
+        }
+        html += '</ul>';
+        app.innerHTML = html;
+      }
+
+      function render() {
+        const count = state.counts[cat.id] || 0;
+        const done = !!state.done[cat.id];
+        const isLaunch = cat.type === "launch";
+
+        let body = "";
+        if (!C.isFirebaseConfigured()) {
+          body += '<div class="banner">⚠️ Live sync off — using this device only.</div>';
+        }
+        body +=
+          '<div>' +
+            '<span class="cat-emoji">' + cat.emoji + '</span>' +
+            '<h1 class="cat-title">' + cat.title + '</h1>' +
+            '<p class="desc">' + cat.description + '</p>' +
+            '<p class="line">Line: <strong>' + cat.threshold + '</strong></p>' +
+          '</div>';
+
+        if (isLaunch) {
+          if (done) {
+            body += '<div class="count">' + count + '<span class="small"> min</span></div>';
+            body += '<p class="small">First graduate crossed at +' + count + ' min from 1:30pm ET. Locked.</p>';
+          } else {
+            const elapsed = Math.max(0, C.elapsedMinutes());
+            body += '<div class="count" style="font-size:3rem;">' +
+                    (elapsed > 0 ? "+" + elapsed.toFixed(1) + " min" : "not started") + '</div>';
+            body += '<button class="record" id="record-btn">First grad just crossed</button>';
+            body += '<p class="small">Press the moment the first graduate steps on stage.</p>';
+          }
+        } else {
+          body += '<div class="count">' + count + '</div>';
+          if (done) {
+            body += '<p class="small">Locked at ' + count + '. Threshold: ' + cat.threshold + '.</p>';
+          } else {
+            body +=
+              '<div class="row">' +
+                '<button class="big minus" id="minus-btn">−1</button>' +
+                '<button class="big plus" id="plus-btn">+1</button>' +
+              '</div>';
+          }
+        }
+
+        body += '<button class="done ' + (done ? "is-done" : "") + '" id="done-btn">' +
+                  (done ? "✓ Marked done — undo" : "Mark category done") +
+                '</button>';
+
+        app.innerHTML = body;
+
+        if (!done && !isLaunch) {
+          document.getElementById("plus-btn").addEventListener("click", function () {
+            backend.incCount(cat.id, 1);
+          });
+          document.getElementById("minus-btn").addEventListener("click", function () {
+            backend.incCount(cat.id, -1);
+          });
+        }
+        if (isLaunch && !done) {
+          document.getElementById("record-btn").addEventListener("click", function () {
+            const elapsed = Math.max(0, C.elapsedMinutes());
+            backend.setCount(cat.id, Math.round(elapsed * 10) / 10);
+            backend.setDone(cat.id, true);
+          });
+        }
+        document.getElementById("done-btn").addEventListener("click", function () {
+          backend.setDone(cat.id, !done);
+        });
+      }
+
+      backend.onState(function (s) {
+        state = s;
+        render();
+      });
+
+      // Tick for the launch timer display.
+      setInterval(function () {
+        if (cat.type === "launch" && !state.done[cat.id]) render();
+      }, 1000);
+    })();
+  </script>
+</body>
+</html>

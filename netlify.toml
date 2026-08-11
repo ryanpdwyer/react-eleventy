@@ -25,3 +25,9 @@
 [[redirects]]
   from = "/acid"
   to = "/che120acid-base-review"
+
+[[redirects]]
+  from = "/calendar"
+  to = "https://outlook.office.com/bookwithme/user/de279c85ee2d41d699bdd86d38845529@mountunion.edu?anonymous&ismsaljsauthenabled&ep=plink"
+  status = 302
+  force = true

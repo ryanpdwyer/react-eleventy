@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@11ty/eleventy-upgrade-help": "^1.0.1",
+    "@netlify/blobs": "^8.1.0",
     "markdown-it-anchor": "^8.6.7"
   }
 }

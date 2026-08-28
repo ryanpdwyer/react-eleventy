@@ -117,23 +117,55 @@ async function copyPages() {
     pages[0].moveDown(18)
     pages[0].drawText(``);
 
-    // Final page: the Discussion Unknown structure (no letter or number shown)
+    // Final page: the Discussion Unknown structure (no letter or number shown).
+    // Landscape to match the spectra pages; structure left, discussion
+    // questions 2-3 right so the printout doubles as the worksheet.
     const duImage = await pdfDoc.embedPng(duPng);
-    const duPage = pdfDoc.addPage([612, 792]);
+    const duPage = pdfDoc.addPage([792, 612]);
 
-    const maxW = 460;
-    const maxH = 500;
+    const maxW = 340;
+    const maxH = 400;
     const scale = Math.min(maxW / duImage.width, maxH / duImage.height);
     const w = duImage.width * scale;
     const h = duImage.height * scale;
 
-    duPage.drawText(`Discussion Unknown`, {size: 24, x: 190, y: 720});
+    duPage.drawText(`Discussion Unknown`, {size: 22, x: 110, y: 555});
     duPage.drawImage(duImage, {
-        x: (612 - w) / 2,
-        y: (792 - h) / 2,
+        x: (420 - w) / 2,
+        y: 110 + (420 - h) / 2,
         width: w,
         height: h,
     });
+
+    const rightX = 430;
+    let lineY = 565;
+    const writeLines = (lines, size, lineGap) => {
+        lines.forEach(line => {
+            duPage.drawText(line, {size: size, x: rightX, y: lineY});
+            lineY -= lineGap;
+        });
+    };
+
+    writeLines([
+        `2. Predict features that would be present in the`,
+        `IR and NMR spectra of your Discussion Unknown.`,
+    ], 13, 17);
+    writeLines([
+        `Where would you expect to find distinct IR peaks?`,
+        `Which functional groups predict these peaks?`,
+        `How many NMR peaks would you expect, at what`,
+        `ratio, and why?`,
+    ], 11, 15);
+    lineY -= 185;
+    writeLines([
+        `3. Compare your Discussion Unknown to your`,
+        `other unknowns. To which is it most similar?`,
+    ], 13, 17);
+    writeLines([
+        `Identify similarities and differences in the chemical`,
+        `structure. Explain how that affects the spectra.`,
+    ], 11, 15);
+
     duPage.drawText(`2026 ${name} Discussion Unknown`, {size: fontSize, y: yPos});
 
     const pdfBytes = await pdfDoc.save()

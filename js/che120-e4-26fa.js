@@ -147,24 +147,9 @@ async function copyPages() {
     };
 
     writeLines([
-        `2. Predict features that would be present in the`,
-        `IR and NMR spectra of your Discussion Unknown.`,
+        `Refer to your lab manual for the discussion`,
+        `questions about this compound.`,
     ], 13, 17);
-    writeLines([
-        `Where would you expect to find distinct IR peaks?`,
-        `Which functional groups predict these peaks?`,
-        `How many NMR peaks would you expect, at what`,
-        `ratio, and why?`,
-    ], 11, 15);
-    lineY -= 185;
-    writeLines([
-        `3. Compare your Discussion Unknown to your`,
-        `other unknowns. To which is it most similar?`,
-    ], 13, 17);
-    writeLines([
-        `Identify similarities and differences in the chemical`,
-        `structure. Explain how that affects the spectra.`,
-    ], 11, 15);
 
     duPage.drawText(`2026 ${name} Discussion Unknown`, {size: fontSize, y: yPos});
 

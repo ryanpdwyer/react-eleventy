@@ -14,15 +14,12 @@ def textscan(path):
 
 S = os.path.join(ROOT, 'samples')
 # Scans: text files of "phi  E_hartree" (add a Gaussian scan log with scan(path,[1,2,3,4]) when the APFD gas-phase run is done)
+apfd = scan(os.path.join(S, 'dce-apfd-scan.log'), [1, 2, 3, 4])
 SCANS = [
-    {'name': 'B3LYP, gas phase', 'color': '#3366cc', 'pts': textscan(os.path.join(S, 'dce-b3lyp-scan.txt'))},
+    {'name': 'APFD/6-311+G(2d,p), gas phase', 'color': '#3366cc', 'pts': [[p['phi'], p['E']] for p in apfd]},
+    # {'name': 'B3LYP, gas phase', 'color': '#cc6633', 'pts': textscan(os.path.join(S, 'dce-b3lyp-scan.txt'))},
 ]
-gas = os.path.join(S, 'dce-apfd-scan.log')
-SCAN_GEOMS = []
-if os.path.exists(gas):
-    apfd = scan(gas, [1, 2, 3, 4])
-    SCANS.append({'name': 'APFD/6-311+G(2d,p), gas phase', 'color': '#cc6633', 'pts': [[p['phi'], p['E']] for p in apfd]})
-    SCAN_GEOMS = [{'phi': p['phi'], 'xyz': p['xyz']} for p in apfd]
+SCAN_GEOMS = [{'phi': p['phi'], 'xyz': p['xyz']} for p in apfd]
 def freq(tag):
     m = modes(os.path.join(S, f'dce-apfd-{tag}.log'), tag)
     return {'xyz': m[0]['xyz'], 'modes': [{'freq': round(x['freq'], 1), 'ir': round(x['ir'], 2), 'raman': round(x['raman'], 2), 'disp': x['disp']} for x in m]}

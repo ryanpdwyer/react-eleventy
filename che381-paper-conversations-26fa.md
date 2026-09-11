@@ -38,15 +38,18 @@ For each example, begin with the citation or DOI and get the full text however y
 
 <div class="lit-card">
 <div class="route">Step 3</div>
-<h3>Article supplied in class</h3>
-<p>Use the citation provided by the instructor and obtain the full text.</p>
+<h3>Chemical Communications: gold nanoparticle synthesis</h3>
+<p>Brust, M.; Walker, M.; Bethell, D.; Schiffrin, D. J.; Whyman, R. “Synthesis of thiol-derivatised gold nanoparticles in a two-phase liquid–liquid system,” <em>J. Chem. Soc., Chem. Commun.</em> 801–802 (1994).</p>
+<p><a href="https://doi.org/10.1039/C39940000801">Open DOI / publisher record</a></p>
 <p><strong>Check:</strong> What is the difference between finding a citation and obtaining the article?</p>
 </div>
 
 <div class="lit-card">
 <div class="route">Step 4</div>
-<h3>Article supplied in class</h3>
-<p>Use the citation provided by the instructor. Find a copy, then compare it with the publisher record.</p>
+<h3>PNAS: bacillithiol</h3>
+<p>Gaballa, A.; Newton, G. L.; Antelmann, H.; Parsonage, D.; Upton, H.; Rawat, M.; Claiborne, A.; Fahey, R. C.; Helmann, J. D. “Biosynthesis and functions of bacillithiol, a major low-molecular-weight thiol in Bacilli,” <em>Proc. Natl. Acad. Sci. U.S.A.</em> 107, 6482–6486 (2010).</p>
+<p><a href="https://doi.org/10.1073/pnas.1000928107">Open DOI / publisher record</a></p>
+<p>Find a copy, then compare it with the publisher record.</p>
 <p><strong>Check:</strong> Is this the published version, an author manuscript, or a repository copy?</p>
 </div>
 

@@ -18,18 +18,18 @@ This page is a short set of guided examples. The point is to practice both **get
 
 ## Follow the access trail
 
-For each example, begin with the citation or DOI. Follow the route assigned in class, then record where the full text actually came from.
+For each example, begin with the citation or DOI and get the full text however you can. Record where it actually came from.
 
 <div class="lit-card">
-<div class="route">Publisher → library database</div>
+<div class="route">Step 1</div>
 <h3>Nature Chemistry: molecular motor</h3>
 <p>Ruangsupapichat et al., “Reversing the direction in a light-driven rotary molecular motor,” <em>Nature Chemistry</em> 3, 53–60 (2011).</p>
 <p><a href="https://doi.org/10.1038/nchem.872">Open DOI / publisher record</a></p>
-<p><strong>Check:</strong> Does the DOI page give you the PDF directly? If not, find the journal through Mount Union/EBSCOhost.</p>
+<p><strong>Check:</strong> Does the DOI page give you the PDF directly? If not, what did you try next?</p>
 </div>
 
 <div class="lit-card">
-<div class="route">Related article / commentary</div>
+<div class="route">Step 2</div>
 <h3>Nature Chemistry: commentary on molecular motors</h3>
 <p>Cantrill, “One-way traffic,” <em>Nature Chemistry</em> 3, 907 (2011).</p>
 <p><a href="https://doi.org/10.1038/nchem.1215">Open DOI / publisher record</a></p>
@@ -37,16 +37,16 @@ For each example, begin with the citation or DOI. Follow the route assigned in c
 </div>
 
 <div class="lit-card">
-<div class="route">Library search → OhioLINK</div>
+<div class="route">Step 3</div>
 <h3>Article supplied in class</h3>
-<p>Use the citation provided by the instructor. Search the title in Mount Union Primo. If the journal record appears but no full text is available, follow the OhioLINK request link.</p>
+<p>Use the citation provided by the instructor and obtain the full text.</p>
 <p><strong>Check:</strong> What is the difference between finding a citation and obtaining the article?</p>
 </div>
 
 <div class="lit-card">
-<div class="route">Free repository</div>
+<div class="route">Step 4</div>
 <h3>Article supplied in class</h3>
-<p>Use the citation provided by the instructor. Search PubMed or PMC, then compare the repository copy with the publisher record.</p>
+<p>Use the citation provided by the instructor. Find a copy, then compare it with the publisher record.</p>
 <p><strong>Check:</strong> Is this the published version, an author manuscript, or a repository copy?</p>
 </div>
 

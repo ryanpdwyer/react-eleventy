@@ -14,6 +14,15 @@ For each paper, work through this access checklist in order: start with the DOI/
 
 The second item discusses related molecular-motor research, but it is not the research report itself. Answer the questions below after you have located both items.
 
+<style>
+.literature-quiz fieldset { border: 0; padding: 0; margin: 1.25rem 0; }
+.literature-quiz legend { font-size: 1.1rem; font-weight: 600; margin-bottom: .4rem; }
+.literature-quiz label { display: block; margin: .3rem 0 .3rem .25rem; font-weight: normal; }
+.literature-quiz label[for="student-name"] { display: inline-block; margin-right: .5rem; }
+.literature-quiz input[type="text"] { padding: .3rem .5rem; min-width: 16rem; }
+.literature-quiz button { margin-top: .5rem; }
+</style>
+
 <form name="che381-nature-chemistry-literature" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="literature-quiz">
   <input type="hidden" name="form-name" value="che381-nature-chemistry-literature">
   <p hidden><label>Do not fill this out: <input name="bot-field"></label></p>

@@ -34,3 +34,7 @@
   to = "https://outlook.office.com/bookwithme/user/de279c85ee2d41d699bdd86d38845529@mountunion.edu?anonymous&ismsaljsauthenabled&ep=plink"
   status = 302
   force = true
+
+[[redirects]]
+  from = "/che110-op"
+  to = "/slides/che110-op-feedback.html"

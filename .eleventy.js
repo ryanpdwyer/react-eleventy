@@ -15,5 +15,6 @@ module.exports = (function(eleventyConfig) {
     eleventyConfig.addPassthroughCopy("css");
     eleventyConfig.addPassthroughCopy("samples");
     eleventyConfig.addPassthroughCopy("pdf");
+    eleventyConfig.addPassthroughCopy("slides");
 
 });

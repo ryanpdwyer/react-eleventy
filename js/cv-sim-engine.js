@@ -179,3 +179,120 @@ export function findPeaks(E, I, Nt) {
 
     return { Ipc, Epc, Ipa, Epa, deltaEp: Math.abs(Epc - Epa) };
 }
+
+/**
+ * Run a single potential-step (chronoamperometry) simulation.
+ *
+ * Potential jumps from Einit to Estep at t = 0 and is held for tStep.
+ * Same finite-difference scheme as runSimulation. An optional double-layer
+ * charging current (ΔE/Ru)·exp(−t/RuCdl) is added to the faradaic current.
+ *
+ * @param {Object} params
+ * @param {number} params.Einit        - Initial potential (V)
+ * @param {number} params.Estep        - Step potential (V)
+ * @param {number} params.tStep        - Step duration (s)
+ * @param {number} [params.Ru=0]       - Uncompensated resistance (Ω); 0 = no charging current
+ * @param {number} [params.Cdl=0]      - Double-layer capacitance (F)
+ * @param {number} [params.noise=0]    - Gaussian current noise, standard deviation (A)
+ * @returns {Object} results – I (total), If (faradaic), Ic (charging), all in Amperes
+ */
+export function runStep({
+    Do, Dr, Co0, k0, alpha, n, E0, Einit, Estep, tStep, dt,
+    area = 0.0707, Ru = 0, Cdl = 0, noise = 0,
+    snapshotInterval = 5
+}) {
+    const Nt = Math.floor(tStep / dt);
+    const dx = Math.sqrt(Do * dt / 0.45);
+    const Nx = Math.ceil(6 * Math.sqrt(Do * tStep) / dx) + 3;
+    const beta = Do * dt / (dx * dx);
+
+    if (Nt < 1 || Nx < 3) {
+        throw new Error(`Invalid grid: Nt=${Nt}, Nx=${Nx}. Check parameters.`);
+    }
+
+    const xx = new Float64Array(Nx);
+    for (let j = 0; j < Nx; j++) xx[j] = j * dx * 1e4;
+
+    const E_data = new Float64Array(Nt);
+    const I_data = new Float64Array(Nt);
+    const If_data = new Float64Array(Nt);
+    const Ic_data = new Float64Array(Nt);
+    const t_data = new Float64Array(Nt);
+    const snapshots = [];
+
+    const Co = new Float64Array(Nx).fill(Co0);
+    const Cr = new Float64Array(Nx).fill(0);
+
+    const currentFactor = n * FARADAY * area * 1e-3;
+    const tau = Ru * Cdl;
+
+    // Butler-Volmer rate constants are fixed during the step
+    const expArg = n * FARADAY * (Estep - E0) / (GAS_CONST * T_DEFAULT);
+    const kc = k0 * Math.exp(-alpha * expArg);
+    const ka = k0 * Math.exp((1 - alpha) * expArg);
+
+    for (let i = 0; i < Nt; i++) {
+        const fc = -(kc * Co[1] - ka * Cr[1]) /
+                    (1 + kc * dx / (2 * Do) + ka * dx / (2 * Dr));
+        const fa = -fc;
+
+        const Co_old = Float64Array.from(Co);
+        const Cr_old = Float64Array.from(Cr);
+
+        Co[0] += beta * (Co_old[1] - Co_old[0] + dx * fc / Do);
+        Cr[0] += beta * (Cr_old[1] - Cr_old[0] + dx * fa / Do);
+
+        for (let j = 1; j < Nx - 2; j++) {
+            const leftCo = j === 1 ? Co[0] : Co_old[j - 1];
+            const leftCr = j === 1 ? Cr[0] : Cr_old[j - 1];
+            Co[j] = Co_old[j] + beta * (Co_old[j + 1] - 2 * Co_old[j] + leftCo);
+            Cr[j] = Cr_old[j] + beta * (Cr_old[j + 1] - 2 * Cr_old[j] + leftCr);
+        }
+
+        // Flux over step i is centred at (i + 1/2)·dt
+        const t = (i + 0.5) * dt;
+        const If = currentFactor * (-fc);
+        const Ic = tau > 0 ? ((Einit - Estep) / Ru) * Math.exp(-t / tau) : 0;
+        const eps = noise > 0 ? noise * gaussian() : 0;
+
+        E_data[i] = Estep;
+        If_data[i] = If;
+        Ic_data[i] = Ic;
+        I_data[i] = If + Ic + eps;
+        t_data[i] = t;
+
+        if (i % snapshotInterval === 0) {
+            snapshots.push({
+                Co: Float64Array.from(Co),
+                Cr: Float64Array.from(Cr),
+                frameIndex: i
+            });
+        }
+    }
+
+    if (snapshots[snapshots.length - 1].frameIndex !== Nt - 1) {
+        snapshots.push({
+            Co: Float64Array.from(Co),
+            Cr: Float64Array.from(Cr),
+            frameIndex: Nt - 1
+        });
+    }
+
+    return { E: E_data, I: I_data, If: If_data, Ic: Ic_data, t: t_data,
+             xx, snapshots, Nt, Nx, Co0 };
+}
+
+/**
+ * Cottrell current for a diffusion-limited step (A).
+ * C in mol/L, D in cm²/s, A in cm², t in s.
+ */
+export function cottrell(t, { n, area, Co0, Do }) {
+    return n * FARADAY * area * Co0 * 1e-3 * Math.sqrt(Do / (Math.PI * t));
+}
+
+// Standard normal deviate (Box–Muller)
+function gaussian() {
+    const u = 1 - Math.random();
+    const v = Math.random();
+    return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+}

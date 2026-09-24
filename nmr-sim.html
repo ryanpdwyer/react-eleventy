@@ -1,0 +1,976 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>NMR Bloch Sphere Simulator</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #fafbff; font-family: -apple-system, system-ui, sans-serif; color: #222; overflow: hidden; }
+  #app { display: grid; grid-template-columns: 1fr 320px; grid-template-rows: 1fr 190px; height: 100%; }
+  #canvasWrap { position: relative; grid-column: 1; grid-row: 1; }
+  #plotWrap { grid-column: 1; grid-row: 2; border-top: 1px solid #e3e6f0; background: #fff; position: relative; }
+  #plot { width: 100%; height: 100%; display: block; }
+  #plotCtrls { position: absolute; top: 6px; left: 10px; right: 10px; display: flex; gap: 6px; align-items: center; font-size: 11px; color: #556; pointer-events: none; }
+  #plotCtrls > * { pointer-events: auto; }
+  #plotTitle { font-weight: 600; letter-spacing: .3px; text-transform: uppercase; color: #445; }
+  #plotCtrls .grow { flex: 1; }
+  #panel { grid-column: 2; grid-row: 1 / span 2; }
+  canvas { display: block; max-width: 100%; max-height: 100%; }
+  #panel { padding: 16px; background: #fff; border-left: 1px solid #e3e6f0; overflow-y: auto; box-shadow: -2px 0 12px rgba(80,80,160,0.04); grid-column: 2; grid-row: 1 / span 2; }
+  h1 { font-size: 16px; margin: 0 0 4px; letter-spacing: .2px; }
+  .sub { font-size: 11px; color: #888; margin-bottom: 14px; }
+  .sec { margin: 14px 0; padding-top: 12px; border-top: 1px solid #eef0f7; }
+  .sec:first-of-type { border-top: none; padding-top: 0; }
+  .sec h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .6px; color: #556; margin: 0 0 8px; }
+  button { font: inherit; font-size: 12px; padding: 6px 10px; margin: 2px 3px 2px 0; border: 1px solid #ccd; background: #f5f6fb; border-radius: 5px; cursor: pointer; transition: .12s; }
+  button:hover { background: #e8ebf7; border-color: #99a; }
+  button.primary { background: #4051b5; color: white; border-color: #4051b5; }
+  button.primary:hover { background: #2e3d9b; }
+  label { font-size: 12px; display: flex; align-items: center; justify-content: space-between; margin: 6px 0; gap: 8px; }
+  input[type="range"] { flex: 1; }
+  input[type="number"] { width: 60px; font: inherit; font-size: 12px; padding: 3px 5px; border: 1px solid #ccd; border-radius: 4px; }
+  .val { font-variant-numeric: tabular-nums; color: #4051b5; min-width: 44px; text-align: right; font-size: 11px; }
+  #readout { font: 11px/1.5 ui-monospace, monospace; background: #f5f6fb; padding: 8px; border-radius: 5px; color: #334; }
+  #fovea { position: absolute; top: 10px; left: 12px; font-size: 11px; color: #889; user-select: none; }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="canvasWrap">
+    <div id="fovea">Bloch sphere — drag to rotate view</div>
+  </div>
+  <div id="plotWrap">
+    <canvas id="plot"></canvas>
+    <div id="plotCtrls">
+      <span id="plotTitle">FID — Σ Mx(t) / Σ My(t)</span>
+      <span class="grow"></span>
+      <button onclick="setPlotMode('time')">Time</button>
+      <button onclick="setPlotMode('fft')">FFT</button>
+      <button onclick="acquire()">Acquire (clear)</button>
+    </div>
+  </div>
+  <div id="panel">
+    <h1>NMR Simulator</h1>
+    <div class="sub">Bloch vector dynamics with RF pulses & relaxation</div>
+
+    <div class="sec">
+      <h2>Sample</h2>
+      <label>Preset
+        <select id="preset" onchange="loadPreset(this.value)" style="font-size:12px;padding:3px">
+          <option>TMS</option>
+          <option>Methanol</option>
+          <option selected>Ethanol</option>
+        </select>
+      </label>
+      <div id="legend" style="font-size:11px;color:#445;margin-top:6px;line-height:1.5"></div>
+    </div>
+
+    <div class="sec">
+      <h2>Sequence</h2>
+      <div>
+        <button onclick="selectSeq('fid')">FID</button>
+        <button onclick="selectSeq('ir')">Inv. recovery</button>
+        <button onclick="selectSeq('se')">Spin echo</button>
+        <button onclick="clearSeq()">✕</button>
+      </div>
+      <div id="seqForm" style="margin-top:6px;font-size:12px"></div>
+      <canvas id="seqMap" style="width:100%;height:70px;display:block;margin-top:6px;background:#fafbff;border:1px solid #e3e6f0;border-radius:4px"></canvas>
+      <div id="replayBar" style="display:none;margin-top:6px;align-items:center;gap:6px;font-size:11px;color:#445">
+        <button onclick="replayStep(-1)" style="font-size:11px;padding:3px 6px">◁</button>
+        <button onclick="replayPlayPause()" id="replayPP" style="font-size:11px;padding:3px 6px">▶</button>
+        <button onclick="replayStep(1)" style="font-size:11px;padding:3px 6px">▷</button>
+        <input type="range" id="replayScrub" min="0" max="0" step="1" value="0" oninput="replaySeek(+this.value)" style="flex:1">
+        <span id="replayT" style="font-variant-numeric:tabular-nums"></span>
+      </div>
+      <div id="seqStatus" style="font-size:11px;color:#667;min-height:14px;margin-top:4px"></div>
+    </div>
+
+    <div class="sec">
+      <h2>Apply pulse</h2>
+      <div>
+        <button onclick="pulse(90,'x')">90°x</button>
+        <button onclick="pulse(90,'y')">90°y</button>
+        <button onclick="pulse(90,'-x')">90°₋ₓ</button>
+        <button onclick="pulse(90,'-y')">90°₋ᵧ</button>
+      </div>
+      <div>
+        <button onclick="pulse(180,'x')">180°x</button>
+        <button onclick="pulse(180,'y')">180°y</button>
+        <button onclick="pulse(45,'x')">45°x</button>
+        <button onclick="pulse(30,'x')">30°x</button>
+      </div>
+      <label>Custom: <input type="number" id="ca" value="90" step="5" style="width:52px"> ° about
+        <select id="cax" style="font-size:12px;padding:3px"><option>x</option><option>y</option><option>z</option></select>
+        <button class="primary" onclick="pulseCustom()">go</button>
+      </label>
+    </div>
+
+    <div class="sec">
+      <h2>Relaxation (rotating frame)</h2>
+      <label>T₁ <input type="range" id="t1" min="0.2" max="20" step="0.1" value="5"><span class="val" id="t1v">5.0 s</span></label>
+      <label>T₂ <input type="range" id="t2" min="0.1" max="10" step="0.1" value="2"><span class="val" id="t2v">2.0 s</span></label>
+      <label title="Carrier frequency (rotating-frame reference) in Hz. 0 Hz = TMS. Defaults to mean of spin frequencies.">carrier (Hz) <input type="range" id="dw" min="-25" max="25" step="0.1" value="0"><span class="val" id="dwv">0.0 Hz</span></label>
+      <label title="Simulation time per real second">time scale <input type="range" id="ts" min="0.05" max="2" step="0.05" value="0.3"><span class="val" id="tsv">0.30×</span></label>
+    </div>
+
+    <div class="sec">
+      <h2>Controls</h2>
+      <button onclick="reset()">Reset to +z</button>
+      <button onclick="toggleRun()" id="runBtn">Pause</button>
+      <button onclick="toggleTrail()">Trail on/off</button>
+    </div>
+
+    <div class="sec">
+      <h2>State</h2>
+      <div id="readout">Mx = 0.000<br>My = 0.000<br>Mz = 1.000<br>|M| = 1.000</div>
+    </div>
+  </div>
+</div>
+
+<script type="importmap">
+{ "imports": {
+  "three": "https://unpkg.com/three@0.161.0/build/three.module.js",
+  "three/addons/": "https://unpkg.com/three@0.161.0/examples/jsm/"
+}}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const wrap = document.getElementById('canvasWrap');
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xfafbff);
+
+const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+camera.position.set(3.2, 2.2, 3.2);
+camera.up.set(0, 1, 0);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+wrap.appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+
+scene.add(new THREE.AmbientLight(0xffffff, 0.75));
+const dl = new THREE.DirectionalLight(0xffffff, 0.7); dl.position.set(4,5,3); scene.add(dl);
+
+// Z-up: wrap all world content so Bloch (x,y,z) renders with z pointing up in three.js
+const root = new THREE.Group();
+root.rotation.x = -Math.PI / 2;
+scene.add(root);
+
+// (Decorative glow removed)
+
+// Sphere
+const sphere = new THREE.Mesh(
+  new THREE.SphereGeometry(1, 48, 48),
+  new THREE.MeshPhongMaterial({ color: 0x8fa3e8, transparent: true, opacity: 0.18, shininess: 60 })
+);
+root.add(sphere);
+
+// Wireframe rings (equator + meridians)
+function ring(axis, color) {
+  const pts = []; const N = 96;
+  for (let i=0;i<=N;i++){ const t = i/N * Math.PI*2;
+    if (axis==='z') pts.push(new THREE.Vector3(Math.cos(t), Math.sin(t), 0));
+    else if (axis==='x') pts.push(new THREE.Vector3(0, Math.cos(t), Math.sin(t)));
+    else pts.push(new THREE.Vector3(Math.cos(t), 0, Math.sin(t)));
+  }
+  return new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color, transparent:true, opacity:0.55 }));
+}
+root.add(ring('z', 0x6b7bc4));
+root.add(ring('x', 0x6b7bc4));
+root.add(ring('y', 0x6b7bc4));
+
+// Axes
+function axis(dir, color, label){
+  const g = new THREE.ArrowHelper(dir, new THREE.Vector3(0,0,0), 1.25, color, 0.09, 0.06);
+  root.add(g);
+  const cvs = document.createElement('canvas'); cvs.width=64; cvs.height=64;
+  const ctx = cvs.getContext('2d'); ctx.fillStyle='#334'; ctx.font='bold 42px sans-serif'; ctx.textAlign='center'; ctx.fillText(label, 32, 46);
+  const tex = new THREE.CanvasTexture(cvs);
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, transparent: true }));
+  sp.scale.set(0.22,0.22,1); sp.position.copy(dir).multiplyScalar(1.42); root.add(sp);
+}
+axis(new THREE.Vector3(1,0,0), 0xd04040, 'x');
+axis(new THREE.Vector3(0,1,0), 0x40a060, 'y');
+axis(new THREE.Vector3(0,0,1), 0x4060d0, 'z');
+
+// ---- Multi-spin model ----
+// Each spin type: { label, delta (ppm), n (protons), color, M (Vec3), Mgroup, trail*, trailCount }
+const PPM_SCALE = 5; // Hz per ppm (display scaling to fit Nyquist)
+const PRESETS = {
+  'TMS': [
+    { label:'Si(CH3)4', delta:0.0, n:12, color:0xff7a1a },
+  ],
+  'Methanol': [
+    { label:'CH3', delta:3.4, n:3, color:0xff7a1a },
+    { label:'OH',  delta:4.8, n:1, color:0x30a060 },
+  ],
+  'Ethanol': [
+    { label:'CH3', delta:1.2, n:3, color:0xff7a1a },
+    { label:'OH',  delta:2.6, n:1, color:0x30a060 },
+    { label:'CH2', delta:3.7, n:2, color:0x4060d0 },
+  ],
+};
+const MAX_TRAIL = 1500;
+
+// Shared sprite texture for trail points (colored per-spin via material)
+function makePointTexture(hex){
+  const cv = document.createElement('canvas'); cv.width=64; cv.height=64;
+  const ctx = cv.getContext('2d');
+  const r=(hex>>16)&0xff, g=(hex>>8)&0xff, b=hex&0xff;
+  const gr = ctx.createRadialGradient(32,32,2,32,32,30);
+  gr.addColorStop(0, `rgba(${r},${g},${b},1)`);
+  gr.addColorStop(0.5, `rgba(${r},${g},${b},0.8)`);
+  gr.addColorStop(1, `rgba(${r},${g},${b},0)`);
+  ctx.fillStyle = gr; ctx.fillRect(0,0,64,64);
+  return new THREE.CanvasTexture(cv);
+}
+
+let spins = [];
+function buildSpin(def, totalN){
+  const s = { ...def };
+  s.M = new THREE.Vector3(0, 0, s.n / totalN); // equilibrium ∝ proton count
+  // arrow
+  const group = new THREE.Group();
+  const shaftMat = new THREE.MeshPhongMaterial({ color: s.color });
+  const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.018,0.018,1,16), shaftMat);
+  shaft.position.y = 0.5; group.add(shaft);
+  const headMat = new THREE.MeshPhongMaterial({ color: s.color });
+  const head = new THREE.Mesh(new THREE.ConeGeometry(0.055,0.12,20), headMat);
+  head.position.y = 1.06; group.add(head);
+  s.Mgroup = group; root.add(group);
+  // trail
+  const positions = new Float32Array(MAX_TRAIL*3);
+  const geom = new THREE.BufferGeometry();
+  geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geom.setDrawRange(0, 0);
+  const mat = new THREE.PointsMaterial({ map: makePointTexture(s.color), size: 0.05, transparent: true, depthWrite: false, sizeAttenuation: true });
+  const pts = new THREE.Points(geom, mat);
+  root.add(pts);
+  s.trailGeom = geom; s.trailPositions = positions; s.trailCount = 0; s.trailPts = pts;
+  return s;
+}
+
+window.loadPreset = function(name){
+  // clear old
+  for (const s of spins){ root.remove(s.Mgroup); root.remove(s.trailPts); }
+  spins = [];
+  const defs = PRESETS[name];
+  const totalN = defs.reduce((a,d)=>a+d.n, 0);
+  for (const d of defs) spins.push(buildSpin(d, totalN));
+  sig.length = 0; simTime = 0;
+  // default carrier to lowest-frequency spin
+  const freqs = spins.map(s => s.delta * PPM_SCALE);
+  const minHz = freqs.length ? Math.min(...freqs) : 0;
+  const dwEl = document.getElementById('dw');
+  if (dwEl){ dwEl.value = minHz.toFixed(1); dwEl.dispatchEvent(new Event('input')); }
+  renderLegend(name);
+  updateMVisual(); drawPlot();
+};
+
+function renderLegend(presetName){
+  const el = document.getElementById('legend');
+  if (!el) return;
+  el.innerHTML = `<b>${presetName}</b> <span style="font-size:10px;color:#889">(click to show/hide on sphere)</span><br>` +
+    spins.map((s, i) => {
+      const hz = (s.delta * PPM_SCALE).toFixed(1);
+      const col = `#${s.color.toString(16).padStart(6,'0')}`;
+      const dimStyle = s.visible===false ? 'opacity:0.35;text-decoration:line-through;' : '';
+      return `<span data-spin="${i}" style="cursor:pointer;display:inline-block;${dimStyle}"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${col};margin-right:4px"></span>${s.label} (${s.n}H) ${hz} Hz <span style="color:#889">(${s.delta.toFixed(1)} ppm)</span></span>`;
+    }).join('<br>') +
+    `<br><button style="font-size:10px;padding:2px 6px;margin-top:4px" onclick="showOnlySpin(-1)">all</button>` +
+    spins.map((s, i) => `<button style="font-size:10px;padding:2px 6px;margin:2px 2px 0 0" onclick="showOnlySpin(${i})">${s.label} only</button>`).join('');
+  el.querySelectorAll('[data-spin]').forEach(node => {
+    node.addEventListener('click', () => toggleSpinVisibility(+node.dataset.spin));
+  });
+}
+
+window.toggleSpinVisibility = function(i){
+  const s = spins[i]; if (!s) return;
+  s.visible = s.visible===false ? true : false;
+  s.Mgroup.visible = s.visible !== false;
+  s.trailPts.visible = s.visible !== false;
+  renderLegend(document.getElementById('preset').value);
+};
+window.showOnlySpin = function(i){
+  spins.forEach((s, idx) => {
+    s.visible = (i < 0) ? true : (idx === i);
+    s.Mgroup.visible = s.visible;
+    s.trailPts.visible = s.visible;
+  });
+  renderLegend(document.getElementById('preset').value);
+};
+
+let running = true;
+let animPulse = null; // { axis: Vec3, remainingRad: number, speed: rad/s }
+let trailOn = true;
+
+function resize(){
+  const w = wrap.clientWidth, h = wrap.clientHeight;
+  renderer.setSize(w, h);
+  camera.aspect = w/h; camera.updateProjectionMatrix();
+}
+window.addEventListener('resize', ()=>{ resize(); resizePlot(); drawPlot(); }); resize();
+
+function updateMVisual(){
+  let sx=0, sy=0, sz=0;
+  const totalN = spins.reduce((a,s)=>a+s.n,0) || 1;
+  for (const s of spins){
+    const M = s.M;
+    const M0 = s.n / totalN;
+    // Display each spin normalized to its own unit sphere (so arrow length = |M|/M0)
+    const vx = M.x/M0, vy = M.y/M0, vz = M.z/M0;
+    const vlen = Math.hypot(vx,vy,vz);
+    s.Mgroup.scale.set(1, Math.max(0.001, vlen), 1);
+    const from = new THREE.Vector3(0,1,0);
+    const to = vlen>1e-9 ? new THREE.Vector3(vx/vlen, vy/vlen, vz/vlen) : new THREE.Vector3(0,0,1);
+    const q = new THREE.Quaternion().setFromUnitVectors(from, to);
+    s.Mgroup.quaternion.copy(q);
+    sx += M.x; sy += M.y; sz += M.z;
+  }
+  const r = document.getElementById('readout');
+  if (r) r.innerHTML = `Σ Mx = ${sx.toFixed(3)}<br>Σ My = ${sy.toFixed(3)}<br>Σ Mz = ${sz.toFixed(3)}<br>|ΣM| = ${Math.hypot(sx,sy,sz).toFixed(3)}`;
+}
+
+function pushTrail(){
+  if (!trailOn) return;
+  const totalN = spins.reduce((a,s)=>a+s.n,0) || 1;
+  for (const s of spins){
+    const M = s.M;
+    const M0 = s.n / totalN;
+    // Draw trail in normalized coordinates
+    const px = M.x/M0, py = M.y/M0, pz = M.z/M0;
+    const mag = Math.hypot(px,py,pz);
+    if (mag < 0.02) continue;
+    const rOut = 1.005;
+    const pos = s.trailPositions;
+    if (s.trailCount > 0){
+      const i = (s.trailCount - 1) * 3;
+      const dx = pos[i]   - px*rOut;
+      const dy = pos[i+1] - py*rOut;
+      const dz = pos[i+2] - pz*rOut;
+      if (dx*dx + dy*dy + dz*dz < 1e-6) continue;
+    }
+    if (s.trailCount >= MAX_TRAIL){
+      pos.copyWithin(0, 3);
+      s.trailCount = MAX_TRAIL - 1;
+    }
+    const i = s.trailCount * 3;
+    pos[i] = px*rOut; pos[i+1] = py*rOut; pos[i+2] = pz*rOut;
+    s.trailCount++;
+    s.trailGeom.attributes.position.needsUpdate = true;
+    s.trailGeom.setDrawRange(0, s.trailCount);
+  }
+}
+function clearTrail(){
+  for (const s of spins){ s.trailCount = 0; s.trailGeom.setDrawRange(0, 0); }
+}
+
+// Pulse: rotate M by `deg` about given axis (string or vector)
+function axisVec(a){
+  if (a==='x') return new THREE.Vector3(1,0,0);
+  if (a==='y') return new THREE.Vector3(0,1,0);
+  if (a==='z') return new THREE.Vector3(0,0,1);
+  if (a==='-x') return new THREE.Vector3(-1,0,0);
+  if (a==='-y') return new THREE.Vector3(0,-1,0);
+  return a;
+}
+window.pulse = function(deg, ax){
+  const rad = deg * Math.PI/180;
+  // Animate pulse over ~ 0.35s for nice visualization
+  const duration = Math.min(0.6, Math.abs(rad)/ (Math.PI*2) * 0.8 + 0.2);
+  animPulse = { axis: axisVec(ax).normalize(), remainingRad: rad, speed: rad/duration };
+};
+window.pulseCustom = function(){
+  const a = parseFloat(document.getElementById('ca').value)||0;
+  const ax = document.getElementById('cax').value;
+  pulse(a, ax);
+};
+window.reset = function(){
+  const totalN = spins.reduce((a,s)=>a+s.n, 0);
+  for (const s of spins) s.M.set(0, 0, s.n/totalN);
+  clearTrail(); animPulse=null; sig.length=0; simTime=0;
+  frozen = false;
+  if (typeof stopReplay === 'function') stopReplay();
+  drawPlot(); updateMVisual();
+};
+window.toggleRun = function(){ running = !running; document.getElementById('runBtn').textContent = running?'Pause':'Run'; };
+window.toggleTrail = function(){ trailOn = !trailOn; if(!trailOn) clearTrail(); };
+window.acquire = function(){ sig.length=0; drawPlot(); };
+window.setPlotMode = function(m){ plotMode = m; document.getElementById('plotTitle').textContent = m==='fft' ? 'Spectrum (Hz, TMS=0) — |FFT(Mx+iMy)|' : 'FID — Σ Mx(t) / Σ My(t)'; drawPlot(); };
+
+// Sliders
+const t1s=document.getElementById('t1'), t2s=document.getElementById('t2'), dws=document.getElementById('dw'), tss=document.getElementById('ts');
+const t1v=document.getElementById('t1v'), t2v=document.getElementById('t2v'), dwv=document.getElementById('dwv'), tsv=document.getElementById('tsv');
+function syncLabels(){
+  t1v.textContent = (+t1s.value).toFixed(1)+' s';
+  t2v.textContent = (+t2s.value).toFixed(1)+' s';
+  dwv.textContent = (+dws.value).toFixed(1)+' Hz';
+  tsv.textContent = (+tss.value).toFixed(2)+'×';
+}
+[t1s,t2s,dws,tss].forEach(s=>s.addEventListener('input', syncLabels));
+syncLabels();
+
+// Signal buffer + plot + FFT
+const plotCanvas = document.getElementById('plot');
+const pctx = plotCanvas.getContext('2d');
+const SAMPLE_DT = 0.005;    // 200 Hz sampling -> Nyquist 100 Hz (4x oversample)
+const DISPLAY_HZ = 25;       // plot ±25 Hz around carrier (2x half-Nyquist of 50 Hz)
+const MAX_SAMPLES = 8192;
+const sig = []; // { t, mx, my }
+let sampleAccum = 0;
+let plotMode = 'time';
+let simTime = 0;
+
+function resizePlot(){
+  const w = plotCanvas.clientWidth, h = plotCanvas.clientHeight;
+  const dpr = Math.min(window.devicePixelRatio, 2);
+  plotCanvas.width = Math.max(1, Math.floor(w*dpr));
+  plotCanvas.height = Math.max(1, Math.floor(h*dpr));
+  pctx.setTransform(dpr,0,0,dpr,0,0);
+}
+window.addEventListener('resize', ()=>{ resizePlot(); drawPlot(); });
+
+function drawPlot(){
+  const w = plotCanvas.clientWidth, h = plotCanvas.clientHeight;
+  if (w<2||h<2) return;
+  pctx.clearRect(0,0,w,h);
+  pctx.fillStyle='#fff'; pctx.fillRect(0,0,w,h);
+  // axes area
+  const pad = { l: 40, r: 10, t: 28, b: 22 };
+  const pw = w - pad.l - pad.r, ph = h - pad.t - pad.b;
+  pctx.strokeStyle='#d8dcea'; pctx.lineWidth=1;
+  pctx.strokeRect(pad.l, pad.t, pw, ph);
+  pctx.fillStyle='#889'; pctx.font='10px ui-monospace, monospace';
+
+  // Sig window: in replay mode, truncate to scrub idx
+  const effEnd = (frozen && replay && replay.idx >= 0) ? Math.min(replay.snapshots[replay.idx].sigIdx+1, sig.length) : sig.length;
+  if (plotMode === 'time') {
+    if (effEnd < 2) { pctx.fillText('apply a pulse to generate FID', pad.l+8, pad.t+16); return; }
+    const t0 = sig[0].t, t1 = sig[effEnd-1].t;
+    const span = Math.max(0.5, t1 - t0);
+    let ymax = 1e-9;
+    for (let i=0;i<effEnd;i++){ const p=sig[i]; const a=Math.abs(p.mx), b=Math.abs(p.my); if (a>ymax) ymax=a; if (b>ymax) ymax=b; }
+    ymax = Math.max(ymax, 0.01);
+    // zero line
+    const y0 = pad.t + ph/2;
+    pctx.strokeStyle='#eef0f7'; pctx.beginPath(); pctx.moveTo(pad.l, y0); pctx.lineTo(pad.l+pw, y0); pctx.stroke();
+    // labels
+    pctx.fillText('0', pad.l-12, y0+3); pctx.fillText('+1', pad.l-16, pad.t+10); pctx.fillText('-1', pad.l-16, pad.t+ph);
+    pctx.fillText(`t: 0–${span.toFixed(1)}s`, pad.l+4, pad.t-6);
+    // Mx in red, My in blue
+    const drawTrace = (key, color) => {
+      pctx.strokeStyle = color; pctx.lineWidth = 1.4; pctx.beginPath();
+      for (let i=0;i<effEnd;i++){
+        const x = pad.l + (sig[i].t - t0)/span * pw;
+        const y = y0 - sig[i][key]/ymax * (ph/2);
+        if (i===0) pctx.moveTo(x,y); else pctx.lineTo(x,y);
+      }
+      pctx.stroke();
+    };
+    drawTrace('mx', '#d04040');
+    drawTrace('my', '#4060d0');
+    pctx.fillStyle='#d04040'; pctx.fillText('Mx', pad.l+pw-50, pad.t-6);
+    pctx.fillStyle='#4060d0'; pctx.fillText('My', pad.l+pw-22, pad.t-6);
+  } else {
+    // FFT of complex signal s = Mx + i*My over acquire window (if known) else tail
+    const acqStart = replay ? Math.max(0, replay.acqStartIdx) : (sequence ? Math.max(0, sequence.acqStartIdx) : 0);
+    const windowEnd = effEnd;
+    const windowLen = Math.max(0, windowEnd - acqStart);
+    if (windowLen < 16) { pctx.fillText('need more samples — acquire a FID first', pad.l+8, pad.t+16); return; }
+    let N = 1; while (N*2 <= Math.min(windowLen, 2048)) N *= 2;
+    const start = acqStart + (windowLen - N);
+    const re = new Float64Array(N), im = new Float64Array(N);
+    for (let i=0;i<N;i++){
+      const w = 0.5*(1 - Math.cos(2*Math.PI*i/(N-1))); // Hann
+      re[i] = sig[start+i].mx * w;
+      im[i] = sig[start+i].my * w;
+    }
+    fft(re, im);
+    const mag = new Float64Array(N);
+    let mmax = 1e-9;
+    for (let i=0;i<N;i++){ mag[i] = Math.hypot(re[i], im[i]); if (mag[i]>mmax) mmax=mag[i]; }
+    // fftshift so DC is centered
+    const half = N/2;
+    const shifted = new Float64Array(N);
+    for (let i=0;i<N;i++) shifted[i] = mag[(i+half)%N];
+    const fs = 1/SAMPLE_DT;
+    // Oversampled FFT; display only a window of ±DISPLAY_HZ around carrier
+    const carrierHz = +document.getElementById('dw').value;
+    const hzMin = carrierHz - DISPLAY_HZ, hzMax = carrierHz + DISPLAY_HZ;
+    // Reverse: higher freq on LEFT (NMR convention)
+    pctx.strokeStyle='#eef0f7'; pctx.beginPath();
+    const mapHzToX = hz => pad.l + pw * (hzMax - hz)/(hzMax - hzMin);
+    const xZero = mapHzToX(0);
+    if (xZero > pad.l && xZero < pad.l+pw){ pctx.moveTo(xZero, pad.t); pctx.lineTo(xZero, pad.t+ph); pctx.stroke(); }
+    pctx.fillText(`${hzMax.toFixed(1)} Hz`, pad.l, pad.t+ph+14);
+    if (xZero > pad.l && xZero < pad.l+pw) pctx.fillText('0 (TMS)', xZero-18, pad.t+ph+14);
+    pctx.fillText(`${hzMin.toFixed(1)} Hz`, pad.l+pw-40, pad.t+ph+14);
+    // Tick marks + labels at each spin frequency
+    pctx.save();
+    pctx.strokeStyle = '#b8bfd4'; pctx.setLineDash([3,3]);
+    for (const s of spins){
+      const hz = s.delta * PPM_SCALE;
+      const x = mapHzToX(hz);
+      if (x > pad.l && x < pad.l+pw){
+        pctx.beginPath(); pctx.moveTo(x, pad.t); pctx.lineTo(x, pad.t+ph); pctx.stroke();
+        const col = `#${s.color.toString(16).padStart(6,'0')}`;
+        pctx.fillStyle = col;
+        pctx.fillText(`${s.label}`, x-10, pad.t+12);
+      }
+    }
+    pctx.restore();
+    pctx.fillStyle='#889';
+    pctx.fillText('|F|', 6, pad.t+24);
+    pctx.strokeStyle='#4051b5'; pctx.lineWidth=1.4; pctx.beginPath();
+    // shifted index i corresponds to rotating-frame freq fRel (Hz) going from -fs/2 to +fs/2
+    // => absolute Hz = carrierHz + fRel
+    // plot only samples whose absolute Hz falls within [hzMin, hzMax]
+    let started = false;
+    for (let i=0;i<N;i++){
+      const fRel = -fs/2 + (i/(N-1)) * fs;
+      const absHz = carrierHz + fRel;
+      if (absHz < hzMin || absHz > hzMax) continue;
+      const x = mapHzToX(absHz);
+      const y = pad.t + ph - (shifted[i]/mmax) * ph;
+      if (!started){ pctx.moveTo(x,y); started = true; } else pctx.lineTo(x,y);
+    }
+    pctx.stroke();
+  }
+}
+
+// Iterative radix-2 FFT, in-place
+function fft(re, im){
+  const N = re.length;
+  let j = 0;
+  for (let i=1;i<N;i++){
+    let bit = N>>1;
+    for (; j & bit; bit >>= 1) j ^= bit;
+    j ^= bit;
+    if (i < j) { [re[i],re[j]]=[re[j],re[i]]; [im[i],im[j]]=[im[j],im[i]]; }
+  }
+  for (let len=2; len<=N; len<<=1){
+    const ang = -2*Math.PI/len;
+    const wlr = Math.cos(ang), wli = Math.sin(ang);
+    for (let i=0;i<N;i+=len){
+      let wr=1, wi=0;
+      for (let k=0;k<len/2;k++){
+        const ur=re[i+k], ui=im[i+k];
+        const vr=re[i+k+len/2]*wr - im[i+k+len/2]*wi;
+        const vi=re[i+k+len/2]*wi + im[i+k+len/2]*wr;
+        re[i+k]=ur+vr; im[i+k]=ui+vi;
+        re[i+k+len/2]=ur-vr; im[i+k+len/2]=ui-vi;
+        const nwr = wr*wlr - wi*wli;
+        wi = wr*wli + wi*wlr; wr = nwr;
+      }
+    }
+  }
+}
+
+resizePlot();
+
+// ---- Sequence runner ----
+// Events: {type:'pulse', angle, axis} | {type:'delay', t} | {type:'acquire', t}
+let sequence = null; // { events, idx, phase: 'begin'|'delay', remaining, label, schedule, acqStartIdx }
+let selected = null; // { key, params, events, schedule } — armed but not running
+let replay = null;   // { snapshots:[{t,M,sigIdx}], idx, playing, acqStartIdx }
+let frozen = false;  // true after sequence done; blocks further dynamics
+
+const SEQUENCES = {
+  fid: {
+    label: 'FID',
+    params: [{ id:'acq', label:'acq (s)', value:6, step:0.5 }],
+    build(p){ return [
+      { type:'pulse', angle:90, axis:'x' },
+      { type:'acquire', t: p.acq },
+    ]; }
+  },
+  ir: {
+    label: 'Inversion recovery',
+    params: [
+      { id:'tau', label:'τ (s)', value:1.5, step:0.1 },
+      { id:'acq', label:'acq (s)', value:4, step:0.5 },
+    ],
+    build(p){ return [
+      { type:'pulse', angle:180, axis:'x' },
+      { type:'delay', t: p.tau },
+      { type:'pulse', angle:90, axis:'x' },
+      { type:'acquire', t: p.acq },
+    ]; }
+  },
+  se: {
+    label: 'Spin echo',
+    params: [
+      { id:'tau', label:'τ (s)', value:1, step:0.1 },
+      { id:'acq', label:'acq (s)', value:4, step:0.5 },
+    ],
+    build(p){ return [
+      { type:'pulse', angle:90, axis:'x' },
+      { type:'delay', t: p.tau },
+      { type:'pulse', angle:180, axis:'y' },
+      { type:'acquire', t: p.acq },
+    ]; }
+  },
+};
+
+window.selectSeq = function(key){
+  const S = SEQUENCES[key]; if (!S) return;
+  const params = {};
+  for (const p of S.params) params[p.id] = p.value;
+  selected = { key, params, events: S.build(params) };
+  selected.schedule = buildSchedule(selected.events);
+  stopReplay();
+  frozen = false;
+  sequence = null;
+  renderSeqForm();
+  drawSequenceMap();
+  setSeqStatus(`Armed: ${S.label}`);
+};
+
+window.clearSeq = function(){
+  selected = null; sequence = null; frozen = false; stopReplay();
+  renderSeqForm(); drawSequenceMap(); setSeqStatus('');
+};
+
+window.updateSeqParam = function(id, v){
+  if (!selected) return;
+  const num = +v; if (!isFinite(num)) return;
+  selected.params[id] = num;
+  selected.events = SEQUENCES[selected.key].build(selected.params);
+  selected.schedule = buildSchedule(selected.events);
+  drawSequenceMap();
+};
+
+function renderSeqForm(){
+  const el = document.getElementById('seqForm');
+  if (!el) return;
+  if (!selected){ el.innerHTML = ''; return; }
+  const S = SEQUENCES[selected.key];
+  const fields = S.params.map(p => `<label style="display:inline-flex;align-items:center;gap:4px;margin-right:8px">${p.label} <input type="number" value="${selected.params[p.id]}" step="${p.step||0.1}" oninput="updateSeqParam('${p.id}', this.value)" style="width:54px"></label>`).join('');
+  const btn = sequence ? `<button onclick="stopRun()">Stop</button>` : `<button class="primary" onclick="runSelected()">Run</button>`;
+  el.innerHTML = `<b>${S.label}</b><br>${fields}${btn}`;
+}
+
+window.runSelected = function(){
+  if (!selected) return;
+  reset();
+  stopReplay();
+  frozen = false;
+  sequence = {
+    label: SEQUENCES[selected.key].label,
+    events: selected.events,
+    schedule: selected.schedule,
+    idx: 0, phase: 'begin', remaining: 0,
+    acqStartIdx: -1,
+  };
+  replay = { snapshots: [], idx: -1, playing: false, acqStartIdx: -1 };
+  setSeqStatus(`Running: ${sequence.label}`);
+  renderSeqForm();
+  updateReplayBar();
+};
+
+window.stopRun = function(){
+  if (!sequence) return;
+  sequence = null; frozen = true;
+  finalizeReplay();
+  setSeqStatus('Stopped');
+  renderSeqForm();
+};
+
+function setSeqStatus(text){
+  const el = document.getElementById('seqStatus');
+  if (el) el.textContent = text || '';
+}
+
+// ---- Sequence timeline map ----
+// Computes a schedule with a per-event start/dur in *displayed* units:
+// pulses get a fixed pixel-equivalent width (they're instantaneous in sim),
+// delays/acquires scale proportionally to their τ.
+function buildSchedule(events){
+  const PULSE_W = 0.25; // seconds-equivalent width for pulse blocks (visual only)
+  let t = 0;
+  const items = events.map(ev => {
+    let dur;
+    if (ev.type === 'pulse') dur = PULSE_W;
+    else dur = ev.t;
+    const item = { ev, t0: t, dur };
+    t += dur;
+    return item;
+  });
+  return { items, total: t };
+}
+
+function seqElapsed(){
+  // Returns displayed-time elapsed through the sequence schedule
+  if (!sequence || !sequence.schedule) return 0;
+  const s = sequence;
+  const sch = s.schedule;
+  // idx points to the "next" unprocessed event when phase='begin',
+  // or the current delay/acquire when phase='delay'
+  let cur = 0;
+  if (s.phase === 'delay'){
+    const item = sch.items[s.idx];
+    if (item){
+      const elapsedInEvent = item.dur - s.remaining;
+      cur = item.t0 + Math.max(0, elapsedInEvent);
+    } else {
+      cur = sch.total;
+    }
+  } else {
+    // phase === 'begin': idx points to the next event to process;
+    // all prior events are complete
+    if (s.idx >= sch.items.length) cur = sch.total;
+    else cur = sch.items[s.idx].t0;
+  }
+  return cur;
+}
+
+function drawSequenceMap(){
+  const cv = document.getElementById('seqMap');
+  if (!cv) return;
+  const dpr = Math.min(devicePixelRatio, 2);
+  const w = cv.clientWidth, h = cv.clientHeight;
+  if (w<4 || h<4) return;
+  if (cv.width !== Math.floor(w*dpr) || cv.height !== Math.floor(h*dpr)){
+    cv.width = Math.floor(w*dpr); cv.height = Math.floor(h*dpr);
+  }
+  const ctx = cv.getContext('2d');
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle = '#fafbff'; ctx.fillRect(0,0,w,h);
+
+  const src = sequence || selected;
+  if (!src || !src.schedule){
+    ctx.fillStyle = '#aab'; ctx.font = '11px -apple-system, sans-serif';
+    ctx.fillText('Select a sequence (FID / Inv. recovery / Spin echo)', 8, h/2+4);
+    return;
+  }
+
+  const sch = src.schedule;
+  const pad = { l: 8, r: 8, t: 18, b: 16 };
+  const pw = w - pad.l - pad.r;
+  const ph = h - pad.t - pad.b;
+  const total = Math.max(0.1, sch.total);
+
+  // baseline
+  ctx.strokeStyle = '#c9cde0'; ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(pad.l, pad.t + ph*0.8);
+  ctx.lineTo(pad.l+pw, pad.t + ph*0.8);
+  ctx.stroke();
+
+  // events
+  ctx.font = '10px -apple-system, sans-serif';
+  for (const item of sch.items){
+    const x0 = pad.l + (item.t0 / total) * pw;
+    const x1 = pad.l + ((item.t0 + item.dur) / total) * pw;
+    const ev = item.ev;
+    if (ev.type === 'pulse'){
+      // tall thin rect, label above
+      const pW = Math.max(3, x1 - x0);
+      ctx.fillStyle = '#4051b5';
+      ctx.fillRect(x0, pad.t, pW, ph*0.8);
+      ctx.fillStyle = '#334';
+      const lbl = `${ev.angle}°${ev.axis}`;
+      ctx.fillText(lbl, x0 - 2, pad.t - 4);
+    } else if (ev.type === 'delay'){
+      ctx.fillStyle = '#e8ebf7';
+      ctx.fillRect(x0, pad.t + ph*0.55, x1-x0, ph*0.25);
+      ctx.fillStyle = '#667';
+      ctx.fillText(`τ=${ev.t.toFixed(2)}s`, (x0+x1)/2 - 18, pad.t + ph*0.48);
+    } else if (ev.type === 'acquire'){
+      ctx.fillStyle = '#a0d0a0';
+      ctx.fillRect(x0, pad.t + ph*0.4, x1-x0, ph*0.4);
+      ctx.fillStyle = '#254';
+      ctx.fillText(`acq ${ev.t.toFixed(1)}s`, (x0+x1)/2 - 20, pad.t + ph*0.35);
+    }
+  }
+
+  // cursor: live (running) or replay position
+  let cur = 0, showCursor = false;
+  if (sequence){ cur = seqElapsed(); showCursor = true; }
+  else if (frozen && replay && replay.idx >= 0 && replay.snapshots[replay.idx]){
+    // During replay, map snapshot time to schedule time by using the fraction
+    const snapT = replay.snapshots[replay.idx].t;
+    const firstT = replay.snapshots[0] ? replay.snapshots[0].t : 0;
+    cur = Math.min(total, snapT - firstT);
+    showCursor = true;
+  }
+  if (showCursor){
+    const cx = pad.l + (cur/total) * pw;
+    ctx.strokeStyle = '#d04040'; ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(cx, pad.t - 2);
+    ctx.lineTo(cx, pad.t + ph + 2);
+    ctx.stroke();
+  }
+}
+
+// (old runSequence/stopSequence removed — see selectSeq/runSelected/stopRun)
+
+function finalizeReplay(){
+  if (!replay) return;
+  replay.idx = replay.snapshots.length - 1;
+  updateReplayBar();
+}
+
+function updateReplayBar(){
+  const bar = document.getElementById('replayBar');
+  if (!bar) return;
+  const n = replay ? replay.snapshots.length : 0;
+  if (!replay || n === 0){ bar.style.display = 'none'; return; }
+  bar.style.display = 'flex';
+  const scrub = document.getElementById('replayScrub');
+  scrub.max = n - 1;
+  scrub.value = Math.max(0, Math.min(replay.idx, n-1));
+  const t = replay.snapshots[Math.max(0, Math.min(replay.idx, n-1))].t;
+  document.getElementById('replayT').textContent = `t=${t.toFixed(2)}s`;
+}
+
+function stopReplay(){ replay = null; updateReplayBar(); }
+
+window.replaySeek = function(idx){
+  if (!replay || !replay.snapshots.length) return;
+  idx = Math.max(0, Math.min(idx, replay.snapshots.length-1));
+  replay.idx = idx;
+  const snap = replay.snapshots[idx];
+  // restore spin M from snapshot
+  for (let i=0;i<spins.length;i++){
+    const m = snap.M[i];
+    if (m) spins[i].M.set(m[0], m[1], m[2]);
+  }
+  updateMVisual();
+  updateReplayBar();
+};
+
+window.replayStep = function(dir){
+  if (!replay) return;
+  replaySeek(replay.idx + dir);
+};
+
+window.replayPlayPause = function(){
+  if (!replay) return;
+  replay.playing = !replay.playing;
+  if (replay.playing && replay.idx >= replay.snapshots.length-1) replay.idx = 0;
+  document.getElementById('replayPP').textContent = replay.playing ? '❚❚' : '▶';
+};
+
+function advanceSequence(dtSim){
+  if (!sequence) return;
+  if (animPulse) return; // wait for animation
+  if (sequence.phase === 'begin'){
+    const ev = sequence.events[sequence.idx];
+    if (!ev){
+      setSeqStatus(`Done: ${sequence.label}`);
+      const finishedLabel = sequence.label;
+      const acqIdx = sequence.acqStartIdx;
+      sequence = null;
+      frozen = true;
+      if (replay){
+        replay.acqStartIdx = acqIdx;
+        finalizeReplay();
+      }
+      setSeqStatus(`Done: ${finishedLabel} — paused. Scrub replay or click FFT.`);
+      renderSeqForm();
+      return;
+    }
+    if (ev.type === 'pulse'){
+      pulse(ev.angle, ev.axis);
+      sequence.idx++;
+    } else if (ev.type === 'delay'){
+      sequence.phase = 'delay';
+      sequence.remaining = ev.t;
+    } else if (ev.type === 'acquire'){
+      sequence.acqStartIdx = sig.length;
+      if (replay) replay.acqStartIdx = sig.length;
+      sequence.phase = 'delay';
+      sequence.remaining = ev.t;
+      setSeqStatus(`${sequence.label} — acquiring (${ev.t.toFixed(1)}s)`);
+    }
+  } else if (sequence.phase === 'delay'){
+    sequence.remaining -= dtSim;
+    if (sequence.remaining <= 0){
+      sequence.phase = 'begin';
+      sequence.idx++;
+    }
+  }
+}
+
+// Loop
+let last = performance.now();
+function frame(now){
+  const realDt = Math.min(0.05, (now-last)/1000); last = now;
+  const dt = realDt * (+tss.value);
+  // Replay playback (when sequence is frozen and user hit play)
+  if (replay && replay.playing && frozen){
+    const step = Math.max(1, Math.round(realDt * 60));
+    replaySeek(replay.idx + step);
+    if (replay.idx >= replay.snapshots.length-1){ replay.playing = false; document.getElementById('replayPP').textContent = '▶'; }
+  }
+  if (running && !frozen){
+    if (animPulse){
+      // Pulses animate over wall-clock time, not sim-time — so they feel responsive
+      const pdt = realDt;
+      const step = Math.sign(animPulse.remainingRad) * Math.min(Math.abs(animPulse.remainingRad), Math.abs(animPulse.speed)*pdt);
+      for (const s of spins) s.M.applyAxisAngle(animPulse.axis, step);
+      animPulse.remainingRad -= step;
+      if (Math.abs(animPulse.remainingRad) < 1e-5) animPulse = null;
+    } else {
+      const carrierHz = (+dws.value);            // Hz position of carrier
+      const T1 = +t1s.value, T2 = +t2s.value;
+      const totalN = spins.reduce((a,s)=>a+s.n,0);
+      const zAxis = new THREE.Vector3(0,0,1);
+      for (const s of spins){
+        const fi = s.delta * PPM_SCALE - carrierHz;   // Hz offset from carrier
+        const dw = fi * 2*Math.PI;                     // rad/s
+        if (dw !== 0) s.M.applyAxisAngle(zAxis, dw*dt);
+        const M0 = s.n / totalN;
+        s.M.x -= s.M.x * dt/T2;
+        s.M.y -= s.M.y * dt/T2;
+        s.M.z += (M0 - s.M.z) * dt/T1;
+      }
+    }
+    advanceSequence(dt);
+    pushTrail();
+    simTime += dt;
+    if (!animPulse){
+      sampleAccum += dt;
+      while (sampleAccum >= SAMPLE_DT) {
+        sampleAccum -= SAMPLE_DT;
+        let mx=0, my=0;
+        for (const s of spins){ mx += s.n * s.M.x; my += s.n * s.M.y; }
+        sig.push({ t: simTime, mx, my });
+        if (sig.length > MAX_SAMPLES) sig.shift();
+        if (replay && sequence){
+          replay.snapshots.push({
+            t: simTime,
+            sigIdx: sig.length - 1,
+            M: spins.map(s => [s.M.x, s.M.y, s.M.z]),
+          });
+        }
+      }
+    } else {
+      sampleAccum = 0;
+    }
+    updateMVisual();
+  }
+  drawPlot();
+  drawSequenceMap();
+  controls.update();
+  renderer.render(scene, camera);
+  scheduleFrame();
+}
+function scheduleFrame(){
+  if (document.hidden) setTimeout(() => frame(performance.now()), 33);
+  else requestAnimationFrame(frame);
+}
+loadPreset('Ethanol');
+drawSequenceMap();
+window.__dbg = () => ({ nSpins: spins.length, spins: spins.map(s=>({label:s.label, M:[s.M.x,s.M.y,s.M.z], trailCount:s.trailCount})), sigLen: sig.length, simTime, seq: sequence });
+scheduleFrame();
+</script>
+</body>
+</html>

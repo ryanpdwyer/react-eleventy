@@ -72,9 +72,11 @@ export const LESSONS = {
         result(r, p) {
             const i = r.t.findIndex(t => t - r.tStart >= 1);
             const pct = 100 * r.I[i] / cottrell(r.t[i] - r.tStart, p);
-            return `At 1 s: ${pct.toFixed(0)}% of the diffusion limit`;
+            return `At the dotted line: ${(r.I[i] * 1e3).toFixed(2)} mA, ` +
+                   `${pct.toFixed(0)}% of the diffusion limit`;
         },
-        why: 'Right after the step, the surface ratio C<sub>O</sub>/C<sub>R</sub> snaps to the ' +
+        why: 'Compare the runs at the dotted line, after the initial spike. ' +
+             'Right after the step, the surface ratio C<sub>O</sub>/C<sub>R</sub> snaps to the ' +
              'Nernst value: 7 : 1 at +0.05 V, 1 : 1 at E⁰, and about 1 : 100 000 at −0.3 V. ' +
              'Only the converted fraction carries current, so you get 1/8, 1/2, or all of the ' +
              'Cottrell current. Either way the current falls as 1/√t, because the depleted ' +

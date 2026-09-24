@@ -364,13 +364,8 @@ function updatePlots(si) {
                           name: 'Cottrell' });
         }
         const lay = layoutIT(tMax);
-        // Clip the axis so the initial charging spike doesn't flatten the decay:
-        // ±3× the Cottrell current at 5% of the step, for all the O (or R) present
-        const cs = couplesOf(p);
-        const cott = (C, D) => 3 * cottrell(0.05 * p.tStep, { ...p, Co0: C, Do: D }) * 1e3;
-        const up = cott(cs.reduce((a, c) => a + c.Co0, 0), p.Do);
-        const down = cott(cs.reduce((a, c) => a + c.Cr0, 0), p.Dr);
-        lay.yaxis.range = [-Math.max(down, 0.05 * up), Math.max(up, 0.05 * down)];
+        if (tab === 'step') markMeasureTime(traces, lay, fi);
+        compressCurrentAxis(traces, lay);
         // Keep the legend clear of the decay: it runs along the top for an oxidizing step
         if (p.Estep > p.Einit) Object.assign(lay.legend, { y: 0.02, yanchor: 'bottom' });
         Plotly.react('plot-iv', traces, lay, plotCfg);
@@ -421,6 +416,84 @@ function componentTraces(x, fi) {
         { x, y: Ic_mA_arr.slice(0, fi + 1), mode: 'lines', name: 'Charging',
           line: { color: '#2f9e44', dash: 'dot', width: 1.5 } }
     ];
+}
+
+// ── Current axis for potential steps ─────────────────────────
+// Smoothly compressed: y = I / (1 + (|I|/K)^P)^(1/P). Nearly linear through
+// the decay, then the slope falls off continuously, so the brief spike right
+// after the step squeezes into the top of the plot. The scale K comes from
+// the diffusion-limited (Cottrell) current at 5% of the step for the species
+// present — not from any one run — so every run shares the same axis.
+// Ticks and hover show true currents.
+const AXIS_P = 4;
+const AXIS_K = 1.6;        // K in units of that reference current
+const niceCeil = x => {
+    const e = 10 ** Math.floor(Math.log10(x));
+    return e * [1, 2, 5, 10].find(k => k * e >= x * (1 - 1e-9));
+};
+
+function compressCurrentAxis(traces, lay) {
+    const p = runP, cs = couplesOf(p), tRef = 0.05 * p.tStep;
+    const cott = (C, D) => cottrell(tRef, { ...p, Co0: C, Do: D }) * 1e3;
+    let Iref = Math.max(cott(cs.reduce((a, c) => a + c.Co0, 0), p.Do),
+                        cott(cs.reduce((a, c) => a + c.Cr0, 0), p.Dr));
+    let lo = 0, hi = 0;
+    for (const y of [I_mA_arr, ...ghosts.map(g => g.y)]) {
+        for (const I of y) { lo = Math.min(lo, I); hi = Math.max(hi, I); }
+    }
+    if (!(Iref > 0)) Iref = Math.max(hi, -lo) / 4 || 1e-6;
+    const K = AXIS_K * Iref;
+    const f = I => I / (1 + (Math.abs(I) / K) ** AXIS_P) ** (1 / AXIS_P);
+
+    for (const t of traces) {
+        t.customdata = t.y;
+        t.y = t.y.map(f);
+        t.hovertemplate = '%{x:.3f} s, %{customdata:.3g} mA<extra>%{fullData.name}</extra>';
+    }
+
+    // Ticks every step up to about K, then 2, 5, 10 … × that; drop any
+    // that would crowd the one below where the scale is compressed
+    const step = niceCeil(K) / 10;
+    const cands = [0];
+    for (let v = step; v <= Math.max(hi, -lo) * 1.01; v = v < niceCeil(K) - 1e-9 * step ? v + step
+                                                         : niceCeil(v * 1.5)) {
+        if (v <= hi) cands.push(v);
+        if (-v >= lo) cands.push(-v);
+    }
+    const span = f(hi) - f(lo) || 1;
+    const vals = [];
+    for (const sign of [1, -1]) {
+        let last = 0;
+        for (const v of cands.filter(v => sign * v > 0).sort((a, b) => sign * (a - b))) {
+            if (Math.abs(f(v) - last) >= 0.07 * span) { vals.push(v); last = f(v); }
+        }
+    }
+    vals.push(0);
+    const fmt = v => String(Number(v.toPrecision(3))).replace('-', '\u2212');
+    Object.assign(lay.yaxis, { tickvals: vals.map(f), ticktext: vals.map(fmt) });
+    const pad = 0.04 * span;
+    lay.yaxis.range = [f(lo) - pad, f(hi) + pad];
+}
+
+// Step lesson: compare the runs at a fixed time after the step, not at the spike
+const T_MEASURE = 1;   // s after the step
+
+function markMeasureTime(traces, lay, fi) {
+    const tm = result.tStart + T_MEASURE;
+    const at = (x, y) => y[x.findIndex(t => t >= tm)];
+    const ys = ghosts.map(g => at(g.x, g.y));
+    if (t_arr[fi] >= tm) ys.push(at(t_arr, I_mA_arr));
+    const accent = '#2a78c2';
+    traces.push({ x: ys.map(() => tm), y: ys, mode: 'markers+text', showlegend: false,
+                  name: `${T_MEASURE} s after step`,
+                  text: ys.map(I => ` ${I.toFixed(2)} mA`), textposition: 'middle right',
+                  textfont: { size: 11, color: accent }, marker: { color: accent, size: 8 } });
+    lay.shapes = [...(lay.shapes || []),
+        { type: 'line', x0: tm, x1: tm, yref: 'paper', y0: 0, y1: 1,
+          line: { color: accent, dash: 'dot', width: 1.5 } }];
+    lay.annotations = [...(lay.annotations || []),
+        { x: tm, yref: 'paper', y: 1, yanchor: 'bottom', showarrow: false,
+          text: `${T_MEASURE} s after the step`, font: { size: 11, color: accent } }];
 }
 
 // Diffusion-limited current for couple 1: reduces O on a negative step,

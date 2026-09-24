@@ -89,6 +89,7 @@ function readParams() {
         Estep:    parseFloat($('Estep').value),
         E0step:   parseFloat($('E0step').value),
         tStep:    parseFloat($('tStep').value),
+        tDwell:   parseFloat($('tDwell').value),
         dtStep:   parseFloat($('dtStep').value) / 1000, // ms → s
         Ru:       parseFloat($('Ru').value),
         Cdl:      parseFloat($('Cdl').value) * 1e-6,   // µF → F
@@ -112,7 +113,7 @@ $('nElectrons').addEventListener('input', () => {
 // ── Initialise empty plots ────────────────────────────────────
 function initPlots() {
     const p = readParams();
-    const tMax = isStep() ? p.tStep : 2 * Math.abs(p.Ee - p.Es) / p.scanRate;
+    const tMax = isStep() ? p.tDwell + p.tStep : 2 * Math.abs(p.Ee - p.Es) / p.scanRate;
     const [eLo, eHi] = eRange(p);
 
     Plotly.newPlot('plot-et', [{ x: [], y: [], mode: 'lines' }],
@@ -141,7 +142,7 @@ function play() {
         const p = readParams();
         try {
             if (isStep()) {
-                const Nt = Math.floor(p.tStep / p.dtStep);
+                const Nt = Math.floor((p.tDwell + p.tStep) / p.dtStep);
                 result = runStep({ ...p, E0: p.E0step, dt: p.dtStep,
                                    snapshotInterval: Math.max(1, Math.ceil(Nt / 300)) });
             } else {
@@ -232,23 +233,23 @@ function updatePlots(si) {
     const [eLo, eHi] = eRange(p);
 
     if (isStep()) {
-        // E(t): Einit before t = 0, Estep after
         Plotly.react('plot-et',
-            [{ x: [0, 0].concat(t_arr.slice(0, fi + 1)),
-               y: [p.Einit, p.Estep].concat(E_arr.slice(0, fi + 1)), mode: 'lines' }],
+            [{ x: t_arr.slice(0, fi + 1), y: E_arr.slice(0, fi + 1), mode: 'lines',
+               line: { shape: 'hv' } }],
             layoutET(tMax, eLo, eHi), plotCfg);
 
         const traces = [{ x: t_arr.slice(0, fi + 1), y: I_mA_arr.slice(0, fi + 1),
                           mode: 'lines', line: { color: '#d62728' }, name: 'Simulated' }];
         if ($('showCottrell').checked) {
-            traces.push({ x: t_arr, y: t_arr.map(t => cottrell(t, p) * 1e3),
+            const tc = t_arr.filter(t => t > result.tStart);
+            traces.push({ x: tc, y: tc.map(t => cottrell(t - result.tStart, p) * 1e3),
                           mode: 'lines', line: { color: '#555', dash: 'dash', width: 1 },
                           name: 'Cottrell' });
         }
         const lay = layoutIT(tMax);
         // Clip the axis so the initial charging spike doesn't flatten the decay
         lay.yaxis.range = [Math.min(0, ...I_mA_arr) * 1.1,
-                           3 * cottrell(0.05 * tMax, p) * 1e3];
+                           3 * cottrell(0.05 * p.tStep, p) * 1e3];
         Plotly.react('plot-iv', traces, lay, plotCfg);
     } else {
         Plotly.react('plot-et',
@@ -286,11 +287,12 @@ function updatePlots(si) {
 function showPeakInfo() {
     if (isStep()) {
         const p = readParams();
-        const i1 = t_arr.findIndex(t => t >= 0.5 * t_arr[t_arr.length - 1]);
+        const t0 = result.tStart;
+        const i1 = t_arr.findIndex(t => t >= t0 + 0.5 * (t_arr[t_arr.length - 1] - t0));
         statusEl.innerHTML =
-            `Done &mdash; at t = ${t_arr[i1].toFixed(3)} s: ` +
+            `Done &mdash; step at t = ${t0.toFixed(3)} s; at ${(t_arr[i1] - t0).toFixed(3)} s after: ` +
             `I = ${I_mA_arr[i1].toFixed(4)} mA &ensp;|&ensp; ` +
-            `Cottrell = ${(cottrell(t_arr[i1], p) * 1e3).toFixed(4)} mA`;
+            `Cottrell = ${(cottrell(t_arr[i1] - t0, p) * 1e3).toFixed(4)} mA`;
         return;
     }
     const peaks = findPeaks(result.E, result.I, result.Nt);

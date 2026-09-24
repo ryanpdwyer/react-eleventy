@@ -183,13 +183,16 @@ export function findPeaks(E, I, Nt) {
 /**
  * Run a single potential-step (chronoamperometry) simulation.
  *
- * Potential jumps from Einit to Estep at t = 0 and is held for tStep.
+ * Potential is held at Einit for tDwell, then jumps to Estep and is held
+ * for tStep. Time is measured from the start of the dwell, so the step
+ * occurs at t = tDwell (returned as tStart).
  * Same finite-difference scheme as runSimulation. An optional double-layer
  * charging current (ΔE/Ru)·exp(−t/RuCdl) is added to the faradaic current.
  *
  * @param {Object} params
  * @param {number} params.Einit        - Initial potential (V)
  * @param {number} params.Estep        - Step potential (V)
+ * @param {number} [params.tDwell=0]   - Dwell time at Einit before the step (s)
  * @param {number} params.tStep        - Step duration (s)
  * @param {number} [params.Ru=0]       - Uncompensated resistance (Ω); 0 = no charging current
  * @param {number} [params.Cdl=0]      - Double-layer capacitance (F)
@@ -197,16 +200,18 @@ export function findPeaks(E, I, Nt) {
  * @returns {Object} results – I (total), If (faradaic), Ic (charging), all in Amperes
  */
 export function runStep({
-    Do, Dr, Co0, k0, alpha, n, E0, Einit, Estep, tStep, dt,
+    Do, Dr, Co0, k0, alpha, n, E0, Einit, Estep, tStep, dt, tDwell = 0,
     area = 0.0707, Ru = 0, Cdl = 0, noise = 0,
     snapshotInterval = 5
 }) {
-    const Nt = Math.floor(tStep / dt);
+    const Nd = Math.floor(tDwell / dt);
+    const Nt = Nd + Math.floor(tStep / dt);
+    const tStart = Nd * dt;
     const dx = Math.sqrt(Do * dt / 0.45);
-    const Nx = Math.ceil(6 * Math.sqrt(Do * tStep) / dx) + 3;
+    const Nx = Math.ceil(6 * Math.sqrt(Do * Nt * dt) / dx) + 3;
     const beta = Do * dt / (dx * dx);
 
-    if (Nt < 1 || Nx < 3) {
+    if (Nt - Nd < 1 || Nx < 3) {
         throw new Error(`Invalid grid: Nt=${Nt}, Nx=${Nx}. Check parameters.`);
     }
 
@@ -226,12 +231,17 @@ export function runStep({
     const currentFactor = n * FARADAY * area * 1e-3;
     const tau = Ru * Cdl;
 
-    // Butler-Volmer rate constants are fixed during the step
-    const expArg = n * FARADAY * (Estep - E0) / (GAS_CONST * T_DEFAULT);
-    const kc = k0 * Math.exp(-alpha * expArg);
-    const ka = k0 * Math.exp((1 - alpha) * expArg);
+    // Butler-Volmer rate constants at a fixed potential
+    function rates(E) {
+        const expArg = n * FARADAY * (E - E0) / (GAS_CONST * T_DEFAULT);
+        return [k0 * Math.exp(-alpha * expArg), k0 * Math.exp((1 - alpha) * expArg)];
+    }
+    const ratesInit = rates(Einit);
+    const ratesStep = rates(Estep);
 
     for (let i = 0; i < Nt; i++) {
+        const stepped = i >= Nd;
+        const [kc, ka] = stepped ? ratesStep : ratesInit;
         const fc = -(kc * Co[1] - ka * Cr[1]) /
                     (1 + kc * dx / (2 * Do) + ka * dx / (2 * Dr));
         const fa = -fc;
@@ -252,10 +262,10 @@ export function runStep({
         // Flux over step i is centred at (i + 1/2)·dt
         const t = (i + 0.5) * dt;
         const If = currentFactor * (-fc);
-        const Ic = tau > 0 ? ((Einit - Estep) / Ru) * Math.exp(-t / tau) : 0;
+        const Ic = stepped && tau > 0 ? ((Einit - Estep) / Ru) * Math.exp(-(t - tStart) / tau) : 0;
         const eps = noise > 0 ? noise * gaussian() : 0;
 
-        E_data[i] = Estep;
+        E_data[i] = stepped ? Estep : Einit;
         If_data[i] = If;
         Ic_data[i] = Ic;
         I_data[i] = If + Ic + eps;
@@ -279,7 +289,7 @@ export function runStep({
     }
 
     return { E: E_data, I: I_data, If: If_data, Ic: Ic_data, t: t_data,
-             xx, snapshots, Nt, Nx, Co0 };
+             xx, snapshots, Nt, Nx, Co0, tStart };
 }
 
 /**

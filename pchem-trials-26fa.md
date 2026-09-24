@@ -11,21 +11,21 @@ tags: pchem-26fa
 
 ### NMR
 
-Peak areas count nuclei, so NMR can follow a reaction in real time ([Harvey 19.4](https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Instrumental_Analysis_%28LibreTexts%29)). T<sub>1</sub> is how fast spins return to their Boltzmann populations after a pulse, a first-order exponential decay ([Harvey 19.1](https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Instrumental_Analysis_%28LibreTexts%29)).
+NMR has a lot of physics / physical chemistry behind it that is brushed under the rug at an organic-level treatment of it.
 
 - **Kinetics of acetic anhydride hydrolysis.** Watch a reaction happen right in the NMR tube: one peak shrinks as another grows. Because NMR peak areas count molecules, you can follow the reaction over time and extract a rate constant.
     - [Kinetic Understanding Using NMR Reaction Profiling](https://doi.org/10.1021/op200202k)
-- **T<sub>1</sub> by inversion recovery.** Use the NMR less as a camera and more as a physics experiment: knock the nuclear spins out of equilibrium and time how long they take to come back. This connects directly to Boltzmann populations from lecture, and it's also what decides how quantitative an NMR spectrum is.
+- **T<sub>1</sub> by inversion recovery.** Knock the spins out of equilibrium with a pulse and time how long they take to come back. Measure it on the finished kinetics tube to check that your spectra were quantitative, or on water with a little Cu<sup>2+</sup>, a paramagnetic ion that speeds up relaxation (the idea behind MRI contrast agents).
     - [T<sub>1</sub> Measurement by NMR Inversion Recovery](https://doi.org/10.1021/acs.jchemed.0c00663)
     - Simulator: [NMR Bloch sphere](/nmr-sim/)
 
 ### Electrochemistry
 
-So far every technique has used light. In electrochemistry the signal is a potential, current, or charge at an electrode ([Harvey 22](https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Instrumental_Analysis_%28LibreTexts%29)). Chronoamperometry holds the potential fixed and watches the current fall as molecules diffuse in. The isotherm counts molecules stuck to the surface.
+Electrochemistry allows the rates of reactions to be measured (via the charge / current flow - the total charge relates to the total moles of reaction via Q = n<sub>e</sub>F n<sub>rxn</sub>) and the thermodynamics to be easily measured and controlled with the potential, which controls ΔG according to ΔG = −n<sub>e</sub>FE.
 
-- **Chronoamperometry of ferricyanide.** Suddenly switch on a reaction at an electrode and watch the current fall as the molecules nearby are used up. How fast it falls tells you how quickly molecules diffuse through solution.
+- **Chronoamperometry of ferricyanide.** Step the potential to switch the reaction on, then watch the current (the rate) fall as the molecules near the electrode are used up. How fast it falls tells you how quickly molecules diffuse to the electrode.
     - [A Practical Beginner's Guide to Cyclic Voltammetry](https://doi.org/10.1021/acs.jchemed.7b00361)
     - [Thin-Layer Electrochemistry: Visualizing the Diffusion Layer](https://doi.org/10.1021/acs.jchemed.5c01710)
     - Simulator: [CV / potential step](/cv-sim/)
-- **Adsorption isotherm of methylene blue on carbon.** Some molecules stick to electrode surfaces. Electrochemistry lets you count them, and by changing the concentration you can see how the surface fills up and how strongly the molecules bind.
+- **Adsorption isotherm of methylene blue on carbon.** Some molecules stick to the electrode surface, and integrating the current counts them. Changing the concentration shows how the surface fills up and how strongly the molecules bind, which gives you an adsorption free energy.
     - [Surface-Confined and Diffusion-Controlled Species](https://doi.org/10.1021/ed069p502)

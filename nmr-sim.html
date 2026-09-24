@@ -2,89 +2,148 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NMR Bloch Sphere Simulator</title>
 <style>
-  html, body { margin: 0; height: 100%; background: #fafbff; font-family: -apple-system, system-ui, sans-serif; color: #222; overflow: hidden; }
-  #app { display: grid; grid-template-columns: 1fr 320px; grid-template-rows: 1fr 190px; height: 100%; }
-  #canvasWrap { position: relative; grid-column: 1; grid-row: 1; }
-  #plotWrap { grid-column: 1; grid-row: 2; border-top: 1px solid #e3e6f0; background: #fff; position: relative; }
-  #plot { width: 100%; height: 100%; display: block; }
-  #plotCtrls { position: absolute; top: 6px; left: 10px; right: 10px; display: flex; gap: 6px; align-items: center; font-size: 11px; color: #556; pointer-events: none; }
-  #plotCtrls > * { pointer-events: auto; }
-  #plotTitle { font-weight: 600; letter-spacing: .3px; text-transform: uppercase; color: #445; }
-  #plotCtrls .grow { flex: 1; }
-  #panel { grid-column: 2; grid-row: 1 / span 2; }
-  canvas { display: block; max-width: 100%; max-height: 100%; }
-  #panel { padding: 16px; background: #fff; border-left: 1px solid #e3e6f0; overflow-y: auto; box-shadow: -2px 0 12px rgba(80,80,160,0.04); grid-column: 2; grid-row: 1 / span 2; }
-  h1 { font-size: 16px; margin: 0 0 4px; letter-spacing: .2px; }
-  .sub { font-size: 11px; color: #888; margin-bottom: 14px; }
-  .sec { margin: 14px 0; padding-top: 12px; border-top: 1px solid #eef0f7; }
-  .sec:first-of-type { border-top: none; padding-top: 0; }
-  .sec h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .6px; color: #556; margin: 0 0 8px; }
-  button { font: inherit; font-size: 12px; padding: 6px 10px; margin: 2px 3px 2px 0; border: 1px solid #ccd; background: #f5f6fb; border-radius: 5px; cursor: pointer; transition: .12s; }
-  button:hover { background: #e8ebf7; border-color: #99a; }
-  button.primary { background: #4051b5; color: white; border-color: #4051b5; }
-  button.primary:hover { background: #2e3d9b; }
-  label { font-size: 12px; display: flex; align-items: center; justify-content: space-between; margin: 6px 0; gap: 8px; }
-  input[type="range"] { flex: 1; }
-  input[type="number"] { width: 60px; font: inherit; font-size: 12px; padding: 3px 5px; border: 1px solid #ccd; border-radius: 4px; }
-  .val { font-variant-numeric: tabular-nums; color: #4051b5; min-width: 44px; text-align: right; font-size: 11px; }
-  #readout { font: 11px/1.5 ui-monospace, monospace; background: #f5f6fb; padding: 8px; border-radius: 5px; color: #334; }
-  #fovea { position: absolute; top: 10px; left: 12px; font-size: 11px; color: #889; user-select: none; }
+  :root {
+    --play:#eef6fc; --panel:#ffffff; --line:#c3d5e4; --ink:#1f2d3d; --muted:#5b6b7c;
+    --accent:#2a78c2; --accent-ink:#ffffff; --action:#ffd966; --action-line:#d9ad2b; --action-hover:#ffe58f;
+  }
+  html, body { margin:0; height:100%; background:var(--play); font:14px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; color:var(--ink); overflow:hidden; }
+  #app { display:grid; grid-template-columns:minmax(0,1fr) 320px; grid-template-rows:minmax(280px,1fr) 250px; height:100%; }
+  #canvasWrap { position:relative; grid-column:1; grid-row:1; }
+  #plotWrap { grid-column:1; grid-row:2; position:relative; display:grid; grid-template-columns:1fr 1fr; grid-template-rows:minmax(0,1fr); gap:10px; padding:0 10px 10px; box-sizing:border-box; min-height:0; }
+  body.explore #plotWrap { padding-top:40px; }
+  #plot, #spectrum { width:100%; height:100%; min-width:0; display:block; background:var(--panel); border:1px solid var(--line); border-radius:10px; box-sizing:border-box; }
+  #plotCtrls { position:absolute; top:6px; left:10px; right:10px; display:flex; gap:6px; align-items:center; pointer-events:none; }
+  #plotCtrls > * { pointer-events:auto; }
+  #plotCtrls .grow { flex:1; }
+  #plotTitle { display:none; }
+  canvas { display:block; max-width:100%; max-height:100%; }
+  #panel { grid-column:2; grid-row:1 / span 2; padding:14px; overflow-y:auto; box-sizing:border-box; }
+  h1 { font-size:20px; margin:2px 0 12px; font-weight:700; }
+  .box, .sec, #lessonCard { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin:0 0 12px; }
+  .sec h2, #lessonCard h2 { font-size:16px; font-weight:700; margin:0 0 10px; }
+  button { font:inherit; font-weight:600; padding:7px 12px; margin:3px 4px 3px 0; border:1px solid var(--line); background:#f4f8fb; color:var(--ink); border-radius:8px; cursor:pointer; transition:background .12s; }
+  button:hover { background:#e4eef7; }
+  button.primary, .choices button { background:var(--action); border-color:var(--action-line); }
+  button.primary:hover, .choices button:hover { background:var(--action-hover); }
+  button[aria-pressed="true"], .choices button[aria-pressed="true"] { background:var(--accent); border-color:var(--accent); color:var(--accent-ink); outline:none; }
+  button:disabled { opacity:.5; cursor:default; }
+  #tabs { display:flex; background:#dce9f4; border-radius:10px; padding:3px; margin-bottom:12px; }
+  #tabs button { flex:1; margin:0; border:none; background:transparent; font-size:15px; padding:8px 0; }
+  #tabs button[aria-pressed="true"] { background:var(--panel); color:var(--accent); box-shadow:0 1px 3px rgba(30,60,90,.2); }
+  .choices { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin:10px 0; }
+  .choices .lbl { font-weight:700; margin-right:4px; }
+  .choices button { font-size:16px; min-width:64px; padding:9px 12px; margin:0; }
+  .q { font-size:15px; margin:0 0 4px; }
+  .result { font-size:18px; font-weight:700; color:var(--accent); min-height:26px; margin:6px 0; }
+  .why { background:none; border:none; color:var(--accent); padding:0; margin:4px 0 0; }
+  .cardFoot { display:flex; justify-content:space-between; }
+  #seqMap { width:100%; height:64px; margin:10px 0 4px; }
+  .why:hover { background:none; text-decoration:underline; }
+  #explanation { margin:8px 0 0; color:var(--muted); }
+  label { display:flex; align-items:center; justify-content:space-between; gap:8px; margin:8px 0; font-weight:600; }
+  input[type="range"] { flex:1; accent-color:var(--accent); }
+  .limitWrap { position:relative; flex:1; display:flex; }
+  #t2Forbidden { position:absolute; right:8px; bottom:0; height:4px; border-radius:2px; background:#e07b39; opacity:.55; pointer-events:none; }
+  input[type="number"], select { font:inherit; padding:4px 6px; border:1px solid var(--line); border-radius:6px; background:#fff; max-width:100%; }
+  input[type="number"] { width:60px; }
+  .val { font-variant-numeric:tabular-nums; color:var(--accent); min-width:48px; text-align:right; }
+  #readout { font:13px/1.5 ui-monospace, monospace; }
+  body.guided .advanced { display:none; }
+  body.explore .guidedOnly { display:none; }
+  #plane { position:absolute; right:12px; bottom:12px; width:200px; height:200px; background:var(--panel); border:1px solid var(--line); border-radius:12px; }
+  #meters { position:absolute; left:12px; bottom:12px; width:200px; padding:10px 12px; background:var(--panel); border:1px solid var(--line); border-radius:12px; }
+  .meter { display:grid; grid-template-columns:34px 1fr 40px; align-items:center; gap:8px; margin:4px 0; font-weight:700; }
+  .meter .track { position:relative; height:12px; background:#e6eef5; border-radius:6px; overflow:hidden; }
+  .meter .track i { position:absolute; top:0; bottom:0; border-radius:6px; }
+  .meter .track.signed::after { content:""; position:absolute; left:50%; top:0; bottom:0; width:1px; background:#9fb3c6; }
+  .meter b { font-variant-numeric:tabular-nums; text-align:right; }
+  #molecule { display:flex; align-items:center; gap:4px; margin:8px 0; }
+  #legend { line-height:1.7; }
+  body.guided #sampleSection, body.guided #rotatingSection, body.guided #controlSection, body.guided #seqStatus { display:none; }
+  body.relaxation #plane { display:none; }
+  body.relaxation #replayBar { display:none !important; }
+  #replayBar button { padding:4px 8px; }
+  @media(max-width:1050px) { #plotWrap { grid-template-columns:1fr; grid-template-rows:minmax(0,1fr) minmax(0,1fr); } #app { grid-template-rows:minmax(300px,1fr) 380px; } }
+  @media(max-width:700px) { html,body { height:auto; overflow:auto; } #app { display:flex; flex-direction:column; height:auto; } #panel { order:0; overflow:visible; } #canvasWrap { order:1; height:440px; } #plotWrap { order:2; height:420px; } #plane { width:170px; height:170px; } #meters { width:170px; bottom:auto; top:12px; } }
 </style>
 </head>
 <body>
 <div id="app">
   <div id="canvasWrap">
-    <div id="fovea">Bloch sphere — drag to rotate view</div>
+    <canvas id="plane" aria-label="Top view of the transverse plane"></canvas>
+    <div id="meters">
+      <div class="meter"><span>M<sub>z</sub></span><div class="track signed"><i id="mzBar" style="background:#e07b39"></i></div><b id="mzVal"></b></div>
+      <div class="meter"><span>M<sub>xy</sub></span><div class="track"><i id="mxyBar" style="background:#2a78c2"></i></div><b id="mxyVal"></b></div>
+    </div>
   </div>
   <div id="plotWrap">
     <canvas id="plot"></canvas>
+    <canvas id="spectrum" aria-label="NMR spectrum in parts per million"></canvas>
     <div id="plotCtrls">
-      <span id="plotTitle">FID — Σ Mx(t) / Σ My(t)</span>
+      <span id="plotTitle">Recorded signal → Spectrum</span>
       <span class="grow"></span>
-      <button onclick="setPlotMode('time')">Time</button>
-      <button onclick="setPlotMode('fft')">FFT</button>
-      <button onclick="acquire()">Acquire (clear)</button>
+      <label class="advanced"><input id="components" type="checkbox" checked> Group signals</label>
+      <button class="advanced" id="acquireBtn" onclick="acquire()">Acquire (clear)</button>
     </div>
   </div>
   <div id="panel">
-    <h1>NMR Simulator</h1>
-    <div class="sub">Bloch vector dynamics with RF pulses & relaxation</div>
+    <h1>NMR</h1>
+    <div id="tabs" role="tablist">
+      <button data-tab="signal" onclick="selectTab('signal')">Signal</button>
+      <button data-tab="t1" onclick="selectTab('t1')">T₁</button>
+      <button data-tab="t2" onclick="selectTab('t2')">T₂</button>
+      <button data-tab="explore" onclick="selectTab('explore')">Explore</button>
+    </div>
+    <div id="lessonCard" class="guidedOnly">
+      <h2 id="lessonTitle"></h2>
+      <p id="prediction" class="q"></p>
+      <div id="lessonActions"></div>
+      <div id="noiseControl" hidden>
+        <label>Noise <input type="range" id="noiseSlider" min="0" max="0.3" step="0.01" value="0" oninput="setLessonNoise(+this.value)"><span class="val" id="noiseValue">0.00</span></label>
+      </div>
+      <div id="lessonResult" class="result" role="status"></div>
+      <div class="cardFoot"><button class="why" onclick="const e=document.getElementById('explanation'); e.hidden=!e.hidden">Why?</button><button class="why" onclick="openInExplore()">Open in Explore →</button></div>
+      <p id="explanation" hidden></p>
+    </div>
 
-    <div class="sec">
+    <div class="sec" id="sampleSection">
       <h2>Sample</h2>
       <label>Preset
-        <select id="preset" onchange="loadPreset(this.value)" style="font-size:12px;padding:3px">
+        <select id="preset" onchange="loadPreset(this.value)">
           <option>TMS</option>
           <option>Methanol</option>
           <option selected>Ethanol</option>
         </select>
       </label>
-      <div id="legend" style="font-size:11px;color:#445;margin-top:6px;line-height:1.5"></div>
+      <div id="legend"></div>
+      <div id="molecule" aria-label="Highlight a proton environment"></div>
     </div>
 
-    <div class="sec">
+    <div class="sec advanced">
       <h2>Sequence</h2>
       <div>
         <button onclick="selectSeq('fid')">FID</button>
         <button onclick="selectSeq('ir')">Inv. recovery</button>
         <button onclick="selectSeq('se')">Spin echo</button>
+        <button onclick="selectSeq('two90')">Two 90°</button>
         <button onclick="clearSeq()">✕</button>
       </div>
-      <div id="seqForm" style="margin-top:6px;font-size:12px"></div>
-      <canvas id="seqMap" style="width:100%;height:70px;display:block;margin-top:6px;background:#fafbff;border:1px solid #e3e6f0;border-radius:4px"></canvas>
-      <div id="replayBar" style="display:none;margin-top:6px;align-items:center;gap:6px;font-size:11px;color:#445">
-        <button onclick="replayStep(-1)" style="font-size:11px;padding:3px 6px">◁</button>
-        <button onclick="replayPlayPause()" id="replayPP" style="font-size:11px;padding:3px 6px">▶</button>
-        <button onclick="replayStep(1)" style="font-size:11px;padding:3px 6px">▷</button>
+      <div id="seqForm" style="margin-top:6px"></div>
+      <canvas id="seqMap"></canvas>
+      <div id="replayBar" style="display:none;margin-top:8px;align-items:center;gap:6px">
+        <button onclick="replayStep(-1)">◁</button>
+        <button onclick="replayPlayPause()" id="replayPP">▶</button>
+        <button onclick="replayStep(1)">▷</button>
         <input type="range" id="replayScrub" min="0" max="0" step="1" value="0" oninput="replaySeek(+this.value)" style="flex:1">
         <span id="replayT" style="font-variant-numeric:tabular-nums"></span>
       </div>
-      <div id="seqStatus" style="font-size:11px;color:#667;min-height:14px;margin-top:4px"></div>
+      <div id="seqStatus" style="color:var(--muted);min-height:18px;margin-top:4px"></div>
     </div>
 
-    <div class="sec">
+    <div class="sec advanced">
       <h2>Apply pulse</h2>
       <div>
         <button onclick="pulse(90,'x')">90°x</button>
@@ -99,27 +158,32 @@
         <button onclick="pulse(30,'x')">30°x</button>
       </div>
       <label>Custom: <input type="number" id="ca" value="90" step="5" style="width:52px"> ° about
-        <select id="cax" style="font-size:12px;padding:3px"><option>x</option><option>y</option><option>z</option></select>
+        <select id="cax"><option>x</option><option>y</option><option>z</option></select>
         <button class="primary" onclick="pulseCustom()">go</button>
       </label>
     </div>
 
-    <div class="sec">
-      <h2>Relaxation (rotating frame)</h2>
+    <div class="sec advanced">
+      <h2>Relaxation</h2>
       <label>T₁ <input type="range" id="t1" min="0.2" max="20" step="0.1" value="5"><span class="val" id="t1v">5.0 s</span></label>
-      <label>T₂ <input type="range" id="t2" min="0.1" max="10" step="0.1" value="2"><span class="val" id="t2v">2.0 s</span></label>
-      <label title="Carrier frequency (rotating-frame reference) in Hz. 0 Hz = TMS. Defaults to mean of spin frequencies.">carrier (Hz) <input type="range" id="dw" min="-25" max="25" step="0.1" value="0"><span class="val" id="dwv">0.0 Hz</span></label>
+      <label>T₂ <span class="limitWrap"><input type="range" id="t2" min="0.1" max="10" step="0.1" value="2"><i id="t2Forbidden"></i></span><span class="val" id="t2v">2.0 s</span></label>
+      <label title="Rotating-frame reference; 0 Hz = TMS. Defaults to the lowest sample frequency. Changing this clears a live acquisition; completed spectra retain their recorded reference. Locked during sequences.">carrier (Hz) <input type="range" id="dw" min="-25" max="25" step="0.1" value="0"><span class="val" id="dwv">0.0 Hz</span></label>
       <label title="Simulation time per real second">time scale <input type="range" id="ts" min="0.05" max="2" step="0.05" value="0.3"><span class="val" id="tsv">0.30×</span></label>
     </div>
 
-    <div class="sec">
-      <h2>Controls</h2>
-      <button onclick="reset()">Reset to +z</button>
-      <button onclick="toggleRun()" id="runBtn">Pause</button>
-      <button onclick="toggleTrail()">Trail on/off</button>
+    <div class="sec" id="rotatingSection">
+      <h2>Rotating frame</h2>
+      <div id="followControls"></div>
     </div>
 
-    <div class="sec">
+    <div class="sec" id="controlSection">
+      <h2>Controls</h2>
+      <button onclick="reset()">Reset</button>
+      <button onclick="toggleRun()" id="runBtn">Pause</button>
+      <button onclick="toggleTrail()">Trail</button>
+    </div>
+
+    <div class="sec advanced">
       <h2>State</h2>
       <div id="readout">Mx = 0.000<br>My = 0.000<br>Mz = 1.000<br>|M| = 1.000</div>
     </div>
@@ -137,9 +201,17 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
+const query = new URLSearchParams(location.search);
+const lesson = query.get('mode') === 'explore' ? 'explore' : (['relaxation','shifts'].includes(query.get('lesson')) ? 'relaxation' : 'signal');
+let relaxationTopic = query.get('topic') === 't2' ? 't2' : 't1';
+let experimentType = 'none';
+let highlightedSpin = -1;
+document.body.classList.add(lesson === 'explore' ? 'explore' : 'guided');
+if (lesson === 'relaxation') document.body.classList.add('relaxation');
+
 const wrap = document.getElementById('canvasWrap');
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0xfafbff);
+scene.background = new THREE.Color(0xeef6fc);
 
 const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
 camera.position.set(3.2, 2.2, 3.2);
@@ -255,38 +327,61 @@ function buildSpin(def, totalN){
 }
 
 window.loadPreset = function(name){
+  document.getElementById('preset').value = name;
+  highlightedSpin = -1;
   // clear old
   for (const s of spins){ root.remove(s.Mgroup); root.remove(s.trailPts); }
   spins = [];
   const defs = PRESETS[name];
   const totalN = defs.reduce((a,d)=>a+d.n, 0);
   for (const d of defs) spins.push(buildSpin(d, totalN));
-  sig.length = 0; simTime = 0;
+  sig.length = 0; sigVersion++; simTime = 0; sampleAccum = 0; acquisitionCarrierHz = null;
+  sequence = null; frozen = false; animPulse = null; stopReplay(); renderSeqForm();
   // default carrier to lowest-frequency spin
   const freqs = spins.map(s => s.delta * PPM_SCALE);
   const minHz = freqs.length ? Math.min(...freqs) : 0;
   const dwEl = document.getElementById('dw');
   if (dwEl){ dwEl.value = minHz.toFixed(1); dwEl.dispatchEvent(new Event('input')); }
   renderLegend(name);
+  renderMolecule(name);
   updateMVisual(); drawPlot();
 };
 
 function renderLegend(presetName){
   const el = document.getElementById('legend');
   if (!el) return;
-  el.innerHTML = `<b>${presetName}</b> <span style="font-size:10px;color:#889">(click to show/hide on sphere)</span><br>` +
+  el.innerHTML = `<b>${presetName}</b><br>` +
     spins.map((s, i) => {
       const hz = (s.delta * PPM_SCALE).toFixed(1);
       const col = `#${s.color.toString(16).padStart(6,'0')}`;
       const dimStyle = s.visible===false ? 'opacity:0.35;text-decoration:line-through;' : '';
-      return `<span data-spin="${i}" style="cursor:pointer;display:inline-block;${dimStyle}"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${col};margin-right:4px"></span>${s.label} (${s.n}H) ${hz} Hz <span style="color:#889">(${s.delta.toFixed(1)} ppm)</span></span>`;
+      return `<span style="display:inline-block;${dimStyle}"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${col};margin-right:4px"></span>${s.label} (${s.n}H) ${s.delta.toFixed(1)} ppm</span>`;
     }).join('<br>') +
-    `<br><button style="font-size:10px;padding:2px 6px;margin-top:4px" onclick="showOnlySpin(-1)">all</button>` +
-    spins.map((s, i) => `<button style="font-size:10px;padding:2px 6px;margin:2px 2px 0 0" onclick="showOnlySpin(${i})">${s.label} only</button>`).join('');
+    `<div class="advanced"><button onclick="showOnlySpin(-1)">All</button>` +
+    spins.map((s, i) => `<button onclick="showOnlySpin(${i})">${s.label}</button>`).join('') + '</div>';
   el.querySelectorAll('[data-spin]').forEach(node => {
     node.addEventListener('click', () => toggleSpinVisibility(+node.dataset.spin));
   });
 }
+
+function renderMolecule(name){
+  const order = name === 'Ethanol' ? [0, 2, 1] : spins.map((_, i) => i);
+  document.getElementById('molecule').innerHTML = order.map(i => {
+    const s = spins[i];
+    return `<button style="color:#${s.color.toString(16).padStart(6,'0')}" aria-pressed="${highlightedSpin === i}" onclick="highlightGroup(${i})">${s.label}</button>`;
+  }).join('<span>—</span>');
+  document.getElementById('followControls').innerHTML = spins.map((s,i) => `<button onclick="followGroup(${i})">${s.label}</button>`).join('');
+}
+window.highlightGroup = function(i){
+  highlightedSpin = highlightedSpin === i ? -1 : i;
+  renderMolecule(document.getElementById('preset').value);
+};
+window.followGroup = function(i){
+  reset();
+  dws.value = spins[i].delta * PPM_SCALE;
+  syncLabels();
+  if (lesson !== 'explore') runLesson(90);
+};
 
 window.toggleSpinVisibility = function(i){
   const s = spins[i]; if (!s) return;
@@ -329,10 +424,21 @@ function updateMVisual(){
     const to = vlen>1e-9 ? new THREE.Vector3(vx/vlen, vy/vlen, vz/vlen) : new THREE.Vector3(0,0,1);
     const q = new THREE.Quaternion().setFromUnitVectors(from, to);
     s.Mgroup.quaternion.copy(q);
+    for (const part of s.Mgroup.children) {
+      part.material.color.set(s.color).lerp(new THREE.Color(0xdde2eb), highlightedSpin < 0 || highlightedSpin === spins.indexOf(s) ? 0 : 0.8);
+    }
     sx += M.x; sy += M.y; sz += M.z;
   }
   const r = document.getElementById('readout');
   if (r) r.innerHTML = `Σ Mx = ${sx.toFixed(3)}<br>Σ My = ${sy.toFixed(3)}<br>Σ Mz = ${sz.toFixed(3)}<br>|ΣM| = ${Math.hypot(sx,sy,sz).toFixed(3)}`;
+  setMeter('mz', sz, true); setMeter('mxy', Math.hypot(sx,sy), false);
+}
+
+function setMeter(id, value, signed){
+  const v = Math.max(-1, Math.min(1, value)), bar = document.getElementById(id+'Bar');
+  if (signed) { bar.style.left = `${50 + Math.min(0,v)*50}%`; bar.style.width = `${Math.abs(v)*50}%`; }
+  else { bar.style.left = '0'; bar.style.width = `${Math.abs(v)*100}%`; }
+  document.getElementById(id+'Val').textContent = value.toFixed(2);
 }
 
 function pushTrail(){
@@ -392,15 +498,19 @@ window.pulseCustom = function(){
 window.reset = function(){
   const totalN = spins.reduce((a,s)=>a+s.n, 0);
   for (const s of spins) s.M.set(0, 0, s.n/totalN);
-  clearTrail(); animPulse=null; sig.length=0; simTime=0;
+  clearTrail(); animPulse=null; sig.length=0; sigVersion++; simTime=0; sampleAccum=0; acquisitionCarrierHz=null; noiseState=123456789;
+  sequence = null;
   frozen = false;
   if (typeof stopReplay === 'function') stopReplay();
-  drawPlot(); updateMVisual();
+  renderSeqForm(); drawPlot(); updateMVisual();
 };
 window.toggleRun = function(){ running = !running; document.getElementById('runBtn').textContent = running?'Pause':'Run'; };
 window.toggleTrail = function(){ trailOn = !trailOn; if(!trailOn) clearTrail(); };
-window.acquire = function(){ sig.length=0; drawPlot(); };
-window.setPlotMode = function(m){ plotMode = m; document.getElementById('plotTitle').textContent = m==='fft' ? 'Spectrum (Hz, TMS=0) — |FFT(Mx+iMy)|' : 'FID — Σ Mx(t) / Σ My(t)'; drawPlot(); };
+window.acquire = function(){
+  if (sequence) return;
+  sig.length=0; sigVersion++; sampleAccum=0; acquisitionCarrierHz=null;
+  frozen=false; stopReplay(); drawPlot();
+};
 
 // Sliders
 const t1s=document.getElementById('t1'), t2s=document.getElementById('t2'), dws=document.getElementById('dw'), tss=document.getElementById('ts');
@@ -412,103 +522,212 @@ function syncLabels(){
   tsv.textContent = (+tss.value).toFixed(2)+'×';
 }
 [t1s,t2s,dws,tss].forEach(s=>s.addEventListener('input', syncLabels));
-syncLabels();
+// Physical limit T₂ ≤ 2T₁: T₁ processes also destroy transverse coherence, 1/T₂ = 1/(2T₁) + 1/T₂′.
+function enforceT2Limit(){
+  const limit = 2 * +t1s.value;
+  if (+t2s.value > limit) t2s.value = limit;
+  const frac = Math.min(1, Math.max(0, (limit - +t2s.min) / (+t2s.max - +t2s.min)));
+  // Shade the forbidden part of the T₂ track (beyond 2T₁).
+  const bar = document.getElementById('t2Forbidden');
+  bar.style.left = `calc(8px + (100% - 16px) * ${frac})`; bar.hidden = frac >= 1;
+  t2s.title = `T₂ ≤ 2T₁ = ${limit.toFixed(1)} s`;
+  syncLabels();
+}
+t1s.addEventListener('input', enforceT2Limit);
+t2s.addEventListener('input', enforceT2Limit);
+enforceT2Limit();
 
 // Signal buffer + plot + FFT
 const plotCanvas = document.getElementById('plot');
 const pctx = plotCanvas.getContext('2d');
+const spectrumCanvas = document.getElementById('spectrum');
+const spectrumContext = spectrumCanvas.getContext('2d');
 const SAMPLE_DT = 0.005;    // 200 Hz sampling -> Nyquist 100 Hz (4x oversample)
+const REPEAT_ACQ_SAMPLES = 4 / SAMPLE_DT;
+// Fixed spectrum scales. An unwindowed peak's height is the running sum Σ e^(−t/T₂) of the FID,
+// so a live spectrum grows and settles instead of shrinking as the record lengthens.
+const peakRef = (seconds, T2) => 1.1 * Array.from({ length: seconds / SAMPLE_DT }, (_, i) => Math.exp(-i*SAMPLE_DT/T2)).reduce((a, b) => a + b, 0);
+const T2_PEAK_REF = peakRef(6, 4); // Longest T₂ lesson record nearly fills the plot.
+const T1_PEAK_REF = peakRef(4, 2); // Full first scan in the T₁ lesson (T₂ = 2 s).
 const DISPLAY_HZ = 25;       // plot ±25 Hz around carrier (2x half-Nyquist of 50 Hz)
 const MAX_SAMPLES = 8192;
 const sig = []; // { t, mx, my }
+let sigVersion = 0;
+let spectrumCache = null;
+const repeatSpectrumCache = new Map();
+let noiseState = 123456789;
+let lessonNoise = 0;
+function receiverNoise(){
+  noiseState = (1664525 * noiseState + 1013904223) >>> 0;
+  return ((noiseState / 4294967296) - 0.5) * 0.06;
+}
+window.setLessonNoise = function(level){
+  lessonNoise = level;
+  document.getElementById('noiseValue').textContent=level.toFixed(2);
+  for (const sample of sig) {
+    sample.mx=sample.idealMx+level*(sample.noiseX||0);
+    sample.my=sample.idealMy+level*(sample.noiseY||0);
+  }
+  sigVersion++;
+  drawPlot();
+};
+let acquisitionCarrierHz = null;
 let sampleAccum = 0;
-let plotMode = 'time';
 let simTime = 0;
 
+// A live acquisition must not mix different rotating-frame references.
+// A completed acquisition keeps its metadata even when the slider changes.
+dws.addEventListener('input', () => {
+  if (!frozen && !sequence) acquire();
+});
+
 function resizePlot(){
-  const w = plotCanvas.clientWidth, h = plotCanvas.clientHeight;
   const dpr = Math.min(window.devicePixelRatio, 2);
-  plotCanvas.width = Math.max(1, Math.floor(w*dpr));
-  plotCanvas.height = Math.max(1, Math.floor(h*dpr));
-  pctx.setTransform(dpr,0,0,dpr,0,0);
+  for (const cv of [plotCanvas, spectrumCanvas]) {
+    const width = Math.max(1, Math.floor(cv.clientWidth*dpr));
+    const height = Math.max(1, Math.floor(cv.clientHeight*dpr));
+    if (cv.width !== width || cv.height !== height) { cv.width = width; cv.height = height; }
+    cv.getContext('2d').setTransform(dpr,0,0,dpr,0,0);
+  }
 }
 window.addEventListener('resize', ()=>{ resizePlot(); drawPlot(); });
+// Layout changes (lesson card, media queries) resize the plots without a window resize.
+if (typeof ResizeObserver === 'function') {
+  const plotObserver = new ResizeObserver(() => { resizePlot(); drawPlot(); });
+  plotObserver.observe(plotCanvas); plotObserver.observe(spectrumCanvas);
+}
 
 function drawPlot(){
+  drawSinglePlot(plotCanvas, pctx, 'time');
+  drawSinglePlot(spectrumCanvas, spectrumContext, 'fft');
+}
+
+function drawSinglePlot(plotCanvas, pctx, plotMode){
   const w = plotCanvas.clientWidth, h = plotCanvas.clientHeight;
   if (w<2||h<2) return;
   pctx.clearRect(0,0,w,h);
   pctx.fillStyle='#fff'; pctx.fillRect(0,0,w,h);
   // axes area
-  const pad = { l: 40, r: 10, t: 28, b: 22 };
+  const pad = { l: 40, r: 10, t: 28, b: lesson === 'relaxation' && plotMode === 'fft' ? 36 : 24 };
   const pw = w - pad.l - pad.r, ph = h - pad.t - pad.b;
-  pctx.strokeStyle='#d8dcea'; pctx.lineWidth=1;
+  pctx.strokeStyle='#d5e1ec'; pctx.lineWidth=1;
   pctx.strokeRect(pad.l, pad.t, pw, ph);
-  pctx.fillStyle='#889'; pctx.font='10px ui-monospace, monospace';
+  pctx.fillStyle='#5b6b7c'; pctx.font='12px system-ui, sans-serif';
 
   // Sig window: in replay mode, truncate to scrub idx
   const effEnd = (frozen && replay && replay.idx >= 0) ? Math.min(replay.snapshots[replay.idx].sigIdx+1, sig.length) : sig.length;
+  if (experimentType === 'repeats' && lesson === 'relaxation') {
+    if (plotMode === 'time') drawRepeatedTime(pctx, pad, pw, ph, effEnd);
+    else drawRepeatedSpectrum(pctx, pad, pw, ph, effEnd);
+    return;
+  }
   if (plotMode === 'time') {
-    if (effEnd < 2) { pctx.fillText('apply a pulse to generate FID', pad.l+8, pad.t+16); return; }
+    if (effEnd < 2) { pctx.fillText('Signal', pad.l, pad.t-8); return; }
     const t0 = sig[0].t, t1 = sig[effEnd-1].t;
-    const span = Math.max(0.5, t1 - t0);
-    let ymax = 1e-9;
-    for (let i=0;i<effEnd;i++){ const p=sig[i]; const a=Math.abs(p.mx), b=Math.abs(p.my); if (a>ymax) ymax=a; if (b>ymax) ymax=b; }
-    ymax = Math.max(ymax, 0.01);
+    const span = (sequence || replay)?.span || Math.max(0.5, t1 - t0);
+    const ymax = 1; // Fixed equilibrium-normalized scale for comparisons between runs.
     // zero line
     const y0 = pad.t + ph/2;
     pctx.strokeStyle='#eef0f7'; pctx.beginPath(); pctx.moveTo(pad.l, y0); pctx.lineTo(pad.l+pw, y0); pctx.stroke();
     // labels
     pctx.fillText('0', pad.l-12, y0+3); pctx.fillText('+1', pad.l-16, pad.t+10); pctx.fillText('-1', pad.l-16, pad.t+ph);
-    pctx.fillText(`t: 0–${span.toFixed(1)}s`, pad.l+4, pad.t-6);
+    pctx.fillText('Signal', pad.l, pad.t-8);
+    pctx.fillText('0', pad.l, pad.t+ph+15); pctx.fillText(`${span.toFixed(span < 10 ? 1 : 0)} s`, pad.l+pw-28, pad.t+ph+15);
     // Mx in red, My in blue
-    const drawTrace = (key, color) => {
-      pctx.strokeStyle = color; pctx.lineWidth = 1.4; pctx.beginPath();
+    const drawTrace = (key, color, group = -1) => {
+      pctx.strokeStyle = color; pctx.lineWidth = group < 0 ? 2 : 1.2; pctx.beginPath();
       for (let i=0;i<effEnd;i++){
         const x = pad.l + (sig[i].t - t0)/span * pw;
-        const y = y0 - sig[i][key]/ymax * (ph/2);
+        const value = group < 0 ? sig[i][key] : (sig[i].groups?.[group]?.[key] ?? 0);
+        const y = y0 - value/ymax * (ph/2);
         if (i===0) pctx.moveTo(x,y); else pctx.lineTo(x,y);
       }
       pctx.stroke();
     };
-    drawTrace('mx', '#d04040');
-    drawTrace('my', '#4060d0');
-    pctx.fillStyle='#d04040'; pctx.fillText('Mx', pad.l+pw-50, pad.t-6);
-    pctx.fillStyle='#4060d0'; pctx.fillText('My', pad.l+pw-22, pad.t-6);
+    if (lesson === 'relaxation' && relaxationTopic === 't1') {
+      const acqStart = replay ? Math.max(0, replay.acqStartIdx) : (sequence ? Math.max(0, sequence.acqStartIdx) : effEnd);
+      pctx.strokeStyle='#c05a18'; pctx.lineWidth=2; pctx.beginPath();
+      for (let i=0; i<Math.min(effEnd,acqStart); i++) {
+        const x = pad.l + (sig[i].t - t0)/span * pw;
+        const y = y0 - sig[i].mz * (ph/2);
+        if (i===0) pctx.moveTo(x,y); else pctx.lineTo(x,y);
+      }
+      pctx.stroke();
+      if (acqStart > 0 && acqStart < effEnd) {
+        const x = pad.l + (sig[acqStart].t - t0)/span * pw;
+        pctx.strokeStyle='#b8bfd4'; pctx.setLineDash([3,3]); pctx.beginPath(); pctx.moveTo(x,pad.t); pctx.lineTo(x,pad.t+ph); pctx.stroke(); pctx.setLineDash([]);
+        pctx.fillStyle='#526078'; pctx.fillText('90° read pulse', x+3, pad.t+ph-5);
+      }
+      pctx.fillStyle='#c05a18'; pctx.fillText('Orange: Mz recovery', pad.l+5, pad.t+14);
+    }
+    if (lesson === 'explore' && document.getElementById('components').checked) spins.forEach((s,i) => {
+      pctx.globalAlpha = highlightedSpin < 0 || highlightedSpin === i ? 0.9 : 0.15;
+      drawTrace('mx', `#${s.color.toString(16).padStart(6,'0')}`, i);
+    });
+    pctx.globalAlpha = 1;
+    if (lesson === 'relaxation' && relaxationTopic === 't1') {
+      const acqStart = replay ? Math.max(0, replay.acqStartIdx) : (sequence ? Math.max(0, sequence.acqStartIdx) : effEnd);
+      pctx.strokeStyle='#263347'; pctx.lineWidth=2; pctx.beginPath();
+      for (let i=acqStart; i<effEnd; i++) {
+        const x = pad.l + (sig[i].t - t0)/span * pw;
+        const y = y0 - sig[i].mx * (ph/2);
+        if (i===acqStart) pctx.moveTo(x,y); else pctx.lineTo(x,y);
+      }
+      pctx.stroke();
+    } else if (showT2History()) {
+      drawT2HistoryTime(pctx, pad, pw, ph, span);
+      if (!frozen) drawTrace('mx', t2Color(+t2s.value));
+      drawT2Legend(pctx, pad, pw);
+    } else drawTrace('mx', '#263347');
+    if (lesson === 'explore') drawTrace('my', '#8b96a9');
+    
   } else {
     // FFT of complex signal s = Mx + i*My over acquire window (if known) else tail
     const acqStart = replay ? Math.max(0, replay.acqStartIdx) : (sequence ? Math.max(0, sequence.acqStartIdx) : 0);
     const windowEnd = effEnd;
     const windowLen = Math.max(0, windowEnd - acqStart);
-    if (windowLen < 16) { pctx.fillText('need more samples — acquire a FID first', pad.l+8, pad.t+16); return; }
-    let N = 1; while (N*2 <= Math.min(windowLen, 2048)) N *= 2;
-    const start = acqStart + (windowLen - N);
-    const re = new Float64Array(N), im = new Float64Array(N);
-    for (let i=0;i<N;i++){
-      const w = 0.5*(1 - Math.cos(2*Math.PI*i/(N-1))); // Hann
-      re[i] = sig[start+i].mx * w;
-      im[i] = sig[start+i].my * w;
+    const usedSamples = Math.floor(windowLen / 100) * 100; // 0.5 s at 200 samples/s.
+    if (usedSamples < 100) { pctx.fillText('Spectrum', pad.l, pad.t-8); if (showT2History()) { drawRelaxationAxis(pctx, pad, pw, ph); drawT2HistorySpectrum(pctx, pad, pw, ph); drawT2Legend(pctx, pad, pw); } return; }
+    const key = `${sigVersion}:${acqStart}:${usedSamples}:${+t2s.value}`;
+    if (!spectrumCache || spectrumCache.key !== key) {
+      let N = 2048;
+      while (N < usedSamples * 2 && N < 8192) N *= 2;
+      const re = new Float64Array(N), im = new Float64Array(N);
+      let positiveReference = 0;
+      for (let i=0;i<usedSamples;i++) {
+        const w = 1; // Preserve the physical decay and its intrinsic linewidth.
+        re[i] = sig[acqStart+i].mx * w;
+        im[i] = sig[acqStart+i].my * w;
+        positiveReference += w * Math.exp(-i*SAMPLE_DT/(+t2s.value));
+      }
+      fft(re, im);
+      const half = N/2;
+      const shifted = new Float64Array(N), shiftedReal = new Float64Array(N);
+      let mmax = 1e-9;
+      for (let i=0;i<N;i++) {
+        const j=(i+half)%N;
+        shifted[i]=Math.hypot(re[j],im[j]); shiftedReal[i]=re[j];
+        mmax=Math.max(mmax,shifted[i]);
+      }
+      spectrumCache = { key, N, half, shifted, shiftedReal, mmax, positiveReference };
     }
-    fft(re, im);
-    const mag = new Float64Array(N);
-    let mmax = 1e-9;
-    for (let i=0;i<N;i++){ mag[i] = Math.hypot(re[i], im[i]); if (mag[i]>mmax) mmax=mag[i]; }
-    // fftshift so DC is centered
-    const half = N/2;
-    const shifted = new Float64Array(N);
-    for (let i=0;i<N;i++) shifted[i] = mag[(i+half)%N];
+    const {N,half,shifted,shiftedReal,mmax,positiveReference} = spectrumCache;
     const fs = 1/SAMPLE_DT;
     // Oversampled FFT; display only a window of ±DISPLAY_HZ around carrier
-    const carrierHz = +document.getElementById('dw').value;
-    const hzMin = carrierHz - DISPLAY_HZ, hzMax = carrierHz + DISPLAY_HZ;
+    const carrierHz = acquisitionCarrierHz;
+    const hzMin = lesson === 'relaxation' ? -RELAX_HZ : -0.5 * PPM_SCALE;
+    const hzMax = lesson === 'relaxation' ? RELAX_HZ : 6 * PPM_SCALE;
     // Reverse: higher freq on LEFT (NMR convention)
     pctx.strokeStyle='#eef0f7'; pctx.beginPath();
     const mapHzToX = hz => pad.l + pw * (hzMax - hz)/(hzMax - hzMin);
     const xZero = mapHzToX(0);
     if (xZero > pad.l && xZero < pad.l+pw){ pctx.moveTo(xZero, pad.t); pctx.lineTo(xZero, pad.t+ph); pctx.stroke(); }
-    pctx.fillText(`${hzMax.toFixed(1)} Hz`, pad.l, pad.t+ph+14);
-    if (xZero > pad.l && xZero < pad.l+pw) pctx.fillText('0 (TMS)', xZero-18, pad.t+ph+14);
-    pctx.fillText(`${hzMin.toFixed(1)} Hz`, pad.l+pw-40, pad.t+ph+14);
+    if (lesson === 'relaxation') drawRelaxationAxis(pctx, pad, pw, ph);
+    else {
+      pctx.fillText('6 ppm', pad.l, pad.t+ph+14);
+      if (xZero > pad.l && xZero < pad.l+pw) pctx.fillText('0', xZero-3, pad.t+ph+14);
+      for (const ppm of [1,2,3,4,5]) pctx.fillText(String(ppm), mapHzToX(ppm*PPM_SCALE)-3, pad.t+ph+14);
+    }
     // Tick marks + labels at each spin frequency
     pctx.save();
     pctx.strokeStyle = '#b8bfd4'; pctx.setLineDash([3,3]);
@@ -519,27 +738,171 @@ function drawPlot(){
         pctx.beginPath(); pctx.moveTo(x, pad.t); pctx.lineTo(x, pad.t+ph); pctx.stroke();
         const col = `#${s.color.toString(16).padStart(6,'0')}`;
         pctx.fillStyle = col;
-        pctx.fillText(`${s.label}`, x-10, pad.t+12);
+        if (lesson === 'explore') pctx.fillText(`${s.label}`, x-10, pad.t+14);
       }
     }
     pctx.restore();
-    pctx.fillStyle='#889';
-    pctx.fillText('|F|', 6, pad.t+24);
+    pctx.fillStyle='#5b6b7c';
+    pctx.fillText('Spectrum', pad.l, pad.t-8);
     pctx.strokeStyle='#4051b5'; pctx.lineWidth=1.4; pctx.beginPath();
+    const signedSpectrum = lesson === 'relaxation' && relaxationTopic === 't1';
+    if (signedSpectrum) {
+      pctx.strokeStyle='#d8dcea'; pctx.beginPath(); pctx.moveTo(pad.l,pad.t+ph/2); pctx.lineTo(pad.l+pw,pad.t+ph/2); pctx.stroke();
+      pctx.fillStyle='#889'; pctx.fillText('+', 22, pad.t+12); pctx.fillText('−', 22, pad.t+ph-4);
+    }
+    if (showT2History()) { drawT2HistorySpectrum(pctx, pad, pw, ph); drawT2Legend(pctx, pad, pw); if (frozen) return; }
+    pctx.strokeStyle = showT2History() ? t2Color(+t2s.value) : '#4051b5'; pctx.lineWidth = showT2History() ? 1.8 : 1.4; pctx.beginPath();
     // shifted index i corresponds to rotating-frame freq fRel (Hz) going from -fs/2 to +fs/2
     // => absolute Hz = carrierHz + fRel
     // plot only samples whose absolute Hz falls within [hzMin, hzMax]
     let started = false;
     for (let i=0;i<N;i++){
-      const fRel = -fs/2 + (i/(N-1)) * fs;
+      const fRel = (i - half) * fs / N;
       const absHz = carrierHz + fRel;
       if (absHz < hzMin || absHz > hzMax) continue;
       const x = mapHzToX(absHz);
-      const y = pad.t + ph - (shifted[i]/mmax) * ph;
+      const y = signedSpectrum
+        ? pad.t + ph/2 - shiftedReal[i]/Math.max(positiveReference,1e-9) * ph/2
+        : lesson === 'relaxation'
+          ? pad.t + ph - shifted[i]/T2_PEAK_REF * ph
+          : pad.t + ph - shifted[i]/mmax * ph;
       if (!started){ pctx.moveTo(x,y); started = true; } else pctx.lineTo(x,y);
     }
     pctx.stroke();
   }
+}
+
+// Relaxation spectra span ±1 ppm around TMS, labeled in ppm and in (slowed) display Hz.
+const RELAX_PPM = 1;
+const RELAX_HZ = RELAX_PPM * PPM_SCALE;
+function drawRelaxationAxis(ctx,pad,pw,ph){
+  ctx.save();
+  ctx.font='12px system-ui, sans-serif'; ctx.textAlign='center';
+  for (const ppm of [1,0.5,0,-0.5,-1]) {
+    const x=pad.l+pw*(RELAX_PPM-ppm)/(2*RELAX_PPM);
+    ctx.strokeStyle=ppm===0?'#e1e4ed':'#f2f3f8'; ctx.beginPath(); ctx.moveTo(x,pad.t); ctx.lineTo(x,pad.t+ph); ctx.stroke();
+    const fmt=v=>v===0?'0':(v<0?'−':'')+String(Math.abs(v));
+    ctx.fillStyle='#5b6b7c'; ctx.fillText(fmt(ppm),x,pad.t+ph+13);
+    ctx.fillStyle='#98a8b8'; ctx.fillText(fmt(ppm*PPM_SCALE),x,pad.t+ph+27);
+  }
+  ctx.textAlign='right';
+  ctx.fillStyle='#5b6b7c'; ctx.fillText('ppm',pad.l-8,pad.t+ph+13);
+  ctx.fillStyle='#98a8b8'; ctx.fillText('Hz',pad.l-8,pad.t+ph+27);
+  ctx.restore();
+}
+const SCAN_COLORS = ['#1f2d3d', '#2a78c2'];
+// T₂ lesson keeps each finished run (one per T₂ value) so the decays and peaks can be compared.
+const T2_COLORS = { 0.4:'#e07b39', 1.5:'#2e9e5b', 4:'#2a78c2' };
+const t2Color = t2 => T2_COLORS[t2] || '#1f2d3d';
+const t2History = new Map(); // T₂ → { samples:[{mx,my}], carrierHz }
+// Only the latest finished run is drawn at full strength; earlier runs (and all runs, while recording) fade.
+const t2Emphasis = t2 => frozen && t2 === latestT2() ? 1 : 0.3;
+const latestT2 = () => [...t2History.keys()].at(-1);
+const orderedT2History = () => [...t2History].sort(([a],[b]) => t2Emphasis(a) - t2Emphasis(b));
+const showT2History = () => lesson === 'relaxation' && relaxationTopic === 't2';
+function transformSamples(samples){
+  let N=2048; while(N<samples.length*2)N*=2;
+  const re=new Float64Array(N), im=new Float64Array(N);
+  samples.forEach((sample,i) => { re[i]=sample.mx; im[i]=sample.my; });
+  fft(re,im);
+  const shifted=new Float64Array(N);
+  for(let i=0;i<N;i++){const j=(i+N/2)%N;shifted[i]=Math.hypot(re[j],im[j]);}
+  return {N,shifted};
+}
+function drawT2HistoryTime(ctx,pad,pw,ph,span){
+  const y0=pad.t+ph/2;
+  for (const [t2,run] of orderedT2History()){
+    ctx.strokeStyle=t2Color(t2); ctx.globalAlpha=t2Emphasis(t2); ctx.lineWidth=t2Emphasis(t2)===1?2:1.4; ctx.beginPath();
+    run.samples.forEach((sample,i) => { const x=pad.l+(i+1)*SAMPLE_DT/span*pw, y=y0-sample.mx*ph/2; i ? ctx.lineTo(x,y) : ctx.moveTo(x,y); });
+    ctx.stroke();
+  }
+  ctx.globalAlpha=1;
+}
+function drawT2HistorySpectrum(ctx,pad,pw,ph){
+  for (const [t2,run] of orderedT2History()){
+    run.spectrum ||= transformSamples(run.samples);
+    const {N,shifted}=run.spectrum;
+    ctx.strokeStyle=t2Color(t2); ctx.globalAlpha=t2Emphasis(t2); ctx.lineWidth=t2Emphasis(t2)===1?2.2:1.4; ctx.beginPath(); let begun=false;
+    for(let i=0;i<N;i++){
+      const hz=run.carrierHz+(i-N/2)/(N*SAMPLE_DT); if(Math.abs(hz)>RELAX_HZ)continue;
+      const x=pad.l+pw*(RELAX_HZ-hz)/(2*RELAX_HZ), y=pad.t+ph-shifted[i]/T2_PEAK_REF*ph;
+      begun ? ctx.lineTo(x,y) : (ctx.moveTo(x,y), begun=true);
+    }
+    ctx.stroke();
+  }
+  ctx.globalAlpha=1;
+}
+function drawT2Legend(ctx,pad,pw){
+  const values=[...new Set([...t2History.keys(), ...(frozen ? [] : [+t2s.value])])].sort((a,b)=>a-b);
+  ctx.save(); ctx.font='600 12px system-ui, sans-serif'; ctx.textAlign='right';
+  let x=pad.l+pw;
+  for (const t2 of values.reverse()){
+    const text=`${t2} s`, live=!frozen && t2===+t2s.value;
+    ctx.globalAlpha=live ? 1 : t2Emphasis(t2); ctx.fillStyle=t2Color(t2); ctx.fillText(text,x,pad.t-8); x-=ctx.measureText(text).width+10;
+  }
+  ctx.restore();
+}
+function drawScanLegend(ctx,pad,pw){
+  ctx.save(); ctx.font='600 12px system-ui, sans-serif'; ctx.textAlign='right';
+  ctx.fillStyle=SCAN_COLORS[1]; ctx.fillText('2nd',pad.l+pw,pad.t-8);
+  ctx.fillStyle=SCAN_COLORS[0]; ctx.fillText('1st',pad.l+pw-32,pad.t-8);
+  ctx.restore();
+}
+function repeatWindows(effEnd){
+  const starts = (sequence || replay)?.acqIndices || [];
+  return starts.map(start => ({start, count:Math.max(0,Math.min(REPEAT_ACQ_SAMPLES,effEnd-start))}));
+}
+function drawRepeatedTime(ctx,pad,pw,ph,effEnd){
+  const windows=repeatWindows(effEnd);
+  ctx.fillText('Signal',pad.l,pad.t-8);
+  if (!windows.length || windows[0].count < 2) return;
+  const y0=pad.t+ph/2;
+  ctx.strokeStyle='#d8dcea'; ctx.beginPath(); ctx.moveTo(pad.l,y0); ctx.lineTo(pad.l+pw,y0); ctx.stroke();
+  ctx.fillStyle='#5b6b7c'; ctx.fillText('+1',pad.l-18,pad.t+8); ctx.fillText('0',pad.l-12,y0+3); ctx.fillText('−1',pad.l-18,pad.t+ph);
+  ctx.fillText('0',pad.l,pad.t+ph+15); ctx.fillText('4 s',pad.l+pw-20,pad.t+ph+15);
+  windows.forEach(({start,count},j) => {
+    if (count<2) return;
+    ctx.strokeStyle=SCAN_COLORS[j]; ctx.lineWidth=1.6; ctx.beginPath();
+    for(let i=0;i<count;i++) {
+      const x=pad.l+i/REPEAT_ACQ_SAMPLES*pw, y=y0-sig[start+i].mx*ph/2;
+      if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+  });
+  drawScanLegend(ctx,pad,pw);
+}
+function repeatTransform(start,used){
+  const key=`${sigVersion}:${start}:${used}`;
+  if (repeatSpectrumCache.has(key)) return repeatSpectrumCache.get(key);
+  let N=2048; while(N<used*2)N*=2;
+  const re=new Float64Array(N), im=new Float64Array(N);
+  for(let i=0;i<used;i++){
+    re[i]=sig[start+i].mx;im[i]=sig[start+i].my;
+  }
+  fft(re,im);
+  const shifted=new Float64Array(N);
+  for(let i=0;i<N;i++){const j=(i+N/2)%N;shifted[i]=Math.hypot(re[j],im[j]);}
+  const result={N,shifted};repeatSpectrumCache.set(key,result);
+  return result;
+}
+function drawRepeatedSpectrum(ctx,pad,pw,ph,effEnd){
+  const windows=repeatWindows(effEnd);
+  ctx.fillText('Spectrum',pad.l,pad.t-8);
+  if (!windows.length || windows[0].count < 100) return;
+  drawRelaxationAxis(ctx,pad,pw,ph);
+  windows.forEach(({start,count},j)=>{
+    const used=Math.floor(count/100)*100;if(used<100)return;
+    const {N,shifted}=repeatTransform(start,used);
+    ctx.strokeStyle=SCAN_COLORS[j];ctx.lineWidth=2;ctx.beginPath();let begun=false;
+    for(let i=0;i<N;i++){
+      const hz=(acquisitionCarrierHz ?? 0)+(i-N/2)*200/N;if(Math.abs(hz)>RELAX_HZ)continue;
+      const x=pad.l+pw*(RELAX_HZ-hz)/(2*RELAX_HZ);
+      const y=pad.t+ph-shifted[i]/T1_PEAK_REF*ph;
+      if(!begun){ctx.moveTo(x,y);begun=true;}else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+  });
+  drawScanLegend(ctx,pad,pw);
 }
 
 // Iterative radix-2 FFT, in-place
@@ -582,9 +945,26 @@ let frozen = false;  // true after sequence done; blocks further dynamics
 const SEQUENCES = {
   fid: {
     label: 'FID',
-    params: [{ id:'acq', label:'acq (s)', value:6, step:0.5 }],
+    params: [
+      { id:'angle', label:'pulse (°)', value:90, step:15 },
+      { id:'acq', label:'acq (s)', value:6, step:0.5 },
+    ],
     build(p){ return [
-      { type:'pulse', angle:90, axis:'x' },
+      { type:'pulse', angle:p.angle, axis:'y' },
+      { type:'acquire', t: p.acq },
+    ]; }
+  },
+  two90: {
+    label: 'Two 90° scans',
+    params: [
+      { id:'acq', label:'acq (s)', value:4, step:0.5 },
+      { id:'wait', label:'wait (s)', value:8, step:0.5 },
+    ],
+    build(p){ return [
+      { type:'pulse', angle:90, axis:'y' },
+      { type:'acquire', t: p.acq },
+      { type:'delay', t: p.wait },
+      { type:'pulse', angle:90, axis:'y' },
       { type:'acquire', t: p.acq },
     ]; }
   },
@@ -622,16 +1002,23 @@ window.selectSeq = function(key){
   for (const p of S.params) params[p.id] = p.value;
   selected = { key, params, events: S.build(params) };
   selected.schedule = buildSchedule(selected.events);
-  stopReplay();
-  frozen = false;
-  sequence = null;
+  reset();
   renderSeqForm();
   drawSequenceMap();
   setSeqStatus(`Armed: ${S.label}`);
 };
 
+// Arms a sequence with parameter overrides; used by lessons and the Explore hand-off.
+function armSequence(key, params){
+  selectSeq(key);
+  Object.assign(selected.params, params);
+  selected.events = SEQUENCES[key].build(selected.params);
+  selected.schedule = buildSchedule(selected.events);
+  renderSeqForm(); drawSequenceMap();
+}
+
 window.clearSeq = function(){
-  selected = null; sequence = null; frozen = false; stopReplay();
+  selected = null; sequence = null; acquire();
   renderSeqForm(); drawSequenceMap(); setSeqStatus('');
 };
 
@@ -645,6 +1032,8 @@ window.updateSeqParam = function(id, v){
 };
 
 function renderSeqForm(){
+  dws.disabled = !!sequence;
+  document.getElementById('acquireBtn').disabled = !!sequence;
   const el = document.getElementById('seqForm');
   if (!el) return;
   if (!selected){ el.innerHTML = ''; return; }
@@ -660,13 +1049,15 @@ window.runSelected = function(){
   stopReplay();
   frozen = false;
   sequence = {
-    label: SEQUENCES[selected.key].label,
+    label: selected.label || SEQUENCES[selected.key].label,
     events: selected.events,
     schedule: selected.schedule,
     idx: 0, phase: 'begin', remaining: 0,
-    acqStartIdx: -1,
+    acqStartIdx: -1, acqIndices: [],
+    // Total run length, so the time axis is fixed and the trace draws in from the left.
+    span: selected.events.reduce((total, ev) => total + (ev.t || 0), 0),
   };
-  replay = { snapshots: [], idx: -1, playing: false, acqStartIdx: -1 };
+  replay = { snapshots: [], idx: -1, playing: false, acqStartIdx: -1, acqIndices: sequence.acqIndices, span: sequence.span };
   setSeqStatus(`Running: ${sequence.label}`);
   renderSeqForm();
   updateReplayBar();
@@ -740,54 +1131,43 @@ function drawSequenceMap(){
   const ctx = cv.getContext('2d');
   ctx.setTransform(dpr,0,0,dpr,0,0);
   ctx.clearRect(0,0,w,h);
-  ctx.fillStyle = '#fafbff'; ctx.fillRect(0,0,w,h);
 
   const src = sequence || selected;
-  if (!src || !src.schedule){
-    ctx.fillStyle = '#aab'; ctx.font = '11px -apple-system, sans-serif';
-    ctx.fillText('Select a sequence (FID / Inv. recovery / Spin echo)', 8, h/2+4);
-    return;
-  }
+  if (!src || !src.schedule) return;
 
   const sch = src.schedule;
-  const pad = { l: 8, r: 8, t: 18, b: 16 };
+  const pad = { l: 2, r: 2, t: 16, b: 4 };
   const pw = w - pad.l - pad.r;
   const ph = h - pad.t - pad.b;
   const total = Math.max(0.1, sch.total);
+  const base = pad.t + ph;
 
-  // baseline
-  ctx.strokeStyle = '#c9cde0'; ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(pad.l, pad.t + ph*0.8);
-  ctx.lineTo(pad.l+pw, pad.t + ph*0.8);
-  ctx.stroke();
+  ctx.strokeStyle = '#9fb3c6'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(pad.l, base); ctx.lineTo(pad.l+pw, base); ctx.stroke();
 
-  // events
-  ctx.font = '10px -apple-system, sans-serif';
+  ctx.font = '600 11px system-ui, sans-serif'; ctx.textAlign = 'center';
+  const label = (text, x0, x1, y, color) => {
+    if (ctx.measureText(text).width > x1 - x0 + 16) return; // Skip labels that would collide.
+    ctx.fillStyle = color; ctx.fillText(text, (x0+x1)/2, y);
+  };
   for (const item of sch.items){
     const x0 = pad.l + (item.t0 / total) * pw;
     const x1 = pad.l + ((item.t0 + item.dur) / total) * pw;
     const ev = item.ev;
     if (ev.type === 'pulse'){
-      // tall thin rect, label above
-      const pW = Math.max(3, x1 - x0);
-      ctx.fillStyle = '#4051b5';
-      ctx.fillRect(x0, pad.t, pW, ph*0.8);
-      ctx.fillStyle = '#334';
-      const lbl = `${ev.angle}°${ev.axis}`;
-      ctx.fillText(lbl, x0 - 2, pad.t - 4);
+      const pW = Math.max(4, x1 - x0), hgt = ph * Math.min(1, ev.angle / 180 + 0.5);
+      ctx.fillStyle = '#2a78c2'; ctx.fillRect(x0, base - hgt, pW, hgt);
+      const text = `${ev.angle}°`, half = ctx.measureText(text).width/2;
+      ctx.fillStyle = '#1f2d3d'; ctx.fillText(text, Math.min(w - half, Math.max(half, x0 + pW/2)), base - hgt - 4);
     } else if (ev.type === 'delay'){
-      ctx.fillStyle = '#e8ebf7';
-      ctx.fillRect(x0, pad.t + ph*0.55, x1-x0, ph*0.25);
-      ctx.fillStyle = '#667';
-      ctx.fillText(`τ=${ev.t.toFixed(2)}s`, (x0+x1)/2 - 18, pad.t + ph*0.48);
+      ctx.fillStyle = '#dfe7ee'; ctx.fillRect(x0, base - ph*0.18, x1-x0, ph*0.18);
+      label(`wait ${+ev.t.toFixed(2)} s`, x0, x1, base - ph*0.18 - 4, '#5b6b7c');
     } else if (ev.type === 'acquire'){
-      ctx.fillStyle = '#a0d0a0';
-      ctx.fillRect(x0, pad.t + ph*0.4, x1-x0, ph*0.4);
-      ctx.fillStyle = '#254';
-      ctx.fillText(`acq ${ev.t.toFixed(1)}s`, (x0+x1)/2 - 20, pad.t + ph*0.35);
+      ctx.fillStyle = '#8fd19e'; ctx.fillRect(x0, base - ph*0.45, x1-x0, ph*0.45);
+      label('acq', x0, x1, base - ph*0.45 - 4, '#2d7a45');
     }
   }
+  ctx.textAlign = 'left';
 
   // cursor: live (running) or replay position
   let cur = 0, showCursor = false;
@@ -796,15 +1176,21 @@ function drawSequenceMap(){
     // During replay, map snapshot time to schedule time by using the fraction
     const snapT = replay.snapshots[replay.idx].t;
     const firstT = replay.snapshots[0] ? replay.snapshots[0].t : 0;
-    cur = Math.min(total, snapT - firstT);
+    let simLeft = snapT - firstT; cur = 0;
+    for (const item of sch.items){
+      if (item.ev.type === 'pulse') { cur += item.dur; continue; }
+      const step = Math.min(simLeft, item.dur); cur += step; simLeft -= step;
+      if (simLeft <= 0) break;
+    }
+    if (replay.idx >= replay.snapshots.length-1) cur = total;
     showCursor = true;
   }
   if (showCursor){
     const cx = pad.l + (cur/total) * pw;
-    ctx.strokeStyle = '#d04040'; ctx.lineWidth = 1.5;
+    ctx.strokeStyle = '#e07b39'; ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.moveTo(cx, pad.t - 2);
-    ctx.lineTo(cx, pad.t + ph + 2);
+    ctx.moveTo(cx, 0);
+    ctx.lineTo(cx, h);
     ctx.stroke();
   }
 }
@@ -815,6 +1201,19 @@ function finalizeReplay(){
   if (!replay) return;
   replay.idx = replay.snapshots.length - 1;
   updateReplayBar();
+  if (lesson === 'signal') document.getElementById('noiseControl').hidden=false;
+  if (lesson === 'relaxation') {
+    const result = document.getElementById('lessonResult');
+    if (relaxationTopic === 't1') {
+      const [first,second]=replay.acqIndices.map(i=>sig[i]?.idealMx);
+      result.textContent = first && second !== undefined ? `2nd / 1st = ${Math.round(100*second/first)}%` : '';
+    } else {
+      t2History.delete(+t2s.value);
+      t2History.set(+t2s.value, { samples: sig.slice(replay.acqStartIdx).map(({mx,my}) => ({mx,my})), carrierHz: acquisitionCarrierHz });
+      const first = sig[replay.acqStartIdx], later = sig[Math.min(sig.length-1,replay.acqStartIdx+200)];
+      result.textContent = first && later ? `After 1 s: ${Math.round(100*Math.hypot(later.mx,later.my)/Math.hypot(first.mx,first.my))}% left` : '';
+    }
+  }
 }
 
 function updateReplayBar(){
@@ -873,7 +1272,7 @@ function advanceSequence(dtSim){
         replay.acqStartIdx = acqIdx;
         finalizeReplay();
       }
-      setSeqStatus(`Done: ${finishedLabel} — paused. Scrub replay or click FFT.`);
+      setSeqStatus(`Done: ${finishedLabel}`);
       renderSeqForm();
       return;
     }
@@ -885,6 +1284,7 @@ function advanceSequence(dtSim){
       sequence.remaining = ev.t;
     } else if (ev.type === 'acquire'){
       sequence.acqStartIdx = sig.length;
+      sequence.acqIndices.push(sig.length);
       if (replay) replay.acqStartIdx = sig.length;
       sequence.phase = 'delay';
       sequence.remaining = ev.t;
@@ -911,6 +1311,7 @@ function frame(now){
     if (replay.idx >= replay.snapshots.length-1){ replay.playing = false; document.getElementById('replayPP').textContent = '▶'; }
   }
   if (running && !frozen){
+    advanceSequence(0);
     if (animPulse){
       // Pulses animate over wall-clock time, not sim-time — so they feel responsive
       const pdt = realDt;
@@ -918,7 +1319,11 @@ function frame(now){
       for (const s of spins) s.M.applyAxisAngle(animPulse.axis, step);
       animPulse.remainingRad -= step;
       if (Math.abs(animPulse.remainingRad) < 1e-5) animPulse = null;
+      sampleAccum = 0; // Ideal pulses take no simulated time; animation is illustrative.
     } else {
+      sampleAccum += dt;
+      while (sampleAccum + 1e-12 >= SAMPLE_DT && !animPulse && !frozen) {
+      sampleAccum = Math.max(0, sampleAccum - SAMPLE_DT);
       const carrierHz = (+dws.value);            // Hz position of carrier
       const T1 = +t1s.value, T2 = +t2s.value;
       const totalN = spins.reduce((a,s)=>a+s.n,0);
@@ -926,23 +1331,23 @@ function frame(now){
       for (const s of spins){
         const fi = s.delta * PPM_SCALE - carrierHz;   // Hz offset from carrier
         const dw = fi * 2*Math.PI;                     // rad/s
-        if (dw !== 0) s.M.applyAxisAngle(zAxis, dw*dt);
+        if (dw !== 0) s.M.applyAxisAngle(zAxis, dw*SAMPLE_DT);
         const M0 = s.n / totalN;
-        s.M.x -= s.M.x * dt/T2;
-        s.M.y -= s.M.y * dt/T2;
-        s.M.z += (M0 - s.M.z) * dt/T1;
+        s.M.x *= Math.exp(-SAMPLE_DT/T2);
+        s.M.y *= Math.exp(-SAMPLE_DT/T2);
+        s.M.z = M0 + (s.M.z - M0) * Math.exp(-SAMPLE_DT/T1);
       }
-    }
-    advanceSequence(dt);
-    pushTrail();
-    simTime += dt;
-    if (!animPulse){
-      sampleAccum += dt;
-      while (sampleAccum >= SAMPLE_DT) {
-        sampleAccum -= SAMPLE_DT;
-        let mx=0, my=0;
-        for (const s of spins){ mx += s.n * s.M.x; my += s.n * s.M.y; }
-        sig.push({ t: simTime, mx, my });
+        simTime += SAMPLE_DT;
+        let mx=0, my=0, mz=0;
+        // M already includes the proton-count weight n / totalN.
+        for (const s of spins){ mx += s.M.x; my += s.M.y; mz += s.M.z; }
+        if (acquisitionCarrierHz === null) acquisitionCarrierHz = +dws.value;
+        const idealMx=mx, idealMy=my;
+        const noiseX=lesson === 'signal' || experimentType === 'repeats' ? receiverNoise()/0.03 : 0;
+        const noiseY=lesson === 'signal' || experimentType === 'repeats' ? receiverNoise()/0.03 : 0;
+        const level=experimentType === 'repeats' && lesson === 'relaxation' ? 0.03 : lesson === 'signal' ? lessonNoise : 0;
+        mx+=level*noiseX; my+=level*noiseY;
+        sig.push({ t: simTime, mx, my, mz, idealMx, idealMy, noiseX, noiseY, groups: spins.map(s => ({ mx: s.M.x, my: s.M.y })) });
         if (sig.length > MAX_SAMPLES) sig.shift();
         if (replay && sequence){
           replay.snapshots.push({
@@ -951,13 +1356,14 @@ function frame(now){
             M: spins.map(s => [s.M.x, s.M.y, s.M.z]),
           });
         }
+        advanceSequence(SAMPLE_DT);
       }
-    } else {
-      sampleAccum = 0;
     }
+    pushTrail();
     updateMVisual();
   }
   drawPlot();
+  drawPlane();
   drawSequenceMap();
   controls.update();
   renderer.render(scene, camera);
@@ -967,9 +1373,158 @@ function scheduleFrame(){
   if (document.hidden) setTimeout(() => frame(performance.now()), 33);
   else requestAnimationFrame(frame);
 }
-loadPreset('Ethanol');
+function drawPlane(){
+  const cv = document.getElementById('plane'), ctx = cv.getContext('2d');
+  const w = cv.clientWidth, h = cv.clientHeight, dpr = Math.min(devicePixelRatio, 2);
+  if (cv.width !== Math.round(w*dpr) || cv.height !== Math.round(h*dpr)) {
+    cv.width = Math.round(w*dpr); cv.height = Math.round(h*dpr);
+  }
+  ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,w,h);
+  const cx = w/2, cy = h/2+10, radius = Math.min(w,h)*0.32;
+  ctx.font = '600 13px system-ui'; ctx.fillStyle = '#5b6b7c';
+  ctx.fillText('Top view', 10, 20);
+  ctx.strokeStyle = '#d8dcea'; ctx.beginPath(); ctx.arc(cx,cy,radius,0,2*Math.PI); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx-radius,cy); ctx.lineTo(cx+radius,cy);
+  ctx.moveTo(cx,cy-radius); ctx.lineTo(cx,cy+radius); ctx.stroke();
+  ctx.fillText('x', cx+radius+5, cy+4); ctx.fillText('y', cx-3, cy-radius-6);
+  let mx=0, my=0;
+  spins.forEach((s,i) => {
+    mx += s.M.x; my += s.M.y;
+    ctx.globalAlpha = highlightedSpin < 0 || highlightedSpin === i ? 1 : 0.2;
+    ctx.strokeStyle = `#${s.color.toString(16).padStart(6,'0')}`; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(cx+s.M.x*radius,cy-s.M.y*radius); ctx.stroke();
+    ctx.fillStyle = ctx.strokeStyle; ctx.beginPath(); ctx.arc(cx+s.M.x*radius,cy-s.M.y*radius,3,0,2*Math.PI); ctx.fill();
+  });
+  ctx.globalAlpha = 1; ctx.strokeStyle = '#263347'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(cx+mx*radius,cy-my*radius); ctx.stroke();
+  ctx.setLineDash([3,3]); ctx.beginPath(); ctx.moveTo(cx+mx*radius,cy-my*radius); ctx.lineTo(cx+mx*radius,cy); ctx.stroke(); ctx.setLineDash([]);
+  ctx.fillStyle = '#263347'; ctx.beginPath(); ctx.arc(cx+mx*radius,cy,4,0,2*Math.PI); ctx.fill();
+}
+
+function currentTab(){ return lesson === 'relaxation' ? relaxationTopic : lesson; }
+function updateTabs(){
+  document.querySelectorAll('#tabs button').forEach(b => b.setAttribute('aria-pressed', b.dataset.tab === currentTab()));
+}
+window.selectTab = function(tab){
+  if (lesson === 'relaxation' && (tab === 't1' || tab === 't2')) return switchRelaxationTopic(tab);
+  const url = new URL(location.href);
+  for (const k of ['mode','lesson','topic']) url.searchParams.delete(k);
+  if (tab === 'explore') url.searchParams.set('mode','explore');
+  else if (tab === 'signal') url.searchParams.set('lesson','signal');
+  else { url.searchParams.set('lesson','relaxation'); url.searchParams.set('topic',tab); }
+  location.assign(url.href);
+};
+window.pressChoice = function(button){
+  button.parentElement.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b === button));
+};
+let lessonSetup = null; // { key, params } of the lesson's current experiment
+window.runLesson = function(angle){
+  lessonSetup = { key:'fid', params:{ angle, acq:6 } };
+  armSequence(lessonSetup.key, lessonSetup.params);
+  running = true; document.getElementById('runBtn').textContent = 'Pause';
+  document.getElementById('explanation').hidden = true;
+  runSelected();
+};
+window.lessonReplay = function(atEnd){
+  if (!frozen || !replay?.snapshots.length) return;
+  replay.playing = false;
+  replaySeek(atEnd ? replay.snapshots.length-1 : 0);
+  clearTrail();
+};
+
+function renderRelaxationLesson(){
+  const t1 = relaxationTopic === 't1';
+  experimentType = t1 ? 'repeats' : 't2';
+  document.getElementById('lessonTitle').textContent = t1 ? 'T₁ · Recovery' : 'T₂ · Decay';
+  document.getElementById('prediction').textContent = t1
+    ? 'Wait longer before the 2nd pulse. What happens to the 2nd signal?'
+    : 'Shorter T₂: faster decay? Wider peak?';
+  document.getElementById('explanation').textContent = t1
+    ? 'Mz recovers as 1 − e^(−t/T₁), with T₁ = 8 s here. The 2nd 90° pulse can only tip what has recovered.'
+    : 'Transverse signal decays as e^(−t/T₂). The peak’s full width at half height is 1/(πT₂), so shorter T₂ means a broader peak.';
+  document.getElementById('explanation').hidden = true;
+  document.getElementById('lessonResult').textContent = '';
+  const buttons = t1
+    ? [0.2,8,24].map(wait => `<button onclick="pressChoice(this); runRelaxation(${wait})">${wait} s</button>`).join('')
+    : [0.4,1.5,4].map(t2 => `<button onclick="pressChoice(this); runRelaxation(${t2})">${t2} s</button>`).join('');
+  document.getElementById('lessonActions').innerHTML = `<div class="choices"><span class="lbl">${t1 ? 'Wait' : 'T₂'}</span>${buttons}</div>`;
+  prepareRelaxation(t1 ? 8 : 1.5);
+  updateTabs();
+  drawPlot();
+}
+window.switchRelaxationTopic = function(topic){
+  relaxationTopic = topic === 't2' ? 't2' : 't1';
+  const url = new URL(location.href);
+  url.searchParams.set('lesson','relaxation'); url.searchParams.set('topic',relaxationTopic);
+  history.replaceState(null,'',url.href);
+  reset(); running=false; document.getElementById('runBtn').textContent='Run';
+  renderRelaxationLesson();
+};
+function prepareRelaxation(value){
+  if (relaxationTopic === 't1') { t1s.value=8; t2s.value=2; lessonSetup = { key:'two90', params:{ acq:4, wait:value } }; }
+  else { t1s.value=20; t2s.value=value; lessonSetup = { key:'fid', params:{ angle:90, acq:6 } }; }
+  dws.value=-0.8; syncLabels();
+  armSequence(lessonSetup.key, lessonSetup.params);
+}
+window.runRelaxation = function(value){
+  prepareRelaxation(value);
+  running=true; document.getElementById('runBtn').textContent='Pause';
+  document.getElementById('explanation').hidden=true;
+  document.getElementById('lessonResult').textContent = '';
+  runSelected();
+};
+window.openInExplore = function(){
+  const url = new URL(location.href);
+  for (const k of [...url.searchParams.keys()]) url.searchParams.delete(k);
+  url.searchParams.set('mode','explore');
+  url.searchParams.set('preset', document.getElementById('preset').value);
+  url.searchParams.set('t1', t1s.value); url.searchParams.set('t2', t2s.value);
+  url.searchParams.set('carrier', dws.value); url.searchParams.set('ts', tss.value);
+  if (lessonSetup) {
+    url.searchParams.set('seq', lessonSetup.key);
+    for (const [k,v] of Object.entries(lessonSetup.params)) url.searchParams.set(k, v);
+  }
+  location.assign(url.href);
+};
+
+const handoffPreset = query.get('preset');
+loadPreset(lesson === 'explore' ? (PRESETS[handoffPreset] ? handoffPreset : 'Ethanol') : 'TMS');
+if (lesson === 'explore') {
+  updateTabs();
+  for (const [el, key] of [[t1s,'t1'],[t2s,'t2'],[dws,'carrier'],[tss,'ts']]) if (query.has(key)) el.value = query.get(key);
+  enforceT2Limit();
+  const key = query.get('seq');
+  if (SEQUENCES[key]) {
+    const params = {};
+    for (const p of SEQUENCES[key].params) if (query.has(p.id) && isFinite(+query.get(p.id))) params[p.id] = +query.get(p.id);
+    armSequence(key, params);
+  }
+}
+if (lesson !== 'explore') {
+  running = false; document.getElementById('runBtn').textContent = 'Run';
+  tss.value = lesson === 'relaxation' ? 2 : 0.5;
+  dws.value = lesson === 'signal' ? -1 : -0.8;
+  syncLabels();
+  document.getElementById('preset').disabled = true;
+  if (lesson === 'relaxation') renderRelaxationLesson();
+  else {
+  document.getElementById('lessonTitle').textContent = 'Tip & detect';
+  document.getElementById('prediction').textContent = 'Which pulse gives the biggest signal?';
+  document.getElementById('explanation').textContent = 'Only magnetization in the x–y plane is detected. 90° tips all of it there, 30° tips half (sin 30°), and 180° flips it to −z: no signal.';
+  lessonSetup = { key:'fid', params:{ angle:90, acq:6 } };
+  armSequence(lessonSetup.key, lessonSetup.params);
+  document.getElementById('lessonActions').innerHTML = '<div class="choices"><span class="lbl">Pulse</span>' + [30,90,180].map(angle => `<button onclick="pressChoice(this); runLesson(${angle})">${angle}°</button>`).join('') + '</div>';
+  }
+  updateTabs();
+  document.getElementById('lessonCard').insertBefore(document.getElementById('seqMap'), document.getElementById('lessonResult'));
+  document.getElementById('lessonCard').appendChild(document.getElementById('replayBar'));
+  document.getElementById('lessonCard').appendChild(document.getElementById('seqStatus'));
+}
 drawSequenceMap();
-window.__dbg = () => ({ nSpins: spins.length, spins: spins.map(s=>({label:s.label, M:[s.M.x,s.M.y,s.M.z], trailCount:s.trailCount})), sigLen: sig.length, simTime, seq: sequence });
+window.__dbg = () => {
+  const indices = (sequence || replay)?.acqIndices || [];
+  return { nSpins: spins.length, spins: spins.map(s=>({label:s.label, M:[s.M.x,s.M.y,s.M.z], trailCount:s.trailCount})), sigLen: sig.length, simTime, seq: sequence, frozen, lesson, experimentType, acquisitionCarrierHz, spectrumKey: spectrumCache?.key, acqIndices:indices, scanStarts:indices.map(i=>sig[i]?.idealMx), firstSignal: sig[0], maxSignal: sig.reduce((m,s) => Math.max(m,Math.hypot(s.mx,s.my)),0) };
+};
 scheduleFrame();
 </script>
 </body>

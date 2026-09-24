@@ -48,54 +48,115 @@
             border-top: 1px solid #dee2e6;
         }
         .attribution a { color: #0d6efd; }
+        .sp-o { color: #1c7ed6; font-weight: 600; }
+        .sp-r { color: #f76707; font-weight: 600; }
+        #molecular { display: block; width: 100%; height: 170px; border-radius: 6px 6px 0 0; }
+        .mol-caption {
+            display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;
+            font-size: 0.78rem; color: #6c757d; padding: 0.3rem 0.75rem 0;
+        }
+        .mol-key span { margin-left: 0.9rem; white-space: nowrap; }
+        .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; vertical-align: -1px; margin-right: 3px; }
+        .dot-o { border: 1.6px solid #1c7ed6; }
+        .dot-r { background: #f76707; }
+        /* Lessons (after the PhET-style layout of nmr-sim) */
+        :root { --accent: #2a78c2; --line: #c3d5e4; --muted: #5b6b7c;
+                --action: #ffd966; --action-line: #d9ad2b; --action-hover: #ffe58f; }
+        #tabs { display: flex; background: #dce9f4; border-radius: 10px; padding: 3px; margin-bottom: 0.6rem; }
+        #tabs button { flex: 1; border: none; background: transparent; font-size: 0.85rem; font-weight: 600;
+                       padding: 6px 0; border-radius: 8px; color: #1f2d3d; }
+        #tabs button[aria-pressed="true"] { background: #fff; color: var(--accent); box-shadow: 0 1px 3px rgba(30,60,90,.2); }
+        #lessonCard { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; margin-bottom: 0.6rem; }
+        #lessonCard h2 { font-size: 1rem; font-weight: 700; margin: 0 0 6px; }
+        .q { font-size: 0.92rem; margin: 0 0 4px; }
+        .choices { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
+        .choices button { flex: 1; font-weight: 600; font-size: 0.85rem; padding: 7px 4px; border-radius: 8px;
+                          background: var(--action); border: 1px solid var(--action-line); }
+        .choices button:hover { background: var(--action-hover); }
+        .choices button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+        .result { font-size: 1rem; font-weight: 700; color: var(--accent); min-height: 1.5rem; margin: 4px 0; }
+        .card-foot { display: flex; justify-content: space-between; }
+        .why { background: none; border: none; color: var(--accent); padding: 0; font-size: 0.85rem; font-weight: 600; }
+        .why:hover { text-decoration: underline; }
+        #explanation { margin: 6px 0 0; font-size: 0.85rem; color: var(--muted); }
+        body.guided .advanced { display: none !important; }
+        body.explore .guided-only { display: none; }
+        .readout { font: 0.78rem ui-monospace, monospace; color: var(--muted); margin: -0.4rem 0 0.4rem; }
+        .readout:empty { display: none; }
+        details.more { margin-top: 0.6rem; }
+        details.more summary { font-weight: 600; font-size: 0.78rem; text-transform: uppercase;
+                               letter-spacing: 0.04em; color: #6c757d; cursor: pointer; }
+        .shape-key { color: #6c757d; margin-right: 0.3rem; }
+        #reaction .shape-key { display: none; }
+        #reaction.two .shape-key { display: inline; }
+        .dot-e { width: 6px; height: 6px; background: #fcc419; border: 1px solid #5c4400; }
     </style>
 </head>
-<body>
+<body class="guided">
 <div class="container-fluid py-3">
     <div class="row g-3">
-        <!-- Sidebar: parameters -->
-        <div class="col-lg-2 col-md-3">
+        <!-- Sidebar: lessons and parameters -->
+        <div class="col-xl-3 col-lg-4 col-md-4">
             <div class="card">
                 <div class="card-body py-2 px-3">
-                    <h6 class="card-title mb-1">Voltammetry Simulation</h6>
+                    <h6 class="card-title mb-2">Voltammetry Simulation</h6>
 
+                    <div id="tabs" role="tablist">
+                        <button data-tab="scan">Scan rate</button>
+                        <button data-tab="kinetics">Kinetics</button>
+                        <button data-tab="step">Step</button>
+                        <button data-tab="explore">Explore</button>
+                    </div>
+
+                    <div id="lessonCard" class="guided-only">
+                        <h2 id="lessonTitle"></h2>
+                        <p id="lessonQuestion" class="q"></p>
+                        <div id="lessonActions" class="choices"></div>
+                        <div id="lessonResult" class="result" role="status"></div>
+                        <div class="card-foot">
+                            <button class="why" id="btn-why">Why?</button>
+                            <button class="why" id="btn-explore">Open in Explore &rarr;</button>
+                        </div>
+                        <p id="explanation" hidden></p>
+                    </div>
+
+                    <div id="reaction">
+                        <div><span class="shape-key">&#9675;</span><span class="sp-o">O</span> + <span class="rxn-n">1</span>e<sup>&minus;</sup> &#8652; <span class="sp-r">R</span></div>
+                        <div class="couple2" style="display:none"><span class="shape-key">&#9633;</span><span class="sp-o">O<sub>2</sub></span> + <span class="rxn-n">1</span>e<sup>&minus;</sup> &#8652; <span class="sp-r">R<sub>2</sub></span></div>
+                    </div>
+
+                    <div class="advanced">
                     <select id="mode" class="form-select form-select-sm mb-1">
                         <option value="cv">Cyclic voltammetry</option>
                         <option value="step">Potential step</option>
                     </select>
 
-                    <div id="reaction">O + <span id="rxn-n">1</span>e<sup>&minus;</sup> &#8652; R</div>
-
-                    <div class="param-section">Diffusion</div>
+                    <div class="param-section">Solution</div>
                     <div class="param-group">
-                        <label>D<sub>O</sub> (&times;10<sup>-5</sup> cm&sup2;/s)
-                            <input type="number" id="Do" value="1" step="0.1" min="0.01">
+                        <label><span>C<sub>O</sub> (M)</span>
+                            <input type="number" id="Co0" value="0.1" step="0.01" min="0">
                         </label>
                     </div>
                     <div class="param-group">
-                        <label>D<sub>R</sub> (&times;10<sup>-5</sup> cm&sup2;/s)
-                            <input type="number" id="Dr" value="1" step="0.1" min="0.01">
+                        <label><span>C<sub>R</sub> (M)</span>
+                            <input type="number" id="Cr0" value="0" step="0.01" min="0">
                         </label>
                     </div>
-                    <div class="param-group">
-                        <label>C<sub>O</sub><sup>0</sup> (M)
-                            <input type="number" id="Co0" value="0.1" step="0.01" min="0.001">
-                        </label>
-                    </div>
+                    <div id="eeq" class="readout"></div>
 
                     <div class="param-section">Kinetics</div>
                     <div class="param-group">
-                        <label>k<sup>0</sup> (cm/s)
+                        <label><span>k<sup>0</sup> (cm/s)</span>
                             <input type="number" id="k0" value="1" step="0.1" min="0.001">
                         </label>
                     </div>
                     <div class="param-group">
-                        <label>&alpha;
+                        <label><span>&alpha;</span>
                             <input type="number" id="alpha" value="0.5" step="0.05" min="0" max="1">
                         </label>
                     </div>
                     <div class="param-group">
-                        <label>n
+                        <label><span>n</span>
                             <input type="number" id="nElectrons" value="1" step="1" min="1">
                         </label>
                     </div>
@@ -103,108 +164,156 @@
                     <div id="cv-params">
                     <div class="param-section">Potential</div>
                     <div class="param-group">
-                        <label>E<sub>+</sub> (V)
+                        <label><span>E<sub>+</sub> (V)</span>
                             <input type="number" id="Es" value="0.5" step="0.05">
                         </label>
                     </div>
                     <div class="param-group">
-                        <label>E<sub>&minus;</sub> (V)
+                        <label><span>E<sub>&minus;</sub> (V)</span>
                             <input type="number" id="Ee" value="-0.5" step="0.05">
                         </label>
                     </div>
                     <div class="param-group">
-                        <label>E<sup>0</sup> (V)
+                        <label><span>E<sup>0</sup> (V)</span>
                             <input type="number" id="E0" value="0" step="0.05">
                         </label>
                     </div>
 
                     <div class="param-section">Scan</div>
                     <div class="param-group">
-                        <label>&nu; (V/s)
+                        <label><span>&nu; (V/s)</span>
                             <input type="number" id="scanRate" value="0.1" step="0.01" min="0.001">
                         </label>
                     </div>
-                    <div class="param-group">
-                        <label>dt (ms)
-                            <input type="number" id="dt" value="10" step="1" min="1">
-                        </label>
-                    </div>
-
+                    <select id="scanDir" class="form-select form-select-sm mb-1">
+                        <option value="neg">Reduce first (from E+)</option>
+                        <option value="pos">Oxidize first (from E&minus;)</option>
+                    </select>
                     </div>
 
                     <div id="step-params" style="display:none">
                     <div class="param-section">Potential step</div>
                     <div class="param-group">
-                        <label>E<sub>init</sub> (V)
+                        <label><span>E<sub>init</sub> (V)</span>
                             <input type="number" id="Einit" value="0.5" step="0.05">
                         </label>
                     </div>
                     <div class="param-group">
-                        <label>E<sub>step</sub> (V)
+                        <label><span>E<sub>step</sub> (V)</span>
                             <input type="number" id="Estep" value="-0.5" step="0.05">
                         </label>
                     </div>
                     <div class="param-group">
-                        <label>E<sup>0</sup> (V)
+                        <label><span>E<sup>0</sup> (V)</span>
                             <input type="number" id="E0step" value="0" step="0.05">
                         </label>
                     </div>
                     <div class="param-group">
-                        <label>Dwell at E<sub>init</sub> (s)
+                        <label><span>Dwell at E<sub>init</sub> (s)</span>
                             <input type="number" id="tDwell" value="0.5" step="0.1" min="0">
                         </label>
                     </div>
                     <div class="param-group">
-                        <label>Step duration (s)
+                        <label><span>Step duration (s)</span>
                             <input type="number" id="tStep" value="2" step="0.5" min="0.01">
                         </label>
                     </div>
                     <div class="param-group">
-                        <label>dt (ms)
+                        <label><span>dt (ms)</span>
                             <input type="number" id="dtStep" value="1" step="0.5" min="0.1">
                         </label>
                     </div>
 
-                    <div class="param-section">Charging &amp; noise</div>
-                    <div class="param-group">
-                        <label>R<sub>u</sub> (&Omega;)
-                            <input type="number" id="Ru" value="200" step="50" min="0">
-                        </label>
-                    </div>
-                    <div class="param-group">
-                        <label>C<sub>dl</sub> (&mu;F)
-                            <input type="number" id="Cdl" value="50" step="5" min="0">
-                        </label>
-                    </div>
-                    <div class="param-group">
-                        <label>Noise (&mu;A)
-                            <input type="number" id="noise" value="0" step="1" min="0">
-                        </label>
-                    </div>
                     <div class="form-check" style="font-size:0.8rem;">
                         <input class="form-check-input" type="checkbox" id="showCottrell" checked>
                         <label class="form-check-label" for="showCottrell">Show Cottrell</label>
                     </div>
                     </div>
 
+                    <details class="more">
+                    <summary>More settings</summary>
+                    <div class="param-section">Diffusion</div>
+                    <div class="param-group">
+                        <label><span>D<sub>O</sub> (&times;10<sup>-5</sup> cm&sup2;/s)</span>
+                            <input type="number" id="Do" value="1" step="0.1" min="0.01">
+                        </label>
+                    </div>
+                    <div class="param-group">
+                        <label><span>D<sub>R</sub> (&times;10<sup>-5</sup> cm&sup2;/s)</span>
+                            <input type="number" id="Dr" value="1" step="0.1" min="0.01">
+                        </label>
+                    </div>
+
+                    <div class="param-section">Second redox couple</div>
+                    <div class="form-check" style="font-size:0.8rem;">
+                        <input class="form-check-input" type="checkbox" id="useSecond">
+                        <label class="form-check-label" for="useSecond" title="Shares D, α and n with the first couple. The two couples don't react with each other in solution.">Add O<sub>2</sub>/R<sub>2</sub></label>
+                    </div>
+                    <div id="second-params" class="couple2" style="display:none">
+                    <div class="param-group">
+                        <label><span>E<sup>0</sup><sub>2</sub> (V)</span>
+                            <input type="number" id="E02" value="-0.3" step="0.05">
+                        </label>
+                    </div>
+                    <div class="param-group">
+                        <label><span>k<sup>0</sup><sub>2</sub> (cm/s)</span>
+                            <input type="number" id="k02" value="1" step="0.1" min="0.001">
+                        </label>
+                    </div>
+                    <div class="param-group">
+                        <label><span>C<sub>O2</sub> (M)</span>
+                            <input type="number" id="Co02" value="0.1" step="0.01" min="0">
+                        </label>
+                    </div>
+                    <div class="param-group">
+                        <label><span>C<sub>R2</sub> (M)</span>
+                            <input type="number" id="Cr02" value="0" step="0.01" min="0">
+                        </label>
+                    </div>
+                    </div>
+
+                    <div class="param-section">Charging &amp; noise</div>
+                    <div class="param-group">
+                        <label><span>R<sub>u</sub> (&Omega;)</span>
+                            <input type="number" id="Ru" value="200" step="50" min="0">
+                        </label>
+                    </div>
+                    <div class="param-group">
+                        <label><span>C<sub>dl</sub> (&mu;F)</span>
+                            <input type="number" id="Cdl" value="50" step="5" min="0">
+                        </label>
+                    </div>
+                    <div class="param-group">
+                        <label><span>Noise (&mu;A)</span>
+                            <input type="number" id="noise" value="0" step="1" min="0">
+                        </label>
+                    </div>
+                    <div class="form-check" style="font-size:0.8rem;">
+                        <input class="form-check-input" type="checkbox" id="showParts">
+                        <label class="form-check-label" for="showParts">Show faradaic &amp; charging</label>
+                    </div>
+
                     <div class="param-section">Electrode</div>
                     <div class="param-group">
-                        <label>A (cm&sup2;)
+                        <label><span>A (cm&sup2;)</span>
                             <input type="number" id="area" value="0.0707" step="0.001" min="0.001">
                         </label>
                     </div>
 
                     <div class="param-section">Display</div>
                     <div class="param-group">
-                        <label>x<sub>max</sub> (&mu;m)
+                        <label><span>x<sub>max</sub> (&mu;m)</span>
                             <input type="number" id="xm" value="100" step="10" min="10">
                         </label>
                     </div>
 
+                    </details>
+                    </div>
+
                     <div class="d-grid gap-2 mt-3">
                         <button id="btn-run" class="btn btn-success btn-sm">&#9654; Play</button>
-                        <button id="btn-reset" class="btn btn-outline-secondary btn-sm">Reset</button>
-                        <button id="btn-csv" class="btn btn-outline-primary btn-sm" disabled>Download CSV</button>
+                        <button id="btn-reset" class="btn btn-outline-secondary btn-sm advanced">Reset</button>
+                        <button id="btn-csv" class="btn btn-outline-primary btn-sm advanced" disabled>Download CSV</button>
                     </div>
 
                     <div class="mt-2">
@@ -225,7 +334,7 @@
         </div>
 
         <!-- Main: plots -->
-        <div class="col-lg-10 col-md-9">
+        <div class="col-xl-9 col-lg-8 col-md-8">
             <div class="row g-3">
                 <div class="col-md-6">
                     <div class="plot-container">
@@ -241,6 +350,16 @@
             <div class="row g-3 mt-1">
                 <div class="col-12">
                     <div class="plot-container">
+                        <div class="mol-caption">
+                            <span><strong>Molecular view</strong> &mdash; same distance scale as the plot below; each dot stands for many molecules</span>
+                            <span class="mol-key">
+                                <span><i class="dot dot-o"></i>O</span>
+                                <span><i class="dot dot-r"></i>R</span>
+                                <span class="couple2" style="display:none">&#9675; couple 1 &ensp;&#9633; couple 2</span>
+                                <span><i class="dot dot-e"></i>e<sup>&minus;</sup> transferred</span>
+                            </span>
+                        </div>
+                        <canvas id="molecular"></canvas>
                         <div id="plot-conc"></div>
                     </div>
                 </div>

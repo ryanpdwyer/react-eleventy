@@ -11,14 +11,14 @@
 
 import { findPeaks, cottrell } from './cv-sim-engine.js';
 
-// One reversible couple, O only, no charging current or noise
+// One reversible couple, O only; charging current as in Explore, no noise
 export const BASE = {
     mode: 'cv',
     Co0: 0.1, Cr0: 0, Do: 1, Dr: 1,
     k0: 1, alpha: 0.5, nElectrons: 1,
     Es: 0.5, Ee: -0.5, E0: 0, scanRate: 0.1, scanDir: 'neg',
     Einit: 0.5, Estep: -0.5, E0step: 0, tDwell: 0.5, tStep: 2, dtStep: 1,
-    useSecond: false, Ru: 0, Cdl: 0, noise: 0, showParts: false, showCottrell: true,
+    useSecond: false, Ru: 200, Cdl: 50, noise: 0, showParts: false, showCottrell: true,
     area: 0.0707, xm: 100
 };
 

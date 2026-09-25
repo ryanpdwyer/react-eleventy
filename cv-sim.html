@@ -92,6 +92,9 @@
         #lessonLog p.wrong { background: #fff4e6; }
         body.no-conc #plot-conc, body.no-conc .conc-note { display: none; }
         body.no-conc #molecular { height: 280px; border-radius: 6px; }
+        /* Staged lesson, picture only: no plots, a big molecular view */
+        body.molecular-only #top-plots { display: none; }
+        body.molecular-only #molecular { height: 440px; }
         body.guided .advanced { display: none !important; }
         body.explore .guided-only { display: none; }
         .readout { font: 0.78rem ui-monospace, monospace; color: var(--muted); margin: -0.4rem 0 0.4rem; }
@@ -373,7 +376,7 @@
 
         <!-- Main: plots -->
         <div class="col-xl-9 col-lg-8 col-md-8">
-            <div class="row g-3">
+            <div class="row g-3" id="top-plots">
                 <div class="col-md-6">
                     <div class="plot-container">
                         <div id="plot-et"></div>

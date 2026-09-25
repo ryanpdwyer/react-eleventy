@@ -31,49 +31,68 @@ const mA = I => (I * 1e3).toFixed(2) + ' mA';
 export const LESSONS = {
     redox: {
         title: 'Reduction and oxidation',
-        // A real couple first; the later lessons generalize to O + e⁻ ⇌ R
+        // A real couple first; the later lessons generalize to O + e⁻ ⇌ R.
+        // Builds up in stages: the electrode picture alone, then the current.
         names: { O: 'Fe<sup>3+</sup>', R: 'Fe<sup>2+</sup>' },
         hideConc: true,
+        bands: true,              // shade oxidizing / reducing potentials on the plots
         base: { Co0: 0.005, Do: 0.6, Dr: 0.72, k0: 0.01,
                 E0: 0.77, Es: 1.25, Ee: 0.25 },
-        intro: 'The solution starts with only Fe³⁺ (hollow blue circles). A cyclic ' +
-               'voltammogram sweeps the working electrode from +1.25 V to more negative ' +
-               'potentials, down to +0.25 V, then back. Watch the ions and the yellow ' +
-               'electrons at the electrode.',
+        intro: 'The solution starts with only Fe³⁺ (hollow blue circles). We sweep the ' +
+               'working electrode from +1.25 V to more negative potentials, down to ' +
+               '+0.25 V, then back. The electrode shows whether its potential is ' +
+               'oxidizing or reducing.',
         stages: [
             {
-                question: 'As the electrode potential gets more negative, what happens to Fe³⁺ at the surface?',
+                view: 'molecular', restart: true, pauseAtVertex: true,
+                question: 'As the potential gets more negative, what happens to Fe³⁺ at the electrode?',
                 choices: [
                     { label: 'Gains e\u207b', correct: true },
                     { label: 'Loses e\u207b' },
                     { label: 'Nothing' }
                 ],
-                explain: '<b>Reduction:</b> Fe³⁺ + e\u207b \u2192 Fe²⁺. Once the potential is ' +
-                         'more negative than E⁰ = +0.77 V, the electrode pushes electrons onto ' +
-                         'Fe³⁺, which becomes Fe²⁺ (filled orange). Reduction is gain. The ' +
-                         'current is positive (cathodic) on the way down.'
+                explain: '<b>Reduction:</b> Fe³⁺ + e\u207b \u2192 Fe²⁺. More negative than ' +
+                         'E⁰ = +0.77 V, the potential is reducing: the electrode pushes ' +
+                         'electrons onto Fe³⁺, which becomes Fe²⁺ (filled orange). ' +
+                         'Reduction is gain.'
             },
             {
-                question: 'Now the scan heads back to more positive potentials. What happens to the Fe²⁺ near the electrode?',
+                view: 'molecular',
+                question: 'Now the potential heads back to more positive values. What happens to the Fe²⁺ near the electrode?',
                 choices: [
                     { label: 'Loses e\u207b', correct: true },
                     { label: 'Gains e\u207b' },
                     { label: 'Nothing' }
                 ],
                 explain: '<b>Oxidation:</b> Fe²⁺ \u2192 Fe³⁺ + e\u207b. More positive than ' +
-                         'E⁰, the electrode pulls the electrons back out. Oxidation is loss. ' +
-                         'The current is negative (anodic).'
+                         'E⁰, the potential is oxidizing: the electrode pulls the electrons ' +
+                         'back out. Oxidation is loss.'
+            },
+            {
+                view: 'full', restart: true,
+                question: 'Now we measure the current: electrons crossing the electrode per ' +
+                          'second, which is the rate of the reaction. As the potential sweeps ' +
+                          'more negative, where will the reduction current be biggest?',
+                choices: [
+                    { label: 'At the start' },
+                    { label: 'Near E⁰', correct: true },
+                    { label: 'At the end' }
+                ],
+                explain: '<b>Current = reaction rate.</b> Each electron that crosses is one ' +
+                         'Fe³⁺ reduced. The current is tiny until the potential nears E⁰, ' +
+                         'peaks just past it, then falls even though the potential keeps ' +
+                         'getting more reducing: the Fe³⁺ next to the electrode is used up, ' +
+                         'and more has to diffuse in. On the way back, the Fe²⁺ is oxidized ' +
+                         'and the current flows the other way. This plot is a cyclic voltammogram.'
             }
         ],
         outro: 'From here on we write any couple as <b>O + e\u207b \u21cc R</b>: O is the ' +
                'oxidized form (like Fe³⁺), R the reduced form (like Fe²⁺). ' +
                'Next, the <b>Scan</b> tab asks how the scan speed changes the peaks.',
-        why: 'That was one cyclic voltammogram: sweep the potential from where Fe³⁺ is ' +
-             'stable, past E⁰ = +0.77 V to where it is reduced, then back so the Fe²⁺ you ' +
-             'made is oxidized again. The current stays near zero until the potential nears ' +
-             'E⁰, peaks as the Fe³⁺ next to the electrode runs out, and the return peak ' +
-             'appears because the Fe²⁺ is still nearby. Potentials here are vs the standard ' +
-             'hydrogen electrode, as in E⁰ tables.'
+        why: 'The potential sets which reaction can happen: more negative than E⁰ reduces ' +
+             'Fe³⁺, more positive oxidizes Fe²⁺. The current tells you how fast it is ' +
+             'happening. Potentials here are vs the standard hydrogen electrode, as in ' +
+             'E⁰ tables.'
     },
 
     scan: {

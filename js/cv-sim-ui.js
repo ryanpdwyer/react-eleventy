@@ -42,19 +42,40 @@ const plotCfg = { responsive: true, displayModeBar: false };
 const marginSmall = { t: 28, r: 18, b: 44, l: 56 };
 
 function layoutET(tMax, Ee, Es) {
-    return {
+    return redoxBands({
         xaxis: { title: 'Time / s', range: [0, tMax] },
         yaxis: { title: 'E / V', range: [Ee, Es] },
         margin: marginSmall, height: 280
-    };
+    }, 'y', Ee, Es);
 }
 
 function layoutIV(Ee, Es) {
-    return {
+    return redoxBands({
         xaxis: { title: 'E / V', range: [Ee, Es] },
         yaxis: { title: 'I / mA' },
         margin: marginSmall, height: 280
-    };
+    }, 'x', Ee, Es);
+}
+
+// Lessons with `bands`: shade potentials more positive than E⁰ (oxidizing)
+// and more negative (reducing) along the potential axis
+function redoxBands(lay, axis, lo, hi) {
+    if (!lesson()?.bands) return lay;
+    const E0 = parseFloat($('E0').value);
+    const band = (a, b, fillcolor) => ({
+        type: 'rect', layer: 'below', line: { width: 0 }, fillcolor,
+        ...(axis === 'y' ? { xref: 'paper', x0: 0, x1: 1, y0: a, y1: b }
+                         : { yref: 'paper', y0: 0, y1: 1, x0: a, x1: b })
+    });
+    const label = (at, text, color) => ({
+        text, showarrow: false, font: { size: 11, color },
+        ...(axis === 'y' ? { xref: 'paper', x: 0.99, xanchor: 'right', y: at }
+                         : { yref: 'paper', y: 0.98, yanchor: 'top', x: at })
+    });
+    lay.shapes = [band(E0, hi, 'rgba(28,126,214,0.08)'), band(lo, E0, 'rgba(247,103,7,0.08)')];
+    lay.annotations = [label((E0 + hi) / 2, 'oxidizing', COLOR_O),
+                       label((lo + E0) / 2, 'reducing', COLOR_R)];
+    return lay;
 }
 
 function layoutIT(tMax) {
@@ -260,9 +281,10 @@ function play() {
     }
     if (snapIdx === 0) {
         restartParticles();
-        if (lesson()?.stages) {
-            if (stage > 0) startStages();      // replaying a finished walkthrough
-            pauseAtVertex = true;
+        const stages = lesson()?.stages;
+        if (stages) {
+            if (stage >= stages.length) startStages();   // replaying a finished walkthrough
+            pauseAtVertex = !!stages[stage]?.pauseAtVertex;
         }
     }
 
@@ -633,6 +655,7 @@ function selectTab(key) {
     history.replaceState(null, '', url.href);
 
     ghosts = [];
+    stageView('full');
     setSpeciesNames(lesson()?.names || { O: 'O', R: 'R' });
     document.body.classList.toggle('no-conc', !!lesson()?.hideConc);
     syncMolecularView();                      // the view's height depends on the plot below
@@ -654,7 +677,7 @@ function selectTab(key) {
         setChoiceButtons(L.choices, runChoice);
     }
     applySettings({ ...BASE, ...L.base });
-    speedEl.value = Math.log10(2);            // lessons play at 2×
+    speedEl.value = Math.log10(1.5);          // lessons play at 1.5×
     reset();
 }
 
@@ -668,9 +691,11 @@ function setChoiceButtons(choices, onPick) {
     }
 }
 
-// ── Staged lesson: predictions along one CV ───────────────────
-// Stage 0's answer starts the scan, which pauses at the switching
-// potential for feedback; stage 1's answer finishes it.
+// ── Staged lesson: predictions that build up one idea at a time ──
+// Each stage sets the view ('molecular' = the electrode picture alone,
+// 'full' = with plots). A `restart` stage clears and starts a new scan
+// when answered; `pauseAtVertex` stops that scan at the switching
+// potential for feedback, and the next stage's answer finishes it.
 let stage = 0;            // which prediction is showing
 let stageAnswer = null;   // the choice picked for it
 let pauseAtVertex = false;
@@ -684,6 +709,11 @@ function startStages() {
 
 function renderStage() {
     const st = lesson().stages[stage];
+    stageView(st ? st.view : 'full');
+    if (st?.restart && stage > 0) {           // fresh axes, so the old run doesn't give it away
+        applySettings({ ...BASE, ...lesson().base });
+        reset();
+    }
     if (st) {
         $('lessonQuestion').textContent = st.question;
         setChoiceButtons(st.choices, answerStage);
@@ -696,14 +726,23 @@ function renderStage() {
 function answerStage(c, button) {
     for (const b of $('lessonActions').children) b.setAttribute('aria-pressed', b === button);
     stageAnswer = c;
-    if (stage === 0) {
+    if (lesson().stages[stage].restart) {
         applySettings({ ...BASE, ...lesson().base });
         reset();
     }
     play();
 }
 
-// The scan reached the switching potential (stage 0) or the end (stage 1)
+// Show the electrode picture alone, or with the plots
+function stageView(view) {
+    const only = view === 'molecular';
+    if (document.body.classList.contains('molecular-only') === only) return;
+    document.body.classList.toggle('molecular-only', only);
+    syncMolecularView();
+    if (!only) for (const id of ['plot-et', 'plot-iv', 'plot-conc']) Plotly.Plots.resize(id);
+}
+
+// The scan reached the switching potential or the end
 function finishStage() {
     const st = lesson().stages[stage];
     if (!st) return;

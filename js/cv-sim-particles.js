@@ -221,18 +221,24 @@ export function createParticleView(canvas) {
             ctx.font = '10px system-ui, sans-serif';
             ctx.fillText('e⁻', Math.min(x0, x1) + len / 2 - 5, cy - 6);
         }
-        ctx.fillStyle = '#212529';
-        ctx.font = 'bold 11px system-ui, sans-serif';
-        ctx.fillText(`${lastE >= 0 ? '+' : '−'}${Math.abs(lastE).toFixed(2)} V`, 4, 14);
-        // Name the electrode, written up its face
-        ctx.save();
-        ctx.translate(plotL - 10, H / 2);
-        ctx.rotate(-Math.PI / 2);
+        // Electrode label, its potential, and whether that potential is
+        // oxidizing or reducing for the first couple (within 30 mV of E⁰: neither)
+        const cx = plotL / 2;
         ctx.textAlign = 'center';
         ctx.fillStyle = '#495057';
-        ctx.font = '600 11px system-ui, sans-serif';
-        ctx.fillText('Working electrode', 0, 0);
-        ctx.restore();
+        ctx.font = '600 10px system-ui, sans-serif';
+        ctx.fillText('Working', cx, 13);
+        ctx.fillText('electrode', cx, 25);
+        ctx.fillStyle = '#212529';
+        ctx.font = 'bold 13px system-ui, sans-serif';
+        ctx.fillText(`${lastE >= 0 ? '+' : '\u2212'}${Math.abs(lastE).toFixed(2)} V`, cx, 44);
+        const dE = lastE - P.couples[0].E0;
+        if (Math.abs(dE) > 0.03) {
+            ctx.fillStyle = dE > 0 ? COLOR_O : COLOR_R;
+            ctx.font = '600 11px system-ui, sans-serif';
+            ctx.fillText(dE > 0 ? 'oxidizing' : 'reducing', cx, 58);
+        }
+        ctx.textAlign = 'left';
 
         // Molecules: O hollow (missing the electron), R filled
         // New keyframe only while something is still moving, so the view can come to rest

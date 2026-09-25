@@ -66,11 +66,14 @@ function layoutIT(tMax) {
     };
 }
 
+// The molecular view lines up with this plot area (and keeps its layout when the plot is hidden)
+const CONC_MARGIN = { ...marginSmall, l: 84 };
+
 function layoutConc(xm, Cmax) {
     return {
         xaxis: { title: 'Distance / \u00b5m', range: [0, xm] },
         yaxis: { title: 'C / M', range: [0, Cmax * 1.25] },
-        margin: { ...marginSmall, l: 84 }, height: 320,
+        margin: CONC_MARGIN, height: 320,
         legend: { x: 0.82, y: 0.98, bgcolor: 'rgba(255,255,255,0.7)' },
         annotations: []
     };
@@ -181,9 +184,9 @@ function concTraces(x, couples) {
         const fill = k === 0 ? 'tozeroy' : 'none', dash = k === 0 ? 'solid' : 'dash';
         return [
             { x, y: c.Co, fill, fillcolor: FILL_O,
-              line: { color: COLOR_O, width: 2, dash }, name: 'O' + sub },
+              line: { color: COLOR_O, width: 2, dash }, name: two ? 'O' + sub : names.O },
             { x, y: c.Cr, fill, fillcolor: FILL_R,
-              line: { color: COLOR_R, width: 2, dash }, name: 'R' + sub }
+              line: { color: COLOR_R, width: 2, dash }, name: two ? 'R' + sub : names.R }
         ];
     });
 }
@@ -195,9 +198,17 @@ function physics(p) {
 
 // Keep the molecular view's x axis aligned with the concentration plot
 function syncMolecularView() {
-    const size = $('plot-conc')._fullLayout?._size;
-    if (size) molView.resize(size);
+    const w = $('molecular').clientWidth;
+    molView.resize({ l: CONC_MARGIN.l, w: w - CONC_MARGIN.l - CONC_MARGIN.r });
     molView.draw(performance.now());      // resizing clears the canvas
+}
+
+// Species labels: a lesson may name a real couple (Fe³⁺/Fe²⁺); otherwise O and R
+let names = { O: 'O', R: 'R' };
+function setSpeciesNames(n) {
+    names = n;
+    for (const el of document.querySelectorAll('.name-o')) el.innerHTML = n.O;
+    for (const el of document.querySelectorAll('.name-r')) el.innerHTML = n.R;
 }
 
 // ── Button state helpers ──────────────────────────────────────
@@ -622,6 +633,9 @@ function selectTab(key) {
     history.replaceState(null, '', url.href);
 
     ghosts = [];
+    setSpeciesNames(lesson()?.names || { O: 'O', R: 'R' });
+    document.body.classList.toggle('no-conc', !!lesson()?.hideConc);
+    syncMolecularView();                      // the view's height depends on the plot below
     if (tab === 'explore') {                  // keep the lesson's run on screen
         if (result) updatePlots(snapIdx);
         return;
@@ -674,7 +688,7 @@ function renderStage() {
         $('lessonQuestion').textContent = st.question;
         setChoiceButtons(st.choices, answerStage);
     } else {
-        $('lessonQuestion').innerHTML = 'Next: the <b>Scan</b> tab asks how the scan speed changes the peaks.';
+        $('lessonQuestion').innerHTML = lesson().outro || '';
         $('lessonActions').innerHTML = '';
     }
 }

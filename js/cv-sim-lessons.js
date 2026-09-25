@@ -31,39 +31,49 @@ const mA = I => (I * 1e3).toFixed(2) + ' mA';
 export const LESSONS = {
     redox: {
         title: 'Reduction and oxidation',
-        intro: 'The solution starts with only O (hollow blue circles). A cyclic ' +
-               'voltammogram sweeps the electrode potential from +0.5 V, where nothing ' +
-               'happens, down to −0.5 V, then back up. Watch the molecules and the ' +
-               'yellow electrons at the electrode.',
+        // A real couple first; the later lessons generalize to O + e⁻ ⇌ R
+        names: { O: 'Fe<sup>3+</sup>', R: 'Fe<sup>2+</sup>' },
+        hideConc: true,
+        base: { Co0: 0.005, Do: 0.6, Dr: 0.72, k0: 0.01,
+                E0: 0.77, Es: 1.25, Ee: 0.25 },
+        intro: 'The solution starts with only Fe³⁺ (hollow blue circles). A cyclic ' +
+               'voltammogram sweeps the working electrode from +1.25 V to more negative ' +
+               'potentials, down to +0.25 V, then back. Watch the ions and the yellow ' +
+               'electrons at the electrode.',
         stages: [
             {
-                question: 'As the electrode potential goes negative, what happens to O at the surface?',
+                question: 'As the electrode potential gets more negative, what happens to Fe³⁺ at the surface?',
                 choices: [
                     { label: 'Gains e\u207b', correct: true },
                     { label: 'Loses e\u207b' },
                     { label: 'Nothing' }
                 ],
-                explain: '<b>Reduction:</b> O + e\u207b \u2192 R. The negative electrode pushes ' +
-                         'electrons into O, which turns into R (filled orange). Reduction is ' +
-                         'gain. The current is positive (cathodic) on the way down.'
+                explain: '<b>Reduction:</b> Fe³⁺ + e\u207b \u2192 Fe²⁺. Once the potential is ' +
+                         'more negative than E⁰ = +0.77 V, the electrode pushes electrons onto ' +
+                         'Fe³⁺, which becomes Fe²⁺ (filled orange). Reduction is gain. The ' +
+                         'current is positive (cathodic) on the way down.'
             },
             {
-                question: 'Now the scan heads back positive. What happens to the R near the electrode?',
+                question: 'Now the scan heads back to more positive potentials. What happens to the Fe²⁺ near the electrode?',
                 choices: [
                     { label: 'Loses e\u207b', correct: true },
                     { label: 'Gains e\u207b' },
                     { label: 'Nothing' }
                 ],
-                explain: '<b>Oxidation:</b> R \u2192 O + e\u207b. The positive electrode pulls ' +
-                         'the electrons back out, turning R into O. Oxidation is loss. The ' +
-                         'current is negative (anodic).'
+                explain: '<b>Oxidation:</b> Fe²⁺ \u2192 Fe³⁺ + e\u207b. More positive than ' +
+                         'E⁰, the electrode pulls the electrons back out. Oxidation is loss. ' +
+                         'The current is negative (anodic).'
             }
         ],
-        why: 'That was one cyclic voltammogram: sweep the potential from where O is stable, ' +
-             'past E⁰ to where it is reduced, then back so the R you made is oxidized again. ' +
-             'The current is zero until the potential nears E⁰ = 0 V, peaks as O near the ' +
-             'electrode runs out, and the reverse peak appears because the R is still nearby. ' +
-             'The two peaks straddle E⁰.'
+        outro: 'From here on we write any couple as <b>O + e\u207b \u21cc R</b>: O is the ' +
+               'oxidized form (like Fe³⁺), R the reduced form (like Fe²⁺). ' +
+               'Next, the <b>Scan</b> tab asks how the scan speed changes the peaks.',
+        why: 'That was one cyclic voltammogram: sweep the potential from where Fe³⁺ is ' +
+             'stable, past E⁰ = +0.77 V to where it is reduced, then back so the Fe²⁺ you ' +
+             'made is oxidized again. The current stays near zero until the potential nears ' +
+             'E⁰, peaks as the Fe³⁺ next to the electrode runs out, and the return peak ' +
+             'appears because the Fe²⁺ is still nearby. Potentials here are vs the standard ' +
+             'hydrogen electrode, as in E⁰ tables.'
     },
 
     scan: {

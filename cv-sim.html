@@ -90,6 +90,8 @@
         #lessonLog p { font-size: 0.85rem; margin: 0 0 6px; padding: 5px 8px; border-radius: 6px; background: #f4f8fc; }
         #lessonLog p.right { background: #ebfbee; }
         #lessonLog p.wrong { background: #fff4e6; }
+        body.no-conc #plot-conc, body.no-conc .conc-note { display: none; }
+        body.no-conc #molecular { height: 280px; border-radius: 6px; }
         body.guided .advanced { display: none !important; }
         body.explore .guided-only { display: none; }
         .readout { font: 0.78rem ui-monospace, monospace; color: var(--muted); margin: -0.4rem 0 0.4rem; }
@@ -124,8 +126,9 @@
                         <p>Here, <span class="sp-o">O</span> + e<sup>&minus;</sup> &#8652; <span class="sp-r">R</span>:
                             <span class="sp-o">O</span> is the oxidized form (hollow: missing the electron),
                             <span class="sp-r">R</span> the reduced form (filled).</p>
-                        <p>A negative electrode pushes electrons into O (reduction); a positive one pulls
-                            them out of R (oxidation). This simulation plots reduction current as positive.</p>
+                        <p>Making the electrode potential more negative pushes electrons into O (reduction);
+                            more positive pulls them out of R (oxidation). This simulation plots reduction
+                            current as positive.</p>
                         <p>Only the working electrode is shown. The circuit is completed at a counter
                             electrode, which does the opposite reaction. In water with an inert electrolyte
                             that is the solvent itself: 2H<sub>2</sub>O &rarr; O<sub>2</sub> + 4H<sup>+</sup> + 4e<sup>&minus;</sup>
@@ -156,7 +159,7 @@
                     </div>
 
                     <div id="reaction">
-                        <div><span class="shape-key">&#9675;</span><span class="sp-o">O</span> + <span class="rxn-n">1</span>e<sup>&minus;</sup> &#8652; <span class="sp-r">R</span></div>
+                        <div><span class="shape-key">&#9675;</span><span class="sp-o name-o">O</span> + <span class="rxn-n">1</span>e<sup>&minus;</sup> &#8652; <span class="sp-r name-r">R</span></div>
                         <div class="couple2" style="display:none"><span class="shape-key">&#9633;</span><span class="sp-o">O<sub>2</sub></span> + <span class="rxn-n">1</span>e<sup>&minus;</sup> &#8652; <span class="sp-r">R<sub>2</sub></span></div>
                     </div>
 
@@ -386,10 +389,10 @@
                 <div class="col-12">
                     <div class="plot-container">
                         <div class="mol-caption">
-                            <span><strong>Molecular view</strong> &mdash; same distance scale as the plot below; each dot stands for many molecules</span>
+                            <span><strong>Molecular view</strong><span class="conc-note"> &mdash; same distance scale as the plot below</span>; each dot stands for many molecules</span>
                             <span class="mol-key">
-                                <span><i class="dot dot-o"></i>O</span>
-                                <span><i class="dot dot-r"></i>R</span>
+                                <span><i class="dot dot-o"></i><span class="name-o">O</span></span>
+                                <span><i class="dot dot-r"></i><span class="name-r">R</span></span>
                                 <span class="couple2" style="display:none">&#9675; couple 1 &ensp;&#9633; couple 2</span>
                                 <span><i class="dot dot-e"></i>e<sup>&minus;</sup> transferred</span>
                             </span>

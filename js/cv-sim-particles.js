@@ -224,6 +224,15 @@ export function createParticleView(canvas) {
         ctx.fillStyle = '#212529';
         ctx.font = 'bold 11px system-ui, sans-serif';
         ctx.fillText(`${lastE >= 0 ? '+' : '−'}${Math.abs(lastE).toFixed(2)} V`, 4, 14);
+        // Name the electrode, written up its face
+        ctx.save();
+        ctx.translate(plotL - 10, H / 2);
+        ctx.rotate(-Math.PI / 2);
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#495057';
+        ctx.font = '600 11px system-ui, sans-serif';
+        ctx.fillText('Working electrode', 0, 0);
+        ctx.restore();
 
         // Molecules: O hollow (missing the electron), R filled
         // New keyframe only while something is still moving, so the view can come to rest

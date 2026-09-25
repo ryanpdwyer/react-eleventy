@@ -247,9 +247,16 @@ function play() {
         });
         snapIdx = 0;
     }
-    if (snapIdx === 0) restartParticles();
+    if (snapIdx === 0) {
+        restartParticles();
+        if (lesson()?.stages) {
+            if (stage > 0) startStages();      // replaying a finished walkthrough
+            pauseAtVertex = true;
+        }
+    }
 
     state = 'playing';
+    molView.setFrozen(false);
     fractionalSnap = 0;
     setBtn('&#9646;&#9646; Pause', 'warning');
     statusEl.textContent = 'Playing\u2026';
@@ -262,7 +269,10 @@ function restartParticles() {
 }
 
 function pause() {
+    // Bring the molecular view level with the plots before freezing it
+    if (result) advanceParticles(t_arr[result.snapshots[snapIdx].frameIndex]);
     state = 'paused';
+    molView.setFrozen(true);
     setBtn('&#9654; Play', 'success');
     const pct = Math.round(100 * (snapIdx + 1) / result.snapshots.length);
     statusEl.textContent = `Paused at frame ${snapIdx + 1} / ${result.snapshots.length}  (${pct}%)`;
@@ -296,25 +306,37 @@ function frame(ts) {
         fractionalSnap -= steps;
 
         snapIdx = Math.min(snapIdx + steps, result.snapshots.length - 1);
+        // Staged lesson: stop exactly at the switching potential
+        const vertex = pauseAtVertex && result.Nt
+            ? result.snapshots.findIndex(sn => sn.frameIndex >= result.Nt - 1) : -1;
+        if (vertex >= 0) snapIdx = Math.min(snapIdx, vertex);
         updatePlots(snapIdx);
 
         const pct = Math.round(100 * (snapIdx + 1) / result.snapshots.length);
         statusEl.textContent = `Frame ${snapIdx + 1} / ${result.snapshots.length}  (${pct}%)`;
 
-        if (snapIdx >= result.snapshots.length - 1) {
+        if (snapIdx === vertex) {
+            pauseAtVertex = false;
+            pause();
+            finishStage();
+        } else if (snapIdx >= result.snapshots.length - 1) {
             state = 'done';
             setBtn('&#9654; Play', 'success');
             showPeakInfo();
+            if (lesson()?.stages) finishStage();
         }
     }
 
     const tTarget = result ? t_arr[result.snapshots[snapIdx].frameIndex] : 0;
-    if (result && tPart < tTarget) {
-        advanceParticles(Math.min(tTarget, tPart + (tTarget - tPart) * Math.min(1, realDt / delay)));
+    const behind = () => result && state !== 'paused' && tTarget - tPart > 1e-9;
+    if (behind()) {
+        // Close part of the gap each frame; land exactly once within a time step
+        const gap = tTarget - tPart;
+        advanceParticles(gap <= result.dt ? tTarget : tPart + gap * Math.min(1, realDt / delay));
     }
     molView.draw(ts);
 
-    if (state === 'playing' || (result && tPart < tTarget) || molView.busy(ts)) {
+    if (state === 'playing' || behind() || molView.busy()) {
         animId = requestAnimationFrame(frame);
     } else {
         animId = null;
@@ -335,6 +357,7 @@ function advanceParticles(tNew) {
         molView.setCurrent(result.Ik.map(Ik => Ik[i]));
         tPart += h;
     }
+    tPart = tNew;
 }
 
 // ── Update all three plots for a given snapshot index ─────────
@@ -534,6 +557,7 @@ function reset() {
     state = 'idle';
     if (animId) { cancelAnimationFrame(animId); animId = null; }
     lastTs = 0;
+    molView.setFrozen(false);
     result = null;
     runP = null;
     snapIdx = 0;
@@ -605,20 +629,77 @@ function selectTab(key) {
     const L = lesson();
     choice = null;
     $('lessonTitle').textContent = L.title;
-    $('lessonQuestion').textContent = L.question;
+    $('lessonIntro').textContent = L.intro || '';
     $('explanation').innerHTML = L.why;
     $('explanation').hidden = true;
     $('lessonResult').innerHTML = '';
-    $('lessonActions').innerHTML = '';
-    for (const c of L.choices) {
-        const b = document.createElement('button');
-        b.textContent = c.label;
-        b.addEventListener('click', () => runChoice(c, b));
-        $('lessonActions').appendChild(b);
+    if (L.stages) {
+        startStages();
+    } else {
+        $('lessonQuestion').textContent = L.question;
+        setChoiceButtons(L.choices, runChoice);
     }
     applySettings({ ...BASE, ...L.base });
     speedEl.value = Math.log10(2);            // lessons play at 2×
     reset();
+}
+
+function setChoiceButtons(choices, onPick) {
+    $('lessonActions').innerHTML = '';
+    for (const c of choices) {
+        const b = document.createElement('button');
+        b.innerHTML = c.label;
+        b.addEventListener('click', () => onPick(c, b));
+        $('lessonActions').appendChild(b);
+    }
+}
+
+// ── Staged lesson: predictions along one CV ───────────────────
+// Stage 0's answer starts the scan, which pauses at the switching
+// potential for feedback; stage 1's answer finishes it.
+let stage = 0;            // which prediction is showing
+let stageAnswer = null;   // the choice picked for it
+let pauseAtVertex = false;
+
+function startStages() {
+    stage = 0;
+    stageAnswer = null;
+    $('lessonLog').innerHTML = '';
+    renderStage();
+}
+
+function renderStage() {
+    const st = lesson().stages[stage];
+    if (st) {
+        $('lessonQuestion').textContent = st.question;
+        setChoiceButtons(st.choices, answerStage);
+    } else {
+        $('lessonQuestion').innerHTML = 'Next: the <b>Scan</b> tab asks how the scan speed changes the peaks.';
+        $('lessonActions').innerHTML = '';
+    }
+}
+
+function answerStage(c, button) {
+    for (const b of $('lessonActions').children) b.setAttribute('aria-pressed', b === button);
+    stageAnswer = c;
+    if (stage === 0) {
+        applySettings({ ...BASE, ...lesson().base });
+        reset();
+    }
+    play();
+}
+
+// The scan reached the switching potential (stage 0) or the end (stage 1)
+function finishStage() {
+    const st = lesson().stages[stage];
+    if (!st) return;
+    const p = document.createElement('p');
+    if (stageAnswer) p.className = stageAnswer.correct ? 'right' : 'wrong';
+    p.innerHTML = (!stageAnswer ? '' : stageAnswer.correct ? '\u2713 ' : 'Not quite. ') + st.explain;
+    $('lessonLog').appendChild(p);
+    stage++;
+    stageAnswer = null;
+    renderStage();
 }
 
 function runChoice(c, button) {
@@ -653,6 +734,10 @@ for (const b of document.querySelectorAll('#tabs button')) {
 }
 $('btn-why').addEventListener('click', () => { $('explanation').hidden = !$('explanation').hidden; });
 $('btn-explore').addEventListener('click', () => selectTab('explore'));
+$('btn-help').addEventListener('click', () => {
+    $('help').hidden = !$('help').hidden;
+    $('btn-help').setAttribute('aria-expanded', !$('help').hidden);
+});
 
 // ── CSV export ────────────────────────────────────────────────
 btnCsv.addEventListener('click', () => {
@@ -675,4 +760,4 @@ window.addEventListener('resize', () => {
 // ── Boot ──────────────────────────────────────────────────────
 updateSidebar();
 initPlots();
-selectTab(new URL(location.href).searchParams.get('tab') || 'scan');
+selectTab(new URL(location.href).searchParams.get('tab') || 'redox');

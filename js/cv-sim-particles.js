@@ -52,6 +52,7 @@ export function createParticleView(canvas) {
     let recent = [];           // per couple: { red: [], ox: [] } molecules that just reacted
     let eBudget = [];          // per couple: electrons owed to the drawing
     let lastDraw = 0, keyT = -Infinity;
+    let clock = 0, frozen = false;   // animation time (ms); stands still while paused
     let W = 0, H = 0, plotL = 56, plotW = 100;
     let Ynm = 1;               // strip height in µm (isotropic with x)
     let lastE = 0, lastIk = [0], Iscale = 1;
@@ -176,11 +177,13 @@ export function createParticleView(canvas) {
     const toPx = x => plotL + (x / P.xm) * plotW;
     const toPy = y => (y / Ynm) * H;
 
-    function draw(now) {
+    function draw(wall) {
         ctx.clearRect(0, 0, W, H);
         if (!P) return;
-        const dtReal = lastDraw ? Math.min(100, now - lastDraw) : 16;
-        lastDraw = now;
+        const dtReal = frozen ? 0 : lastDraw ? Math.min(100, wall - lastDraw) : 16;
+        lastDraw = wall;
+        clock += dtReal;
+        const now = clock;
         emitElectrons(now, dtReal);
 
         // Solution
@@ -223,7 +226,9 @@ export function createParticleView(canvas) {
         ctx.fillText(`${lastE >= 0 ? '+' : '−'}${Math.abs(lastE).toFixed(2)} V`, 4, 14);
 
         // Molecules: O hollow (missing the electron), R filled
-        if (now - keyT >= KEY_MS) {
+        // New keyframe only while something is still moving, so the view can come to rest
+        const moving = parts.some(d => d.bx !== d.x || d.by !== d.y || d.ax !== d.bx || d.ay !== d.by);
+        if (now - keyT >= KEY_MS && moving) {
             keyT = now;
             for (const d of parts) {
                 d.ax = d.bx; d.ay = d.by;
@@ -264,8 +269,14 @@ export function createParticleView(canvas) {
     }
 
     // Still animating: electrons in flight or dots gliding to rest
-    const busy = now => sprites.some(s => now - s.t0 < SPRITE_MS) ||
-        now - keyT < KEY_MS || parts.some(d => d.bx !== d.x);
+    const busy = () => !frozen && (sprites.some(s => clock - s.t0 < SPRITE_MS) ||
+        clock - keyT < KEY_MS || parts.some(d => d.bx !== d.x || d.ax !== d.bx));
 
-    return { resize, reset, advance, draw, setCurrent, busy };
+    // Paused: electrons and dots hold still until released
+    function setFrozen(v) {
+        frozen = v;
+        if (!v) lastDraw = 0;
+    }
+
+    return { resize, reset, advance, draw, setCurrent, busy, setFrozen };
 }

@@ -1,10 +1,14 @@
 /**
  * Voltammetry Simulation – Guided lessons
  *
- * Each lesson asks one question and offers three choices. A choice sets a
+ * Most lessons ask one question and offer three choices. A choice sets a
  * few form fields on top of BASE and runs the simulation; earlier runs
  * stay on the current plot as faint traces for comparison. Explore shows
  * every setting and starts from whatever the lesson left in the form.
+ *
+ * A lesson with `stages` instead walks through one CV as predictions: the
+ * first stage's answer starts the scan, which pauses at the switching
+ * potential for feedback; the second finishes it.
  *
  * Settings are keyed by form-element id.
  */
@@ -25,6 +29,43 @@ export const BASE = {
 const mA = I => (I * 1e3).toFixed(2) + ' mA';
 
 export const LESSONS = {
+    redox: {
+        title: 'Reduction and oxidation',
+        intro: 'The solution starts with only O (hollow blue circles). A cyclic ' +
+               'voltammogram sweeps the electrode potential from +0.5 V, where nothing ' +
+               'happens, down to −0.5 V, then back up. Watch the molecules and the ' +
+               'yellow electrons at the electrode.',
+        stages: [
+            {
+                question: 'As the electrode potential goes negative, what happens to O at the surface?',
+                choices: [
+                    { label: 'Gains e\u207b', correct: true },
+                    { label: 'Loses e\u207b' },
+                    { label: 'Nothing' }
+                ],
+                explain: '<b>Reduction:</b> O + e\u207b \u2192 R. The negative electrode pushes ' +
+                         'electrons into O, which turns into R (filled orange). Reduction is ' +
+                         'gain. The current is positive (cathodic) on the way down.'
+            },
+            {
+                question: 'Now the scan heads back positive. What happens to the R near the electrode?',
+                choices: [
+                    { label: 'Loses e\u207b', correct: true },
+                    { label: 'Gains e\u207b' },
+                    { label: 'Nothing' }
+                ],
+                explain: '<b>Oxidation:</b> R \u2192 O + e\u207b. The positive electrode pulls ' +
+                         'the electrons back out, turning R into O. Oxidation is loss. The ' +
+                         'current is negative (anodic).'
+            }
+        ],
+        why: 'That was one cyclic voltammogram: sweep the potential from where O is stable, ' +
+             'past E⁰ to where it is reduced, then back so the R you made is oxidized again. ' +
+             'The current is zero until the potential nears E⁰ = 0 V, peaks as O near the ' +
+             'electrode runs out, and the reverse peak appears because the R is still nearby. ' +
+             'The two peaks straddle E⁰.'
+    },
+
     scan: {
         title: 'Scan rate',
         question: 'Scan faster. What happens to the peak current?',

@@ -14,6 +14,8 @@ tags: pchem23
 
 This section covers the remaining topics related to the first law of thermodynamics.
 
+**Note:** Watch the first two videos (reversible adiabatic processes and heat capacities) before **Monday**. Watch the calorimetry video before **Wednesday**.
+
 ### Reversible adiabatic processes
 
 <iframe width="640" height="480" src="https://www.youtube.com/embed/4U68KJU3AhU?si=WZPBpMvVjhewf5dw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -24,13 +26,13 @@ This section covers the remaining topics related to the first law of thermodynam
 
 
 
-### Calorimetry
+### Calorimetry (for W 9/30)
 
 <iframe width="640" height="480" src="https://www.youtube.com/embed/VACvO7fwMig?si=yL7bXpgIu9SXPb0l" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 
 ### Hess's law review
 
-This review video is useful for some of the book homework problems on this assignment.
+This review video is useful for some of the Hanson and Green homework problems on this assignment.
 
 <iframe width="640" height="480" src="https://www.youtube.com/embed/USWIjKuo_IY?si=XMyzwFW0rhfc7OnA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>

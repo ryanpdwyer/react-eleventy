@@ -60,8 +60,8 @@ export const LESSONS = {
                 view: 'molecular',
                 question: 'Now the potential heads back to more positive values. What happens to the Fe²⁺ near the electrode?',
                 choices: [
-                    { label: 'Loses e\u207b', correct: true },
                     { label: 'Gains e\u207b' },
+                    { label: 'Loses e\u207b', correct: true },
                     { label: 'Nothing' }
                 ],
                 explain: '<b>Oxidation:</b> Fe²⁺ \u2192 Fe³⁺ + e\u207b. More positive than ' +

@@ -82,9 +82,8 @@
         .title-row { display: flex; justify-content: space-between; align-items: baseline; }
         #help { font-size: 0.82rem; background: #f4f8fc; border: 1px solid var(--line); border-radius: 10px;
                 padding: 8px 10px; margin-bottom: 0.6rem; }
-        #help p { margin: 0 0 6px; }
-        #help p:last-child { margin-bottom: 0; color: var(--muted); }
-        #help .mnemonic { background: #fff; border-radius: 6px; padding: 5px 7px; }
+        #help img { display: block; width: 100%; border-radius: 6px; }
+        #help img + img { margin-top: 6px; }
         .intro { font-size: 0.85rem; color: var(--muted); margin: 0 0 6px; }
         .intro:empty { display: none; }
         #lessonLog p { font-size: 0.85rem; margin: 0 0 6px; padding: 5px 8px; border-radius: 6px; background: #f4f8fc; }
@@ -121,22 +120,8 @@
                     </div>
 
                     <div id="help" hidden>
-                        <p><b>Redox = electron transfer.</b></p>
-                        <p class="mnemonic"><b>OIL RIG</b>: <b>O</b>xidation <b>I</b>s <b>L</b>oss,
-                            <b>R</b>eduction <b>I</b>s <b>G</b>ain (of electrons).<br>
-                            <b>LEO</b> the lion says <b>GER</b>: <b>L</b>osing <b>E</b>lectrons is
-                            <b>O</b>xidation, <b>G</b>aining <b>E</b>lectrons is <b>R</b>eduction.</p>
-                        <p>Here, <span class="sp-o">O</span> + e<sup>&minus;</sup> &#8652; <span class="sp-r">R</span>:
-                            <span class="sp-o">O</span> is the oxidized form (hollow: missing the electron),
-                            <span class="sp-r">R</span> the reduced form (filled).</p>
-                        <p>Making the electrode potential more negative pushes electrons into O (reduction);
-                            more positive pulls them out of R (oxidation). This simulation plots reduction
-                            current as positive.</p>
-                        <p>Only the working electrode is shown. The circuit is completed at a counter
-                            electrode, which does the opposite reaction. In water with an inert electrolyte
-                            that is the solvent itself: 2H<sub>2</sub>O &rarr; O<sub>2</sub> + 4H<sup>+</sup> + 4e<sup>&minus;</sup>
-                            while O is reduced here, and 2H<sub>2</sub>O + 2e<sup>&minus;</sup> &rarr; H<sub>2</sub> + 2OH<sup>&minus;</sup>
-                            while R is oxidized.</p>
+                        <img src="/img/redox-oilrig.png" alt="LEO the lion says GER: Losing Electrons is Oxidation, Gaining Electrons is Reduction. OIL RIG: Oxidation Is Loss, Reduction Is Gain.">
+                        <img src="/img/redox-terminology.png" alt="2Fe + 3/2 O2 to Fe2O3: each Fe loses 3 electrons (oxidation, reducing agent); each O gains 2 electrons (reduction, oxidizing agent).">
                     </div>
 
                     <div id="tabs" role="tablist">

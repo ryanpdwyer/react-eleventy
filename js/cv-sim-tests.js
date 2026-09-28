@@ -114,11 +114,11 @@ test('runSimulation – time increases monotonically', () => {
     }
 });
 
-test('findPeaks – cathodic peak is positive, anodic is negative', () => {
+test('findPeaks – IUPAC: cathodic peak is negative, anodic is positive', () => {
     const r = runSimulation(defaults);
     const peaks = findPeaks(r.E, r.I, r.Nt);
-    assert(peaks.Ipc > 0, `Ipc should be positive, got ${peaks.Ipc}`);
-    assert(peaks.Ipa < 0, `Ipa should be negative, got ${peaks.Ipa}`);
+    assert(peaks.Ipc < 0, `Ipc should be negative, got ${peaks.Ipc}`);
+    assert(peaks.Ipa > 0, `Ipa should be positive, got ${peaks.Ipa}`);
 });
 
 test('findPeaks – reversible system ΔEp ≈ 57.5/n mV', () => {
@@ -139,7 +139,7 @@ test('findPeaks – reversible Ipa/Ipc = 1 (Nicholson baseline correction)', () 
     const r = runSimulation({ ...defaults, k0: 100 });
     const peaks = findPeaks(r.E, r.I, r.Nt);
     const isp = r.I[r.Nt - 1];
-    const ratio = (-peaks.Ipa + 0.485 * isp) / peaks.Ipc + 0.086;
+    const ratio = (peaks.Ipa - 0.485 * isp) / -peaks.Ipc + 0.086;
     assertClose(ratio, 1.0, 0.03, 'Nicholson-corrected Ipa/Ipc');
 });
 
@@ -148,7 +148,7 @@ test('Ipc matches Randles-Sevcik within 1% (0.01–1 V/s)', () => {
         const p = { ...defaults, k0: 100, scanRate };
         const r = runSimulation(p);
         const Ipc = findPeaks(r.E, r.I, r.Nt).Ipc;
-        assertClose(Ipc / randlesSevcik(p), 1, 0.01, `Ipc/RS at ${scanRate} V/s`);
+        assertClose(-Ipc / randlesSevcik(p), 1, 0.01, `Ipc/RS at ${scanRate} V/s`);
     }
 });
 
@@ -164,8 +164,8 @@ test('CV charging current plateaus at ν·Cdl and reverses at the switch', () =>
     const Cdl = 50e-6, Ru = 200;         // τ = 10 ms, short vs the 10 s sweep
     const r = runSimulation({ ...defaults, Ru, Cdl });
     const plateau = defaults.scanRate * Cdl;
-    assertClose(r.Ic[r.Nt - 1], plateau, 1e-3 * plateau, 'Ic end of forward sweep');
-    assertClose(r.Ic[2 * r.Nt - 1], -plateau, 1e-3 * plateau, 'Ic end of reverse sweep');
+    assertClose(r.Ic[r.Nt - 1], -plateau, 1e-3 * plateau, 'Ic end of forward sweep');
+    assertClose(r.Ic[2 * r.Nt - 1], plateau, 1e-3 * plateau, 'Ic end of reverse sweep');
     assertClose(r.I[500] - r.If[500], r.Ic[500], 1e-15, 'I = If + Ic');
 });
 
@@ -173,7 +173,7 @@ test('R in solution, oxidation first: |Ipa| matches Randles-Sevcik', () => {
     const p = { ...defaults, k0: 100, Co0: 0, Cr0: 0.1, Es: -0.5, Ee: 0.5 };
     const r = runSimulation(p);
     const Ipa = findPeaks(r.E, r.I, r.Nt).Ipa;
-    assertClose(-Ipa / randlesSevcik({ ...p, Co0: 0.1 }), 1, 0.01, '|Ipa|/RS');
+    assertClose(Ipa / randlesSevcik({ ...p, Co0: 0.1 }), 1, 0.01, '|Ipa|/RS');
 });
 
 test('Mixed O + R: no current when held at the Nernst potential', () => {

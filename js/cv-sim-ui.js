@@ -38,20 +38,23 @@ let snapIdx    = 0;      // current snapshot index
 let E_arr, I_mA_arr, If_mA_arr, Ic_mA_arr, t_arr; // plain-array copies for Plotly
 
 // ── Plotly layout templates ───────────────────────────────────
+// IUPAC: potential always increases to the right (and upward), whichever way the scan starts
+const ascending = (a, b) => a < b ? [a, b] : [b, a];
+
 const plotCfg = { responsive: true, displayModeBar: false };
 const marginSmall = { t: 28, r: 18, b: 44, l: 56 };
 
 function layoutET(tMax, Ee, Es) {
     return redoxBands({
         xaxis: { title: 'Time / s', range: [0, tMax] },
-        yaxis: { title: 'E / V', range: [Ee, Es] },
+        yaxis: { title: 'E / V', range: ascending(Ee, Es) },
         margin: marginSmall, height: 280
     }, 'y', Ee, Es);
 }
 
 function layoutIV(Ee, Es) {
     return redoxBands({
-        xaxis: { title: 'E / V', range: [Ee, Es] },
+        xaxis: { title: 'E / V', range: ascending(Ee, Es) },
         yaxis: { title: 'I / mA' },
         margin: marginSmall, height: 280
     }, 'x', Ee, Es);
@@ -61,6 +64,7 @@ function layoutIV(Ee, Es) {
 // and more negative (reducing) along the potential axis
 function redoxBands(lay, axis, lo, hi) {
     if (!lesson()?.bands) return lay;
+    [lo, hi] = ascending(lo, hi);
     const E0 = parseFloat($('E0').value);
     const band = (a, b, fillcolor) => ({
         type: 'rect', layer: 'below', line: { width: 0 }, fillcolor,
@@ -151,7 +155,7 @@ const cMax = p => Math.max(...couplesOf(p).flatMap(c => [c.Co0, c.Cr0])) || 1;
 
 // Potential axis range for the E–t plot
 function eRange(p) {
-    if (!isStep()) return [p.Ee, p.Es];
+    if (!isStep()) return ascending(p.Ee, p.Es);
     const lo = Math.min(p.Einit, p.Estep), hi = Math.max(p.Einit, p.Estep);
     const pad = 0.1 * (hi - lo || 1);
     return [lo - pad, hi + pad];
@@ -272,7 +276,7 @@ function play() {
 
         const tMax = t_arr[t_arr.length - 1];
         Plotly.relayout('plot-et', { 'xaxis.range': [0, tMax], 'yaxis.range': eRange(p) });
-        if (!isStep()) Plotly.relayout('plot-iv', { 'xaxis.range': [p.Ee, p.Es] });
+        if (!isStep()) Plotly.relayout('plot-iv', { 'xaxis.range': ascending(p.Ee, p.Es) });
         Plotly.relayout('plot-conc', {
             'xaxis.range': [0, p.xm],
             'yaxis.range': [0, cMax(p) * 1.25]
@@ -552,11 +556,11 @@ function markMeasureTime(traces, lay, fi) {
           text: `${T_MEASURE} s after the step`, font: { size: 11, color: accent } }];
 }
 
-// Diffusion-limited current for couple 1: reduces O on a negative step,
-// oxidizes R (negative current) on a positive one
+// Diffusion-limited current for couple 1 (IUPAC): reduces O (negative
+// current) on a negative step, oxidizes R (positive) on a positive one
 function cottrellRef(t, p) {
-    return p.Estep < p.Einit ? cottrell(t, p)
-                             : -cottrell(t, { ...p, Co0: p.Cr0, Do: p.Dr });
+    return p.Estep < p.Einit ? -cottrell(t, p)
+                             : cottrell(t, { ...p, Co0: p.Cr0, Do: p.Dr });
 }
 
 // ── Show peak info after simulation ───────────────────────────

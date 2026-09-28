@@ -104,7 +104,7 @@ export function createCell({ Do, Dr, Co0, Cr0 = 0, k0, alpha, n, E0, dt, tMax, a
 
         /**
          * Advance one time step with the electrode held at E.
-         * Returns the current (A, reduction positive) and the rate constants.
+         * Returns the current (A, IUPAC: oxidation positive) and the rate constants.
          */
         step(E) {
             // Interior diffusion; the last node stays at bulk
@@ -127,7 +127,7 @@ export function createCell({ Do, Dr, Co0, Cr0 = 0, k0, alpha, n, E0, dt, tMax, a
             [Co, Co2] = [Co2, Co];
             [Cr, Cr2] = [Cr2, Cr];
             cell.t += dt;
-            return { I: currentFactor * J, kc, ka };
+            return { I: -currentFactor * J, kc, ka };
         }
     };
     return cell;
@@ -227,9 +227,9 @@ export function runSimulation({
             if (Cdl > 0) {
                 if (tau > 0) {
                     u = u * decay - slope * tau * (1 - decay);
-                    Ic = u / Ru;
+                    Ic = -u / Ru;
                 } else {
-                    Ic = -slope * Cdl;
+                    Ic = slope * Cdl;
                 }
             }
             E_data[idx] = E;
@@ -252,7 +252,7 @@ export function runSimulation({
 /**
  * Find cathodic and anodic peak currents and potentials.
  *
- * Convention: cathodic (reduction) current is positive. Both sweeps are
+ * Convention (IUPAC): anodic (oxidation) current is positive, cathodic negative. Both sweeps are
  * searched, so this works whichever direction the scan starts in. Only
  * true peaks (interior local extrema) count, so the decaying spike at
  * t = 0 when the scan starts away from equilibrium is not reported.
@@ -263,8 +263,8 @@ export function runSimulation({
  * @returns {{ Ipc: number, Epc: number, Ipa: number, Epa: number, deltaEp: number }}
  */
 export function findPeaks(E, I, Nt) {
-    let Ipc = -Infinity, Epc = 0;
-    let Ipa = Infinity, Epa = 0;
+    let Ipc = Infinity, Epc = 0;
+    let Ipa = -Infinity, Epa = 0;
 
     // A peak must be the extreme value within ±w points (1% of a sweep)
     const w = Math.max(2, Math.round(Nt / 100));
@@ -273,8 +273,8 @@ export function findPeaks(E, I, Nt) {
         return true;
     };
     for (let i = w; i < 2 * Nt - w; i++) {
-        if (I[i] > Ipc && isExtreme(i, +1)) { Ipc = I[i]; Epc = E[i]; }
-        if (I[i] < Ipa && isExtreme(i, -1)) { Ipa = I[i]; Epa = E[i]; }
+        if (I[i] < Ipc && isExtreme(i, -1)) { Ipc = I[i]; Epc = E[i]; }
+        if (I[i] > Ipa && isExtreme(i, +1)) { Ipa = I[i]; Epa = E[i]; }
     }
 
     return { Ipc, Epc, Ipa, Epa, deltaEp: Math.abs(Epc - Epa) };
@@ -331,7 +331,7 @@ export function runStep({
 
         // Flux over step i is centred at (i + 1/2)·dt
         const t = (i + 0.5) * dt;
-        const Ic = stepped && tau > 0 ? ((Einit - Estep) / Ru) * Math.exp(-(t - tStart) / tau) : 0;
+        const Ic = stepped && tau > 0 ? ((Estep - Einit) / Ru) * Math.exp(-(t - tStart) / tau) : 0;
         const eps = noise > 0 ? noise * gaussian() : 0;
 
         E_data[i] = E;
@@ -351,7 +351,7 @@ export function runStep({
 }
 
 /**
- * Cottrell current for a diffusion-limited step (A).
+ * Cottrell current magnitude for a diffusion-limited step (A).
  * C in mol/L, D in cm²/s, A in cm², t in s.
  */
 export function cottrell(t, { n, area, Co0, Do }) {

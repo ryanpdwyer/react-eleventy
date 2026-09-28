@@ -160,10 +160,10 @@ export function createParticleView(canvas) {
         lastIk.forEach((I, c) => {
             const frac = Math.min(1, Math.abs(I) / Iscale);
             eBudget[c] = Math.min(1.5, eBudget[c] + E_RATE * frac * dtReal / 1000);
-            const list = I > 0 ? recent[c].red : recent[c].ox;
+            const list = I < 0 ? recent[c].red : recent[c].ox;
             while (eBudget[c] >= 1 && list.length && sprites.length < MAX_SPRITES) {
                 const d = list.pop();
-                if (d.R !== (I > 0)) continue;           // it has since flipped back
+                if (d.R !== (I < 0)) continue;           // it has since flipped back
                 sprites.push({ d, reduced: d.R, t0: now });
                 if (d.R) d.holdUntil = now + 0.8 * SPRITE_MS;   // stays O until its electron lands
                 eBudget[c] -= 1;
@@ -211,7 +211,7 @@ export function createParticleView(canvas) {
         const frac = Math.min(1, Math.abs(lastI) / Iscale);
         if (frac > 0.02) {
             const cy = H - 16, len = 8 + frac * (plotL - 18);
-            const dir = lastI > 0 ? 1 : -1;               // reduction: electrons into solution
+            const dir = lastI < 0 ? 1 : -1;               // reduction (negative): electrons into solution
             const x0 = dir > 0 ? 4 : 4 + len, x1 = dir > 0 ? 4 + len : 4;
             ctx.strokeStyle = '#343a40'; ctx.fillStyle = '#343a40'; ctx.lineWidth = 2;
             ctx.beginPath(); ctx.moveTo(x0, cy); ctx.lineTo(x1, cy); ctx.stroke();

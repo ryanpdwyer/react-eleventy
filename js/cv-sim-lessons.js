@@ -141,7 +141,7 @@ export const LESSONS = {
         base: { mode: 'step' },
         result(r, p) {
             const i = r.t.findIndex(t => t - r.tStart >= 1);
-            const pct = 100 * r.I[i] / cottrell(r.t[i] - r.tStart, p);
+            const pct = -100 * r.I[i] / cottrell(r.t[i] - r.tStart, p);
             return `At the dotted line: ${(r.I[i] * 1e3).toFixed(2)} mA, ` +
                    `${pct.toFixed(0)}% of the diffusion limit`;
         },

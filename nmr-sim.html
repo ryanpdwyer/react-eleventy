@@ -85,7 +85,11 @@
     <div id="plotCtrls">
       <span id="plotTitle">Recorded signal → Spectrum</span>
       <span class="grow"></span>
-      <label class="advanced"><input id="components" type="checkbox" checked> Group signals</label>
+      <label class="advanced" title="Also draw each chemical group's contribution to the signal"><input id="components" type="checkbox"> Each group</label>
+      <label class="advanced" title="Also draw the imaginary receiver channel"><input id="showMy" type="checkbox"> <span>M<sub>y</sub></span></label>
+      <select class="advanced" id="specMode" title="Phased keeps the sign of each peak; magnitude does not">
+        <option value="phased">Phased</option><option value="magnitude">Magnitude</option>
+      </select>
       <button class="advanced" id="acquireBtn" onclick="acquire()">Acquire (clear)</button>
     </div>
   </div>
@@ -485,6 +489,7 @@ function axisVec(a){
   return a;
 }
 window.pulse = function(deg, ax){
+  if (deg % 180) excitationAxis = ax;
   const rad = deg * Math.PI/180;
   // Animate pulse over ~ 0.35s for nice visualization
   const duration = Math.min(0.6, Math.abs(rad)/ (Math.PI*2) * 0.8 + 0.2);
@@ -591,6 +596,7 @@ function resizePlot(){
   }
 }
 window.addEventListener('resize', ()=>{ resizePlot(); drawPlot(); });
+for (const id of ['components','showMy','specMode']) document.getElementById(id).addEventListener('change', () => drawPlot());
 // Layout changes (lesson card, media queries) resize the plots without a window resize.
 if (typeof ResizeObserver === 'function') {
   const plotObserver = new ResizeObserver(() => { resizePlot(); drawPlot(); });
@@ -679,7 +685,7 @@ function drawSinglePlot(plotCanvas, pctx, plotMode){
       if (!frozen) drawTrace('mx', t2Color(+t2s.value));
       drawT2Legend(pctx, pad, pw);
     } else drawTrace('mx', '#263347');
-    if (lesson === 'explore') drawTrace('my', '#8b96a9');
+    if (lesson === 'explore' && document.getElementById('showMy').checked) drawTrace('my', '#8b96a9');
     
   } else {
     // FFT of complex signal s = Mx + i*My over acquire window (if known) else tail
@@ -688,7 +694,10 @@ function drawSinglePlot(plotCanvas, pctx, plotMode){
     const windowLen = Math.max(0, windowEnd - acqStart);
     const usedSamples = Math.floor(windowLen / 100) * 100; // 0.5 s at 200 samples/s.
     if (usedSamples < 100) { pctx.fillText('Spectrum', pad.l, pad.t-8); if (showT2History()) { drawRelaxationAxis(pctx, pad, pw, ph); drawT2HistorySpectrum(pctx, pad, pw, ph); drawT2Legend(pctx, pad, pw); } return; }
-    const key = `${sigVersion}:${acqStart}:${usedSamples}:${+t2s.value}`;
+    // Explore spectra are phased to the excitation pulse unless magnitude is chosen.
+    const phaseRef = lesson === 'explore' && document.getElementById('specMode').value !== 'magnitude'
+      ? (sequence || replay)?.phaseRef || axisPhase(excitationAxis) : null;
+    const key = `${phaseRef ? phaseRef.c+','+phaseRef.s : ''}:${sigVersion}:${acqStart}:${usedSamples}:${+t2s.value}`;
     if (!spectrumCache || spectrumCache.key !== key) {
       let N = 2048;
       while (N < usedSamples * 2 && N < 8192) N *= 2;
@@ -706,7 +715,7 @@ function drawSinglePlot(plotCanvas, pctx, plotMode){
       let mmax = 1e-9;
       for (let i=0;i<N;i++) {
         const j=(i+half)%N;
-        shifted[i]=Math.hypot(re[j],im[j]); shiftedReal[i]=re[j];
+        shifted[i]=Math.hypot(re[j],im[j]); shiftedReal[i]=phaseRef ? re[j]*phaseRef.c + im[j]*phaseRef.s : re[j];
         mmax=Math.max(mmax,shifted[i]);
       }
       spectrumCache = { key, N, half, shifted, shiftedReal, mmax, positiveReference };
@@ -745,7 +754,10 @@ function drawSinglePlot(plotCanvas, pctx, plotMode){
     pctx.fillStyle='#5b6b7c';
     pctx.fillText('Spectrum', pad.l, pad.t-8);
     pctx.strokeStyle='#4051b5'; pctx.lineWidth=1.4; pctx.beginPath();
-    const signedSpectrum = lesson === 'relaxation' && relaxationTopic === 't1';
+    // Explore spectra use a fixed scale: the most populated group's fully excited peak fills it,
+    // so peak heights compare between runs (e.g. across inversion-recovery τ values).
+    const signedSpectrum = (lesson === 'relaxation' && relaxationTopic === 't1') || !!phaseRef;
+    const peakScale = Math.max(1e-9, positiveReference * (lesson === 'explore' && spins.length ? Math.max(...spins.map(s => s.n)) / spins.reduce((a,s) => a+s.n, 0) : 1));
     if (signedSpectrum) {
       pctx.strokeStyle='#d8dcea'; pctx.beginPath(); pctx.moveTo(pad.l,pad.t+ph/2); pctx.lineTo(pad.l+pw,pad.t+ph/2); pctx.stroke();
       pctx.fillStyle='#889'; pctx.fillText('+', 22, pad.t+12); pctx.fillText('−', 22, pad.t+ph-4);
@@ -762,14 +774,27 @@ function drawSinglePlot(plotCanvas, pctx, plotMode){
       if (absHz < hzMin || absHz > hzMax) continue;
       const x = mapHzToX(absHz);
       const y = signedSpectrum
-        ? pad.t + ph/2 - shiftedReal[i]/Math.max(positiveReference,1e-9) * ph/2
+        ? pad.t + ph/2 - shiftedReal[i]/peakScale * ph/2
         : lesson === 'relaxation'
           ? pad.t + ph - shifted[i]/T2_PEAK_REF * ph
-          : pad.t + ph - shifted[i]/mmax * ph;
+          : pad.t + ph - shifted[i]/(lesson === 'explore' ? peakScale : mmax) * ph;
       if (!started){ pctx.moveTo(x,y); started = true; } else pctx.lineTo(x,y);
     }
     pctx.stroke();
   }
+}
+
+// Receiver phase for a phased spectrum: the direction the excitation pulse tips +z into,
+// axis × ẑ. Relaxed spins then give positive absorption peaks and inverted spins negative ones.
+let excitationAxis = 'y';
+function axisPhase(axis){
+  const [ax, ay] = { x:[1,0], y:[0,1], '-x':[-1,0], '-y':[0,-1] }[axis] || [0,1];
+  return { c: ay, s: -ax };
+}
+// A sequence's excitation pulse is its last pulse before acquiring that isn't a 180° inversion/refocusing pulse.
+function readPhase(events){
+  const pulses = events.slice(0, events.findIndex(ev => ev.type === 'acquire')).filter(ev => ev.type === 'pulse');
+  return axisPhase((pulses.filter(ev => ev.angle % 180).at(-1) || pulses.at(-1))?.axis);
 }
 
 // Relaxation spectra span ±1 ppm around TMS, labeled in ppm and in (slowed) display Hz.
@@ -1048,8 +1073,10 @@ window.runSelected = function(){
   reset();
   stopReplay();
   frozen = false;
+  const phaseRef = readPhase(selected.events);
   sequence = {
     label: selected.label || SEQUENCES[selected.key].label,
+    phaseRef,
     events: selected.events,
     schedule: selected.schedule,
     idx: 0, phase: 'begin', remaining: 0,
@@ -1057,7 +1084,7 @@ window.runSelected = function(){
     // Total run length, so the time axis is fixed and the trace draws in from the left.
     span: selected.events.reduce((total, ev) => total + (ev.t || 0), 0),
   };
-  replay = { snapshots: [], idx: -1, playing: false, acqStartIdx: -1, acqIndices: sequence.acqIndices, span: sequence.span };
+  replay = { snapshots: [], idx: -1, playing: false, acqStartIdx: -1, acqIndices: sequence.acqIndices, span: sequence.span, phaseRef };
   setSeqStatus(`Running: ${sequence.label}`);
   renderSeqForm();
   updateReplayBar();
@@ -1150,6 +1177,7 @@ function drawSequenceMap(){
     if (ctx.measureText(text).width > x1 - x0 + 16) return; // Skip labels that would collide.
     ctx.fillStyle = color; ctx.fillText(text, (x0+x1)/2, y);
   };
+  let labelEnd = -Infinity; // Right edge of the previous pulse label, so close pulses don't overlap.
   for (const item of sch.items){
     const x0 = pad.l + (item.t0 / total) * pw;
     const x1 = pad.l + ((item.t0 + item.dur) / total) * pw;
@@ -1157,8 +1185,10 @@ function drawSequenceMap(){
     if (ev.type === 'pulse'){
       const pW = Math.max(4, x1 - x0), hgt = ph * Math.min(1, ev.angle / 180 + 0.5);
       ctx.fillStyle = '#2a78c2'; ctx.fillRect(x0, base - hgt, pW, hgt);
-      const text = `${ev.angle}°`, half = ctx.measureText(text).width/2;
-      ctx.fillStyle = '#1f2d3d'; ctx.fillText(text, Math.min(w - half, Math.max(half, x0 + pW/2)), base - hgt - 4);
+      const text = `${ev.angle}°${ev.axis}`, half = ctx.measureText(text).width/2;
+      const x = Math.min(w - half, Math.max(half, x0 + pW/2, labelEnd + 4 + half));
+      ctx.fillStyle = '#1f2d3d'; ctx.fillText(text, x, base - hgt - 4);
+      labelEnd = x + half;
     } else if (ev.type === 'delay'){
       ctx.fillStyle = '#dfe7ee'; ctx.fillRect(x0, base - ph*0.18, x1-x0, ph*0.18);
       label(`wait ${+ev.t.toFixed(2)} s`, x0, x1, base - ph*0.18 - 4, '#5b6b7c');

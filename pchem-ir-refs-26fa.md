@@ -11,7 +11,7 @@ Take a look and pick a starting point that looks interesting. We have the new Ag
 
 ## Process analytical: following a reaction with IR
 
-The idea is to track reactant and product bands over time and fit a kinetic model. With our top-plate ATR, you can either put a drop of the reaction mixture on the crystal (cover it so it doesn't evaporate) or spot aliquots onto it every minute or so.
+The idea is to track reactant and product bands over time and fit a kinetic model. With our top-plate ATR, you can either put a drop of the reaction mixture on the crystal (cover it so it doesn't evaporate) or spot aliquots onto it every minute or so. A reaction from a research lab here would be a great target too. We could build up to it, starting with a well-characterized reaction like the acetic anhydride hydrolysis below.
 
 - Haji, S.; Erkey, C. Kinetics of Hydrolysis of Acetic Anhydride by In-Situ FTIR Spectroscopy: An Experiment for the Undergraduate Laboratory. *Chem. Eng. Educ.* **2005**, 39, 56–61. [Link](https://journals.flvc.org/cee/article/view/122621) (Blake did this reaction by NMR, so you could compare the two techniques)
 - Chen, H.; Yang, H. Online ATR-FT-IR for Real-Time Monitoring of the Aspirin Esterification Process in an Acid-Mediated Reaction. *Spectroscopy* **2022**, 37 (S8), 7–12. [doi:10.56530/spectroscopy.sp4582i4](https://doi.org/10.56530/spectroscopy.sp4582i4) (uses PCA to pull out component time traces)

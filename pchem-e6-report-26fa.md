@@ -153,7 +153,7 @@ Here $A$ is the electrode area (cm²), $C$ is the bulk concentration (mol cm⁻�
    - Convert $Q$ to moles of Fe(CN)₆³⁻ reduced. What fraction of the Fe(CN)₆³⁻ in the cell is that?
 
 
-**Bottom line: how big is Fe(CN)₆³⁻?** A molecule's diffusion coefficient depends on its size. The Stokes–Einstein equation treats the molecule as a sphere of radius $r$ moving through a solvent of viscosity $\eta$ (Atkins and de Paula, *Physical Chemistry*, Ch. 19):
+**Bottom line: how big is Fe(CN)₆³⁻?** A molecule's diffusion coefficient depends on its size. The Stokes–Einstein equation treats the molecule as a sphere of radius $r$ moving through a solvent of viscosity $\eta$ (Einstein, *Ann. Phys.* **1905**, 322, 549, [10.1002/andp.19053220806](https://doi.org/10.1002/andp.19053220806)):
 
 $$D = \frac{k_B T}{6\pi\eta r}$$
 

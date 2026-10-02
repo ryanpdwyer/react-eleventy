@@ -5,7 +5,7 @@ js: pchem.js
 tags: pchem-26fa
 ---
 
-# E6 Report: NMR Kinetics *or* Electrochemistry (80 pts)
+# E6 Report: NMR Kinetics *or* Electrochemistry (100 pts)
 
 Your group did **one** of two experiments. Sections 1, 2, and 4 are the same for both groups. In Section 3, answer only the questions for your own experiment.
 
@@ -43,16 +43,16 @@ Someone else should be able to repeat your experiment using only this section. W
 
 ---
 
-## 3. Results and Discussion: lab notebook style (40 pts)
+## 3. Results and Discussion: lab notebook style (60 pts)
 
 This section is **not** written like a journal article. Talk through your analysis in order: what you plotted, what you saw, what it means, and what you decided because of it. Use full sentences, and include every plot you need to make your point. Show one worked example of each calculation, with units.
 
 | Pts | Criterion |
 |---|---|
 | 5 | **Reproducibility.** Attach your Python notebook. It runs from top to bottom on the raw data files, and every question in the notebook is answered. |
-| 25 | **Experiment-specific questions** (below). Graded on correct reasoning and reasonable numbers. |
-| 6 | **One journal-quality figure** showing your main result. It needs axes with units, data shown as points and any model as a line, and a self-contained caption of 2–4 sentences. |
-| 4 | **Bottom line.** One paragraph: what you measured, the result with its uncertainty, and how it compares with the literature. |
+| 40 | **Experiment-specific questions** (below). Graded on correct reasoning and reasonable numbers. |
+| 10 | **One journal-quality figure** showing your main result. It needs axes with units, data shown as points and any model as a line, and a self-contained caption of 2–4 sentences. |
+| 5 | **Bottom line.** One paragraph: what you measured, the result with its uncertainty, and how it compares with the literature. |
 
 **Example figure and caption.** These are Prussian blue CVs from the end of lab.
 

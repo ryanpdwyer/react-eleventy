@@ -137,7 +137,11 @@ Here $A$ is the electrode area (cm²), $C$ is the bulk concentration (mol cm⁻�
 
 1. **Open-circuit potential.** Use the Nernst equation to explain why the OCP of the ferricyanide solution sits where it does compared with $E^{\circ\prime}$. Roughly estimate the ratio $[\mathrm{Fe(CN)_6^{4-}}]/[\mathrm{Fe(CN)_6^{3-}}]$ in your solution.
 2. **The CV.**
-   - Plot one CV. You can use [js.munano.org/combine-echem](https://js.munano.org/combine-echem) to load the AfterMath archive and plot it. Label the oxidation and reduction peaks, write the half-reaction for each, and mark the direction of the scan.
+   - Plot one CV. You can use [js.munano.org/combine-echem](https://js.munano.org/combine-echem). Load the file `Voltammogram/Current vs Potential.csv` from inside the CV Experiment folder:
+
+     <img src="/img/E6-cv-file.png" alt="CV file to plot" width="350">
+
+   - Label the oxidation and reduction peaks, write the half-reaction for each, and mark the direction of the scan.
    - Report $E_{1/2}$.
    - Your reference electrode was Ag/AgCl in 3 M NaCl. Compare $E_{1/2}$ with a literature value, correcting for that reference.
    - Compare your peak separation $\Delta E_p$ with the value expected for a fast (reversible) one-electron process. What might cause a difference?

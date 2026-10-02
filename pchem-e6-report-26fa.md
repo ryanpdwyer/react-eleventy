@@ -11,15 +11,15 @@ Your group did **one** of two experiments. Sections 1, 2, and 4 are the same for
 
 ---
 
-## 1. Introduction to the technique (12 pts)
+## 1. Introduction to the technique (15 pts)
 
 Write about 1 page, double-spaced. Explain **what specific information your technique gives you** and how the measurement produces that information.
 
 | Pts | Criterion |
 |---|---|
-| 4 | Explains the physical basis of the measurement: what the instrument does to the sample, and what it detects. |
-| 4 | Explains what the measured quantities tell you about the sample, and what the signal depends on. |
-| 2 | Connects the technique to the question your group asked in this experiment. |
+| 5 | Explains the physical basis of the measurement: what the instrument does to the sample, and what it detects. |
+| 5 | Explains what the measured quantities tell you about the sample, and what the signal depends on. |
+| 3 | Connects the technique to the question your group asked in this experiment. |
 | 2 | Writing is clear, and sources are cited in the text. |
 
 **Background resources**
@@ -30,28 +30,28 @@ Write about 1 page, double-spaced. Explain **what specific information your tech
 
 ---
 
-## 2. Materials and Methods (16 pts)
+## 2. Materials and Methods (20 pts)
 
 Someone else should be able to repeat your experiment using only this section. Write in paragraphs, in the past tense.
 
 | Pts | Criterion |
 |---|---|
-| 5 | **Chemicals and samples.** Give the reagents and solvents with their sources, the amounts or concentrations you actually used, and how you prepared and mixed the samples. Include any timing that matters. |
-| 6 | **Instrument and acquisition.** Give the instrument and every setting needed to reproduce each experiment you report. For electrochemistry, include all three electrodes. |
-| 3 | **Data processing.** Name the software and say what was done to the raw data before you fit it. |
+| 6 | **Chemicals and samples.** Give the reagents and solvents with their sources, the amounts or concentrations you actually used, and how you prepared and mixed the samples. Include any timing that matters. |
+| 8 | **Instrument and acquisition.** Give the instrument and every setting needed to reproduce each experiment you report. For electrochemistry, include all three electrodes. |
+| 4 | **Data processing.** Name the software and say what was done to the raw data before you fit it. |
 | 2 | Safety hazards and waste disposal. |
 
 ---
 
-## 3. Results and Discussion: lab notebook style (48 pts)
+## 3. Results and Discussion: lab notebook style (40 pts)
 
 This section is **not** written like a journal article. Talk through your analysis in order: what you plotted, what you saw, what it means, and what you decided because of it. Use full sentences, and include every plot you need to make your point. Show one worked example of each calculation, with units.
 
 | Pts | Criterion |
 |---|---|
-| 8 | **Python notebook.** It runs from top to bottom, and every question in the notebook is answered. Attach it. |
-| 28 | **Experiment-specific questions** (below). Graded on correct reasoning and reasonable numbers. |
-| 8 | **One journal-quality figure** showing your main result. It needs axes with units, data shown as points and any model as a line, and a self-contained caption of 2–4 sentences. |
+| 5 | **Reproducibility.** Attach your Python notebook. It runs from top to bottom on the raw data files, and every question in the notebook is answered. |
+| 25 | **Experiment-specific questions** (below). Graded on correct reasoning and reasonable numbers. |
+| 6 | **One journal-quality figure** showing your main result. It needs axes with units, data shown as points and any model as a line, and a self-contained caption of 2–4 sentences. |
 | 4 | **Bottom line.** One paragraph: what you measured, the result with its uncertainty, and how it compares with the literature. |
 
 **Example figure and caption.** These are Prussian blue CVs from the end of lab.
@@ -154,9 +154,9 @@ Here $A$ is the electrode area (cm²), $C$ is the bulk concentration (mol cm⁻�
 
 ---
 
-## 4. References (4 pts)
+## 4. References (5 pts)
 
 | Pts | Criterion |
 |---|---|
-| 2 | At least 3 sources: a textbook, a literature source for each value you compare against, and the software you used. |
+| 3 | At least 3 sources: a textbook, a literature source for each value you compare against, and the software you used. |
 | 2 | One consistent style (ACS preferred), with in-text citations that match the reference list. |

@@ -52,7 +52,7 @@ This section is **not** written like a journal article. Talk through your analys
 | 5 | **Reproducibility.** Attach your Python notebook. It runs from top to bottom on the raw data files, and every question in the notebook is answered. |
 | 40 | **Experiment-specific questions** (below). Graded on correct reasoning and reasonable numbers. |
 | 10 | **One journal-quality figure** showing your main result. It needs axes with units, data shown as points and any model as a line, and a self-contained caption of 2–4 sentences. |
-| 5 | **Bottom line.** One paragraph: what you measured, the result with its uncertainty, and how it compares with the literature. |
+| 5 | **Bottom line.** One paragraph: what you measured, the result with its uncertainty, and how it compares with the literature. The electrochemistry group should answer the bottom-line prompt at the end of 3B. |
 
 **Example figure and caption.** These are Prussian blue CVs from the end of lab.
 
@@ -151,6 +151,13 @@ Here $A$ is the electrode area (cm²), $C$ is the bulk concentration (mol cm⁻�
      - integrate the Cottrell equation by hand and evaluate it with your fitted parameters, or
      - integrate the data numerically, using the trapezoid rule in Python or Excel.
    - Convert $Q$ to moles of Fe(CN)₆³⁻ reduced. What fraction of the Fe(CN)₆³⁻ in the cell is that?
+
+
+**Bottom line: how big is Fe(CN)₆³⁻?** A molecule's diffusion coefficient depends on its size. The Stokes–Einstein equation treats the molecule as a sphere of radius $r$ moving through a solvent of viscosity $\eta$ (Atkins and de Paula, *Physical Chemistry*, Ch. 19):
+
+$$D = \frac{k_B T}{6\pi\eta r}$$
+
+Use your $D$ to calculate the radius $r$ of Fe(CN)₆³⁻. Compare that radius with the size of the ion from its structure. The ion is octahedral, with Fe–C ≈ 1.93 Å and C≡N ≈ 1.15 Å, and the van der Waals radius of N is about 1.55 Å. Do the two sizes agree? What could make them differ?
 
 ---
 

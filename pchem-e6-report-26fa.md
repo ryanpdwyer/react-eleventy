@@ -118,7 +118,7 @@ $$E = E^{\circ\prime} - \frac{RT}{n_e F}\ln\frac{[\mathrm{Red}]}{[\mathrm{Ox}]}$
 Here $E^{\circ\prime}$ is the formal potential, the standard potential under your solution conditions. At $25\ ^\circ\mathrm{C}$, $RT/F = 25.7$ mV, so a tenfold change in the ratio $[\mathrm{Red}]/[\mathrm{Ox}]$ shifts $E$ by 59 mV when $n_e = 1$. At $E = E^{\circ\prime}$, the concentrations of Ox and Red are equal. This applies in both directions:
 
 - When nothing is controlling the electrode, the solution sets the potential. This is the **open-circuit potential**.
-- When the potentiostat sets $E$, the Nernst equation gives the ratio $[\mathrm{Red}]/[\mathrm{Ox}]$ at the electrode surface, but only if electron transfer is fast enough to keep up. A couple that behaves this way is called *reversible*. If electron transfer is slow, it takes extra potential (an *overpotential*) to drive the reaction, and the surface ratio lags behind the Nernst value. Your CV peak separation tests which case applies.
+- When the potentiostat sets $E$, the Nernst equation gives the ratio $[\mathrm{Red}]/[\mathrm{Ox}]$ at the electrode surface, but only if electron transfer is fast enough to keep up. A couple that behaves this way is called *reversible*. If electron transfer is slow, it takes extra potential (an *overpotential*) to drive the reaction, and the surface ratio lags behind the Nernst value.
 
 **Current counts reactions.** Current is charge per unit time: $1\ \mathrm{A} = 1\ \mathrm{C\thinspace s^{-1}}$. Every molecule that reacts transfers $n_e$ electrons, so
 
@@ -143,7 +143,6 @@ Here $A$ is the electrode area (cm²), $C$ is the bulk concentration (mol cm⁻�
    - Label the oxidation and reduction peaks, write the half-reaction for each, and mark the direction of the scan.
    - Report $E_{1/2}$.
    - Your reference electrode was Ag/AgCl in 3 M NaCl. Compare $E_{1/2}$ with a literature value, correcting for that reference.
-   - Compare your peak separation $\Delta E_p$ with the value expected for a fast (reversible) one-electron process. What might cause a difference?
 3. **Diffusion coefficient.** From your Cottrell fits (in the notebook), report $D$ for Fe(CN)₆³⁻ with a realistic uncertainty. Compare it with a literature value. What is the largest source of error?
 4. **Charge.**
    - Find the total charge $Q = \int i\thinspace dt$ passed during one chronoamperometry transient. You can do this either of two ways:
@@ -156,7 +155,7 @@ Here $A$ is the electrode area (cm²), $C$ is the bulk concentration (mol cm⁻�
 
 $$D = \frac{k_B T}{6\pi\eta r}$$
 
-Use your $D$ to calculate the radius $r$ of Fe(CN)₆³⁻. Compare that radius with the size of the ion from its structure. The ion is octahedral, with Fe–C ≈ 1.94 Å and C≡N ≈ 1.15 Å (Liu, Yu, and Yuan, *Acta Cryst. E* **2012**, 68, m701, [10.1107/S1600536812017990](https://doi.org/10.1107/S1600536812017990)). The van der Waals radius of N is 1.55 Å (Bondi, *J. Phys. Chem.* **1964**, 68, 441, [10.1021/j100785a001](https://doi.org/10.1021/j100785a001)). Do the two sizes agree? What could make them differ?
+Use your $D$ to calculate the radius $r$ of Fe(CN)₆³⁻. Compare that radius with the size of the ion from its structure. Adding Fe–C (1.94 Å) and C≡N (1.15 Å) bond lengths (Liu, Yu, and Yuan, *Acta Cryst. E* **2012**, 68, m701, [10.1107/S1600536812017990](https://doi.org/10.1107/S1600536812017990)) and the van der Waals radius of N (1.55 Å; Bondi, *J. Phys. Chem.* **1964**, 68, 441, [10.1021/j100785a001](https://doi.org/10.1021/j100785a001)) gives a radius of about 4.6 Å. Do the two sizes agree? What could make them differ?
 
 ---
 

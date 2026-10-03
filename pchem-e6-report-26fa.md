@@ -36,7 +36,7 @@ Someone else should be able to repeat your experiment using only this section.
 
 | Pts | Criterion |
 |---|---|
-| 7 | **Chemicals and samples.** Give the reagents and solvents with their grade and source (for example, "acetic anhydride, 99%, stockroom" or "D₂O, ampule"), the amounts or concentrations you actually used, and how the samples were prepared and mixed. If Dr. Dwyer prepared a solution, say so and give its composition. Include any timing that matters. |
+| 7 | **Chemicals and samples.** Give the reagents and solvents with their grade and source (for example, "acetic anhydride, 99%, stockroom" or "D₂O, ampule"), the amounts or concentrations you actually used, and how the samples were prepared and mixed. Include any timing that matters. |
 | 9 | **Instrument and acquisition.** Give the instrument and every setting needed to reproduce each experiment you report. For electrochemistry, include all three electrodes. |
 | 4 | **Data processing.** Name the software and say what was done to the raw data before you fit it. |
 
@@ -118,7 +118,7 @@ $$E = E^{\circ\prime} - \frac{RT}{n_e F}\ln\frac{[\mathrm{Red}]}{[\mathrm{Ox}]}$
 Here $E^{\circ\prime}$ is the formal potential, the standard potential under your solution conditions. At $25\ ^\circ\mathrm{C}$, $RT/F = 25.7$ mV, so a tenfold change in the ratio $[\mathrm{Red}]/[\mathrm{Ox}]$ shifts $E$ by 59 mV when $n_e = 1$. At $E = E^{\circ\prime}$, the concentrations of Ox and Red are equal. This applies in both directions:
 
 - When nothing is controlling the electrode, the solution sets the potential. This is the **open-circuit potential**.
-- When the potentiostat sets $E$, it forces the ratio $[\mathrm{Red}]/[\mathrm{Ox}]$ right at the electrode surface.
+- When the potentiostat sets $E$, the Nernst equation gives the ratio $[\mathrm{Red}]/[\mathrm{Ox}]$ at the electrode surface, but only if electron transfer is fast enough to keep up. A couple that behaves this way is called *reversible*. If electron transfer is slow, it takes extra potential (an *overpotential*) to drive the reaction, and the surface ratio lags behind the Nernst value. Your CV peak separation tests which case applies.
 
 **Current counts reactions.** Current is charge per unit time: $1\ \mathrm{A} = 1\ \mathrm{C\thinspace s^{-1}}$. Every molecule that reacts transfers $n_e$ electrons, so
 
@@ -126,7 +126,7 @@ $$i = \frac{dQ}{dt}, \qquad Q = \int i\thinspace dt = n_e F N$$
 
 where $N$ is the number of moles that reacted. Example: a current of 10 µA flowing for 10 s passes $Q = 1.0\times10^{-4}$ C, which is $1.0\times10^{-9}$ mol of electrons. Electrochemistry can count very small amounts of reaction. Our software reports reduction current as negative.
 
-**Why diffusion matters.** If you step $E$ far negative of $E^{\circ\prime}$, the Nernst equation says almost no Fe(CN)₆³⁻ can remain at the electrode surface. After that, the current is limited by how fast fresh Fe(CN)₆³⁻ diffuses in from the solution. For a planar electrode, solving the diffusion equation gives the **Cottrell equation** (Bard and Faulkner, *Electrochemical Methods*, 2nd ed., Wiley, 2001, Eq. 5.2.11):
+**Why diffusion matters.** If you step $E$ far enough negative of $E^{\circ\prime}$, Fe(CN)₆³⁻ is reduced as soon as it reaches the electrode, even if electron transfer is somewhat slow, so its surface concentration drops to essentially zero. After that, the current is limited by how fast fresh Fe(CN)₆³⁻ diffuses in from the solution. For a planar electrode, solving the diffusion equation gives the **Cottrell equation** (Bard and Faulkner, *Electrochemical Methods*, 2nd ed., Wiley, 2001, Eq. 5.2.11):
 
 $$i(t) = \frac{n_e F A C\sqrt{D}}{\sqrt{\pi t}}$$
 

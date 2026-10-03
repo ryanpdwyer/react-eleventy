@@ -157,7 +157,7 @@ Here $A$ is the electrode area (cm²), $C$ is the bulk concentration (mol cm⁻�
 
 $$D = \frac{k_B T}{6\pi\eta r}$$
 
-Use your $D$ to calculate the radius $r$ of Fe(CN)₆³⁻. Compare that radius with the size of the ion from its structure. The ion is octahedral, with Fe–C ≈ 1.93 Å and C≡N ≈ 1.15 Å, and the van der Waals radius of N is about 1.55 Å. Do the two sizes agree? What could make them differ?
+Use your $D$ to calculate the radius $r$ of Fe(CN)₆³⁻. Compare that radius with the size of the ion from its structure. The ion is octahedral, with Fe–C ≈ 1.94 Å and C≡N ≈ 1.15 Å (Liu, Yu, and Yuan, *Acta Cryst. E* **2012**, 68, m701, [10.1107/S1600536812017990](https://doi.org/10.1107/S1600536812017990)). The van der Waals radius of N is 1.55 Å (Bondi, *J. Phys. Chem.* **1964**, 68, 441, [10.1021/j100785a001](https://doi.org/10.1021/j100785a001)). Do the two sizes agree? What could make them differ?
 
 ---
 

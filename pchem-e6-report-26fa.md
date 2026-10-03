@@ -36,7 +36,7 @@ Someone else should be able to repeat your experiment using only this section.
 
 | Pts | Criterion |
 |---|---|
-| 7 | **Chemicals and samples.** Give the reagents and solvents with their sources, the amounts or concentrations you actually used, and how you prepared and mixed the samples. Include any timing that matters. |
+| 7 | **Chemicals and samples.** Give the reagents and solvents with their grade and source (for example, "acetic anhydride, 99%, stockroom" or "D₂O, ampule"), the amounts or concentrations you actually used, and how the samples were prepared and mixed. If Dr. Dwyer prepared a solution, say so and give its composition. Include any timing that matters. |
 | 9 | **Instrument and acquisition.** Give the instrument and every setting needed to reproduce each experiment you report. For electrochemistry, include all three electrodes. |
 | 4 | **Data processing.** Name the software and say what was done to the raw data before you fit it. |
 
@@ -44,7 +44,7 @@ Someone else should be able to repeat your experiment using only this section.
 
 ## 3. Results and Discussion: lab notebook style (60 pts)
 
-This section is **not** written like a journal article. Talk through your analysis in order: what you plotted, what you saw, what it means, and what you decided because of it. Use full sentences, and include every plot you need to make your point. Show one worked example of each calculation, with units.
+This section is **not** written like a journal article. Talk through your analysis in order: what you plotted, what you saw, what it means, and what you decided because of it. Use full sentences, and include every plot you need to make your point.
 
 | Pts | Criterion |
 |---|---|

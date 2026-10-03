@@ -52,15 +52,15 @@ You are welcome to work together on a project, just make sure that you would eac
 
 #### 2. Presentation (50-point rubric × 1.5 = 75 pts, Wednesday Oct 28)
 
-Prepare an 8–10 minute talk that explains your experimental technique, using at least one primary literature paper that uses it in a figure or table. **You are the class expert on our instrument, so you need to know exactly how it works.**
+Prepare an 8–10 minute talk that is mostly about your pilot project: your technique, our instrument, and what you found. For comparison, include one primary literature article that uses your technique in an interesting way (a slide or two is enough). I highly recommend practicing your talk with me in office hours before you present. **You are the class expert on our instrument, so you need to know exactly how it works.**
 
 | Pts | Criterion |
 |---|---|
 | 6 | Any theory or model behind the technique (from background research online, books, etc.) |
 | 12 | How our specific instrument works, from source to detector to signal: what each component does, and what limits the measurement |
 | 8 | What sample information the technique gives you |
-| 6 | What conclusions the technique enabled the researchers to draw in the research article |
-| 6 | What conclusions you drew using the technique in your pilot project |
+| 4 | What the literature article used the technique for, and how that compares with your project |
+| 8 | What conclusions you drew using the technique in your pilot project |
 | 6 | Your final analysis and evaluation. How useful is this technique? What questions do you still have about it? Will you continue with it or pivot for the major project? |
 | 6 | Slides and presentation skills |
 

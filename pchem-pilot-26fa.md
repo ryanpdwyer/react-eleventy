@@ -35,39 +35,34 @@ You are welcome to work together on a project, just make sure that you would eac
 - **Wednesday Nov 4** Major project begins
 
 
-### Assignments and Rubrics (300 pts)
+### Assignments and Rubrics (250 pts)
 
-#### 1. Project plan and update (50 pts)
+#### 1. Project plan and update (25 pts)
 
-**Project plan (35 pts, due Friday Oct 9).** Bullet points are fine. Your introduction is also the starting point for your presentation and report.
-
-| Pts | Section |
-|---|---|
-| 10 | **Introduction.** State your question, explain what your technique measures and how, and give the model you plan to fit to your data. Cite at least 3 sources, including at least one primary article. |
-| 15 | **Week 1 experiments.** List the specific experiments in order, with solution concentrations and the calculations behind them, and the instrument settings. Say what data you will get and how you will analyze it: which plot and which model. Week 1 can be heavier on experiments or heavier on analysis. Either way, plan how you will use the full 3 hours. |
-| 5 | **Materials.** List every chemical with its CAS number, the amount you need, and its location (room and shelf) from [ChemInventory](https://app.cheminventory.net). Also list glassware and equipment beyond what is normally in the lab. Check the inventory before you ask for anything. |
-| 5 | **Purchasing.** For anything we don't have, give the vendor, catalog number, quantity, price, and link. Anything ordered after Oct 9 may not arrive in time. |
-
-**Week 2 update (15 pts, due Monday Oct 19).**
+**Project plan (20 pts, due Friday Oct 9).** Bullet points are fine. Your introduction is also the starting point for your presentation and report.
 
 | Pts | Section |
 |---|---|
-| 5 | **Week 1 results.** One figure from your week 1 data, with 2–3 sentences on what it shows. |
-| 10 | **Week 2 plan.** What you will do next and why, based on week 1, with any new materials. |
+| 5 | **Introduction.** State your question, explain what your technique measures and how, and give the model you plan to fit to your data. Cite at least 3 sources, including at least one primary article. |
+| 8 | **Week 1 experiments.** List the specific experiments in order, with solution concentrations and the calculations behind them, and the instrument settings. Say what data you will get and how you will analyze it: which plot and which model. Week 1 can be heavier on experiments or heavier on analysis. Either way, plan how you will use the full 3 hours. |
+| 4 | **Materials.** List every chemical with its CAS number, the amount you need, and its location (room and shelf) from [ChemInventory](https://app.cheminventory.net). Also list glassware and equipment beyond what is normally in the lab. Check the inventory before you ask for anything. |
+| 3 | **Purchasing.** For anything we don't have, give the vendor, catalog number, quantity, price, and link. Anything ordered after Oct 9 may not arrive in time. |
 
-#### 2. Presentation (100 pts, Wednesday Oct 28)
+**Week 2 update (5 pts, due Monday Oct 19).** One figure from your week 1 data, with 2–3 sentences on what it shows, and your plan for week 2 (what you will do next and why, plus any new materials).
+
+#### 2. Presentation (75 pts, Wednesday Oct 28)
 
 Prepare an 8–10 minute talk that explains your experimental technique, using at least one primary literature paper that uses it in a figure or table. **You are the class expert on our instrument, so you need to know exactly how it works.**
 
 | Pts | Criterion |
 |---|---|
-| 15 | Any theory or model behind the technique (from background research online, books, etc.) |
-| 25 | How our specific instrument works, from source to detector to signal: what each component does, and what limits the measurement |
-| 15 | What sample information the technique gives you |
+| 10 | Any theory or model behind the technique (from background research online, books, etc.) |
+| 20 | How our specific instrument works, from source to detector to signal: what each component does, and what limits the measurement |
+| 10 | What sample information the technique gives you |
 | 10 | What conclusions the technique enabled the researchers to draw in the research article |
-| 15 | What conclusions you drew using the technique in your pilot project |
-| 10 | Your final analysis and evaluation. How useful is this technique? What questions do you still have about it? Will you continue with it or pivot for the major project? |
-| 10 | Slides and presentation skills |
+| 10 | What conclusions you drew using the technique in your pilot project |
+| 8 | Your final analysis and evaluation. How useful is this technique? What questions do you still have about it? Will you continue with it or pivot for the major project? |
+| 7 | Slides and presentation skills |
 
 #### 3. Technical report (100 pts, Friday Oct 30)
 

@@ -32,14 +32,13 @@ Write about 1 page, double-spaced. Explain **what specific information your tech
 
 ## 2. Materials and Methods (20 pts)
 
-Someone else should be able to repeat your experiment using only this section. Write in paragraphs, in the past tense.
+Someone else should be able to repeat your experiment using only this section.
 
 | Pts | Criterion |
 |---|---|
-| 6 | **Chemicals and samples.** Give the reagents and solvents with their sources, the amounts or concentrations you actually used, and how you prepared and mixed the samples. Include any timing that matters. |
-| 8 | **Instrument and acquisition.** Give the instrument and every setting needed to reproduce each experiment you report. For electrochemistry, include all three electrodes. |
+| 7 | **Chemicals and samples.** Give the reagents and solvents with their sources, the amounts or concentrations you actually used, and how you prepared and mixed the samples. Include any timing that matters. |
+| 9 | **Instrument and acquisition.** Give the instrument and every setting needed to reproduce each experiment you report. For electrochemistry, include all three electrodes. |
 | 4 | **Data processing.** Name the software and say what was done to the raw data before you fit it. |
-| 2 | Safety hazards and waste disposal. |
 
 ---
 

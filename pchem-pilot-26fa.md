@@ -59,8 +59,8 @@ Prepare an 8–10 minute talk that is mostly about your pilot project: your tech
 | 6 | Any theory or model behind the technique (from background research online, books, etc.) |
 | 12 | How our specific instrument works, from source to detector to signal: what each component does, and what limits the measurement |
 | 8 | What sample information the technique gives you |
-| 4 | What the literature article used the technique for, and how that compares with your project |
-| 8 | What conclusions you drew using the technique in your pilot project |
+| 6 | What the literature article used the technique for, and how that compares with your project |
+| 6 | What conclusions you drew using the technique in your pilot project |
 | 6 | Your final analysis and evaluation. How useful is this technique? What questions do you still have about it? Will you continue with it or pivot for the major project? |
 | 6 | Slides and presentation skills |
 

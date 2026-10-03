@@ -68,7 +68,7 @@ The inversion recovery experiment ($180^\circ$ – $\tau$ – $90^\circ$ – acq
 
 $$M(\tau) = M_\infty\left(1 - 2e^{-\tau/T_1}\right)$$
 
-The notebook replaces the 2 with a fitted parameter so that it can handle an imperfect $180^\circ$ pulse (Harvey, *Instrumental Analysis*, Ch. 19).
+The notebook replaces the 2 with a fitted parameter so that it can handle an imperfect $180^\circ$ pulse (Trinh, Wolff, and Naumiec, *J. Chem. Educ.* **2021**, 98, 587, [10.1021/acs.jchemed.0c00663](https://doi.org/10.1021/acs.jchemed.0c00663)).
 
 1. **$T_1$ and the kinetics run.** Report $T_1$. Explain why $T_1$ sets how quickly you can take one spectrum after another and still have peak areas proportional to concentration. Was the spacing in your kinetics run long enough?
 2. **Spinning and line width.** Compare one spectrum taken while the sample was not spinning with one taken while it was spinning. Estimate the line width of each. Explain how line width affects peak integration, and why those early spectra were left out.
@@ -127,7 +127,7 @@ $$i = \frac{dQ}{dt}, \qquad Q = \int i\thinspace dt = n_e F N$$
 
 where $N$ is the number of moles that reacted. Example: a current of 10 µA flowing for 10 s passes $Q = 1.0\times10^{-4}$ C, which is $1.0\times10^{-9}$ mol of electrons. Electrochemistry can count very small amounts of reaction. Our software reports reduction current as negative.
 
-**Why diffusion matters.** If you step $E$ far negative of $E^{\circ\prime}$, the Nernst equation says almost no Fe(CN)₆³⁻ can remain at the electrode surface. After that, the current is limited by how fast fresh Fe(CN)₆³⁻ diffuses in from the solution. For a planar electrode, solving the diffusion equation gives the **Cottrell equation** (Bard and Faulkner, *Electrochemical Methods*, 2nd ed., Ch. 5; Harvey 11.4):
+**Why diffusion matters.** If you step $E$ far negative of $E^{\circ\prime}$, the Nernst equation says almost no Fe(CN)₆³⁻ can remain at the electrode surface. After that, the current is limited by how fast fresh Fe(CN)₆³⁻ diffuses in from the solution. For a planar electrode, solving the diffusion equation gives the **Cottrell equation** (Bard and Faulkner, *Electrochemical Methods*, 2nd ed., Wiley, 2001, Eq. 5.2.11):
 
 $$i(t) = \frac{n_e F A C\sqrt{D}}{\sqrt{\pi t}}$$
 

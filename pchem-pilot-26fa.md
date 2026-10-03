@@ -50,19 +50,19 @@ You are welcome to work together on a project, just make sure that you would eac
 
 **Week 2 update (5 pts, due Monday Oct 19).** One figure from your week 1 data, with 2–3 sentences on what it shows, and your plan for week 2 (what you will do next and why, plus any new materials).
 
-#### 2. Presentation (75 pts, Wednesday Oct 28)
+#### 2. Presentation (50-point rubric × 1.5 = 75 pts, Wednesday Oct 28)
 
 Prepare an 8–10 minute talk that explains your experimental technique, using at least one primary literature paper that uses it in a figure or table. **You are the class expert on our instrument, so you need to know exactly how it works.**
 
 | Pts | Criterion |
 |---|---|
-| 10 | Any theory or model behind the technique (from background research online, books, etc.) |
-| 20 | How our specific instrument works, from source to detector to signal: what each component does, and what limits the measurement |
-| 10 | What sample information the technique gives you |
-| 10 | What conclusions the technique enabled the researchers to draw in the research article |
-| 10 | What conclusions you drew using the technique in your pilot project |
-| 8 | Your final analysis and evaluation. How useful is this technique? What questions do you still have about it? Will you continue with it or pivot for the major project? |
-| 7 | Slides and presentation skills |
+| 6 | Any theory or model behind the technique (from background research online, books, etc.) |
+| 12 | How our specific instrument works, from source to detector to signal: what each component does, and what limits the measurement |
+| 8 | What sample information the technique gives you |
+| 6 | What conclusions the technique enabled the researchers to draw in the research article |
+| 6 | What conclusions you drew using the technique in your pilot project |
+| 6 | Your final analysis and evaluation. How useful is this technique? What questions do you still have about it? Will you continue with it or pivot for the major project? |
+| 6 | Slides and presentation skills |
 
 #### 3. Technical report (100 pts, Friday Oct 30)
 

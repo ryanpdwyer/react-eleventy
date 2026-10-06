@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CHE 110 Experiment 3</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#EDF0F4; --panel:#FFFFFF; --line:#D3D9E2;
+  --ink:#1A2130; --ink2:#55606F; --ink3:#8A93A0;
+  --accent:#2F5D8A; --accent-soft:#DCE7F3;
+  --sans:"IBM Plex Sans",-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12161E; --panel:#1B2029; --line:#333B48;
+    --ink:#E7EBF1; --ink2:#AEB6C2; --ink3:#7C8594;
+    --accent:#7FB0E0; --accent-soft:#233850;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12161E; --panel:#1B2029; --line:#333B48;
+  --ink:#E7EBF1; --ink2:#AEB6C2; --ink3:#7C8594;
+  --accent:#7FB0E0; --accent-soft:#233850;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55}
+.wrap{max-width:880px;margin:0 auto;padding:24px 16px 48px}
+header{margin-bottom:18px}
+.kicker{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin:0 0 4px}
+h1{font-size:26px;font-weight:600;margin:0;letter-spacing:-.01em}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px 20px}
+.note{background:var(--accent-soft);border-radius:6px;padding:10px 14px;margin:0 0 16px;font-size:15px}
+a{color:var(--accent)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+ol.steps{padding-left:1.4em;margin:0}
+ol.steps>li{margin:0 0 18px;padding-left:4px}
+ol.steps>li:last-child{margin-bottom:0}
+.video{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:6px;margin-top:10px;background:#000}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.report{margin:10px 0 0;padding-left:1.2em}
+.report>li{margin:0 0 10px}
+.report ul,.report ol{margin:6px 0 0;padding-left:1.3em}
+.report ul li,.report ol li{margin:0 0 6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <p class="kicker">CHE 110 · Experiment 3</p>
+  <h1>Precision and Accuracy of Laboratory Glassware</h1>
+</header>
+
+<div class="panel">
+<p class="note">You need Microsoft Excel for this lab (free with your Mount Union email).</p>
+
+<ol class="steps">
+  <li>Read through the lab's <a href="https://mountunion-my.sharepoint.com/:b:/g/personal/dwyerry_mountunion_edu/EcmWdZ-z1-lIk5yqoqpJsMUBK9B8ai8GC0h0jh6B1c80IA" target="_blank" rel="noopener">Background and procedure</a>.</li>
+
+  <li>Watch the video explaining the experimental part of the lab.
+    <div class="video"><iframe src="https://mountunion-my.sharepoint.com/personal/dwyerry_mountunion_edu/_layouts/15/embed.aspx?UniqueId=4f411099-82e7-4267-82db-ffe9d8d2a991&amp;embed=%7B%22ust%22%3Atrue%2C%22hv%22%3A%22CopyEmbedCode%22%7D&amp;referrer=StreamWebApp&amp;referrerScenario=EmbedDialog.Create" allowfullscreen title="CHE110 Precision and Accuracy Expt Overview"></iframe></div>
+  </li>
+
+  <li>Next, click the link to get a unique set of <a href="https://lucid-clarke-7bca0c.netlify.app/che110experiment4/" target="_blank" rel="noopener">experimental data</a>. Copy and paste this data into a Word document so that you don't lose it.</li>
+
+  <li>Copy and/or type the data into the <a href="/d2l/common/dialogs/quickLink/quickLink.d2l?ou=71490&amp;type=content&amp;rcode=umu-120782" target="_blank" rel="noopener">provided Excel spreadsheet</a>. You can look up the density of water at your temperature in the <a href="https://mountunion-my.sharepoint.com/:b:/g/personal/dwyerry_mountunion_edu/EYEAlkGyDqRKg8wJ43vuMNcBm8lkUFf58zhkkQwBstb3dA" target="_blank" rel="noopener">provided table</a> (from the online 100th edition <a href="https://login.mt.opal-libraries.org/login?url=http://hbcponline.com/faces/contents/ContentsSearch.xhtml" target="_blank" rel="noopener">CRC Handbook of Chemistry and Physics</a>). Make sure to cite this source properly in your laboratory report.</li>
+
+  <li>Watch the video below for help doing the data analysis needed to complete the lab in Excel:
+    <div class="video"><iframe src="https://mountunion-my.sharepoint.com/personal/dwyerry_mountunion_edu/_layouts/15/embed.aspx?UniqueId=cf632798-9237-4b9a-9ef8-d65361a1aa39&amp;embed=%7B%22ust%22%3Atrue%2C%22hv%22%3A%22CopyEmbedCode%22%7D&amp;referrer=StreamWebApp&amp;referrerScenario=EmbedDialog.Create" allowfullscreen title="CHE110 Precision and Accuracy Excel"></iframe></div>
+  </li>
+
+  <li>Complete all of the necessary calculations in each sheet, then write up your lab report. Your lab report should have the following sections:
+    <ul class="report">
+      <li><strong>Name, Lab section, Instructor, Title</strong></li>
+      <li><strong>Experimental Purpose:</strong> In your own words, briefly describe the purpose of the experiment that you would have performed in this lab.</li>
+      <li><strong>Calculations and Interpretations</strong>
+        <ul>
+          <li>Show ONE sample calculation that shows all the steps for determining the volume of water transferred for ONE trial for ONE of the three types of glassware. Be sure to include the correct number of significant figures based on your recorded data.</li>
+          <li>Show ONE sample calculation of the percent error for ONE of the three types of glassware relative to the stated value of 10.00 mL.</li>
+          <li>Show ONE sample calculation of the density of the unknown solution for ONE of the six trials, using the measured mass of the solution and the average volume from all 9 trials of the 10 mL pipet determined in Part II.</li>
+        </ul>
+      </li>
+      <li><strong>Discussion</strong>
+        <ol>
+          <li>Order the four pieces of glassware according to their accuracy. Explain your reasoning completely. Do the same comparison for precision.</li>
+          <li>Using the results from the calculated volume delivered by your pipet (all 9 trials), in what range would 68% of the values of the volume of the pipet fall? What range would 95% of measurements fall? (Review the <a href="https://mountunion-my.sharepoint.com/:b:/g/personal/dwyerry_mountunion_edu/EcmWdZ-z1-lIk5yqoqpJsMUBK9B8ai8GC0h0jh6B1c80IA" target="_blank" rel="noopener">Experiment 4 Background</a> to help you determine this.)</li>
+          <li>After looking at <a href="https://mountunion-my.sharepoint.com/:b:/g/personal/dwyerry_mountunion_edu/EZhSzORCJoJMt37F-Q5fQpcBT0q477xfmsJKPghdG-MPxw" target="_blank" rel="noopener">Appendix C</a>, give two reasons you think the CRC Handbook of Chemistry and Physics is a reliable source. How much confidence do you have in the value for the density of water obtained from the CRC Handbook? Explain your answer using AAOCC rules (Appendix C).</li>
+        </ol>
+      </li>
+      <li><strong>References:</strong> Cite your sources in proper ACS Style.</li>
+    </ul>
+  </li>
+
+  <li>Upload your <strong>Excel file</strong> and <strong>lab report</strong> to the dropbox.</li>
+</ol>
+</div>
+</div>
+</body>
+</html>

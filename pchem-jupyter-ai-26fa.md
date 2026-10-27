@@ -7,7 +7,11 @@ tags: pchem-26fa
 
 # Using the AI Assistants on ai.munano.org
 
-Our class JupyterHub has two AI assistants built into JupyterLab. They can read your open notebook, write and edit cells, and run them.
+Our class JupyterHub has two AI assistants built into JupyterLab. Unlike a regular chatbot, they work inside your notebook:
+
+- They read the notebook that is open in your browser tab, including its outputs and error messages.
+- They write, edit, and run cells in that notebook. No copying and pasting.
+- They can open your data files, run commands, and read documentation themselves, so they work from what your files actually contain instead of your description of them.
 
 | Assistant | Cost | Use it for |
 |---|---|---|
@@ -40,15 +44,15 @@ Click the chat icon in the left sidebar, then **New chat**. OpenCode is selected
 
 Keep the notebook you want help with **open in a tab**. The assistant works on the notebook that is open.
 
-## 4. Ask in plain words
+## 4. Ask for what you want done
 
 > Load neat_DCE_raman.csv into my notebook and plot the spectrum.
 
-The assistant writes the cells and runs them. Here it worked out on its own that the file has 34 lines of instrument settings before the data.
+The assistant opened the file, saw 34 lines of instrument settings before the data, and wrote and ran the cells to skip them.
 
 ![Data loaded and plotted](/img/jupyter-ai/04-load.png)
 
-You can ask questions, not just give instructions:
+The example continues:
 
 > What model can I use to fit the two big peaks between 600 and 800?
 
@@ -56,11 +60,13 @@ You can ask questions, not just give instructions:
 
 > Fit the two peaks with two Lorentzians using lmfit, plot the fit, and print the peak positions and areas.
 
-Other requests that work:
+Requests that use what the assistant can do:
 
-- "When I run this notebook it stops with an error. Fix it and tell me what was wrong."
+- "Run help() on lmfit's LorentzianModel in my notebook before you use it. What does each parameter mean?"
+- "Test the fit on made-up data with two peaks of known position and area. Does it get them back?"
+- "Check the areas a second way, by integrating under each fitted peak."
+- "My notebook stops with an error. Fix it and tell me what was wrong."
 - "Explain what this cell does, line by line."
-- "Give me a hint, not the answer: why is my ΔG the wrong sign?"
 
 ## 5. Approve or reject
 
@@ -80,6 +86,14 @@ Integrating gives about 1.25 and 1.53 million, 28 times smaller. OpenCode says t
 
 ![Numerical check disagrees](/img/jupyter-ai/08-check-areas.png)
 
+The underlying problem: OpenCode assumed what lmfit's `amplitude` means instead of checking. Ask it to check:
+
+> What does amplitude mean in lmfit's LorentzianModel? Check the documentation.
+
+It looks up the documentation installed with lmfit. The formula shows that `amplitude` (A) is already the area under the peak, so multiplying it by π·σ was wrong.
+
+![Answer from the lmfit documentation](/img/jupyter-ai/08a-docs.png)
+
 ## 7. Switch to Claude
 
 When OpenCode is stuck or its answer doesn't add up, click the assistant menu at the bottom of the chat and pick **Claude**.
@@ -90,7 +104,7 @@ When OpenCode is stuck or its answer doesn't add up, click the assistant menu at
 
 > The two area numbers in my notebook are about 28 times different. OpenCode says it's because of the integration range. Is that right? Which areas should I use?
 
-Claude finds the cause: in lmfit, the Lorentzian `amplitude` is already the area, and the code multiplied it by π·σ again. The integration range accounts for only about 7% of the difference.
+Claude finds the cause without being told where to look: in lmfit, the Lorentzian `amplitude` is already the area, and the code multiplied it by π·σ again. The integration range accounts for only about 7% of the difference.
 
 ![Claude's answer](/img/jupyter-ai/11-claude-answer.png)
 

@@ -5,6 +5,10 @@ js: pchem.js
 tags: pchem-26fa
 ---
 
+<style>
+.col-sm-9 img, .col-sm-9 video { max-width: 100%; height: auto; }
+</style>
+
 # Using the AI Assistants on ai.munano.org
 
 Our class JupyterHub has two AI assistants built into JupyterLab. Unlike a regular chatbot, they work inside your notebook:

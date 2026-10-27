@@ -168,3 +168,7 @@ This course is **UMU AI Level 2: you create and use AI for support.**
 | The assistant changed the wrong cell | Edit → Undo, or ask it to put the cell back. |
 | Things act strange | File → Hub Control Panel → Stop My Server, then Start My Server. |
 | Claude stops answering | Your monthly budget may be used up. Use OpenCode until the 19th. |
+
+---
+
+*This page was built with Claude Opus 5.5.*

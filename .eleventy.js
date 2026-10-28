@@ -16,5 +16,6 @@ module.exports = (function(eleventyConfig) {
     eleventyConfig.addPassthroughCopy("samples");
     eleventyConfig.addPassthroughCopy("pdf");
     eleventyConfig.addPassthroughCopy("slides");
+    eleventyConfig.addPassthroughCopy("ai-talk.pptx");
 
 });

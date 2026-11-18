@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HPLC Simulator</title>
+<style>
+  :root {
+    --bg:#eef2f6; --panel:#ffffff; --line:#cfd8e1; --ink:#1f2d3d; --muted:#5d6b7a; --grid:#e3e9ef; --plot-bg:#ffffff;
+    --accent:#1f6fb5; --accent-soft:#e6f0f9; --steel:#dfe5ec; --steel-dark:#b9c3ce;
+    --ready:#2e9e5b; --notready:#e0a100; --run:#2a78c2; --error:#d64541; --off:#98a4b1;
+  }
+  * { box-sizing:border-box; }
+  html, body { margin:0; height:100%; background:var(--bg); color:var(--ink); font:14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  body { display:flex; flex-direction:column; }
+  header.top { display:flex; flex-wrap:wrap; align-items:center; gap:10px 16px; padding:8px 14px; background:#22313f; color:#fff; }
+  header.top h1 { font-size:16px; margin:0; font-weight:700; letter-spacing:.01em; }
+  header.top h1 small { font-weight:400; opacity:.7; margin-left:6px; font-size:12px; }
+  nav.tabs { display:flex; gap:4px; flex-wrap:wrap; }
+  nav.tabs button { background:transparent; color:#cfd9e3; border:1px solid transparent; border-radius:7px; padding:6px 12px; font:inherit; font-weight:600; cursor:pointer; }
+  nav.tabs button:hover { background:#31455a; color:#fff; }
+  nav.tabs button.on { background:#fff; color:#22313f; }
+  .topright { margin-left:auto; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .clock { font-variant-numeric:tabular-nums; font-size:13px; color:#cfd9e3; }
+  .speed { display:flex; border:1px solid #4b6076; border-radius:7px; overflow:hidden; }
+  .speed button { background:transparent; color:#cfd9e3; border:0; padding:5px 9px; font:inherit; font-size:12px; cursor:pointer; }
+  .speed button.on { background:#f0b429; color:#22313f; font-weight:700; }
+  #statusPill { font-weight:700; font-size:12px; padding:5px 12px; border-radius:99px; color:#fff; min-width:110px; text-align:center; text-transform:uppercase; letter-spacing:.05em; }
+  .st-ready { background:var(--ready); } .st-notready { background:var(--notready); color:#3a2c00 !important; }
+  .st-run { background:var(--run); } .st-error { background:var(--error); } .st-off { background:var(--off); }
+
+  main { flex:1; min-height:0; overflow:auto; padding:12px 14px 20px; }
+  .view { display:none; } .view.on { display:block; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:0 0 12px; }
+  .card h2 { font-size:15px; margin:0 0 8px; }
+  .card h3 { font-size:13px; margin:12px 0 4px; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); }
+  .muted { color:var(--muted); } .small { font-size:12px; }
+  .row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .grid2 { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:12px; align-items:start; }
+  .gridctl { display:grid; grid-template-columns:minmax(0,1fr) 430px; gap:12px; align-items:start; }
+  .gridda { display:grid; grid-template-columns:250px minmax(0,1fr); gap:12px; align-items:start; }
+  @media (max-width: 1050px) { .grid2, .gridctl, .gridda { grid-template-columns:minmax(0,1fr); } }
+
+  button { font:inherit; }
+  .btn { font-weight:600; padding:5px 11px; border:1px solid var(--steel-dark); background:#f4f7fa; color:var(--ink); border-radius:7px; cursor:pointer; }
+  .btn:hover { background:#e6edf4; }
+  .btn.primary { background:var(--accent); border-color:var(--accent); color:#fff; }
+  .btn.primary:hover { background:#185c98; }
+  .btn.warn { background:#fff4d6; border-color:#e0b84a; }
+  .btn.danger { background:#fde8e6; border-color:#e19a95; color:#8f1d16; }
+  .btn.on { background:#22313f; color:#fff; border-color:#22313f; }
+  .btn:disabled { opacity:.45; cursor:not-allowed; }
+  .btn.sm { padding:2px 8px; font-size:12px; }
+  input[type=number], input[type=text], select { font:inherit; padding:3px 6px; border:1px solid var(--steel-dark); border-radius:6px; background:#fff; color:var(--ink); max-width:100%; }
+  input[type=number] { width:74px; }
+  input.wide { width:100%; }
+  label.f { display:inline-flex; align-items:center; gap:5px; font-size:13px; }
+  table { border-collapse:collapse; width:100%; font-size:12.5px; }
+  th, td { text-align:left; padding:4px 6px; border-bottom:1px solid var(--grid); vertical-align:middle; }
+  th { font-weight:600; color:var(--muted); font-size:11.5px; }
+  td.num, th.num { text-align:right; font-variant-numeric:tabular-nums; }
+  .tblwrap { overflow-x:auto; }
+
+  /* module tiles */
+  .tiles { display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:10px; margin-bottom:12px; }
+  @media (max-width: 1050px) { .tiles { grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  .tile { background:var(--panel); border:1px solid var(--line); border-top:6px solid var(--off); border-radius:10px; padding:9px 11px; min-width:0; }
+  .tile.s-ready { border-top-color:var(--ready); } .tile.s-notready { border-top-color:var(--notready); }
+  .tile.s-run { border-top-color:var(--run); } .tile.s-error { border-top-color:var(--error); }
+  .tile h4 { margin:0; font-size:13px; } .tile .model { font-size:11px; color:var(--muted); margin-bottom:5px; }
+  .tile .big { font-size:22px; font-weight:700; font-variant-numeric:tabular-nums; line-height:1.15; }
+  .tile .big small { font-size:12px; font-weight:500; color:var(--muted); }
+  .tile .kv { font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .tile .kv b { color:var(--ink); font-weight:600; }
+  .tile .row { margin-top:6px; gap:5px; }
+
+  .plotbox { position:relative; height:330px; }
+  .plotbox canvas { width:100%; height:100%; display:block; cursor:crosshair; }
+  .plotbox.short { height:220px; } .plotbox.tall { height:380px; }
+  .runbar { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:8px; padding-top:8px; border-top:1px solid var(--grid); }
+  .progress { flex:1; min-width:120px; height:8px; background:var(--grid); border-radius:9px; overflow:hidden; }
+  .progress i { display:block; height:100%; background:var(--run); width:0; }
+
+  .subtabs { display:flex; gap:2px; border-bottom:1px solid var(--line); margin:-2px 0 10px; }
+  .subtabs button { border:0; background:transparent; padding:6px 11px; font-weight:600; color:var(--muted); cursor:pointer; border-bottom:3px solid transparent; }
+  .subtabs button.on { color:var(--accent); border-bottom-color:var(--accent); }
+  .fields { display:grid; grid-template-columns:auto 1fr; gap:5px 10px; align-items:center; font-size:13px; }
+  .fields > span:nth-child(odd) { color:var(--muted); }
+  .dirty { background:#fff4d6; border:1px solid #e0b84a; border-radius:7px; padding:5px 9px; font-size:12.5px; margin-bottom:8px; }
+  .log { max-height:420px; overflow:auto; font:12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .log div { padding:1px 4px; border-bottom:1px solid var(--grid); }
+  .log .error { color:#a2241c; font-weight:600; } .log .warn { color:#8a5a00; }
+
+  /* bench */
+  .stack { display:flex; flex-direction:column; gap:0; max-width:420px; margin:0 auto; }
+  .tray-top { display:flex; gap:10px; justify-content:center; align-items:flex-end; padding:8px 8px 0; background:linear-gradient(#f6f8fa,#e9eef3); border:1px solid var(--steel-dark); border-bottom:0; border-radius:10px 10px 0 0; }
+  .bottle { width:64px; text-align:center; cursor:default; }
+  .bottle .cap { width:22px; height:9px; background:#4a5b6c; margin:0 auto; border-radius:3px 3px 0 0; }
+  .bottle .glass { height:86px; border:2px solid #9fb0c0; border-radius:8px 8px 5px 5px; position:relative; overflow:hidden; background:#fbfdff; }
+  .bottle .liq { position:absolute; left:0; right:0; bottom:0; background:#bfe0f5; transition:height .3s; }
+  .bottle .liq.org { background:#f6e3b0; } .bottle .liq.buf { background:#cdeccf; }
+  .bottle .tag { position:absolute; left:0; right:0; top:26px; font-weight:800; font-size:18px; color:#22313f; }
+  .bottle .nm { font-size:10.5px; line-height:1.2; height:26px; overflow:hidden; margin-top:2px; }
+  .mod { border:1px solid var(--steel-dark); background:linear-gradient(#f3f6f9,var(--steel)); padding:8px 12px; display:flex; align-items:center; gap:10px; min-height:58px; position:relative; }
+  .mod:last-child { border-radius:0 0 10px 10px; }
+  .mod + .mod { border-top:0; }
+  .mod .led { width:12px; height:12px; border-radius:50%; background:var(--off); box-shadow:inset 0 0 0 2px rgba(0,0,0,.12); flex:none; }
+  .mod .led.ready { background:var(--ready); } .mod .led.notready { background:var(--notready); }
+  .mod .led.run { background:var(--run); } .mod .led.error { background:var(--error); }
+  .mod .nm { font-weight:700; font-size:13px; } .mod .sub { font-size:11.5px; color:var(--muted); }
+  .mod .grow { flex:1; min-width:0; }
+  .knob { width:46px; height:46px; border-radius:50%; border:3px solid #55687a; background:radial-gradient(#fafcfe,#c9d3dd); cursor:pointer; position:relative; flex:none; transition:transform .25s; }
+  .knob::after { content:""; position:absolute; left:50%; top:4px; width:4px; height:16px; margin-left:-2px; background:#22313f; border-radius:2px; }
+  .knob.open { transform:rotate(-90deg); border-color:#d18a00; }
+  .tubes { display:flex; gap:4px; }
+  .tube { width:16px; height:40px; border:1px solid #9fb0c0; border-radius:6px; background:#eaf5fc; position:relative; overflow:hidden; font-size:9px; text-align:center; color:#22313f; font-weight:700; }
+  .tube i { position:absolute; left:0; right:0; top:0; background:#fff; border-bottom:1px dashed #9fb0c0; }
+  .tube b { position:absolute; left:0; right:0; bottom:0; background:#f2c9a0; }
+  .tube span { position:relative; top:13px; }
+  .trayg { display:grid; grid-template-columns:18px repeat(11, 1fr); gap:3px; align-items:center; max-width:420px; }
+  .trayg .h { font-size:10px; color:var(--muted); text-align:center; }
+  .well { aspect-ratio:1; border-radius:50%; border:1.5px solid #9fb0c0; background:#f2f5f8; cursor:pointer; padding:0; position:relative; }
+  .well.full { background:#7fb8e6; border-color:#2a78c2; }
+  .well.low { background:#f3c57b; border-color:#c98a1b; }
+  .well.sel { box-shadow:0 0 0 3px #f0b429; }
+  .solrow { display:grid; grid-template-columns:22px minmax(0,1fr) auto; gap:6px 8px; align-items:center; padding:6px 0; border-bottom:1px solid var(--grid); }
+  .solrow .ch { font-weight:800; font-size:16px; }
+  .pill { display:inline-block; font-size:11px; padding:1px 7px; border-radius:99px; background:var(--accent-soft); color:#174f80; font-weight:600; }
+  .pill.bad { background:#fde8e6; color:#8f1d16; } .pill.ok { background:#e3f4ea; color:#1d6b3c; } .pill.warn { background:#fff4d6; color:#7a5200; }
+
+  /* guide */
+  .guide { max-width:1100px; margin:0 auto; }
+  .check { list-style:none; padding:0; margin:0; }
+  .check li { display:grid; grid-template-columns:24px 1fr; gap:8px; padding:7px 0; border-bottom:1px solid var(--grid); }
+  .check li .box { width:20px; height:20px; border-radius:50%; border:2px solid var(--steel-dark); display:grid; place-items:center; font-size:12px; color:#fff; margin-top:1px; }
+  .check li.done .box { background:var(--ready); border-color:var(--ready); }
+  .check li b { display:block; } .check li span { color:var(--muted); font-size:12.5px; }
+  .exp { border:1px solid var(--line); border-radius:9px; padding:0 12px; margin-bottom:8px; background:#fbfcfd; }
+  .exp summary { cursor:pointer; font-weight:700; padding:9px 0; }
+  .exp table { margin:6px 0 10px; }
+  .ta { background:#fff8e6; border:1px solid #e9cf8a; border-radius:9px; padding:9px 12px; margin-top:8px; }
+  .ta ul { margin:4px 0; padding-left:18px; }
+  code { background:#eef2f6; padding:1px 4px; border-radius:4px; font-size:12px; }
+  .note { font-size:12.5px; color:var(--muted); }
+  dialog { border:1px solid var(--line); border-radius:12px; padding:16px 18px; max-width:520px; }
+  dialog::backdrop { background:rgba(20,30,40,.45); }
+</style>
+</head>
+<body>
+<header class="top">
+  <h1 title="Modelled on a 1260 Infinity II stack: quaternary pump, vialsampler, column thermostat, diode array detector">HPLC Simulator</h1>
+  <nav class="tabs" id="tabs">
+    <button data-view="guide" class="on">Guide</button>
+    <button data-view="bench">Bench</button>
+    <button data-view="control">Method &amp; Run Control</button>
+    <button data-view="data">Data Analysis</button>
+  </nav>
+  <div class="topright">
+    <span class="clock">Lab clock <b id="clock">08:30:00</b></span>
+    <div class="speed" id="speed" title="How fast lab time passes">
+      <button data-s="0">Pause</button><button data-s="1">1×</button><button data-s="10" class="on">10×</button><button data-s="60">60×</button><button data-s="300">300×</button>
+    </div>
+    <span id="statusPill" class="st-notready">Not ready</span>
+  </div>
+</header>
+<main>
+  <section class="view on" id="view-guide"></section>
+  <section class="view" id="view-bench"></section>
+  <section class="view" id="view-control"></section>
+  <section class="view" id="view-data"></section>
+</main>
+<script type="module" src="/js/hplc-sim-ui.js"></script>
+</body>
+</html>

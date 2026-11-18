@@ -76,8 +76,8 @@ export class Instrument {
         ];
         // Overnight: bubbles have grown at the front of A and B; C and D were left dry.
         this.lines = [
-            [{ vec: AIRVEC, vol: 0.35 }, { vec: water.vec, vol: LINE_VOL - 0.35 }],
-            [{ vec: AIRVEC, vol: 0.5 }, { vec: meoh.vec, vol: LINE_VOL - 0.5 }],
+            [{ vec: AIRVEC, vol: 1.0 }, { vec: water.vec, vol: LINE_VOL - 1.0 }],
+            [{ vec: AIRVEC, vol: 1.4 }, { vec: meoh.vec, vol: LINE_VOL - 1.4 }],
             [{ vec: AIRVEC, vol: LINE_VOL }],
             [{ vec: AIRVEC, vol: LINE_VOL }],
         ];
@@ -151,6 +151,7 @@ export class Instrument {
         this.lines[ch].push({ vec: AIRVEC, vol: 0.12 });
         this.trimLine(ch);
         this.pump.purged[ch] = 0;
+        this.lastBottle = { ch, t: this.t };
         this.say('Bench', `Channel ${CH[ch]}: new bottle, ${solvent.name}.`);
     }
 
@@ -208,6 +209,20 @@ export class Instrument {
         if (this.pump.power === state) return;
         this.pump.power = state;
         this.say('Pump', state === 'on' ? `Pump on, ${this.pump.flowSet.toFixed(3)} mL/min.` : 'Pump ' + state + '.');
+    }
+
+    /** Set flow and composition by hand (purging, flushing) without touching the method */
+    setPumpManual(flow, comp) {
+        if (this.run) return false;
+        if (comp.some((c, i) => Math.abs(c - this.pump.comp[i]) > 0.05)) this.vSinceChange = 0;
+        this.pump.flowSet = flow; this.pump.comp = comp.slice();
+        this.say('Pump', `Manual setpoint: ${flow} mL/min, ` + comp.map((c, i) => c > 0 ? `${c}% ${CH[i]}` : '').filter(Boolean).join(' / ') + '.');
+        return true;
+    }
+
+    restoreMethodPump() {
+        const p = this.method.pump;
+        return this.setPumpManual(p.flow, [100 - p.B - p.C - p.D, p.B, p.C, p.D]);
     }
 
     lampPower(on) {

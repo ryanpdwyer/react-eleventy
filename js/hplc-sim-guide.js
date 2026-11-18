@@ -16,7 +16,7 @@ export function checklist(inst, ui) {
     return [
         {
             title: '1. Purge every channel you will use', done: clean,
-            desc: 'On the Bench, open the purge valve. In Method &amp; Run Control set 5 mL/min and 100% of one channel, send it to the instrument and switch the pump on. Give each channel about 2 min, until its inlet line shows no air and no old solvent. Channels now in use: <b>' + (used.map(i => CH[i]).join(', ') || 'none') + '</b>.',
+            desc: 'On the Bench, follow <b>Start-up: purge and equilibrate</b>: open the purge valve on the pump, pump each channel at 5 mL/min for about 2 min until its inlet line shows no air and no old solvent. Channels now in use: <b>' + (used.map(i => CH[i]).join(', ') || 'none') + '</b>.',
         },
         {
             title: '2. Close the purge valve and pump through the column', done: clean && flowing,
@@ -109,7 +109,7 @@ export const GUIDE_HTML = {
 <p>Nothing is scripted. The pump moves liquid from the bottles through the lines, the mixer and the tubing to the column; each injected compound travels down the column at a speed set by the mobile phase that surrounds it at that moment. So the things that go wrong on the bench go wrong here, for the same reasons.</p>
 <h3>The four tabs</h3>
 <ul style="margin:4px 0;padding-left:18px">
-<li><b>Bench</b>: the physical instrument. Solvent bottles, the purge valve, the vial tray, the column, and a bench for making solutions.</li>
+<li><b>Bench</b>: the physical instrument in 3D, with step-by-step procedures for start-up purging, changing a solvent bottle and the shut-down flush. Also the vial tray, the column, and a bench for making solutions.</li>
 <li><b>Method &amp; Run Control</b>: the computer. Module status, live signal and pressure, the method, the sequence table and the logbook.</li>
 <li><b>Data Analysis</b>: integration, peak table, UV spectra, CSV export for Excel or Python.</li>
 <li><b>Guide</b>: this page.</li>

@@ -128,6 +128,20 @@
   .pill { display:inline-block; font-size:11px; padding:1px 7px; border-radius:99px; background:var(--accent-soft); color:#174f80; font-weight:600; }
   .pill.bad { background:#fde8e6; color:#8f1d16; } .pill.ok { background:#e3f4ea; color:#1d6b3c; } .pill.warn { background:#fff4d6; color:#7a5200; }
 
+  .hands { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(300px,1fr); gap:14px; }
+  @media (max-width: 1050px) { .hands { grid-template-columns:minmax(0,1fr); } }
+  #stage3d { height:600px; }
+  @media (max-width: 1050px) { #stage3d { height:440px; } }
+  .steps { list-style:none; margin:8px 0 0; padding:0; max-height:420px; overflow:auto; }
+  .steps li { display:grid; grid-template-columns:22px 1fr; gap:8px; padding:6px 6px; border-radius:8px; color:var(--muted); }
+  .steps li .n { width:20px; height:20px; border-radius:50%; border:2px solid var(--steel-dark); font-size:11px; font-weight:700; display:grid; place-items:center; }
+  .steps li.done .n { background:var(--ready); border-color:var(--ready); color:#fff; }
+  .steps li.now { background:#fff8e6; border:1px solid #e9cf8a; color:var(--ink); }
+  .steps li.now .n { border-color:#d18a00; color:#8a5a00; }
+  .steps li b { font-weight:600; }
+  .steps li .why { font-size:12.5px; margin-top:2px; }
+  .steps li .stat { font-size:12.5px; font-weight:600; color:#174f80; margin-top:3px; font-variant-numeric:tabular-nums; }
+  .manual { border-top:1px solid var(--grid); margin-top:10px; padding-top:8px; }
   /* guide */
   .guide { max-width:1100px; margin:0 auto; }
   .check { list-style:none; padding:0; margin:0; }
@@ -169,6 +183,12 @@
   <section class="view" id="view-control"></section>
   <section class="view" id="view-data"></section>
 </main>
+<script type="importmap">
+{ "imports": {
+  "three": "https://unpkg.com/three@0.161.0/build/three.module.js",
+  "three/addons/": "https://unpkg.com/three@0.161.0/examples/jsm/"
+}}
+</script>
 <script type="module" src="/js/hplc-sim-ui.js"></script>
 </body>
 </html>

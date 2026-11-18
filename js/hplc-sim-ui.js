@@ -12,6 +12,7 @@ import { buildStockroom, vialOf, dilute, prepare, DILUENTS } from './hplc-sim-sa
 import { integrate, defaultIntegration, signalCSV, peakCSV } from './hplc-sim-analysis.js';
 import { Plot } from './hplc-sim-plot.js';
 import { GUIDE_HTML, checklist, diagnose } from './hplc-sim-guide.js';
+import { PROCEDURES } from './hplc-sim-procedures.js';
 
 const CH = ['A', 'B', 'C', 'D'];
 const SIGCOL = ['#1f6fb5', '#c2452d', '#2e8b57'];
@@ -140,20 +141,98 @@ function showView(v) {
 
 // --------------------------------------------------------------- bench
 
+let stack3d = null, stack3dFailed = false;
+const stageEl = h('div', { id: 'stage3d' });
+
+async function ensure3D() {
+    if (stack3d || stack3dFailed) return;
+    try {
+        const mod = await import('./hplc-sim-3d.js');
+        stack3d = mod.createStack3D(inst, { onKnob: () => { inst.setPurge(!inst.pump.purgeOpen); tickBench(); } });
+        stageEl.replaceChildren(stack3d.el);
+        window.hplc.stack3d = stack3d;
+    } catch (err) {
+        // no WebGL, or the 3D library could not be loaded: fall back to the flat drawing
+        stack3dFailed = true;
+        console.warn('3D view unavailable:', err);
+        stageEl.style.height = 'auto';
+        stageEl.replaceChildren(h('div', { class: 'stack', id: 'stack' }));
+        renderStack();
+    }
+}
+
+function startWalk(key) {
+    ui.walk = { key, idx: 0, ctx: {}, steps: PROCEDURES[key].build(inst), drawn: -1 };
+    const s0 = ui.walk.steps[0];
+    if (s0.enter) s0.enter(inst, ui.walk.ctx);
+    renderWalk();
+}
+
+function renderWalk() {
+    const w = ui.walk, box = $('walkPanel');
+    if (!box) return;
+    const P = PROCEDURES[w.key];
+    w.drawn = w.idx;
+    const finished = w.idx >= w.steps.length;
+    fill(box,
+        h('div', { class: 'row' },
+            select(w.key, Object.keys(PROCEDURES).map(k => [k, PROCEDURES[k].title]), v => startWalk(v), { style: 'font-weight:600;max-width:100%' }),
+            h('button', { class: 'btn sm', onclick: () => startWalk(w.key) }, 'Restart')),
+        h('div', { class: 'note', style: 'margin-top:5px' }, P.intro),
+        h('ol', { class: 'steps' }, w.steps.map((st, i) => h('li', { class: i < w.idx ? 'done' : i === w.idx ? 'now' : '', id: i === w.idx ? 'stepNow' : null },
+            h('div', { class: 'n' }, i < w.idx ? '✓' : i + 1),
+            h('div', {}, h('b', {}, st.title),
+                i === w.idx ? [h('div', { class: 'why' }, st.why), h('div', { class: 'stat', id: 'stepStat' }, ''),
+                st.actions ? h('div', { class: 'row', style: 'margin-top:5px' }, st.actions.map(a => h('button', { class: 'btn sm primary', onclick: () => { a.run(inst, w.ctx); tickBench(); } }, a.label))) : null] : null)))),
+        finished ? h('div', { class: 'ta', style: 'margin-top:8px' }, h('b', {}, 'Done. '), w.key === 'startup' ? 'The system is ready: load the tray below, then go to Method & Run Control.' : w.key === 'shutdown' ? 'The instrument is safe to leave.' : 'The new mobile phase is on the column.') : null);
+    const now = $('stepNow');
+    if (now) now.scrollIntoView({ block: 'nearest' });
+}
+
+function tickWalk() {
+    const w = ui.walk;
+    if (!w || !$('walkPanel')) return;
+    while (w.idx < w.steps.length && w.steps[w.idx].done(inst, w.ctx)) {
+        w.idx++;
+        const nx = w.steps[w.idx];
+        if (nx && nx.enter) nx.enter(inst, w.ctx);
+    }
+    if (w.drawn !== w.idx) renderWalk();
+    const st = w.steps[w.idx];
+    if ($('stepStat')) $('stepStat').textContent = st && st.status ? st.status(inst, w.ctx) : '';
+    if (stack3d) stack3d.setHighlight(st ? st.focus : null);
+    const P = inst.pump;
+    if ($('manualState')) $('manualState').textContent = `Pump ${P.power} · set ${P.flowSet} mL/min · ` + P.comp.map((c, i) => c > 0 ? `${c.toFixed(0)}% ${CH[i]}` : '').filter(Boolean).join(' / ') + ` · ${P.pShown.toFixed(0)} bar · purge valve ${P.purgeOpen ? 'OPEN' : 'closed'}`;
+}
+
 function renderBench() {
     const root = $('view-bench');
-    fill(root, 
+    const only = c => [0, 1, 2, 3].map(i => i === c ? 100 : 0);
+    fill(root,
+        h('div', { class: 'card' },
+            h('div', { class: 'hands' },
+                h('div', {}, stageEl,
+                    h('div', { class: 'note', style: 'margin-top:5px' }, 'Drag to look around, scroll to zoom. Click the black knob on the pump to turn the purge valve. The tubes from the bottles show what is really in each inlet line: white is air, and each solvent has its own colour. Blue beads: flow to waste. Green beads: flow through the column.')),
+                h('div', {},
+                    h('h2', {}, 'Hands-on procedures'),
+                    h('div', { id: 'walkPanel' }),
+                    h('div', { class: 'manual' },
+                        h('div', { class: 'small', style: 'font-weight:600' }, 'Manual controls'),
+                        h('div', { class: 'small muted', id: 'manualState', style: 'margin:2px 0 5px' }, ''),
+                        h('div', { class: 'row' },
+                            h('button', { class: 'btn sm', onclick: () => inst.pumpPower('on') }, 'Pump on'),
+                            h('button', { class: 'btn sm', onclick: () => inst.pumpPower('standby') }, 'Standby'),
+                            CH.map((c, i) => h('button', { class: 'btn sm', title: `5 mL/min, 100% ${c}`, onclick: () => inst.setPumpManual(5, only(i)) }, 'Purge ' + c)),
+                            h('button', { class: 'btn sm', onclick: () => inst.restoreMethodPump() }, 'Method flow'),
+                            h('button', { class: 'btn sm', onclick: () => inst.lampPower(inst.dad.lamp === 'off') }, 'Lamp on/off'),
+                            h('button', { class: 'btn sm', onclick: () => inst.tccPower(!inst.tcc.on) }, 'Thermostat on/off')))))),
         h('div', { class: 'grid2' },
-            h('div', {},
-                h('div', { class: 'card' }, h('h2', {}, 'Instrument stack'),
-                    h('p', { class: 'note', style: 'margin-top:0' }, 'What you can see and touch at the instrument. The inlet tubing is transparent: look for bubbles before you pump anything through the column.'),
-                    h('div', { class: 'stack', id: 'stack' })),
-                h('div', { class: 'card', id: 'trayCard' })),
-            h('div', {},
-                h('div', { class: 'card', id: 'solCard' }),
-                h('div', { class: 'card', id: 'colCard' }),
-                h('div', { class: 'card', id: 'prepCard' }))));
-    renderStack(); renderSolvents(); renderColumn(); renderTray(); renderPrep();
+            h('div', {}, h('div', { class: 'card', id: 'trayCard' }), h('div', { class: 'card', id: 'colCard' })),
+            h('div', {}, h('div', { class: 'card', id: 'solCard' }), h('div', { class: 'card', id: 'prepCard' }))));
+    ensure3D();
+    if (stack3dFailed) renderStack();
+    if (!ui.walk) startWalk('startup'); else renderWalk();
+    renderSolvents(); renderColumn(); renderTray(); renderPrep();
 }
 
 function renderStack() {
@@ -183,6 +262,8 @@ function renderStack() {
 }
 
 function tickBench() {
+    tickWalk();
+    tickPills();
     if (!$('benchPump')) return;
     const P = inst.pump, st = inst.moduleStatus();
     $('ledPump').className = 'led ' + st.pump; $('ledSampler').className = 'led ' + st.sampler;
@@ -199,6 +280,12 @@ function tickBench() {
         const ls = inst.lineState(i);
         $('tubeAir' + i).style.height = (100 * ls.air) + '%';
         $('tubeOld' + i).style.height = (100 * ls.stale) + '%';
+    });
+}
+
+function tickPills() {
+    inst.bottles.forEach((b, i) => {
+        const ls = inst.lineState(i);
         const pill = $('linePill' + i);
         if (pill) {
             pill.className = 'pill ' + (ls.air > 0.005 ? 'bad' : ls.stale > 0.005 ? 'warn' : 'ok');
@@ -752,6 +839,7 @@ function frame(now) {
     n = Math.min(n, 2500);
     for (let i = 0; i < n; i++) inst.step();
     if (ui.view === 'control') drawOnline();
+    if (ui.view === 'bench' && stack3d) stack3d.update(dt);
     if (now - uiT > 250) {
         uiT = now;
         tickTop();
